@@ -70,9 +70,9 @@ export const CONTAINERS = [
   {
     id: 'CONT-4201',
     poNumber: 'PO-6124',
-    category: 'Food & Beverage',
-    subcategory: 'Packaged Dry Goods',
-    supplier: 'Nestlé',
+    category: 'Sports & Outdoor',
+    subcategory: 'Athletic Footwear',
+    supplier: 'Nike',
     ageInYard: 7,
     palletCount: 6,
     estimatedUnits: 840,
@@ -121,16 +121,16 @@ export const CONTAINERS = [
     isUpdatedRecommended: false,
     recommendationReasons: [
       'Oldest container at 7 days — approaching SLA breach threshold',
-      'Standard F&B processing is highly efficient at this site',
+      'Standard footwear processing is highly efficient at this site',
       'Current dock window availability aligns with 18.5 h estimated workload',
     ],
   },
   {
     id: 'CONT-2847',
     poNumber: 'PO-4821',
-    category: 'Consumer Electronics',
-    subcategory: 'Devices & Accessories',
-    supplier: 'Samsung',
+    category: 'Sports & Outdoor',
+    subcategory: 'Performance Apparel',
+    supplier: 'Under Armour',
     ageInYard: 5,
     palletCount: 10,
     estimatedUnits: 1240,
@@ -164,9 +164,9 @@ export const CONTAINERS = [
   {
     id: 'CONT-1943',
     poNumber: 'PO-3876',
-    category: 'Home & Garden',
-    subcategory: 'Home Décor & Furnishings',
-    supplier: 'IKEA',
+    category: 'General Clothing',
+    subcategory: 'Casual Wear',
+    supplier: 'H&M',
     ageInYard: 3,
     palletCount: 15,
     estimatedUnits: 2100,
@@ -194,21 +194,21 @@ export const CONTAINERS = [
     },
     updatedCriteria: null,
     isRecommended: false,
-    isUpdatedRecommended: true,   // becomes recommended after scan reveals cold-chain issue
+    isUpdatedRecommended: true,   // becomes recommended after scan reveals special handling
     recommendationReasons: [],
     updatedRecommendationReasons: [
       'Best workload balance score (91%) — distributes evenly across all available zones',
-      'Zero cold-chain requirements — avoids overloading Zone D (currently 89% capacity)',
-      'High processing efficiency for Home & Garden category',
+      'Zero special handling requirements — avoids overloading Zone D (currently 89% capacity)',
+      'High processing efficiency for General Clothing category',
       'Estimated 35 h fits current team capacity without overtime risk',
     ],
   },
   {
     id: 'CONT-2599',
     poNumber: 'PO-4502',
-    category: 'Sports & Outdoor',
-    subcategory: 'Equipment & Apparel',
-    supplier: 'Nike',
+    category: 'Shoes',
+    subcategory: 'Running Shoes',
+    supplier: 'Adidas',
     ageInYard: 2,
     palletCount: 10,
     estimatedUnits: 1580,
@@ -242,9 +242,9 @@ export const CONTAINERS = [
   {
     id: 'CONT-3156',
     poNumber: 'PO-5033',
-    category: 'Apparel & Accessories',
-    subcategory: 'Mixed Clothing',
-    supplier: 'Zara',
+    category: 'Sports & Outdoor',
+    subcategory: 'Team Sports Equipment',
+    supplier: 'Puma',
     ageInYard: 1,
     palletCount: 8,
     estimatedUnits: 3200,
@@ -279,9 +279,9 @@ export const CONTAINERS = [
   {
     id: 'CONT-5102',
     poNumber: 'PO-7234',
-    category: 'Apparel & Accessories',
-    subcategory: 'Athletic Wear',
-    supplier: 'Adidas',
+    category: 'Shoes',
+    subcategory: 'Sneakers & Casual Shoes',
+    supplier: 'New Balance',
     ageInYard: 4,
     palletCount: 8,
     estimatedUnits: 2800,
@@ -315,9 +315,9 @@ export const CONTAINERS = [
   {
     id: 'CONT-6344',
     poNumber: 'PO-8192',
-    category: 'Home & Garden',
-    subcategory: 'Furniture & Flat-pack',
-    supplier: 'West Elm',
+    category: 'General Clothing',
+    subcategory: 'Formal Wear',
+    supplier: 'Mango',
     ageInYard: 6,
     palletCount: 18,
     estimatedUnits: 1640,
@@ -351,9 +351,9 @@ export const CONTAINERS = [
   {
     id: 'CONT-7891',
     poNumber: 'PO-9021',
-    category: 'Consumer Electronics',
-    subcategory: 'Wearables & Peripherals',
-    supplier: 'LG Electronics',
+    category: 'Shoes',
+    subcategory: 'Boots & Outdoor Footwear',
+    supplier: 'Timberland',
     ageInYard: 2,
     palletCount: 7,
     estimatedUnits: 3100,
@@ -388,8 +388,8 @@ export const CONTAINERS = [
     id: 'CONT-4501',
     poNumber: 'PO-3344',
     category: 'Sports & Outdoor',
-    subcategory: 'Footwear & Apparel',
-    supplier: 'Decathlon',
+    subcategory: 'Training & Fitness Gear',
+    supplier: 'Reebok',
     ageInYard: 3,
     palletCount: 9,
     estimatedUnits: 4200,
@@ -423,9 +423,9 @@ export const CONTAINERS = [
   {
     id: 'CONT-8823',
     poNumber: 'PO-2211',
-    category: 'Food & Beverage',
-    subcategory: 'Beverages & Confectionery',
-    supplier: 'Sysco Corp.',
+    category: 'General Clothing',
+    subcategory: 'Kids Clothing',
+    supplier: 'Gap',
     ageInYard: 1,
     palletCount: 5,
     estimatedUnits: 720,
@@ -459,23 +459,23 @@ export const CONTAINERS = [
 ]
 
 // ─── Scan Items for CONT-4201 ──────────────────────────────────────────────────
-// Items 0-4: normal dry goods (no alerts)
-// Items 5-7: cold-chain items (unexpected — not declared in PO)
+// Items 0-4: normal footwear (no alerts)
+// Items 5-7: special handling items (unexpected — not declared in PO)
 // Item 7 triggers re-estimation
 // Item 8: oversized item
 // Item 9: normal again
 export const SCAN_ITEMS = [
   {
     id: 'PKG-001',
-    type: 'Packaged Goods',
-    brand: 'Harvest Select',
-    description: 'Assorted Canned Vegetables (case of 48)',
-    color: 'Multicolor — assorted labels',
+    type: 'Running Shoes',
+    brand: 'Nike',
+    description: 'Air Max Series — Mixed sizes (case of 24)',
+    color: 'Multicolor — assorted colorways',
     weightKg: 11.2,
     dimensions: '45 × 30 × 25 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: false,
+    requiresSpecialHandling: false,
     fragile: false,
     destination: 'Zone B',
     handlingMinutes: 8,
@@ -483,15 +483,15 @@ export const SCAN_ITEMS = [
   },
   {
     id: 'PKG-002',
-    type: 'Bottled Beverages',
-    brand: 'NatureFresh',
-    description: 'Assorted Fruit Juices — 24-pack',
-    color: 'Clear bottles / Orange-Green labels',
+    type: 'Training Shoes',
+    brand: 'Nike',
+    description: 'Metcon Training Shoes — 12-pack',
+    color: 'White/Black / Red accents',
     weightKg: 14.8,
     dimensions: '40 × 35 × 30 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: false,
+    requiresSpecialHandling: false,
     fragile: false,
     destination: 'Zone B',
     handlingMinutes: 10,
@@ -499,15 +499,15 @@ export const SCAN_ITEMS = [
   },
   {
     id: 'PKG-003',
-    type: 'Dry Goods',
-    brand: 'Granary Mills',
-    description: 'Pasta & Grain Assortment — bulk case',
-    color: 'Kraft paper / Beige',
+    type: 'Lifestyle Sneakers',
+    brand: 'Nike',
+    description: 'Air Force 1 Collection — bulk case',
+    color: 'White leather boxes / Black trim',
     weightKg: 8.5,
     dimensions: '50 × 40 × 20 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: false,
+    requiresSpecialHandling: false,
     fragile: false,
     destination: 'Zone B',
     handlingMinutes: 7,
@@ -515,15 +515,15 @@ export const SCAN_ITEMS = [
   },
   {
     id: 'PKG-004',
-    type: 'Breakfast Foods',
-    brand: 'MorningStar',
-    description: 'Cereals & Granola — mixed case (12 SKUs)',
+    type: 'Basketball Shoes',
+    brand: 'Nike',
+    description: 'LeBron & Jordan Series — mixed case (12 SKUs)',
     color: 'Bright mixed packaging',
     weightKg: 6.2,
     dimensions: '55 × 40 × 35 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: false,
+    requiresSpecialHandling: false,
     fragile: false,
     destination: 'Zone A',
     handlingMinutes: 9,
@@ -531,15 +531,15 @@ export const SCAN_ITEMS = [
   },
   {
     id: 'PKG-005',
-    type: 'Cooking Supplies',
-    brand: 'OlivePress',
-    description: 'Extra Virgin Olive Oil — 6 × 1L bottles',
-    color: 'Green / Gold glass bottles',
+    type: 'Limited Edition',
+    brand: 'Nike',
+    description: 'SNKRS Drops — 6 × Limited Release pairs',
+    color: 'Special edition packaging',
     weightKg: 7.8,
     dimensions: '35 × 35 × 40 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: false,
+    requiresSpecialHandling: false,
     fragile: true,
     destination: 'Zone B',
     handlingMinutes: 11,
@@ -547,79 +547,79 @@ export const SCAN_ITEMS = [
   },
   {
     id: 'PKG-006',
-    type: 'Dairy Products',
-    brand: 'ColdFresh Dairy Co.',
-    description: 'Assorted Cheese & Butter — bulk pack',
-    color: 'White / Blue vacuum-sealed film',
+    type: 'Performance Shoes',
+    brand: 'Nike',
+    description: 'Vaporfly Elite Racing Shoes — bulk pack',
+    color: 'White / Blue special packaging',
     weightKg: 12.4,
     dimensions: '40 × 40 × 30 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: true,
-    coldChainTemp: '2°C – 4°C',
+    requiresSpecialHandling: true,
+    handling: 'Climate Controlled Storage',
     fragile: false,
     destination: 'Zone D',
     handlingMinutes: 22,
     alert: {
-      type: 'cold-chain',
+      type: 'special-handling',
       severity: 'warning',
-      message: 'Cold chain required (2–4°C) — not declared in PO. Routing to Zone D (Cold Storage).',
+      message: 'Climate controlled storage required — not declared in PO. Routing to Zone D (Climate Storage).',
     },
   },
   {
     id: 'PKG-007',
-    type: 'Frozen Meals',
-    brand: 'QuickFreeze',
-    description: 'Pre-packaged Frozen Entrees — 48-pack',
-    color: 'White / Red thermal packaging',
+    type: 'Premium Materials',
+    brand: 'Nike',
+    description: 'Gore-Tex Waterproof Collection — 48-pack',
+    color: 'Black / White waterproof packaging',
     weightKg: 18.6,
     dimensions: '60 × 50 × 35 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: true,
-    coldChainTemp: '−18°C',
+    requiresSpecialHandling: true,
+    handling: 'Climate Controlled Storage',
     fragile: false,
     destination: 'Zone D',
     handlingMinutes: 25,
     alert: {
-      type: 'cold-chain',
+      type: 'special-handling',
       severity: 'warning',
-      message: 'Frozen goods — requires deep-freeze handling (−18°C). PO declared ambient storage.',
+      message: 'Premium waterproof materials require climate storage. PO declared ambient storage.',
     },
   },
   {
     id: 'PKG-008',
-    type: 'Dairy — Yogurt',
-    brand: 'LiveCulture',
-    description: 'Probiotic Yogurt Multipack — 36 units',
-    color: 'White / Green cup packaging',
+    type: 'Limited Edition',
+    brand: 'Nike',
+    description: 'SB Dunk High Pro — 36 units',
+    color: 'Collaboration artwork boxes',
     weightKg: 9.8,
     dimensions: '45 × 30 × 25 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: true,
-    coldChainTemp: '1°C – 5°C',
+    requiresSpecialHandling: true,
+    handling: 'Climate Controlled Storage',
     fragile: false,
     destination: 'Zone D',
     handlingMinutes: 20,
     triggersReestimation: true,   // This item triggers workload re-estimation
     alert: {
-      type: 'cold-chain',
+      type: 'special-handling',
       severity: 'critical',
-      message: '3rd cold-chain item detected. Zone D currently at 89% capacity. Triggering workload re-estimation.',
+      message: '3rd special-handling item detected. Zone D currently at 89% capacity. Triggering workload re-estimation.',
     },
   },
   {
     id: 'PKG-009',
-    type: 'Beverages — Oversized',
-    brand: 'AquaStream',
-    description: 'Water Dispenser Tanks — 12 × 20 L',
-    color: 'Clear / Blue caps',
+    type: 'Display Units',
+    brand: 'Nike',
+    description: 'Retail Display Racks — 12 units',
+    color: 'Swoosh-branded display units',
     weightKg: 48.0,
     dimensions: '120 × 80 × 80 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: false,
+    requiresSpecialHandling: false,
     fragile: false,
     oversized: true,
     destination: 'Zone B',
@@ -632,15 +632,15 @@ export const SCAN_ITEMS = [
   },
   {
     id: 'PKG-010',
-    type: 'Condiments',
-    brand: 'SavorMax',
-    description: 'Mixed Sauces & Condiments — glass jars',
-    color: 'Multi-color glass jar labels',
+    type: 'Accessories',
+    brand: 'Nike',
+    description: 'Socks & Insoles — mixed case',
+    color: 'Multi-color packaging',
     weightKg: 10.2,
     dimensions: '35 × 35 × 30 cm',
     condition: 'Good',
     hazardous: false,
-    requiresColdChain: false,
+    requiresSpecialHandling: false,
     fragile: true,
     destination: 'Zone B',
     handlingMinutes: 12,
@@ -675,13 +675,12 @@ export function getPriorityConfig(priority) {
 
 export function getCategoryAbbr(category) {
   const map = {
-    'Food & Beverage':       'F&B',
-    'Consumer Electronics':  'Electronics',
-    'Home & Garden':         'Home & Garden',
-    'Sports & Outdoor':      'Sports',
-    'Apparel & Accessories': 'Apparel',
-    'Health & Beauty':       'Beauty',
-    'Automotive Parts':      'Automotive',
+    'Sports & Outdoor':   'Sports',
+    'Shoes':              'Shoes',
+    'General Clothing':   'Clothing',
+    'Home & Garden':      'Home & Garden',
+    'Health & Beauty':    'Beauty',
+    'Automotive Parts':   'Automotive',
   }
   return map[category] || category
 }
@@ -909,3 +908,404 @@ export function getExperienceLevel(months) {
   if (months >= 1)  return { dots: 1, label: 'Beginner',    color: 'text-slate-500'   }
   return              { dots: 0, label: 'No exp.',     color: 'text-slate-400'   }
 }
+
+// ─── Plan vs Execution: Pick Task Comparison ───────────────────────────────────────
+export const PICK_TASK_COMPARISON = {
+  period: 'Current Shift (06:00-14:00)',
+  totalTasks: 156,
+  normalTasks: 142,
+  exceptionTasks: 14,
+  tasks: [
+    {
+      id: 'PICK-001',
+      orderId: 'ORD-4521',
+      sku: 'NIKE-AIRMAX-42',
+      description: 'Nike Air Max 270 - Size 42 - White/Black',
+      wms: {
+        location: 'Zone C-Aisle 12-Shelf B3',
+        plannedQty: 3,
+        plannedWindow: '09:00-09:15',
+        priority: 'high'
+      },
+      wes: {
+        picker: 'W008 - Kevin Liu',
+        station: 'Pick Station C-4',
+        actualQty: 3,
+        scanTime: '09:08:23',
+        completeTime: '09:11:42',
+        travelTime: 185,
+        dwellTime: 99
+      },
+      status: 'normal',
+      exceptions: []
+    },
+    {
+      id: 'PICK-002',
+      orderId: 'ORD-4522',
+      sku: 'ADIDAS-ULTRA-40',
+      description: 'Adidas UltraBoost 22 - Size 40 - Core Black',
+      wms: {
+        location: 'Zone C-Aisle 08-Shelf A1',
+        plannedQty: 2,
+        plannedWindow: '09:15-09:30',
+        priority: 'normal'
+      },
+      wes: {
+        picker: 'W008 - Kevin Liu',
+        station: 'Pick Station C-4',
+        actualQty: 1,
+        scanTime: '09:18:45',
+        completeTime: '09:24:12',
+        travelTime: 245,
+        dwellTime: 327
+      },
+      status: 'exception',
+      exceptions: ['under-pick', 'excessive-duration']
+    },
+    {
+      id: 'PICK-003',
+      orderId: 'ORD-4523',
+      sku: 'PUMA-NITRO-43',
+      description: 'Puma NITRO Running Shoes - Size 43 - Blue/Orange',
+      wms: {
+        location: 'Zone C-Aisle 15-Shelf C2',
+        plannedQty: 1,
+        plannedWindow: '09:30-09:45',
+        priority: 'urgent'
+      },
+      wes: {
+        picker: 'W050 - Taylor Knight',
+        station: 'Pick Station C-2',
+        actualQty: null,
+        scanTime: null,
+        completeTime: '09:42:15',
+        travelTime: 198,
+        dwellTime: 0
+      },
+      status: 'exception',
+      exceptions: ['no-scan', 'wrong-location']
+    },
+    {
+      id: 'PICK-004',
+      orderId: 'ORD-4524',
+      sku: 'NB-574-41',
+      description: 'New Balance 574 Classic - Size 41 - Grey',
+      wms: {
+        location: 'Zone C-Aisle 05-Shelf D4',
+        plannedQty: 4,
+        plannedWindow: '09:45-10:00',
+        priority: 'high'
+      },
+      wes: {
+        picker: 'W051 - Lennon Warren',
+        station: 'Pick Station C-3',
+        actualQty: 4,
+        scanTime: '09:48:22',
+        completeTime: '09:53:08',
+        travelTime: 165,
+        dwellTime: 281
+      },
+      status: 'normal',
+      exceptions: []
+    },
+    {
+      id: 'PICK-005',
+      orderId: 'ORD-4525',
+      sku: 'UA-HOVR-39',
+      description: 'Under Armour HOVR Phantom - Size 39 - Navy',
+      wms: {
+        location: 'Zone C-Aisle 18-Shelf A5',
+        plannedQty: 2,
+        plannedWindow: '10:00-10:15',
+        priority: 'normal'
+      },
+      wes: {
+        picker: 'W052 - Finley Wood',
+        station: 'Pick Station C-1',
+        actualQty: 3,
+        scanTime: '10:02:15',
+        completeTime: '10:08:42',
+        travelTime: 192,
+        dwellTime: 387
+      },
+      status: 'exception',
+      exceptions: ['over-pick']
+    },
+    {
+      id: 'PICK-006',
+      orderId: 'ORD-4526',
+      sku: 'REEBOK-CLUB-44',
+      description: 'Reebok Club C 85 - Size 44 - White/Green',
+      wms: {
+        location: 'Zone C-Aisle 03-Shelf B1',
+        plannedQty: 1,
+        plannedWindow: '10:15-10:30',
+        priority: 'low'
+      },
+      wes: {
+        picker: 'W053 - Remy Spencer',
+        station: 'Pick Station C-5',
+        actualQty: 1,
+        scanTime: '10:18:33',
+        completeTime: '10:21:05',
+        travelTime: 178,
+        dwellTime: 154
+      },
+      status: 'normal',
+      exceptions: []
+    },
+    {
+      id: 'PICK-007',
+      orderId: 'ORD-4527',
+      sku: 'TIMBERLAND-PRO-45',
+      description: 'Timberland PRO Boots - Size 45 - Wheat',
+      wms: {
+        location: 'Zone C-Aisle 22-Shelf E2',
+        plannedQty: 2,
+        plannedWindow: '10:30-10:45',
+        priority: 'high'
+      },
+      wes: {
+        picker: 'W054 - Bellamy Kim',
+        station: 'Pick Station C-2',
+        actualQty: 2,
+        scanTime: '10:32:18',
+        completeTime: '10:55:42',
+        travelTime: 312,
+        dwellTime: 724
+      },
+      status: 'exception',
+      exceptions: ['excessive-duration']
+    }
+  ]
+}
+
+// ─── Misplaced/Not Found Items ─────────────────────────────────────────────────────
+export const MISPLACED_LOCATIONS = [
+  {
+    id: 'LOC-MP-001',
+    location: 'Zone B-Aisle 15-Shelf C4',
+    sku: 'ADIDAS-SAMBA-42',
+    description: 'Adidas Samba OG - Size 42 - Black/White',
+    zone: 'Zone B',
+    bypassCount: 7,
+    denialReasons: ['empty location', 'pick denial'],
+    suggestedAction: 'trigger-cycle-count',
+    issueType: 'inventory-issue',
+    ignored: false,
+    pickerBypasses: [
+      { pickerId: 'W004', time: '08:45:22', reason: 'empty location' },
+      { pickerId: 'W032', time: '09:12:18', reason: 'empty location' },
+      { pickerId: 'W034', time: '09:45:33', reason: 'pick denial' },
+      { pickerId: 'W035', time: '10:08:15', reason: 'empty location' },
+      { pickerId: 'W036', time: '10:32:44', reason: 'empty location' },
+      { pickerId: 'W037', time: '10:55:28', reason: 'pick denial' },
+      { pickerId: 'W038', time: '11:18:55', reason: 'empty location' }
+    ]
+  },
+  {
+    id: 'LOC-MP-002',
+    location: 'Zone C-Aisle 07-Shelf A3',
+    sku: 'PUMA-RS-39',
+    description: 'Puma RS-X - Size 39 - Multi-color',
+    zone: 'Zone C',
+    bypassCount: 5,
+    denialReasons: ['wrong location'],
+    suggestedAction: 'audit-location',
+    issueType: 'slotting-issue',
+    ignored: false,
+    pickerBypasses: [
+      { pickerId: 'W008', time: '08:22:18', reason: 'wrong location' },
+      { pickerId: 'W050', time: '09:08:45', reason: 'wrong location' },
+      { pickerId: 'W051', time: '09:45:22', reason: 'wrong location' },
+      { pickerId: 'W054', time: '10:22:18', reason: 'wrong location' },
+      { pickerId: 'W060', time: '11:05:33', reason: 'wrong location' }
+    ]
+  },
+  {
+    id: 'LOC-MP-003',
+    location: 'Zone B-Aisle 09-Shelf D2',
+    sku: 'NB-990-44',
+    description: 'New Balance 990v6 - Size 44 - Grey',
+    zone: 'Zone B',
+    bypassCount: 3,
+    denialReasons: ['empty location'],
+    suggestedAction: 're-slot-sku',
+    issueType: 'inventory-issue',
+    ignored: false,
+    pickerBypasses: [
+      { pickerId: 'W033', time: '08:55:12', reason: 'empty location' },
+      { pickerId: 'W039', time: '09:32:48', reason: 'empty location' },
+      { pickerId: 'W041', time: '10:15:33', reason: 'empty location' }
+    ]
+  },
+  {
+    id: 'LOC-MP-004',
+    location: 'Zone A-Aisle 04-Shelf B1',
+    sku: 'NIKE-DUNK-43',
+    description: 'Nike Dunk Low - Size 43 - Panda',
+    zone: 'Zone A',
+    bypassCount: 4,
+    denialReasons: ['pick denial', 'empty location'],
+    suggestedAction: 'trigger-cycle-count',
+    issueType: 'inventory-issue',
+    ignored: true,
+    pickerBypasses: [
+      { pickerId: 'W001', time: '08:08:45', reason: 'pick denial' },
+      { pickerId: 'W002', time: '08:45:22', reason: 'empty location' },
+      { pickerId: 'W013', time: '09:22:18', reason: 'pick denial' },
+      { pickerId: 'W014', time: '09:55:33', reason: 'empty location' }
+    ]
+  },
+  {
+    id: 'LOC-MP-005',
+    location: 'Zone C-Aisle 19-Shelf E4',
+    sku: 'UA-PROJECT-40',
+    description: 'Under Armour Project Rock - Size 40 - Black',
+    zone: 'Zone C',
+    bypassCount: 2,
+    denialReasons: ['wrong location'],
+    suggestedAction: 're-slot-sku',
+    issueType: 'slotting-issue',
+    ignored: false,
+    pickerBypasses: [
+      { pickerId: 'W052', time: '08:38:22', reason: 'wrong location' },
+      { pickerId: 'W053', time: '09:18:45', reason: 'wrong location' }
+    ]
+  }
+]
+
+// ─── Delay Patterns (>30% delay) ───────────────────────────────────────────────────
+export const DELAY_PATTERNS = {
+  period: 'Current Shift (06:00-14:00)',
+  totalDelayedTasks: 47,
+  thresholdPercent: 30,
+  zones: [
+    {
+      id: 'ZONE-MZ2',
+      name: 'Mezzanine 2',
+      type: 'zone',
+      delayPercent: 42,
+      avgDelaySeconds: 385,
+      taskCount: 18,
+      wesContext: {
+        issue: 'Elevator bottleneck',
+        description: 'Elevator 2A experiencing frequent delays due to maintenance',
+        impact: 'Increased travel times for all zone access'
+      },
+      wmsContext: {
+        skusAffected: 24,
+        fastMovingOrders: 15,
+        serviceRisk: 'high',
+        description: 'Multiple fast-moving SKUs stored in this zone - SLA at risk'
+      }
+    },
+    {
+      id: 'ZONE-MZ1',
+      name: 'Mezzanine 1',
+      type: 'zone',
+      delayPercent: 35,
+      avgDelaySeconds: 298,
+      taskCount: 12,
+      wesContext: {
+        issue: 'Conveyor slowdown',
+        description: 'Conveyor belt C-3 running at 60% capacity due to sensor issue',
+        impact: 'Reduced throughput for zone outputs'
+      },
+      wmsContext: {
+        skusAffected: 18,
+        fastMovingOrders: 8,
+        serviceRisk: 'medium',
+        description: 'Moderate impact on order fulfillment SLAs'
+      }
+    }
+  ],
+  equipment: [
+    {
+      id: 'EQ-PW-04',
+      name: 'Put-Wall 4',
+      type: 'equipment',
+      delayPercent: 48,
+      avgDelaySeconds: 452,
+      taskCount: 9,
+      wesContext: {
+        issue: 'Frequent micro-stoppages',
+        description: 'Put-wall sensors misreading carton barcodes - requires manual override',
+        impact: '20% of tasks need human intervention'
+      },
+      wmsContext: {
+        skusAffected: 12,
+        fastMovingOrders: 7,
+        serviceRisk: 'critical',
+        description: 'Fast-moving order types routed here - urgent SLA risk'
+      }
+    },
+    {
+      id: 'EQ-CV-07',
+      name: 'Conveyor Line 7',
+      type: 'equipment',
+      delayPercent: 38,
+      avgDelaySeconds: 312,
+      taskCount: 8,
+      wesContext: {
+        issue: 'Reduced conveyor speed',
+        description: 'Speed reduced to 0.8 m/s (normal: 1.5 m/s) pending maintenance',
+        impact: 'Throughput reduced by 47%'
+      },
+      wmsContext: {
+        skusAffected: 9,
+        fastMovingOrders: 4,
+        serviceRisk: 'medium',
+        description: 'Primarily bulk orders - manageable SLA impact'
+      }
+    }
+  ],
+  orderTypes: [
+    {
+      id: 'OT-SAMEDAY',
+      name: 'Same-Day Delivery',
+      type: 'order-type',
+      delayPercent: 33,
+      avgDelaySeconds: 267,
+      taskCount: 22,
+      wesContext: {
+        issue: 'High picker congestion',
+        description: 'Multiple pickers competing for same zone access during peak hours',
+        impact: 'Increased dwell times for all same-day orders'
+      },
+      wmsContext: {
+        skusAffected: 35,
+        fastMovingOrders: 22,
+        serviceRisk: 'critical',
+        description: 'Same-day SLA requires <4hr fulfillment - current delays causing breaches'
+      }
+    },
+    {
+      id: 'OT-B2B',
+      name: 'B2B Bulk Orders',
+      type: 'order-type',
+      delayPercent: 31,
+      avgDelaySeconds: 245,
+      taskCount: 15,
+      wesContext: {
+        issue: 'Loading dock coordination',
+        description: 'Bulk orders waiting for trailer availability',
+        impact: 'Extended dwell times at packing stations'
+      },
+      wmsContext: {
+        skusAffected: 28,
+        fastMovingOrders: 6,
+        serviceRisk: 'low',
+        description: 'B2B SLAs more flexible - minimal service risk'
+      }
+    }
+  ]
+}
+
+// ─── Action Types for Misplaced Locations ─────────────────────────────────────────
+export const MISPLACED_ACTIONS = [
+  { id: 'trigger-cycle-count', label: 'Trigger Cycle Count', description: 'Initiate immediate inventory count at this location' },
+  { id: 'audit-location', label: 'Audit Location', description: 'Physical audit and verify location integrity' },
+  { id: 're-slot-sku', label: 'Re-slot SKU', description: 'Move SKU to optimal location based on velocity' },
+  { id: 'ignore', label: 'Ignore', description: 'Mark as resolved without action (false positive)' }
+]

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { ArrowLeft, Package, Clock, Building2 } from 'lucide-react'
+import { ArrowLeft, Clock, Building2 } from 'lucide-react'
+import spinnakerLogo from '/Spinnaker_SCA_Logo.png'
 
 export default function Header({ view, activeScreen, onBack, acceptedContainerId }) {
   const [time, setTime] = useState(new Date())
@@ -21,6 +22,15 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
   function Breadcrumb() {
     if (activeScreen === 'labor') {
       return <span className="text-slate-300">Labor Management</span>
+    }
+    if (activeScreen === 'plan-exec') {
+      return <span className="text-slate-300">Plan vs. Execution</span>
+    }
+    if (activeScreen === 'misplaced') {
+      return <span className="text-slate-300">Misplaced / Not Found</span>
+    }
+    if (activeScreen === 'delays') {
+      return <span className="text-slate-300">&gt;30% Delay Patterns</span>
     }
     if (view === 'unloading') {
       return (
@@ -48,13 +58,15 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
               <span>Back</span>
             </button>
           )}
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <Package size={18} className="text-white" />
-            </div>
+          <div className="flex items-center gap-3">
+            <img
+              src={spinnakerLogo}
+              alt="Spinnaker SCA"
+              className="h-10 w-auto flex-shrink-0"
+            />
             <div>
-              <span className="font-bold text-lg tracking-tight">InboundIQ</span>
-              <span className="text-slate-400 text-xs ml-2 font-normal">Warehouse Intelligence Platform</span>
+              <span className="font-bold text-lg tracking-tight">SpinnakerSCA</span>
+              <span className="text-slate-400 text-xs ml-2 font-normal">Warehouse IQ</span>
             </div>
           </div>
 
