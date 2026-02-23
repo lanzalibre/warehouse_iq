@@ -1440,6 +1440,40 @@ const MISPLACED_LOCATIONS_BASE = [
   }
 ]
 
+// ─── Accumulated misplacement stats by zone ─────────────────────────────────────
+export const MISPLACED_ACCUMULATED_STATS = {
+  shift: {
+    totalBypasses: 847,
+    totalMinutesLost: 2,541,  // ~42 hours
+    byZone: [
+      { zone: 'Zone A', bypasses: 156, minutesLost: 468 },
+      { zone: 'Zone B', bypasses: 234, minutesLost: 702 },
+      { zone: 'Zone C', bypasses: 312, minutesLost: 936 },
+      { zone: 'Zone D', bypasses: 89, minutesLost: 267 },
+      { zone: 'Crossdock', bypasses: 56, minutesLost: 168 }
+    ],
+    projectedEndOfShift: {
+      totalBypasses: 1,124,
+      totalMinutesLost: 3,372  // ~56 hours projected
+    }
+  },
+  day: {
+    totalBypasses: 2,456,
+    totalMinutesLost: 7,368,
+    byZone: [
+      { zone: 'Zone A', bypasses: 423, minutesLost: 1,269 },
+      { zone: 'Zone B', bypasses: 678, minutesLost: 2,034 },
+      { zone: 'Zone C', bypasses: 901, minutesLost: 2,703 },
+      { zone: 'Zone D', bypasses: 289, minutesLost: 867 },
+      { zone: 'Crossdock', bypasses: 165, minutesLost: 495 }
+    ],
+    projectedEndOfDay: {
+      totalBypasses: 2,892,
+      totalMinutesLost: 8,676
+    }
+  }
+}
+
 // ─── Generate 100s of misplaced locations with volume data ─────────────────────────────
 export const MISPLACED_LOCATIONS_ALL = (() => {
   const locations = [...MISPLACED_LOCATIONS_BASE]
@@ -1486,14 +1520,19 @@ export const MISPLACED_LOCATIONS_ALL = (() => {
       suggestedAction: suggestedActions[issueType][0],
       issueType,
       ignored: false,
-      pickerBypasses
+      pickerBypasses,
+      // Accumulated stats per location
+      accumulated: {
+        shift: { bypasses: bypassCount, minutesLost: bypassCount * 3 },
+        day: { bypasses: Math.floor(bypassCount * 2.9), minutesLost: Math.floor(bypassCount * 2.9 * 3) }
+      }
     })
   }
 
   return locations.sort((a, b) => b.volume7Days - a.volume7Days)
 })()
 
-// ─── Delay Patterns (>30% delay) ───────────────────────────────────────────────────
+// ─── Delay Patterns (>30% delay) with accumulation stats ─────────────────────
 export const DELAY_PATTERNS = {
   period: 'Current Shift (06:00-14:00)',
   totalDelayedTasks: 47,
@@ -1506,6 +1545,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 42,
       avgDelaySeconds: 385,
       taskCount: 18,
+      accumulated: {
+        shift: { delayedSeconds: 6,930, tasksAffected: 18 },
+        day: { delayedSeconds: 11,550, tasksAffected: 30 },
+        projectedEndOfShift: { delayedSeconds: 9,240, tasksAffected: 24 },
+        projectedEndOfDay: { delayedSeconds: 13,860, tasksAffected: 36 }
+      },
       wesContext: {
         issue: 'Elevator bottleneck',
         description: 'Elevator 2A experiencing frequent delays due to maintenance',
@@ -1525,6 +1570,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 35,
       avgDelaySeconds: 298,
       taskCount: 12,
+      accumulated: {
+        shift: { delayedSeconds: 3,576, tasksAffected: 12 },
+        day: { delayedSeconds: 5,960, tasksAffected: 20 },
+        projectedEndOfShift: { delayedSeconds: 4,770, tasksAffected: 16 },
+        projectedEndOfDay: { delayedSeconds: 7,155, tasksAffected: 24 }
+      },
       wesContext: {
         issue: 'Conveyor slowdown',
         description: 'Conveyor belt C-3 running at 60% capacity due to sensor issue',
@@ -1546,6 +1597,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 48,
       avgDelaySeconds: 452,
       taskCount: 9,
+      accumulated: {
+        shift: { delayedSeconds: 4,068, tasksAffected: 9 },
+        day: { delayedSeconds: 6,780, tasksAffected: 15 },
+        projectedEndOfShift: { delayedSeconds: 5,424, tasksAffected: 12 },
+        projectedEndOfDay: { delayedSeconds: 8,136, tasksAffected: 18 }
+      },
       wesContext: {
         issue: 'Frequent micro-stoppages',
         description: 'Put-wall sensors misreading carton barcodes - requires manual override',
@@ -1565,6 +1622,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 38,
       avgDelaySeconds: 312,
       taskCount: 8,
+      accumulated: {
+        shift: { delayedSeconds: 2,496, tasksAffected: 8 },
+        day: { delayedSeconds: 4,160, tasksAffected: 13 },
+        projectedEndOfShift: { delayedSeconds: 3,120, tasksAffected: 10 },
+        projectedEndOfDay: { delayedSeconds: 4,992, tasksAffected: 16 }
+      },
       wesContext: {
         issue: 'Reduced conveyor speed',
         description: 'Speed reduced to 0.8 m/s (normal: 1.5 m/s) pending maintenance',
@@ -1586,6 +1649,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 33,
       avgDelaySeconds: 267,
       taskCount: 22,
+      accumulated: {
+        shift: { delayedSeconds: 5,874, tasksAffected: 22 },
+        day: { delayedSeconds: 9,690, tasksAffected: 37 },
+        projectedEndOfShift: { delayedSeconds: 7,842, tasksAffected: 30 },
+        projectedEndOfDay: { delayedSeconds: 11,763, tasksAffected: 45 }
+      },
       wesContext: {
         issue: 'High picker congestion',
         description: 'Multiple pickers competing for same zone access during peak hours',
@@ -1605,6 +1674,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 31,
       avgDelaySeconds: 245,
       taskCount: 15,
+      accumulated: {
+        shift: { delayedSeconds: 3,675, tasksAffected: 15 },
+        day: { delayedSeconds: 6,125, tasksAffected: 25 },
+        projectedEndOfShift: { delayedSeconds: 4,900, tasksAffected: 20 },
+        projectedEndOfDay: { delayedSeconds: 7,350, tasksAffected: 30 }
+      },
       wesContext: {
         issue: 'Loading dock coordination',
         description: 'Bulk orders waiting for trailer availability',
@@ -1626,4 +1701,182 @@ export const MISPLACED_ACTIONS = [
   { id: 'audit-location', label: 'Audit Location', description: 'Physical audit and verify location integrity' },
   { id: 're-slot-sku', label: 'Re-slot SKU', description: 'Move SKU to optimal location based on velocity' },
   { id: 'ignore', label: 'Ignore', description: 'Mark as resolved without action (false positive)' }
+]
+
+// ─── Unified Plan vs Execution: Wave/Order Data for Overview Tab ─────────────
+export const WAVE_ORDER_DATA = {
+  period: 'Current Shift (06:00-14:00)',
+  waves: [
+    {
+      id: 'WAVE-001',
+      name: 'Wave 08:00 - Same-Day',
+      plannedHours: 42.5,
+      actualHours: 38.2,
+      delayHours: -4.3,  // Negative = ahead
+      delayType: 'ahead',
+      delayBreakdown: {
+        delayMinutes: 0,
+        denialMinutes: 0
+      },
+      tasksCompleted: 245,
+      totalTasks: 267
+    },
+    {
+      id: 'WAVE-002',
+      name: 'Wave 09:00 - Standard',
+      plannedHours: 35.8,
+      actualHours: 42.1,
+      delayHours: 6.3,
+      delayType: 'delayed',
+      delayBreakdown: {
+        delayMinutes: 278,  // ~4.6 hours of delays
+        denialMinutes: 100   // ~1.7 hours of pick denials
+      },
+      tasksCompleted: 198,
+      totalTasks: 212
+    },
+    {
+      id: 'WAVE-003',
+      name: 'Wave 10:00 - B2B Bulk',
+      plannedHours: 28.5,
+      actualHours: 31.2,
+      delayHours: 2.7,
+      delayType: 'delayed',
+      delayBreakdown: {
+        delayMinutes: 112,
+        denialMinutes: 50
+      },
+      tasksCompleted: 156,
+      totalTasks: 168
+    }
+  ],
+  orders: [
+    {
+      id: 'ORD-4521',
+      plannedHours: 2.5,
+      actualHours: 3.1,
+      delayMinutes: 36,
+      delayType: 'delayed',
+      exceptionType: 'delay',
+      waveId: 'WAVE-001'
+    },
+    {
+      id: 'ORD-4522',
+      plannedHours: 1.8,
+      actualHours: 1.5,
+      delayMinutes: -18,
+      delayType: 'ahead',
+      exceptionType: null,
+      waveId: 'WAVE-001'
+    },
+    {
+      id: 'ORD-4523',
+      plannedHours: 3.2,
+      actualHours: 4.5,
+      delayMinutes: 78,
+      delayType: 'delayed',
+      exceptionType: 'denial',
+      waveId: 'WAVE-002'
+    },
+    {
+      id: 'ORD-4524',
+      plannedHours: 2.1,
+      actualHours: 2.0,
+      delayMinutes: -6,
+      delayType: 'ahead',
+      exceptionType: null,
+      waveId: 'WAVE-002'
+    },
+    {
+      id: 'ORD-4525',
+      plannedHours: 2.8,
+      actualHours: 3.6,
+      delayMinutes: 48,
+      delayType: 'delayed',
+      exceptionType: 'delay',
+      waveId: 'WAVE-003'
+    },
+    {
+      id: 'ORD-4526',
+      plannedHours: 1.5,
+      actualHours: 1.2,
+      delayMinutes: -18,
+      delayType: 'ahead',
+      exceptionType: null,
+      waveId: 'WAVE-003'
+    }
+  ]
+}
+
+// ─── Projections for end-of-shift/day outcomes ────────────────────────────────
+export const PROJECTIONS = {
+  shift: {
+    currentDifference: -1.3,  // Hours ahead (negative)
+    projectedDifference: 0.5,  // Slightly behind projected
+    projectedEndHour: '13:45',
+    trend: 'improving',
+    confidence: 85
+  },
+  day: {
+    currentDifference: 8.5,
+    projectedDifference: 12.3,
+    trend: 'worsening',
+    confidence: 72
+  }
+}
+
+// ─── Alert Subscription Data ───────────────────────────────────────────────────
+export const ALERT_SUBSCRIPTIONS = [
+  {
+    id: 'ALERT-SUB-001',
+    type: 'misplacement',
+    enabled: true,
+    filters: {
+      zones: ['Zone A', 'Zone B'],
+      shifts: ['AM', 'PM'],
+      severityThreshold: 'high'
+    },
+    notificationMethods: ['email', 'sms'],
+    lastTriggered: '2026-02-22 14:32:15'
+  },
+  {
+    id: 'ALERT-SUB-002',
+    type: 'sustained-delay',
+    enabled: true,
+    filters: {
+      zones: ['Zone C', 'Zone D'],
+      shifts: ['AM'],
+      severityThreshold: 'critical',
+      sustainedMinutes: 30
+    },
+    notificationMethods: ['email'],
+    lastTriggered: '2026-02-22 12:15:00'
+  },
+  {
+    id: 'ALERT-SUB-003',
+    type: 'trend',
+    enabled: false,
+    filters: {
+      zones: ['All'],
+      shifts: ['AM', 'PM', 'Night'],
+      severityThreshold: 'medium',
+      trendType: 'worsening',
+      thresholdPercent: 10
+    },
+    notificationMethods: ['email', 'sms', 'slack'],
+    lastTriggered: null
+  },
+  {
+    id: 'ALERT-SUB-004',
+    type: 'sla-risk',
+    enabled: true,
+    filters: {
+      zones: ['Zone D'],
+      shifts: ['All'],
+      severityThreshold: 'high',
+      orderTypes: ['Same-Day Delivery']
+    },
+    notificationMethods: ['email', 'slack'],
+    lastTriggered: '2026-02-22 10:45:30'
+  }
 ]

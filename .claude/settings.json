@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "edit": true,
+    "auto_approve_edits": true,
+    "edit_confirmation": false
+  },
+  "modes": {
+    "default_mode": "auto-accept"
+  }
+}

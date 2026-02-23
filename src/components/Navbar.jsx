@@ -4,8 +4,6 @@ const NAV_ITEMS = [
   { id: 'yard',          icon: Boxes,       shortLabel: 'Yard',    fullLabel: 'Yard Management'      },
   { id: 'labor',         icon: Users2,      shortLabel: 'Labor',   fullLabel: 'Labor Management'     },
   { id: 'plan-exec',     icon: GitCompare,   shortLabel: 'Plan',    fullLabel: 'Plan vs Execution'    },
-  { id: 'misplaced',     icon: MapPinOff,    shortLabel: 'Lost',    fullLabel: 'Misplaced / Not Found' },
-  { id: 'delays',        icon: Clock,        shortLabel: 'Delays',  fullLabel: 'Delay Patterns'       },
 ]
 
 export default function Navbar({ activeScreen, onNavigate }) {
