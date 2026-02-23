@@ -259,7 +259,7 @@ export default function OrderTypesTab() {
             <div>
               <div className="text-sm font-bold text-slate-800">Order Type Delay Patterns</div>
               <div className="text-xs text-slate-600 mt-0.5">
-                {totalTasks} tasks affected by delays >30%
+                {totalTasks} tasks affected by delays &gt;30%
               </div>
             </div>
           </div>
