@@ -17,6 +17,13 @@ A modern warehouse intelligence platform for managing inbound operations, labor 
 - AI-powered worker rebalancing recommendations
 - Experience tracking by zone
 
+### 💬 Natural Language Queries
+- Ask plain-English questions about warehouse state (containers, workers, waves, delays, performance)
+- `@` mention system to scope queries to specific waves, orders, docks, containers, or pickers
+- Keyboard-navigable autocomplete dropdown (Tab/Enter to select, ↑↓ to navigate)
+- Pre-loaded question library with 4 collapsible categories and 13 common queries
+- Structured, data-rich response cards: dock workers, container age, yard overview, suppliers, wave status, labor breakdown, delay patterns, throughput stats
+
 ### 📊 Plan vs Execution
 - Compare WMS pick tasks with WES execution traces
 - Real-time exception detection (no scan, wrong location, quantity mismatches)
@@ -76,7 +83,8 @@ src/
 │   ├── ContainerSelection.jsx  # Container priority recommendations
 │   ├── UnloadingBay.jsx        # Container unloading workflow
 │   ├── LaborManagement.jsx     # Labor dashboard
-│   ├── PlanVsExecution.jsx     # Plan vs execution comparison
+│   ├── PlanVsExecution/        # Plan vs execution comparison
+│   ├── NLQuery.jsx             # Natural language query interface
 │   ├── MisplacedItems.jsx      # Misplaced location tracking
 │   └── DelayPatterns.jsx       # Delay pattern analysis
 ├── App.jsx                 # Main application component
@@ -105,9 +113,10 @@ src/
 | Yard Management | Container prioritization and unloading workflows |
 | Labor Management | Shift roster, capacity tracking, worker recommendations |
 | Plan vs Execution | WMS/WES task comparison and exception tracking |
+| Natural Language Queries | Plain-English warehouse Q&A with `@` mention scoping |
 | Misplaced / Not Found | Location issue tracking and resolution actions |
 | Delay Patterns | >30% delay analysis by zone, equipment, order type |
 
 ## License
 
-© 2025 SpinnakerSCA. All rights reserved.
+© 2026 SpinnakerSCA. All rights reserved.
