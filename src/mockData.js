@@ -63,7 +63,121 @@ export const SITE_STATS = {
 }
 
 // ─── Yard totals ───────────────────────────────────────────────────────────────
-export const TOTAL_CONTAINERS_IN_YARD = 312  // Only top-10 shown by AI priority
+export const TOTAL_CONTAINERS_IN_YARD = 312
+
+// ─── Helper: Generate large datasets with volume metrics ─────────────────────────
+function generateVolumeMetrics(baseVolume, variance = 0.3) {
+  return Math.floor(baseVolume * (1 + (Math.random() - 0.5) * variance))
+}
+
+// ─── Generate expanded Pick Tasks (simulating 500+ tasks) ───────────────────────
+const PICK_TASKS_BASE = [
+  {
+    id: 'PICK-001', orderId: 'ORD-4521', sku: 'NIKE-AIRMAX-42', description: 'Nike Air Max 270 - Size 42 - White/Black',
+    wms: { location: 'Zone C-Aisle 12-Shelf B3', plannedQty: 3, plannedWindow: '09:00-09:15', priority: 'high' },
+    wes: { picker: 'W008 - Kevin Liu', station: 'Pick Station C-4', actualQty: 3, scanTime: '09:08:23', completeTime: '09:11:42', travelTime: 185, dwellTime: 99 },
+    status: 'normal', exceptions: [], volume7Days: 245
+  },
+  {
+    id: 'PICK-002', orderId: 'ORD-4522', sku: 'ADIDAS-ULTRA-40', description: 'Adidas UltraBoost 22 - Size 40 - Core Black',
+    wms: { location: 'Zone C-Aisle 08-Shelf A1', plannedQty: 2, plannedWindow: '09:15-09:30', priority: 'normal' },
+    wes: { picker: 'W008 - Kevin Liu', station: 'Pick Station C-4', actualQty: 1, scanTime: '09:18:45', completeTime: '09:24:12', travelTime: 245, dwellTime: 327 },
+    status: 'exception', exceptions: ['under-pick', 'excessive-duration'], volume7Days: 189
+  },
+  {
+    id: 'PICK-003', orderId: 'ORD-4523', sku: 'PUMA-NITRO-43', description: 'Puma NITRO Running Shoes - Size 43 - Blue/Orange',
+    wms: { location: 'Zone C-Aisle 15-Shelf C2', plannedQty: 1, plannedWindow: '09:30-09:45', priority: 'urgent' },
+    wes: { picker: 'W050 - Taylor Knight', station: 'Pick Station C-2', actualQty: null, scanTime: null, completeTime: '09:42:15', travelTime: 198, dwellTime: 0 },
+    status: 'exception', exceptions: ['no-scan', 'wrong-location'], volume7Days: 312
+  },
+  {
+    id: 'PICK-004', orderId: 'ORD-4524', sku: 'NB-574-41', description: 'New Balance 574 Classic - Size 41 - Grey',
+    wms: { location: 'Zone C-Aisle 05-Shelf D4', plannedQty: 4, plannedWindow: '09:45-10:00', priority: 'high' },
+    wes: { picker: 'W051 - Lennon Warren', station: 'Pick Station C-3', actualQty: 4, scanTime: '09:48:22', completeTime: '09:53:08', travelTime: 165, dwellTime: 281 },
+    status: 'normal', exceptions: [], volume7Days: 178
+  },
+  {
+    id: 'PICK-005', orderId: 'ORD-4525', sku: 'UA-HOVR-39', description: 'Under Armour HOVR Phantom - Size 39 - Navy',
+    wms: { location: 'Zone C-Aisle 18-Shelf A5', plannedQty: 2, plannedWindow: '10:00-10:15', priority: 'normal' },
+    wes: { picker: 'W052 - Finley Wood', station: 'Pick Station C-1', actualQty: 3, scanTime: '10:02:15', completeTime: '10:08:42', travelTime: 192, dwellTime: 387 },
+    status: 'exception', exceptions: ['over-pick'], volume7Days: 156
+  },
+  {
+    id: 'PICK-006', orderId: 'ORD-4526', sku: 'REEBOK-CLUB-44', description: 'Reebok Club C 85 - Size 44 - White/Green',
+    wms: { location: 'Zone C-Aisle 03-Shelf B1', plannedQty: 1, plannedWindow: '10:15-10:30', priority: 'low' },
+    wes: { picker: 'W053 - Remy Spencer', station: 'Pick Station C-5', actualQty: 1, scanTime: '10:18:33', completeTime: '10:21:05', travelTime: 178, dwellTime: 154 },
+    status: 'normal', exceptions: [], volume7Days: 134
+  },
+  {
+    id: 'PICK-007', orderId: 'ORD-4527', sku: 'TIMBERLAND-PRO-45', description: 'Timberland PRO Boots - Size 45 - Wheat',
+    wms: { location: 'Zone C-Aisle 22-Shelf E2', plannedQty: 2, plannedWindow: '10:30-10:45', priority: 'high' },
+    wes: { picker: 'W054 - Bellamy Kim', station: 'Pick Station C-2', actualQty: 2, scanTime: '10:32:18', completeTime: '10:55:42', travelTime: 312, dwellTime: 724 },
+    status: 'exception', exceptions: ['excessive-duration'], volume7Days: 298
+  }
+]
+
+// Generate 500+ tasks by expanding base patterns
+export const PICK_TASKS_ALL = (() => {
+  const tasks = [...PICK_TASKS_BASE]
+  const zones = ['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Crossdock']
+  const aisles = ['Aisle 01', 'Aisle 02', 'Aisle 03', 'Aisle 04', 'Aisle 05', 'Aisle 06', 'Aisle 07', 'Aisle 08', 'Aisle 09', 'Aisle 10']
+  const shelves = ['Shelf A1', 'Shelf A2', 'Shelf B1', 'Shelf B2', 'Shelf C1', 'Shelf C2', 'Shelf D1', 'Shelf D2', 'Shelf E1', 'Shelf E2']
+  const priorities = ['urgent', 'high', 'normal', 'low']
+  const exceptionsTypes = ['no-scan', 'wrong-location', 'under-pick', 'over-pick', 'excessive-duration']
+
+  for (let i = 8; i <= 500; i++) {
+    const zone = zones[Math.floor(Math.random() * zones.length)]
+    const isException = Math.random() < 0.15 // 15% exception rate
+    const exceptions = isException
+      ? [exceptionsTypes[Math.floor(Math.random() * exceptionsTypes.length)]]
+      : []
+
+    const plannedQty = Math.floor(Math.random() * 5) + 1
+    const actualQty = exceptions.includes('no-scan')
+      ? null
+      : exceptions.includes('under-pick')
+        ? Math.max(1, plannedQty - Math.floor(Math.random() * 2))
+        : exceptions.includes('over-pick')
+          ? plannedQty + Math.floor(Math.random() * 2) + 1
+          : plannedQty
+
+    const travelTime = Math.floor(Math.random() * 300) + 100
+    const dwellTime = exceptions.includes('no-scan')
+      ? 0
+      : exceptions.includes('excessive-duration')
+        ? Math.floor(Math.random() * 600) + 400
+        : Math.floor(Math.random() * 300) + 50
+
+    const volume = generateVolumeMetrics(Math.random() * 300 + 50)
+
+    tasks.push({
+      id: `PICK-${String(i).padStart(4, '0')}`,
+      orderId: `ORD-${4000 + i}`,
+      sku: `SKU-${10000 + i}`,
+      description: `${['Nike', 'Adidas', 'Puma', 'New Balance', 'Under Armour', 'Reebok'][Math.floor(Math.random() * 6)]} ${['Running', 'Training', 'Basketball', 'Lifestyle', 'Performance'][Math.floor(Math.random() * 5)]} - ${['Black', 'White', 'Blue', 'Red', 'Grey'][Math.floor(Math.random() * 5)]}`,
+      wms: {
+        location: `${zone}-${aisles[Math.floor(Math.random() * aisles.length)]}-${shelves[Math.floor(Math.random() * shelves.length)]}`,
+        plannedQty,
+        plannedWindow: `${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 12) * 5).padStart(2, '0')}-${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 12) * 5).padStart(2, '0')}`,
+        priority: priorities[Math.floor(Math.random() * priorities.length)]
+      },
+      wes: {
+        picker: `W${String(Math.floor(Math.random() * 108) + 1).padStart(3, '0')} - ${['Kevin', 'Taylor', 'Lennon', 'Finley', 'Remy', 'Bellamy', 'Shiloh', 'Luca', 'Nico', 'Sasha'][Math.floor(Math.random() * 10)]}`,
+        station: `Pick Station ${zone.charAt(zone.length - 1)}-${Math.floor(Math.random() * 6) + 1}`,
+        actualQty,
+        scanTime: exceptions.includes('no-scan') ? null : `09:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
+        completeTime: exceptions.includes('no-scan') ? null : `09:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
+        travelTime,
+        dwellTime
+      },
+      status: isException ? 'exception' : 'normal',
+      exceptions,
+      volume7Days: volume
+    })
+  }
+
+  return tasks.sort((a, b) => b.volume7Days - a.volume7Days)
+})()
 
 // ─── Container Data ────────────────────────────────────────────────────────────
 export const CONTAINERS = [
@@ -909,6 +1023,153 @@ export function getExperienceLevel(months) {
   return              { dots: 0, label: 'No exp.',     color: 'text-slate-400'   }
 }
 
+// ─── Expanded containers to simulate 100s of containers ───────────────────────────
+export const CONTAINERS_ALL = (() => {
+  const containers = [...CONTAINERS]
+  const categories = ['Shoes', 'Sports & Outdoor', 'General Clothing']
+  const subcategories = ['Athletic Footwear', 'Running Shoes', 'Casual Wear', 'Performance Apparel', 'Training & Fitness Gear']
+  const suppliers = ['Nike', 'Adidas', 'Puma', 'New Balance', 'Under Armour', 'Reebok', 'Timberland', 'H&M', 'Mango', 'Gap', 'Zara']
+  const priorities = ['urgent', 'high', 'normal', 'low']
+
+  for (let i = 0; i < 292; i++) {
+    const category = categories[Math.floor(Math.random() * categories.length)]
+    const subcategory = subcategories[Math.floor(Math.random() * subcategories.length)]
+    const supplier = suppliers[Math.floor(Math.random() * suppliers.length)]
+    const palletCount = Math.floor(Math.random() * 15) + 5
+    const estimatedUnits = palletCount * (Math.floor(Math.random() * 100) + 80)
+    const ageInYard = Math.floor(Math.random() * 14) + 1
+    const priority = priorities[Math.floor(Math.random() * priorities.length)]
+
+    // Generate workload distribution
+    const zoneAHours = Math.random() * 8 + 2
+    const zoneBHours = Math.random() * 12 + 4
+    const zoneCHours = Math.random() * 6 + 1
+    const zoneDHours = Math.random() * 4
+    const crossdockHours = Math.random() * 5 + 1
+    const totalHours = zoneAHours + zoneBHours + zoneCHours + zoneDHours + crossdockHours
+
+    // Generate workload balance score (more even = higher score)
+    const workloads = [zoneAHours, zoneBHours, zoneCHours, zoneDHours, crossdockHours]
+    const maxWorkload = Math.max(...workloads)
+    const avgWorkload = workloads.reduce((a, b) => a + b, 0) / workloads.length
+    const workloadBalance = avgWorkload > 0 ? 1 - (maxWorkload - avgWorkload) / maxWorkload : 0.5
+
+    // Generate age score (older = higher score)
+    const ageScore = Math.min(ageInYard / 14, 1)
+
+    // Generate processing efficiency
+    const processingEfficiency = 0.5 + Math.random() * 0.4
+
+    const criteria = {
+      workloadBalance: { score: Math.round(workloadBalance * 100) / 100, label: workloadBalance >= 0.8 ? 'Excellent' : workloadBalance >= 0.6 ? 'Good' : workloadBalance >= 0.4 ? 'Moderate' : 'Poor' },
+      ageScore: { score: Math.round(ageScore * 100) / 100, label: ageScore >= 0.8 ? 'Critical' : ageScore >= 0.6 ? 'High' : ageScore >= 0.4 ? 'Moderate' : 'Low' },
+      processingEfficiency: { score: Math.round(processingEfficiency * 100) / 100, label: processingEfficiency >= 0.8 ? 'High' : processingEfficiency >= 0.6 ? 'Moderate' : 'Low' },
+      overall: Math.round(((workloadBalance * 0.4) + (ageScore * 0.4) + (processingEfficiency * 0.2)) * 100) / 100,
+    }
+
+    // Calculate crossdock percentage
+    const crossdockPercent = crossdockHours / totalHours
+
+    containers.push({
+      id: `CONT-${9000 + i}`,
+      poNumber: `PO-${8000 + i}`,
+      category,
+      subcategory,
+      supplier,
+      ageInYard,
+      palletCount,
+      estimatedUnits,
+      truckId: `TRK-${100 + Math.floor(Math.random() * 900)}`,
+      dockAssigned: `Dock ${Math.floor(Math.random() * 12) + 1}`,
+      priority,
+      initialEstimate: {
+        certainty: Math.floor(Math.random() * 30) + 50,
+        totalHours: Math.round(totalHours * 10) / 10,
+        breakdown: {
+          unloading: Math.round((totalHours * 0.15) * 10) / 10,
+          binning: Math.round((totalHours * 0.70) * 10) / 10,
+          crossdocking: Math.round((totalHours * 0.15) * 10) / 10,
+        },
+        byZone: {
+          'Zone A': { hours: Math.round(zoneAHours * 10) / 10, units: Math.floor(zoneAHours * 80) },
+          'Zone B': { hours: Math.round(zoneBHours * 10) / 10, units: Math.floor(zoneBHours * 80) },
+          'Zone C': { hours: Math.round(zoneCHours * 10) / 10, units: Math.floor(zoneCHours * 80) },
+          'Zone D': { hours: Math.round(zoneDHours * 10) / 10, units: Math.floor(zoneDHours * 80) },
+          'Crossdock': { hours: Math.round(crossdockHours * 10) / 10, units: Math.floor(crossdockHours * 80) },
+        },
+      },
+      updatedEstimate: null,
+      criteria,
+      updatedCriteria: null,
+      isRecommended: false,
+      isUpdatedRecommended: false,
+      recommendationReasons: [],
+    })
+  }
+
+  return containers
+})()
+
+// ─── Expanded containers with products for detail view ─────────────────────────
+export const CONTAINER_PRODUCTS = [
+  {
+    containerId: 'CONT-4201',
+    products: [
+      { sku: 'NIKE-AIRMAX-42', description: 'Nike Air Max 270 - Size 42 - White/Black', quantity: 24, volume7Days: 245, zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 2 } },
+      { sku: 'NIKE-METCON-40', description: 'Nike Metcon Training Shoes - Size 40 - Core Black', quantity: 12, volume7Days: 189, zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 0, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'NIKE-AIRFORCE-43', description: 'Nike Air Force 1 - Size 43 - White', quantity: 18, volume7Days: 312, zoneWorkload: { 'Zone A': 2, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'NIKE-LEBRON-44', description: 'Nike LeBron Basketball - Size 44 - Red/Black', quantity: 8, volume7Days: 156, zoneWorkload: { 'Zone A': 0, 'Zone B': 2, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 0 } },
+      { sku: 'NIKE-DUNK-39', description: 'Nike Dunk Low - Size 39 - Panda', quantity: 15, volume7Days: 278, zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
+    ]
+  },
+  {
+    containerId: 'CONT-2847',
+    products: [
+      { sku: 'UA-PROJECT-40', description: 'Under Armour Project Rock - Size 40 - Black', quantity: 20, volume7Days: 198, zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 2 } },
+      { sku: 'UA-HOVR-42', description: 'Under Armour HOVR Phantom - Size 42 - Navy', quantity: 16, volume7Days: 245, zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'UA-CURRY-39', description: 'Under Armour Curry Flow - Size 39 - Yellow', quantity: 12, volume7Days: 178, zoneWorkload: { 'Zone A': 1, 'Zone B': 2, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
+    ]
+  },
+  {
+    containerId: 'CONT-1943',
+    products: [
+      { sku: 'HM-TSHIRT-L', description: 'H&M Cotton T-Shirt - Size L - White', quantity: 50, volume7Days: 156, zoneWorkload: { 'Zone A': 3, 'Zone B': 5, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 2 } },
+      { sku: 'HM-JEANS-32', description: 'H&M Slim Jeans - Size 32 - Blue', quantity: 40, volume7Days: 234, zoneWorkload: { 'Zone A': 2, 'Zone B': 6, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 2 } },
+      { sku: 'HM-HOODIE-M', description: 'H&M Hoodie - Size M - Grey', quantity: 30, volume7Days: 189, zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 1 } },
+    ]
+  },
+]
+
+// ─── WES records for Delay Patterns with expected vs actual times ──────────────
+export const DELAY_WES_RECORDS = [
+  { id: 'WES-001', zone: 'Mezzanine 2', equipment: 'Elevator 2A', orderType: 'Same-Day Delivery', expectedTime: 180, actualTime: 245, delaySeconds: 65, delayPercent: 36, timestamp: '06:15:22', taskId: 'PICK-001' },
+  { id: 'WES-002', zone: 'Mezzanine 2', equipment: 'Elevator 2A', orderType: 'Same-Day Delivery', expectedTime: 195, actualTime: 268, delaySeconds: 73, delayPercent: 37, timestamp: '06:22:45', taskId: 'PICK-005' },
+  { id: 'WES-003', zone: 'Mezzanine 2', equipment: 'Elevator 2A', orderType: 'B2B Bulk Orders', expectedTime: 210, actualTime: 298, delaySeconds: 88, delayPercent: 42, timestamp: '06:35:18', taskId: 'PICK-012' },
+  { id: 'WES-004', zone: 'Mezzanine 1', equipment: 'Conveyor C-3', orderType: 'Same-Day Delivery', expectedTime: 165, actualTime: 212, delaySeconds: 47, delayPercent: 28, timestamp: '06:48:33', taskId: 'PICK-018' },
+  { id: 'WES-005', zone: 'Mezzanine 1', equipment: 'Conveyor C-3', orderType: 'Same-Day Delivery', expectedTime: 175, actualTime: 238, delaySeconds: 63, delayPercent: 36, timestamp: '07:02:15', taskId: 'PICK-025' },
+  { id: 'WES-006', zone: 'Put-Wall 4', equipment: 'Put-Wall 4', orderType: 'Same-Day Delivery', expectedTime: 190, actualTime: 285, delaySeconds: 95, delayPercent: 50, timestamp: '07:15:42', taskId: 'PICK-031' },
+  { id: 'WES-007', zone: 'Put-Wall 4', equipment: 'Put-Wall 4', orderType: 'Same-Day Delivery', expectedTime: 200, actualTime: 310, delaySeconds: 110, delayPercent: 55, timestamp: '07:28:18', taskId: 'PICK-038' },
+  { id: 'WES-008', zone: 'Conveyor Line 7', equipment: 'Conveyor Line 7', orderType: 'B2B Bulk Orders', expectedTime: 220, actualTime: 285, delaySeconds: 65, delayPercent: 30, timestamp: '07:42:55', taskId: 'PICK-045' },
+  { id: 'WES-009', zone: 'Conveyor Line 7', equipment: 'Conveyor Line 7', orderType: 'B2B Bulk Orders', expectedTime: 235, actualTime: 312, delaySeconds: 77, delayPercent: 33, timestamp: '08:05:22', taskId: 'PICK-052' },
+  { id: 'WES-010', zone: 'Mezzanine 2', equipment: 'Elevator 2A', orderType: 'Same-Day Delivery', expectedTime: 185, actualTime: 275, delaySeconds: 90, delayPercent: 49, timestamp: '08:18:45', taskId: 'PICK-060' },
+  { id: 'WES-011', zone: 'Mezzanine 2', equipment: 'Elevator 2A', orderType: 'B2B Bulk Orders', expectedTime: 200, actualTime: 265, delaySeconds: 65, delayPercent: 33, timestamp: '08:32:18', taskId: 'PICK-068' },
+  { id: 'WES-012', zone: 'Put-Wall 4', equipment: 'Put-Wall 4', orderType: 'Same-Day Delivery', expectedTime: 180, actualTime: 245, delaySeconds: 65, delayPercent: 36, timestamp: '08:48:33', taskId: 'PICK-075' },
+]
+
+// ─── Accumulated delay since day started ──────────────────────────────────────
+export const ACCUMULATED_DELAY = {
+  totalDelaySeconds: 5845, // ~1h 37min total
+  totalDelayMinutes: 97,
+  totalDelayedTasks: 47,
+  avgDelayPerTask: 124, // seconds
+  delayByZone: [
+    { zone: 'Mezzanine 2', delaySeconds: 2345, taskCount: 18 },
+    { zone: 'Mezzanine 1', delaySeconds: 1256, taskCount: 12 },
+    { zone: 'Put-Wall 4', delaySeconds: 1250, taskCount: 9 },
+    { zone: 'Conveyor Line 7', delaySeconds: 994, taskCount: 8 },
+  ],
+}
+
 // ─── Plan vs Execution: Pick Task Comparison ───────────────────────────────────────
 export const PICK_TASK_COMPARISON = {
   period: 'Current Shift (06:00-14:00)',
@@ -1080,8 +1341,8 @@ export const PICK_TASK_COMPARISON = {
   ]
 }
 
-// ─── Misplaced/Not Found Items ─────────────────────────────────────────────────────
-export const MISPLACED_LOCATIONS = [
+// ─── Expanded misplaced locations with volume data ─────────────────────────────
+const MISPLACED_LOCATIONS_BASE = [
   {
     id: 'LOC-MP-001',
     location: 'Zone B-Aisle 15-Shelf C4',
@@ -1089,6 +1350,7 @@ export const MISPLACED_LOCATIONS = [
     description: 'Adidas Samba OG - Size 42 - Black/White',
     zone: 'Zone B',
     bypassCount: 7,
+    volume7Days: 245,
     denialReasons: ['empty location', 'pick denial'],
     suggestedAction: 'trigger-cycle-count',
     issueType: 'inventory-issue',
@@ -1110,6 +1372,7 @@ export const MISPLACED_LOCATIONS = [
     description: 'Puma RS-X - Size 39 - Multi-color',
     zone: 'Zone C',
     bypassCount: 5,
+    volume7Days: 189,
     denialReasons: ['wrong location'],
     suggestedAction: 'audit-location',
     issueType: 'slotting-issue',
@@ -1129,6 +1392,7 @@ export const MISPLACED_LOCATIONS = [
     description: 'New Balance 990v6 - Size 44 - Grey',
     zone: 'Zone B',
     bypassCount: 3,
+    volume7Days: 178,
     denialReasons: ['empty location'],
     suggestedAction: 're-slot-sku',
     issueType: 'inventory-issue',
@@ -1146,6 +1410,7 @@ export const MISPLACED_LOCATIONS = [
     description: 'Nike Dunk Low - Size 43 - Panda',
     zone: 'Zone A',
     bypassCount: 4,
+    volume7Days: 312,
     denialReasons: ['pick denial', 'empty location'],
     suggestedAction: 'trigger-cycle-count',
     issueType: 'inventory-issue',
@@ -1174,6 +1439,59 @@ export const MISPLACED_LOCATIONS = [
     ]
   }
 ]
+
+// ─── Generate 100s of misplaced locations with volume data ─────────────────────────────
+export const MISPLACED_LOCATIONS_ALL = (() => {
+  const locations = [...MISPLACED_LOCATIONS_BASE]
+  const zones = ['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Crossdock']
+  const aisles = ['Aisle 01', 'Aisle 02', 'Aisle 03', 'Aisle 04', 'Aisle 05', 'Aisle 06', 'Aisle 07', 'Aisle 08', 'Aisle 09', 'Aisle 10']
+  const shelves = ['Shelf A1', 'Shelf A2', 'Shelf B1', 'Shelf B2', 'Shelf C1', 'Shelf C2', 'Shelf D1', 'Shelf D2', 'Shelf E1', 'Shelf E2']
+  const issueTypes = ['inventory-issue', 'slotting-issue']
+  const denialReasonsList = ['empty location', 'pick denial', 'wrong location']
+
+  for (let i = 5; i < 250; i++) {
+    const zone = zones[Math.floor(Math.random() * zones.length)]
+    const issueType = issueTypes[Math.floor(Math.random() * issueTypes.length)]
+    const bypassCount = Math.floor(Math.random() * 12) + 1
+    const volume = generateVolumeMetrics(Math.random() * 300 + 50)
+    const denialReasons = [denialReasonsList[Math.floor(Math.random() * denialReasonsList.length)]]
+    if (Math.random() > 0.5) {
+      denialReasons.push(denialReasonsList[Math.floor(Math.random() * denialReasonsList.length)])
+    }
+
+    const suggestedActions = {
+      'inventory-issue': ['trigger-cycle-count', 're-slot-sku', 'ignore'],
+      'slotting-issue': ['audit-location', 're-slot-sku', 'ignore']
+    }
+
+    // Generate picker bypasses
+    const pickerBypasses = []
+    for (let j = 0; j < bypassCount; j++) {
+      pickerBypasses.push({
+        pickerId: `W${String(Math.floor(Math.random() * 108) + 1).padStart(3, '0')}`,
+        time: `${String(Math.floor(Math.random() * 12)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}:${String(Math.floor(Math.random() * 60)).padStart(2, '0')}`,
+        reason: denialReasons[Math.floor(Math.random() * denialReasons.length)]
+      })
+    }
+
+    locations.push({
+      id: `LOC-MP-${String(i).padStart(4, '0')}`,
+      location: `${zone}-${aisles[Math.floor(Math.random() * aisles.length)]}-${shelves[Math.floor(Math.random() * shelves.length)]}`,
+      sku: `SKU-${10000 + i}`,
+      description: `${['Nike', 'Adidas', 'Puma', 'New Balance', 'Under Armour', 'Reebok'][Math.floor(Math.random() * 6)]} ${['Running', 'Training', 'Basketball', 'Lifestyle', 'Performance'][Math.floor(Math.random() * 5)]} - ${['Black', 'White', 'Blue', 'Red', 'Grey'][Math.floor(Math.random() * 5)]}`,
+      zone,
+      bypassCount,
+      volume7Days: volume,
+      denialReasons,
+      suggestedAction: suggestedActions[issueType][0],
+      issueType,
+      ignored: false,
+      pickerBypasses
+    })
+  }
+
+  return locations.sort((a, b) => b.volume7Days - a.volume7Days)
+})()
 
 // ─── Delay Patterns (>30% delay) ───────────────────────────────────────────────────
 export const DELAY_PATTERNS = {

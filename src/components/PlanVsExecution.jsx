@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   AlertTriangle, CheckCircle, XCircle, Clock,
   ArrowRight, User, MapPin, Package, Calendar,
-  Filter, ChevronDown, Eye, EyeOff, Info,
+  Filter, ChevronDown, Eye, EyeOff, Info, ArrowUpDown,
+  TrendingUp,
 } from 'lucide-react'
-import { PICK_TASK_COMPARISON, getPriorityConfig } from '../mockData.js'
+import { PICK_TASKS_ALL, getPriorityConfig, ZONE_CONFIG } from '../mockData.js'
 
 // ─── Exception Badge ─────────────────────────────────────────────────────────────
 function ExceptionBadge({ exceptions }) {
@@ -89,6 +90,8 @@ function TimeComparison({ wes }) {
 // ─── Task Row ─────────────────────────────────────────────────────────────────────
 function TaskRow({ task, isExpanded, onToggle }) {
   const isException = task.status === 'exception'
+  const zone = task.wms.location.split('-')[0]
+  const zoneConfig = ZONE_CONFIG[zone]
 
   return (
     <div className={`border-b border-slate-100 ${isException ? 'bg-amber-50/50' : 'bg-white'}`}>
@@ -116,6 +119,23 @@ function TaskRow({ task, isExpanded, onToggle }) {
               <span className="text-xs font-mono text-slate-600">{task.sku}</span>
             </div>
             <div className="text-sm font-medium text-slate-800 truncate">{task.description}</div>
+          </div>
+
+          {/* Volume 7 days */}
+          <div className="flex-shrink-0 w-20 text-center">
+            <div className="flex items-center justify-center gap-1 text-xs text-slate-500">
+              <TrendingUp size={10} />
+              <span>7d Vol</span>
+            </div>
+            <div className="text-sm font-bold text-slate-800">{task.volume7Days}</div>
+          </div>
+
+          {/* Zone */}
+          <div className="flex-shrink-0">
+            <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-semibold ${zoneConfig?.lightClass}`}>
+              <div className={`w-1.5 h-1.5 rounded-full ${zoneConfig?.dotClass}`} />
+              {zone}
+            </div>
           </div>
 
           {/* Exceptions */}
@@ -274,15 +294,77 @@ function TaskRow({ task, isExpanded, onToggle }) {
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────────
+const PAGE_SIZE = 10
+const ZONES = ['All', 'Zone A', 'Zone B', 'Zone C', 'Zone D', 'Crossdock']
+const EXCEPTION_TYPES = ['All', 'No Scan', 'Wrong Loc', 'Under Pick', 'Over Pick', 'Slow']
+const EXCEPTION_TYPE_MAP = {
+  'No Scan': 'no-scan',
+  'Wrong Loc': 'wrong-location',
+  'Under Pick': 'under-pick',
+  'Over Pick': 'over-pick',
+  'Slow': 'excessive-duration',
+}
+
 export default function PlanVsExecution() {
   const [filter, setFilter] = useState('all') // all, normal, exception
+  const [zoneFilter, setZoneFilter] = useState('All')
+  const [exceptionTypeFilter, setExceptionTypeFilter] = useState('All')
   const [expandedTask, setExpandedTask] = useState(null)
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
-  const filteredTasks = filter === 'all'
-    ? PICK_TASK_COMPARISON.tasks
-    : filter === 'normal'
-      ? PICK_TASK_COMPARISON.tasks.filter(t => t.status === 'normal')
-      : PICK_TASK_COMPARISON.tasks.filter(t => t.status === 'exception')
+  // Filter and sort tasks
+  const filteredTasks = PICK_TASKS_ALL.filter(task => {
+    // Status filter
+    if (filter === 'normal' && task.status !== 'normal') return false
+    if (filter === 'exception' && task.status !== 'exception') return false
+
+    // Zone filter
+    if (zoneFilter !== 'All') {
+      const taskZone = task.wms.location.split('-')[0]
+      if (taskZone !== zoneFilter) return false
+    }
+
+    // Exception type filter
+    if (exceptionTypeFilter !== 'All') {
+      const excType = EXCEPTION_TYPE_MAP[exceptionTypeFilter]
+      if (!task.exceptions.includes(excType)) return false
+    }
+
+    return true
+  })
+
+  const visibleTasks = filteredTasks.slice(0, visibleCount)
+  const totalCount = filteredTasks.length
+  const hasMore = visibleCount < totalCount
+
+  // Infinite scroll
+  const lastElementRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setVisibleCount(prev => Math.min(prev + PAGE_SIZE, totalCount))
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (lastElementRef.current) {
+      observer.observe(lastElementRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [hasMore, totalCount])
+
+  // Update visible count when filters change
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE)
+  }, [filter, zoneFilter, exceptionTypeFilter])
+
+  // Stats
+  const normalTasks = PICK_TASKS_ALL.filter(t => t.status === 'normal').length
+  const exceptionTasks = PICK_TASKS_ALL.filter(t => t.status === 'exception').length
 
   return (
     <div className="flex flex-col flex-1 overflow-hidden bg-white">
@@ -296,16 +378,45 @@ export default function PlanVsExecution() {
             </p>
           </div>
           <div className="flex items-center gap-3">
+            {/* Exception filter */}
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500">Filter:</span>
+              <span className="text-xs text-slate-500">Status:</span>
               <select
                 value={filter}
                 onChange={e => setFilter(e.target.value)}
                 className="text-xs border border-slate-200 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
-                <option value="all">All Tasks ({PICK_TASK_COMPARISON.totalTasks})</option>
-                <option value="normal">Normal ({PICK_TASK_COMPARISON.normalTasks})</option>
-                <option value="exception">Exceptions ({PICK_TASK_COMPARISON.exceptionTasks})</option>
+                <option value="all">All Tasks ({PICK_TASKS_ALL.length})</option>
+                <option value="normal">Normal ({normalTasks})</option>
+                <option value="exception">Exceptions ({exceptionTasks})</option>
+              </select>
+            </div>
+
+            {/* Zone filter */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500">Zone:</span>
+              <select
+                value={zoneFilter}
+                onChange={e => setZoneFilter(e.target.value)}
+                className="text-xs border border-slate-200 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                {ZONES.map(zone => (
+                  <option key={zone} value={zone}>{zone}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Exception type filter */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500">Exception Type:</span>
+              <select
+                value={exceptionTypeFilter}
+                onChange={e => setExceptionTypeFilter(e.target.value)}
+                className="text-xs border border-slate-200 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                {EXCEPTION_TYPES.map(type => (
+                  <option key={type} value={type}>{type}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -316,23 +427,23 @@ export default function PlanVsExecution() {
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-500" />
             <span className="text-xs text-slate-600">
-              Normal: <span className="font-semibold text-slate-800">{PICK_TASK_COMPARISON.normalTasks}</span>
+              Normal: <span className="font-semibold text-slate-800">{normalTasks}</span>
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-amber-500" />
             <span className="text-xs text-slate-600">
-              Exceptions: <span className="font-semibold text-slate-800">{PICK_TASK_COMPARISON.exceptionTasks}</span>
+              Exceptions: <span className="font-semibold text-slate-800">{exceptionTasks}</span>
             </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-red-500" />
             <span className="text-xs text-slate-600">
-              Critical: <span className="font-semibold text-slate-800">{PICK_TASK_COMPARISON.tasks.filter(t => t.exceptions.includes('no-scan')).length}</span>
+              Critical: <span className="font-semibold text-slate-800">{PICK_TASKS_ALL.filter(t => t.exceptions.includes('no-scan')).length}</span>
             </span>
           </div>
           <div className="ml-auto text-xs text-slate-500">
-            Period: <span className="font-semibold text-slate-700">{PICK_TASK_COMPARISON.period}</span>
+            Showing {visibleTasks.length} of {totalCount} tasks
           </div>
         </div>
       </div>
@@ -343,6 +454,11 @@ export default function PlanVsExecution() {
           <div className="w-6" />
           <div className="w-24">Status</div>
           <div className="flex-1">Task Details</div>
+          <div className="w-20 text-center flex items-center gap-1">
+            Volume
+            <ArrowUpDown size={10} className="text-blue-500" />
+          </div>
+          <div className="w-20">Zone</div>
           <div className="w-32">Exceptions</div>
           <div className="w-40">WMS Plan</div>
           <div className="w-44">WES Execution</div>
@@ -350,9 +466,9 @@ export default function PlanVsExecution() {
         </div>
       </div>
 
-      {/* Task list */}
+      {/* Task list with infinite scroll */}
       <div className="flex-1 overflow-y-auto">
-        {filteredTasks.map(task => (
+        {visibleTasks.map(task => (
           <TaskRow
             key={task.id}
             task={task}
@@ -360,6 +476,11 @@ export default function PlanVsExecution() {
             onToggle={() => setExpandedTask(expandedTask === task.id ? null : task.id)}
           />
         ))}
+        {hasMore && (
+          <div ref={lastElementRef} className="py-4 text-center text-xs text-slate-400">
+            Loading more tasks...
+          </div>
+        )}
       </div>
 
       {/* Footer info */}
@@ -367,6 +488,7 @@ export default function PlanVsExecution() {
         <div className="flex items-center gap-2 text-xs text-slate-500">
           <Info size={12} />
           <span>
+            Tasks are ordered by volume (7-day movements). Scroll down to load more tasks.
             Exceptions include: no scan, wrong location, over/under quantity, or excessive duration (&gt;5 min).
             Click any row to view detailed WMS and WES comparison.
           </span>

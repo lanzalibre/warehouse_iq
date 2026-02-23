@@ -3,8 +3,9 @@ import {
   AlertTriangle, Clock, Activity, Layers, Package,
   ChevronRight, ChevronDown, TrendingUp, TrendingDown,
   Info, Zap, Gauge, Cog, ShoppingCart, Filter,
+  ArrowRight, Calendar, Timer,
 } from 'lucide-react'
-import { DELAY_PATTERNS, ZONE_CONFIG } from '../mockData.js'
+import { DELAY_PATTERNS, DELAY_WES_RECORDS, ACCUMULATED_DELAY, ZONE_CONFIG } from '../mockData.js'
 
 // ─── Service Risk Badge ────────────────────────────────────────────────────────────
 function ServiceRiskBadge({ risk }) {
@@ -40,6 +41,72 @@ function TypeIcon({ type }) {
     <div className={`flex items-center gap-1 text-[10px] font-semibold uppercase tracking-wide ${cfg.color}`}>
       <Icon size={12} />
       {cfg.label}
+    </div>
+  )
+}
+
+// ─── WES Record Row ────────────────────────────────────────────────────────────────
+function WESRecordRow({ record }) {
+  const isHighDelay = record.delayPercent >= 45
+
+  return (
+    <div className={`flex items-center gap-4 py-2 border-b border-slate-100 last:border-0 hover:bg-slate-50 transition-colors ${
+      isHighDelay ? 'bg-red-50/30' : ''
+    }`}>
+      <div className="w-28 flex-shrink-0">
+        <div className="flex items-center gap-1.5">
+          <span className="text-xs font-mono text-slate-500">{record.id}</span>
+          {record.taskId && (
+            <span className="text-[10px] text-slate-400">{record.taskId}</span>
+          )}
+        </div>
+        <div className="flex items-center gap-1 mt-0.5">
+          <Clock size={9} className="text-slate-400" />
+          <span className="text-[10px] font-mono text-slate-600">{record.timestamp}</span>
+        </div>
+      </div>
+
+      <div className="w-32 flex-shrink-0">
+        <div className="flex items-center gap-1.5">
+          <Layers size={10} className="text-slate-400" />
+          <span className="text-xs font-medium text-slate-700">{record.zone}</span>
+        </div>
+        <div className="text-[10px] text-slate-500 ml-5">{record.equipment}</div>
+      </div>
+
+      <div className="w-36 flex-shrink-0">
+        <div className="text-xs text-slate-700">{record.orderType}</div>
+      </div>
+
+      <div className="w-20 flex-shrink-0 text-center">
+        <div className="text-[10px] text-slate-500">Expected</div>
+        <div className="text-xs font-mono font-semibold text-slate-600">
+          {Math.floor(record.expectedTime / 60)}:{(record.expectedTime % 60).toString().padStart(2, '0')}
+        </div>
+      </div>
+
+      <div className="w-20 flex-shrink-0 text-center">
+        <div className="text-[10px] text-slate-500">Actual</div>
+        <div className={`text-xs font-mono font-semibold ${isHighDelay ? 'text-red-600' : 'text-amber-600'}`}>
+          {Math.floor(record.actualTime / 60)}:{(record.actualTime % 60).toString().padStart(2, '0')}
+        </div>
+      </div>
+
+      <div className="w-24 flex-shrink-0 text-center">
+        <div className={`inline-flex items-center justify-center gap-1 px-2 py-1 rounded-full text-[10px] font-bold ${
+          isHighDelay ? 'bg-red-100 text-red-700' : 'bg-amber-100 text-amber-700'
+        }`}>
+          <TrendingUp size={10} />
+          +{record.delayPercent}%
+        </div>
+      </div>
+
+      <div className="flex-1 text-right">
+        <div className="text-[10px] text-slate-500">Delay</div>
+        <div className={`text-xs font-mono font-semibold ${isHighDelay ? 'text-red-600' : 'text-amber-600'}`}>
+          {Math.floor(record.delaySeconds / 60)}:{(record.delaySeconds % 60).toString().padStart(2, '0')}
+        </div>
+      </div>
     </div>
   )
 }
@@ -195,6 +262,7 @@ function DelayCard({ item, type, isExpanded, onToggle }) {
 export default function DelayPatterns() {
   const [filter, setFilter] = useState('all') // all, zone, equipment, order-type
   const [expandedItem, setExpandedItem] = useState(null)
+  const [showWESRecords, setShowWESRecords] = useState(false)
 
   // Combine all items
   const allItems = [
@@ -267,40 +335,140 @@ export default function DelayPatterns() {
         </div>
       </div>
 
+      {/* Accumulated delay bar */}
+      <div className="px-6 py-4 bg-gradient-to-r from-red-50 to-amber-50 border-b border-slate-200">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Timer size={20} className="text-red-600" />
+            <div>
+              <div className="text-sm font-bold text-slate-800">Total Accumulated Delay Since Day Started</div>
+              <div className="text-xs text-slate-600 mt-0.5">
+                Based on {ACCUMULATED_DELAY.totalDelayedTasks} delayed tasks
+              </div>
+            </div>
+          </div>
+          <div className="flex items-center gap-8">
+            <div className="text-center">
+              <div className="text-3xl font-black text-red-600">
+                {Math.floor(ACCUMULATED_DELAY.totalDelayMinutes / 60)}:{(ACCUMULATED_DELAY.totalDelayMinutes % 60).toString().padStart(2, '0')}
+              </div>
+              <div className="text-xs text-slate-600 font-medium">Total Delay</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-slate-800">
+                {ACCUMULATED_DELAY.avgDelayPerTask}s
+              </div>
+              <div className="text-xs text-slate-600 font-medium">Avg Per Task</div>
+            </div>
+            <div className="text-center">
+              <div className="text-2xl font-bold text-slate-800">
+                {ACCUMULATED_DELAY.totalDelayedTasks}
+              </div>
+              <div className="text-xs text-slate-600 font-medium">Delayed Tasks</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Delay by zone breakdown */}
+        <div className="mt-4 flex gap-3">
+          {ACCUMULATED_DELAY.delayByZone.map((zone, idx) => (
+            <div key={idx} className="flex-1 bg-white rounded-lg border border-slate-200 p-3">
+              <div className="text-xs text-slate-500 mb-1">{zone.zone}</div>
+              <div className="flex items-end justify-between">
+                <div>
+                  <div className="text-lg font-bold text-slate-800">
+                    {Math.floor(zone.delaySeconds / 60)}:{(zone.delaySeconds % 60).toString().padStart(2, '0')}
+                  </div>
+                  <div className="text-[10px] text-slate-500">delay</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-sm font-bold text-slate-700">{zone.taskCount}</div>
+                  <div className="text-[10px] text-slate-500">tasks</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Filter bar */}
       <div className="px-6 py-3 bg-slate-50 border-b border-slate-200">
-        <div className="flex items-center gap-2">
-          <Filter size={14} className="text-slate-400" />
-          <span className="text-xs text-slate-500 mr-2">Filter by type:</span>
-          <div className="flex gap-1">
-            {[
-              { value: 'all', label: 'All' },
-              { value: 'zone', label: 'Zones' },
-              { value: 'equipment', label: 'Equipment' },
-              { value: 'order-type', label: 'Order Types' },
-            ].map(f => (
-              <button
-                key={f.value}
-                onClick={() => setFilter(f.value)}
-                className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
-                  filter === f.value
-                    ? 'bg-white text-blue-600 shadow-sm border border-blue-200'
-                    : 'bg-transparent text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                {f.label}
-              </button>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Filter size={14} className="text-slate-400" />
+            <span className="text-xs text-slate-500 mr-2">Filter by type:</span>
+            <div className="flex gap-1">
+              {[
+                { value: 'all', label: 'All' },
+                { value: 'zone', label: 'Zones' },
+                { value: 'equipment', label: 'Equipment' },
+                { value: 'order-type', label: 'Order Types' },
+              ].map(f => (
+                <button
+                  key={f.value}
+                  onClick={() => setFilter(f.value)}
+                  className={`px-3 py-1 rounded-md text-xs font-medium transition-all ${
+                    filter === f.value
+                      ? 'bg-white text-blue-600 shadow-sm border border-blue-200'
+                      : 'bg-transparent text-slate-600 hover:bg-slate-100'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={() => setShowWESRecords(!showWESRecords)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-all ${
+              showWESRecords
+                ? 'bg-blue-500 text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            <Activity size={14} />
+            {showWESRecords ? 'Hide' : 'Show'} WES Records
+          </button>
+        </div>
+      </div>
+
+      {/* WES Records section */}
+      {showWESRecords && (
+        <div className="border-b border-slate-200">
+          <div className="px-6 py-3 bg-slate-50">
+            <div className="flex items-center gap-2">
+              <Activity size={14} className="text-purple-500" />
+              <h3 className="text-sm font-semibold text-slate-700">WES Records</h3>
+              <span className="text-xs text-slate-500">({DELAY_WES_RECORDS.length} records)</span>
+            </div>
+          </div>
+          {/* Column headers */}
+          <div className="px-4 py-2 bg-slate-100 border-b border-slate-200">
+            <div className="flex items-center gap-4 text-[10px] font-semibold text-slate-500 uppercase tracking-wide">
+              <div className="w-28">Record / Task</div>
+              <div className="w-32">Zone / Equipment</div>
+              <div className="w-36">Order Type</div>
+              <div className="w-20 text-center">Expected</div>
+              <div className="w-20 text-center">Actual</div>
+              <div className="w-24 text-center">Delay %</div>
+              <div className="flex-1 text-right">Delay</div>
+            </div>
+          </div>
+          {/* Records list */}
+          <div className="max-h-96 overflow-y-auto">
+            {DELAY_WES_RECORDS.map(record => (
+              <WESRecordRow key={record.id} record={record} />
             ))}
           </div>
         </div>
-      </div>
+      )}
 
       {/* Delay cards list */}
       <div className="flex-1 overflow-y-auto p-6">
         {filteredItems.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-slate-400">
             <Clock size={48} className="mb-3 opacity-50" />
-            <p className="text-sm">No delay patterns match the current filter</p>
+            <p className="text-sm">No delay patterns match current filter</p>
           </div>
         ) : (
           filteredItems.map(item => (
@@ -320,7 +488,8 @@ export default function DelayPatterns() {
         <div className="flex items-center gap-2 text-xs text-slate-500">
           <Info size={12} />
           <span>
-            Delays are calculated as the percentage over expected processing time.
+            Delays are calculated as percentage over expected processing time.
+            Click "Show WES Records" to see detailed individual records with expected vs actual processing times.
             Click any card to view detailed WES and WMS context including impact on fast-moving SKUs and SLA risk.
           </span>
         </div>

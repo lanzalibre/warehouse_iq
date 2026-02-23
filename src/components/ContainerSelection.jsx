@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   Star, AlertTriangle, Clock, Package, Truck, BarChart3,
   CheckCircle, ChevronRight, Info, TrendingUp, Layers,
-  ShieldCheck, Zap, Scale,
+  ShieldCheck, Zap, Scale, ArrowUpDown, Filter,
+  Percent, Gauge, Container,
 } from 'lucide-react'
 import {
-  CONTAINERS, ZONE_CONFIG, SITE_STATS,
+  CONTAINERS_ALL, CONTAINER_PRODUCTS, ZONE_CONFIG, SITE_STATS,
   getScoreColor, getScoreBarClass, getPriorityConfig, getCategoryAbbr,
 } from '../mockData.js'
 
@@ -42,7 +43,7 @@ function SiteStatsBar() {
 }
 
 // ─── Container Card (left panel) ──────────────────────────────────────────────
-function ContainerCard({ container, rank, isSelected, isHighlighted, onClick }) {
+function ContainerCard({ container, rank, isSelected, isHighlighted, onClick, onDoubleClick }) {
   const priority = getPriorityConfig(container.priority)
   const score = container.criteria.overall
 
@@ -52,9 +53,14 @@ function ContainerCard({ container, rank, isSelected, isHighlighted, onClick }) 
     ? 'border-emerald-400 bg-emerald-50 animate-pulse'
     : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
 
+  const crossdockPercent = container.initialEstimate
+    ? (container.initialEstimate.breakdown.crossdocking / container.initialEstimate.totalHours * 100).toFixed(0)
+    : 0
+
   return (
     <button
       onClick={onClick}
+      onDoubleClick={onDoubleClick}
       className={`w-full text-left rounded-xl border-2 p-3 mb-2 transition-all ${borderClass}`}
     >
       <div className="flex items-start justify-between gap-2 mb-1.5">
@@ -102,6 +108,25 @@ function ContainerCard({ container, rank, isSelected, isHighlighted, onClick }) 
           <Package size={11} />
           ~{container.estimatedUnits} units
         </span>
+      </div>
+
+      {/* Additional metrics */}
+      <div className="grid grid-cols-2 gap-2 mb-3">
+        <div className="flex items-center gap-1 text-[10px] text-slate-500">
+          <Scale size={10} />
+          <span>Balance:</span>
+          <span className="font-semibold text-slate-700">{Math.round(container.criteria.workloadBalance.score * 100)}%</span>
+        </div>
+        <div className="flex items-center gap-1 text-[10px] text-slate-500">
+          <BarChart3 size={10} />
+          <span>Total:</span>
+          <span className="font-semibold text-slate-700">{container.initialEstimate?.totalHours?.toFixed(1)}h</span>
+        </div>
+        <div className="flex items-center gap-1 text-[10px] text-slate-500">
+          <Percent size={10} />
+          <span>Crossdock:</span>
+          <span className="font-semibold text-slate-700">{crossdockPercent}%</span>
+        </div>
       </div>
 
       {/* Score bar */}
@@ -202,7 +227,7 @@ function WorkloadZoneChart({ estimate, showCurrent = true }) {
 }
 
 // ─── Criteria Score Card ───────────────────────────────────────────────────────
-function CriteriaRow({ icon: Icon, label, description, score, label: scorelabel }) {
+function CriteriaRow({ icon: Icon, label, description, score }) {
   const scoreLabel = score >= 0.80 ? 'Excellent' : score >= 0.60 ? 'Good' : score >= 0.40 ? 'Moderate' : 'Poor'
   return (
     <div className="flex items-center gap-4">
@@ -231,12 +256,88 @@ function CriteriaRow({ icon: Icon, label, description, score, label: scorelabel 
   )
 }
 
+// ─── Container Product Details (for double-click view) ────────────────────────────
+function ContainerProductDetails({ container }) {
+  const containerProducts = CONTAINER_PRODUCTS.find(cp => cp.containerId === container.id)
+
+  if (!containerProducts || containerProducts.products.length === 0) {
+    return (
+      <div className="bg-white rounded-xl border border-slate-200 p-6">
+        <div className="flex flex-col items-center justify-center h-48 text-slate-400">
+          <Package size={48} className="mb-3 opacity-30" />
+          <p className="text-sm">No product details available for this container</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="bg-white rounded-xl border border-slate-200 p-5">
+      <h3 className="text-sm font-semibold text-slate-700 mb-4 flex items-center gap-2">
+        <Container size={15} className="text-slate-500" />
+        Products in {container.id}
+      </h3>
+
+      <div className="space-y-3">
+        {containerProducts.products.map((product, idx) => (
+          <div key={idx} className="bg-slate-50 rounded-lg p-4 border border-slate-200">
+            {/* Product header */}
+            <div className="flex items-start justify-between mb-3">
+              <div className="flex-1">
+                <div className="text-xs font-mono text-slate-500 mb-1">{product.sku}</div>
+                <div className="text-sm font-semibold text-slate-800">{product.description}</div>
+                <div className="flex items-center gap-3 mt-2 text-xs text-slate-600">
+                  <div className="flex items-center gap-1">
+                    <Package size={11} />
+                    <span>Qty: <span className="font-semibold">{product.quantity}</span></span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <TrendingUp size={11} />
+                    <span>7d Vol: <span className="font-semibold">{product.volume7Days}</span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Zone workload */}
+            <div className="mt-3">
+              <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide mb-2">
+                Expected Workload by Zone
+              </div>
+              <div className="grid grid-cols-5 gap-2">
+                {Object.entries(product.zoneWorkload).map(([zone, workload]) => {
+                  const zoneConfig = ZONE_CONFIG[zone]
+                  return (
+                    <div key={zone} className={`p-2 rounded-lg ${zoneConfig.lightClass} border ${zoneConfig.lightClass.replace('bg-', 'border-')}`}>
+                      <div className="flex items-center gap-1 mb-1">
+                        <div className={`w-1.5 h-1.5 rounded-full ${zoneConfig.dotClass}`} />
+                        <span className="text-[10px] font-medium text-slate-700">{zone}</span>
+                      </div>
+                      <div className="text-lg font-bold text-slate-800">
+                        {workload}
+                      </div>
+                      <div className="text-[10px] text-slate-500">hours</div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 // ─── Container Detail Panel (right side) ──────────────────────────────────────
-function ContainerDetail({ container, onAccept, isHighlighted }) {
+function ContainerDetail({ container, onAccept, isHighlighted, showProductDetails, onToggleProductDetails }) {
   if (!container) return null
 
   const { initialEstimate, criteria } = container
   const priority = getPriorityConfig(container.priority)
+  const crossdockPercent = initialEstimate
+    ? (initialEstimate.breakdown.crossdocking / initialEstimate.totalHours * 100).toFixed(0)
+    : 0
 
   return (
     <div className="flex flex-col gap-5 animate-fade-in">
@@ -308,6 +409,25 @@ function ContainerDetail({ container, onAccept, isHighlighted }) {
             ))}
           </ul>
         </div>
+      )}
+
+      {/* Product details toggle */}
+      <button
+        onClick={onToggleProductDetails}
+        className={`w-full px-4 py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 transition-all ${
+          showProductDetails
+            ? 'bg-purple-100 text-purple-700 border-2 border-purple-300'
+            : 'bg-slate-100 text-slate-700 border-2 border-slate-200 hover:bg-slate-200'
+        }`}
+      >
+        <Container size={16} />
+        {showProductDetails ? 'Hide' : 'Show'} Product Details
+        <span className="text-xs text-slate-500">(Double-click to view)</span>
+      </button>
+
+      {/* Product details section */}
+      {showProductDetails && (
+        <ContainerProductDetails container={container} />
       )}
 
       {/* Criteria scores */}
@@ -397,17 +517,115 @@ function ContainerDetail({ container, onAccept, isHighlighted }) {
 }
 
 // ─── Main View ─────────────────────────────────────────────────────────────────
-const TOP_N = 10   // number of containers surfaced by the AI priority ranking
+const PAGE_SIZE = 10
+const SORT_OPTIONS = [
+  { value: 'score-desc', label: 'Score (High to Low)' },
+  { value: 'score-asc', label: 'Score (Low to High)' },
+  { value: 'age-desc', label: 'Age (Oldest First)' },
+  { value: 'age-asc', label: 'Age (Newest First)' },
+  { value: 'workload-desc', label: 'Workload (High to Low)' },
+  { value: 'workload-asc', label: 'Workload (Low to High)' },
+  { value: 'balance-desc', label: 'Balance (Best First)' },
+  { value: 'balance-asc', label: 'Balance (Worst First)' },
+  { value: 'crossdock-desc', label: 'Crossdock % (High to Low)' },
+  { value: 'crossdock-asc', label: 'Crossdock % (Low to High)' },
+]
+
+const ZONES = ['All', 'Zone A', 'Zone B', 'Zone C', 'Zone D', 'Crossdock']
 
 export default function ContainerSelection({ onAccept, highlightContainerId }) {
-  const recommended = CONTAINERS.find(c => c.isRecommended)
-  const [selectedId, setSelectedId] = useState(highlightContainerId || recommended?.id)
+  const [sortBy, setSortBy] = useState('score-desc')
+  const [zoneFilter, setZoneFilter] = useState('All')
+  const [minWorkload, setMinWorkload] = useState('')
+  const [maxWorkload, setMaxWorkload] = useState('')
+  const [minCrossdock, setMinCrossdock] = useState('')
+  const [maxCrossdock, setMaxCrossdock] = useState('')
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
-  const selected = CONTAINERS.find(c => c.id === selectedId)
-  // Sort by AI priority score; the full yard has 312 containers — show top 10
-  const topContainers = [...CONTAINERS]
-    .sort((a, b) => b.criteria.overall - a.criteria.overall)
-    .slice(0, TOP_N)
+  const recommended = CONTAINERS_ALL.find(c => c.isRecommended)
+  const [selectedId, setSelectedId] = useState(highlightContainerId || recommended?.id)
+  const [showProductDetails, setShowProductDetails] = useState(false)
+
+  const selected = CONTAINERS_ALL.find(c => c.id === selectedId)
+
+  // Filter containers
+  const filteredContainers = CONTAINERS_ALL.filter(container => {
+    // Zone filter
+    if (zoneFilter !== 'All') {
+      const hasWorkloadInZone = Object.entries(container.initialEstimate.byZone).some(
+        ([zone, data]) => zone === zoneFilter && data.hours > 0
+      )
+      if (!hasWorkloadInZone) return false
+    }
+
+    // Workload filter
+    if (minWorkload !== '' && container.initialEstimate.totalHours < parseFloat(minWorkload)) return false
+    if (maxWorkload !== '' && container.initialEstimate.totalHours > parseFloat(maxWorkload)) return false
+
+    // Crossdock percentage filter
+    const crossdockPercent = (container.initialEstimate.breakdown.crossdocking / container.initialEstimate.totalHours * 100)
+    if (minCrossdock !== '' && crossdockPercent < parseFloat(minCrossdock)) return false
+    if (maxCrossdock !== '' && crossdockPercent > parseFloat(maxCrossdock)) return false
+
+    return true
+  })
+
+  // Sort containers
+  const sortedContainers = [...filteredContainers].sort((a, b) => {
+    switch (sortBy) {
+      case 'score-desc':
+        return b.criteria.overall - a.criteria.overall
+      case 'score-asc':
+        return a.criteria.overall - b.criteria.overall
+      case 'age-desc':
+        return b.ageInYard - a.ageInYard
+      case 'age-asc':
+        return a.ageInYard - b.ageInYard
+      case 'workload-desc':
+        return b.initialEstimate.totalHours - a.initialEstimate.totalHours
+      case 'workload-asc':
+        return a.initialEstimate.totalHours - b.initialEstimate.totalHours
+      case 'balance-desc':
+        return b.criteria.workloadBalance.score - a.criteria.workloadBalance.score
+      case 'balance-asc':
+        return a.criteria.workloadBalance.score - b.criteria.workloadBalance.score
+      case 'crossdock-desc':
+        return (b.initialEstimate.breakdown.crossdocking / b.initialEstimate.totalHours) - (a.initialEstimate.breakdown.crossdocking / a.initialEstimate.totalHours)
+      case 'crossdock-asc':
+        return (a.initialEstimate.breakdown.crossdocking / a.initialEstimate.totalHours) - (b.initialEstimate.breakdown.crossdocking / b.initialEstimate.totalHours)
+      default:
+        return 0
+    }
+  })
+
+  const visibleContainers = sortedContainers.slice(0, visibleCount)
+  const totalCount = sortedContainers.length
+  const hasMore = visibleCount < totalCount
+
+  // Infinite scroll
+  const lastElementRef = useRef(null)
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setVisibleCount(prev => Math.min(prev + PAGE_SIZE, totalCount))
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (lastElementRef.current) {
+      observer.observe(lastElementRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [hasMore, totalCount])
+
+  // Update visible count when filters change
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE)
+  }, [sortBy, zoneFilter, minWorkload, maxWorkload, minCrossdock, maxCrossdock])
 
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
@@ -420,13 +638,102 @@ export default function ContainerSelection({ onAccept, highlightContainerId }) {
             <div className="flex items-center justify-between mb-1">
               <h2 className="text-sm font-semibold text-slate-700">AI Priority Queue</h2>
               <span className="text-xs font-medium text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded-full">
-                Top {TOP_N}
+                Top {PAGE_SIZE}
               </span>
             </div>
             <p className="text-xs text-slate-400 mb-3">
-              Showing {TOP_N} of {SITE_STATS.pendingContainers.toLocaleString()} containers in yard · Ranked by AI priority score
+              Showing {visibleContainers.length} of {totalCount} containers in yard · Scroll for more
             </p>
-            {topContainers.map((container, rank) => (
+
+            {/* Filters */}
+            <div className="mb-3 p-3 bg-white rounded-lg border border-slate-200">
+              <div className="flex items-center gap-2 mb-3">
+                <Filter size={12} className="text-slate-400" />
+                <span className="text-xs font-semibold text-slate-700">Filters</span>
+              </div>
+
+              {/* Sort by */}
+              <div className="mb-2">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-[10px] text-slate-500">Sort by</span>
+                  <ArrowUpDown size={10} className="text-slate-400" />
+                </div>
+                <select
+                  value={sortBy}
+                  onChange={e => setSortBy(e.target.value)}
+                  className="w-full text-xs border border-slate-200 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  {SORT_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Zone filter */}
+              <div className="mb-2">
+                <span className="text-[10px] text-slate-500 block mb-1">Zone with workload</span>
+                <select
+                  value={zoneFilter}
+                  onChange={e => setZoneFilter(e.target.value)}
+                  className="w-full text-xs border border-slate-200 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                >
+                  {ZONES.map(zone => (
+                    <option key={zone} value={zone}>{zone}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Workload range */}
+              <div className="mb-2">
+                <span className="text-[10px] text-slate-500 block mb-1">Total workload (hours)</span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    placeholder="Min"
+                    value={minWorkload}
+                    onChange={e => setMinWorkload(e.target.value)}
+                    className="w-full text-xs border border-slate-200 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  />
+                  <span className="text-xs text-slate-400">-</span>
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    value={maxWorkload}
+                    onChange={e => setMaxWorkload(e.target.value)}
+                    className="w-full text-xs border border-slate-200 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  />
+                </div>
+              </div>
+
+              {/* Crossdock percentage range */}
+              <div>
+                <span className="text-[10px] text-slate-500 block mb-1">Crossdock %</span>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="number"
+                    placeholder="Min"
+                    min="0"
+                    max="100"
+                    value={minCrossdock}
+                    onChange={e => setMinCrossdock(e.target.value)}
+                    className="w-full text-xs border border-slate-200 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  />
+                  <span className="text-xs text-slate-400">-</span>
+                  <input
+                    type="number"
+                    placeholder="Max"
+                    min="0"
+                    max="100"
+                    value={maxCrossdock}
+                    onChange={e => setMaxCrossdock(e.target.value)}
+                    className="w-full text-xs border border-slate-200 rounded-md px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Container cards */}
+            {visibleContainers.map((container, rank) => (
               <ContainerCard
                 key={container.id}
                 container={container}
@@ -434,11 +741,23 @@ export default function ContainerSelection({ onAccept, highlightContainerId }) {
                 isSelected={container.id === selectedId}
                 isHighlighted={container.id === highlightContainerId && container.id !== selectedId}
                 onClick={() => setSelectedId(container.id)}
+                onDoubleClick={() => {
+                  setSelectedId(container.id)
+                  setShowProductDetails(true)
+                }}
               />
             ))}
+
+            {/* Infinite scroll trigger */}
+            {hasMore && (
+              <div ref={lastElementRef} className="py-4 text-center text-xs text-slate-400">
+                Loading more containers...
+              </div>
+            )}
+
             {/* Footer hint */}
             <div className="mt-2 text-center text-xs text-slate-400 py-2 border-t border-slate-200">
-              + {(SITE_STATS.pendingContainers - TOP_N).toLocaleString()} more containers not shown
+              +{(totalCount - visibleContainers.length).toLocaleString()} more containers not shown
             </div>
           </div>
         </div>
@@ -451,11 +770,14 @@ export default function ContainerSelection({ onAccept, highlightContainerId }) {
               container={selected}
               onAccept={onAccept}
               isHighlighted={selected.id === highlightContainerId}
+              showProductDetails={showProductDetails}
+              onToggleProductDetails={() => setShowProductDetails(!showProductDetails)}
             />
           ) : (
             <div className="flex flex-col items-center justify-center h-full text-slate-400">
               <Package size={48} className="mb-3 opacity-30" />
               <p>Select a container to see details</p>
+              <p className="text-xs mt-2 text-slate-500">Double-click to view product details</p>
             </div>
           )}
         </div>

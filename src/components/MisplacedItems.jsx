@@ -3,9 +3,10 @@ import {
   AlertTriangle, MapPin, Package, Clock,
   ChevronDown, ChevronUp, Check, X, RefreshCw,
   Search, Filter, MoreHorizontal, Eye, EyeOff,
-  Layers, Warehouse, ClipboardCheck, RotateCw, Info,
+  Layers, Warehouse, ClipboardCheck, RotateCw, Info, ArrowUpDown,
+  TrendingUp, Folder,
 } from 'lucide-react'
-import { MISPLACED_LOCATIONS, MISPLACED_ACTIONS, ZONE_CONFIG } from '../mockData.js'
+import { MISPLACED_LOCATIONS_ALL, MISPLACED_ACTIONS, ZONE_CONFIG } from '../mockData.js'
 
 // ─── Issue Type Badge ─────────────────────────────────────────────────────────────
 function IssueTypeBadge({ issueType }) {
@@ -77,6 +78,12 @@ function LocationCard({ location, onAction, onToggleIgnore }) {
             <span className="font-mono">{location.sku}</span>
             <span className="text-slate-400">|</span>
             <span className="truncate max-w-xs">{location.description}</span>
+          </div>
+          {/* Volume 7 days */}
+          <div className="flex items-center gap-1 text-xs text-slate-500">
+            <TrendingUp size={10} />
+            <span>7-day volume:</span>
+            <span className="font-bold text-slate-700">{location.volume7Days}</span>
           </div>
         </div>
 
@@ -178,17 +185,52 @@ function LocationCard({ location, onAction, onToggleIgnore }) {
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────────
+const ZONES = ['All', 'Zone A', 'Zone B', 'Zone C', 'Zone D', 'Crossdock']
+const ISSUE_TYPES = ['All', 'inventory-issue', 'slotting-issue']
+const SORT_OPTIONS = [
+  { value: 'volume-desc', label: 'Volume (High to Low)' },
+  { value: 'volume-asc', label: 'Volume (Low to High)' },
+  { value: 'zone', label: 'Zone (A-Z)' },
+  { value: 'issue-type', label: 'Issue Type' },
+  { value: 'bypass-count', label: 'Bypass Count' },
+]
+
 export default function MisplacedItems() {
-  const [locations, setLocations] = useState(MISPLACED_LOCATIONS)
+  const [locations, setLocations] = useState(MISPLACED_LOCATIONS_ALL)
   const [filter, setFilter] = useState('all') // all, inventory-issue, slotting-issue, ignored
+  const [zoneFilter, setZoneFilter] = useState('All')
+  const [issueTypeFilter, setIssueTypeFilter] = useState('All')
+  const [sortBy, setSortBy] = useState('volume-desc')
   const [showIgnored, setShowIgnored] = useState(true)
 
+  // Sort locations
+  const sortedLocations = [...locations].sort((a, b) => {
+    switch (sortBy) {
+      case 'volume-desc':
+        return b.volume7Days - a.volume7Days
+      case 'volume-asc':
+        return a.volume7Days - b.volume7Days
+      case 'zone':
+        return a.zone.localeCompare(b.zone)
+      case 'issue-type':
+        return a.issueType.localeCompare(b.issueType)
+      case 'bypass-count':
+        return b.bypassCount - a.bypassCount
+      default:
+        return 0
+    }
+  })
+
   // Filter locations
-  const filteredLocations = locations.filter(loc => {
+  const filteredLocations = sortedLocations.filter(loc => {
     if (filter === 'ignored') return loc.ignored
     if (filter === 'inventory-issue') return loc.issueType === 'inventory-issue' && !loc.ignored
     if (filter === 'slotting-issue') return loc.issueType === 'slotting-issue' && !loc.ignored
     if (filter === 'all') return showIgnored || !loc.ignored
+    return true
+  }).filter(loc => {
+    if (zoneFilter !== 'All' && loc.zone !== zoneFilter) return false
+    if (issueTypeFilter !== 'All' && loc.issueType !== issueTypeFilter) return false
     return true
   })
 
@@ -239,6 +281,48 @@ export default function MisplacedItems() {
             </p>
           </div>
           <div className="flex items-center gap-3">
+            {/* Zone filter */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500">Zone:</span>
+              <select
+                value={zoneFilter}
+                onChange={e => setZoneFilter(e.target.value)}
+                className="text-xs border border-slate-200 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                {ZONES.map(zone => (
+                  <option key={zone} value={zone}>{zone}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Issue type filter */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500">Issue Type:</span>
+              <select
+                value={issueTypeFilter}
+                onChange={e => setIssueTypeFilter(e.target.value)}
+                className="text-xs border border-slate-200 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                {ISSUE_TYPES.map(type => (
+                  <option key={type} value={type}>{type === 'All' ? 'All Issues' : type === 'inventory-issue' ? 'Inventory' : 'Slotting'}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Sort by */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-500">Sort by:</span>
+              <select
+                value={sortBy}
+                onChange={e => setSortBy(e.target.value)}
+                className="text-xs border border-slate-200 rounded-md px-2 py-1 bg-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+              >
+                {SORT_OPTIONS.map(opt => (
+                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                ))}
+              </select>
+            </div>
+
             {/* Show/Hide ignored */}
             <button
               onClick={() => setShowIgnored(!showIgnored)}
@@ -353,7 +437,7 @@ export default function MisplacedItems() {
         {filteredLocations.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-slate-400">
             <MapPin size={48} className="mb-3 opacity-50" />
-            <p className="text-sm">No locations match the current filter</p>
+            <p className="text-sm">No locations match current filter</p>
           </div>
         ) : (
           filteredLocations.map(location => (
@@ -373,7 +457,8 @@ export default function MisplacedItems() {
           <Info size={12} />
           <span>
             Locations are identified when pickers bypass them and report empty location or wrong location.
-            Click the eye icon to ignore false positives.
+            Use the filters above to sort and filter by zone, issue type, and volume.
+            Click eye icon to ignore false positives.
           </span>
         </div>
       </div>
