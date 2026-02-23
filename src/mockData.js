@@ -1729,6 +1729,46 @@ export const MISPLACED_ACTIONS = [
   { id: 'ignore', label: 'Ignore', description: 'Mark as resolved without action (false positive)' }
 ]
 
+// ─── Generate large orders dataset for wave drill-down ────────────────────────
+const _generateWaveOrders = () => {
+  const brands = ['NKE', 'ADS', 'PUM', 'NB', 'UA', 'RBK', 'TBL', 'VNS', 'SKC', 'CRS']
+  const rndSku = (i) => `SHOE-${brands[i % brands.length]}-${String(Math.floor(Math.random() * 900000 + 100000))}`
+  const rndUnits = () => Math.floor(Math.random() * 800 + 100)
+  const rndMin = (base) => Math.round((base + (Math.random() - 0.5) * base * 0.4) * 10) / 10
+
+  const orders = []
+  let n = 4521
+
+  // WAVE-001 (ahead): 60 complete orders
+  for (let i = 0; i < 60; i++) {
+    const planned = rndMin(12)
+    const actual = Math.round(planned * (0.7 + Math.random() * 0.5) * 10) / 10
+    orders.push({ id: `ORD-${n++}`, sku: rndSku(i), units: rndUnits(), plannedMinutes: planned, actualMinutes: actual, status: 'complete', accumulatedDurationSec: Math.floor(actual * 60), delayMinutes: Math.round((actual - planned) * 10) / 10, delayType: actual <= planned ? 'ahead' : 'delayed', waveId: 'WAVE-001' })
+  }
+
+  // WAVE-002 (delayed): 25 complete + 10 ongoing + 20 planned
+  for (let i = 0; i < 55; i++) {
+    const planned = rndMin(14)
+    let status, actual, elapsed
+    if (i < 25)      { status = 'complete'; actual = Math.round(planned * (0.9 + Math.random() * 0.6) * 10) / 10; elapsed = Math.floor(actual * 60) }
+    else if (i < 35) { status = 'ongoing';  actual = Math.round(planned * (0.4 + Math.random() * 0.4) * 10) / 10; elapsed = Math.floor(actual * 60) }
+    else             { status = 'planned';  actual = null; elapsed = null }
+    orders.push({ id: `ORD-${n++}`, sku: rndSku(i + 2), units: rndUnits(), plannedMinutes: planned, actualMinutes: actual, status, accumulatedDurationSec: elapsed, delayMinutes: actual != null ? Math.round((actual - planned) * 10) / 10 : null, delayType: actual != null ? (actual <= planned ? 'ahead' : 'delayed') : 'planned', waveId: 'WAVE-002' })
+  }
+
+  // WAVE-003 (delayed): 10 complete + 10 ongoing + 30 planned
+  for (let i = 0; i < 50; i++) {
+    const planned = rndMin(16)
+    let status, actual, elapsed
+    if (i < 10)      { status = 'complete'; actual = Math.round(planned * (1.1 + Math.random() * 0.4) * 10) / 10; elapsed = Math.floor(actual * 60) }
+    else if (i < 20) { status = 'ongoing';  actual = Math.round(planned * (0.3 + Math.random() * 0.4) * 10) / 10; elapsed = Math.floor(actual * 60) }
+    else             { status = 'planned';  actual = null; elapsed = null }
+    orders.push({ id: `ORD-${n++}`, sku: rndSku(i + 4), units: rndUnits(), plannedMinutes: planned, actualMinutes: actual, status, accumulatedDurationSec: elapsed, delayMinutes: actual != null ? Math.round((actual - planned) * 10) / 10 : null, delayType: actual != null ? (actual <= planned ? 'ahead' : 'delayed') : 'planned', waveId: 'WAVE-003' })
+  }
+
+  return orders
+}
+
 // ─── Unified Plan vs Execution: Wave/Order Data for Overview Tab ─────────────
 export const WAVE_ORDER_DATA = {
   period: 'Current Shift (06:00-14:00)',
@@ -1776,80 +1816,7 @@ export const WAVE_ORDER_DATA = {
       totalTasks: 168
     }
   ],
-  orders: [
-    {
-      id: 'ORD-4521',
-      sku: 'SHOE-NKE-123445',
-      units: 525,
-      plannedMinutes: 12.5,
-      actualMinutes: 14.2,
-      status: 'complete',
-      accumulatedDurationSec: 852,
-      delayMinutes: 1.7,
-      delayType: 'delayed',
-      waveId: 'WAVE-001'
-    },
-    {
-      id: 'ORD-4522',
-      sku: 'SHOE-ADS-098712',
-      units: 310,
-      plannedMinutes: 8.0,
-      actualMinutes: 7.1,
-      status: 'complete',
-      accumulatedDurationSec: 426,
-      delayMinutes: -0.9,
-      delayType: 'ahead',
-      waveId: 'WAVE-001'
-    },
-    {
-      id: 'ORD-4523',
-      sku: 'SHOE-PUM-334421',
-      units: 780,
-      plannedMinutes: 18.0,
-      actualMinutes: 21.3,
-      status: 'ongoing',
-      accumulatedDurationSec: 1278,
-      delayMinutes: 3.3,
-      delayType: 'delayed',
-      waveId: 'WAVE-002'
-    },
-    {
-      id: 'ORD-4524',
-      sku: 'SHOE-NB-556677',
-      units: 215,
-      plannedMinutes: 6.5,
-      actualMinutes: null,
-      status: 'planned',
-      accumulatedDurationSec: null,
-      delayMinutes: null,
-      delayType: 'planned',
-      waveId: 'WAVE-002'
-    },
-    {
-      id: 'ORD-4525',
-      sku: 'SHOE-UA-889900',
-      units: 640,
-      plannedMinutes: 15.0,
-      actualMinutes: null,
-      status: 'planned',
-      accumulatedDurationSec: null,
-      delayMinutes: null,
-      delayType: 'planned',
-      waveId: 'WAVE-003'
-    },
-    {
-      id: 'ORD-4526',
-      sku: 'SHOE-RBK-112233',
-      units: 420,
-      plannedMinutes: 10.5,
-      actualMinutes: null,
-      status: 'planned',
-      accumulatedDurationSec: null,
-      delayMinutes: null,
-      delayType: 'planned',
-      waveId: 'WAVE-003'
-    }
-  ]
+  orders: _generateWaveOrders()
 }
 
 // ─── Projections for end-of-shift/day outcomes ────────────────────────────────
