@@ -73,44 +73,44 @@ function generateVolumeMetrics(baseVolume, variance = 0.3) {
 // ─── Generate expanded Pick Tasks (simulating 500+ tasks) ───────────────────────
 const PICK_TASKS_BASE = [
   {
-    id: 'PICK-001', orderId: 'ORD-4521', sku: 'NIKE-AIRMAX-42', description: 'Nike Air Max 270 - Size 42 - White/Black',
-    wms: { location: 'Zone C-Aisle 12-Shelf B3', plannedQty: 3, plannedWindow: '09:00-09:15', priority: 'high' },
+    id: 'PICK-001', orderId: 'ORD-4521', sku: 'NIKE-AIRMAX-42', waveId: 'WAVE-001', description: 'Nike Air Max 270 - Size 42 - White/Black',
+    wms: { location: 'Zone C-Aisle 12-Shelf B3', plannedQty: 3, plannedWindow: '09:00-09:15', plannedDurationSeconds: 240, priority: 'high' },
     wes: { picker: 'W008 - Kevin Liu', station: 'Pick Station C-4', actualQty: 3, scanTime: '09:08:23', completeTime: '09:11:42', travelTime: 185, dwellTime: 99 },
     status: 'normal', exceptions: [], volume7Days: 245
   },
   {
-    id: 'PICK-002', orderId: 'ORD-4522', sku: 'ADIDAS-ULTRA-40', description: 'Adidas UltraBoost 22 - Size 40 - Core Black',
-    wms: { location: 'Zone C-Aisle 08-Shelf A1', plannedQty: 2, plannedWindow: '09:15-09:30', priority: 'normal' },
+    id: 'PICK-002', orderId: 'ORD-4522', sku: 'ADIDAS-ULTRA-40', waveId: 'WAVE-001', description: 'Adidas UltraBoost 22 - Size 40 - Core Black',
+    wms: { location: 'Zone C-Aisle 08-Shelf A1', plannedQty: 2, plannedWindow: '09:15-09:30', plannedDurationSeconds: 240, priority: 'normal' },
     wes: { picker: 'W008 - Kevin Liu', station: 'Pick Station C-4', actualQty: 1, scanTime: '09:18:45', completeTime: '09:24:12', travelTime: 245, dwellTime: 327 },
     status: 'exception', exceptions: ['under-pick', 'excessive-duration'], volume7Days: 189
   },
   {
-    id: 'PICK-003', orderId: 'ORD-4523', sku: 'PUMA-NITRO-43', description: 'Puma NITRO Running Shoes - Size 43 - Blue/Orange',
-    wms: { location: 'Zone C-Aisle 15-Shelf C2', plannedQty: 1, plannedWindow: '09:30-09:45', priority: 'urgent' },
+    id: 'PICK-003', orderId: 'ORD-4523', sku: 'PUMA-NITRO-43', waveId: 'WAVE-002', description: 'Puma NITRO Running Shoes - Size 43 - Blue/Orange',
+    wms: { location: 'Zone C-Aisle 15-Shelf C2', plannedQty: 1, plannedWindow: '09:30-09:45', plannedDurationSeconds: 210, priority: 'urgent' },
     wes: { picker: 'W050 - Taylor Knight', station: 'Pick Station C-2', actualQty: null, scanTime: null, completeTime: '09:42:15', travelTime: 198, dwellTime: 0 },
     status: 'exception', exceptions: ['no-scan', 'wrong-location'], volume7Days: 312
   },
   {
-    id: 'PICK-004', orderId: 'ORD-4524', sku: 'NB-574-41', description: 'New Balance 574 Classic - Size 41 - Grey',
-    wms: { location: 'Zone C-Aisle 05-Shelf D4', plannedQty: 4, plannedWindow: '09:45-10:00', priority: 'high' },
+    id: 'PICK-004', orderId: 'ORD-4524', sku: 'NB-574-41', waveId: 'WAVE-002', description: 'New Balance 574 Classic - Size 41 - Grey',
+    wms: { location: 'Zone C-Aisle 05-Shelf D4', plannedQty: 4, plannedWindow: '09:45-10:00', plannedDurationSeconds: 270, priority: 'high' },
     wes: { picker: 'W051 - Lennon Warren', station: 'Pick Station C-3', actualQty: 4, scanTime: '09:48:22', completeTime: '09:53:08', travelTime: 165, dwellTime: 281 },
     status: 'normal', exceptions: [], volume7Days: 178
   },
   {
-    id: 'PICK-005', orderId: 'ORD-4525', sku: 'UA-HOVR-39', description: 'Under Armour HOVR Phantom - Size 39 - Navy',
-    wms: { location: 'Zone C-Aisle 18-Shelf A5', plannedQty: 2, plannedWindow: '10:00-10:15', priority: 'normal' },
+    id: 'PICK-005', orderId: 'ORD-4525', sku: 'UA-HOVR-39', waveId: 'WAVE-003', description: 'Under Armour HOVR Phantom - Size 39 - Navy',
+    wms: { location: 'Zone C-Aisle 18-Shelf A5', plannedQty: 2, plannedWindow: '10:00-10:15', plannedDurationSeconds: 240, priority: 'normal' },
     wes: { picker: 'W052 - Finley Wood', station: 'Pick Station C-1', actualQty: 3, scanTime: '10:02:15', completeTime: '10:08:42', travelTime: 192, dwellTime: 387 },
     status: 'exception', exceptions: ['over-pick'], volume7Days: 156
   },
   {
-    id: 'PICK-006', orderId: 'ORD-4526', sku: 'REEBOK-CLUB-44', description: 'Reebok Club C 85 - Size 44 - White/Green',
-    wms: { location: 'Zone C-Aisle 03-Shelf B1', plannedQty: 1, plannedWindow: '10:15-10:30', priority: 'low' },
+    id: 'PICK-006', orderId: 'ORD-4526', sku: 'REEBOK-CLUB-44', waveId: 'WAVE-003', description: 'Reebok Club C 85 - Size 44 - White/Green',
+    wms: { location: 'Zone C-Aisle 03-Shelf B1', plannedQty: 1, plannedWindow: '10:15-10:30', plannedDurationSeconds: 200, priority: 'low' },
     wes: { picker: 'W053 - Remy Spencer', station: 'Pick Station C-5', actualQty: 1, scanTime: '10:18:33', completeTime: '10:21:05', travelTime: 178, dwellTime: 154 },
     status: 'normal', exceptions: [], volume7Days: 134
   },
   {
-    id: 'PICK-007', orderId: 'ORD-4527', sku: 'TIMBERLAND-PRO-45', description: 'Timberland PRO Boots - Size 45 - Wheat',
-    wms: { location: 'Zone C-Aisle 22-Shelf E2', plannedQty: 2, plannedWindow: '10:30-10:45', priority: 'high' },
+    id: 'PICK-007', orderId: 'ORD-4527', sku: 'TIMBERLAND-PRO-45', waveId: 'WAVE-001', description: 'Timberland PRO Boots - Size 45 - Wheat',
+    wms: { location: 'Zone C-Aisle 22-Shelf E2', plannedQty: 2, plannedWindow: '10:30-10:45', plannedDurationSeconds: 240, priority: 'high' },
     wes: { picker: 'W054 - Bellamy Kim', station: 'Pick Station C-2', actualQty: 2, scanTime: '10:32:18', completeTime: '10:55:42', travelTime: 312, dwellTime: 724 },
     status: 'exception', exceptions: ['excessive-duration'], volume7Days: 298
   }
@@ -124,6 +124,8 @@ export const PICK_TASKS_ALL = (() => {
   const shelves = ['Shelf A1', 'Shelf A2', 'Shelf B1', 'Shelf B2', 'Shelf C1', 'Shelf C2', 'Shelf D1', 'Shelf D2', 'Shelf E1', 'Shelf E2']
   const priorities = ['urgent', 'high', 'normal', 'low']
   const exceptionsTypes = ['no-scan', 'wrong-location', 'under-pick', 'over-pick', 'excessive-duration']
+
+  const waveIds = ['WAVE-001', 'WAVE-002', 'WAVE-003']
 
   for (let i = 8; i <= 500; i++) {
     const zone = zones[Math.floor(Math.random() * zones.length)]
@@ -148,17 +150,21 @@ export const PICK_TASKS_ALL = (() => {
         ? Math.floor(Math.random() * 600) + 400
         : Math.floor(Math.random() * 300) + 50
 
+    const plannedDurationSeconds = Math.floor(Math.random() * 60) + 180  // 180-240s planned
+
     const volume = generateVolumeMetrics(Math.random() * 300 + 50)
 
     tasks.push({
       id: `PICK-${String(i).padStart(4, '0')}`,
       orderId: `ORD-${4000 + i}`,
       sku: `SKU-${10000 + i}`,
+      waveId: waveIds[Math.floor(Math.random() * waveIds.length)],
       description: `${['Nike', 'Adidas', 'Puma', 'New Balance', 'Under Armour', 'Reebok'][Math.floor(Math.random() * 6)]} ${['Running', 'Training', 'Basketball', 'Lifestyle', 'Performance'][Math.floor(Math.random() * 5)]} - ${['Black', 'White', 'Blue', 'Red', 'Grey'][Math.floor(Math.random() * 5)]}`,
       wms: {
         location: `${zone}-${aisles[Math.floor(Math.random() * aisles.length)]}-${shelves[Math.floor(Math.random() * shelves.length)]}`,
         plannedQty,
         plannedWindow: `${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 12) * 5).padStart(2, '0')}-${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 12) * 5).padStart(2, '0')}`,
+        plannedDurationSeconds,
         priority: priorities[Math.floor(Math.random() * priorities.length)]
       },
       wes: {
@@ -1440,6 +1446,40 @@ const MISPLACED_LOCATIONS_BASE = [
   }
 ]
 
+// ─── Accumulated misplacement stats by zone ─────────────────────────────────────
+export const MISPLACED_ACCUMULATED_STATS = {
+  shift: {
+    totalBypasses: 847,
+    totalMinutesLost: 2541,  // ~42 hours
+    byZone: [
+      { zone: 'Zone A', bypasses: 156, minutesLost: 468 },
+      { zone: 'Zone B', bypasses: 234, minutesLost: 702 },
+      { zone: 'Zone C', bypasses: 312, minutesLost: 936 },
+      { zone: 'Zone D', bypasses: 89, minutesLost: 267 },
+      { zone: 'Crossdock', bypasses: 56, minutesLost: 168 }
+    ],
+    projectedEndOfShift: {
+      totalBypasses: 1124,
+      totalMinutesLost: 3372  // ~56 hours projected
+    }
+  },
+  day: {
+    totalBypasses: 2456,
+    totalMinutesLost: 7368,
+    byZone: [
+      { zone: 'Zone A', bypasses: 423, minutesLost: 1269 },
+      { zone: 'Zone B', bypasses: 678, minutesLost: 2034 },
+      { zone: 'Zone C', bypasses: 901, minutesLost: 2703 },
+      { zone: 'Zone D', bypasses: 289, minutesLost: 867 },
+      { zone: 'Crossdock', bypasses: 165, minutesLost: 495 }
+    ],
+    projectedEndOfDay: {
+      totalBypasses: 2892,
+      totalMinutesLost: 8676
+    }
+  }
+}
+
 // ─── Generate 100s of misplaced locations with volume data ─────────────────────────────
 export const MISPLACED_LOCATIONS_ALL = (() => {
   const locations = [...MISPLACED_LOCATIONS_BASE]
@@ -1486,14 +1526,19 @@ export const MISPLACED_LOCATIONS_ALL = (() => {
       suggestedAction: suggestedActions[issueType][0],
       issueType,
       ignored: false,
-      pickerBypasses
+      pickerBypasses,
+      // Accumulated stats per location
+      accumulated: {
+        shift: { bypasses: bypassCount, minutesLost: bypassCount * 3 },
+        day: { bypasses: Math.floor(bypassCount * 2.9), minutesLost: Math.floor(bypassCount * 2.9 * 3) }
+      }
     })
   }
 
   return locations.sort((a, b) => b.volume7Days - a.volume7Days)
 })()
 
-// ─── Delay Patterns (>30% delay) ───────────────────────────────────────────────────
+// ─── Delay Patterns (>30% delay) with accumulation stats ─────────────────────
 export const DELAY_PATTERNS = {
   period: 'Current Shift (06:00-14:00)',
   totalDelayedTasks: 47,
@@ -1506,6 +1551,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 42,
       avgDelaySeconds: 385,
       taskCount: 18,
+      accumulated: {
+        shift: { delayedSeconds: 6930, tasksAffected: 18 },
+        day: { delayedSeconds: 11550, tasksAffected: 30 },
+        projectedEndOfShift: { delayedSeconds: 9240, tasksAffected: 24 },
+        projectedEndOfDay: { delayedSeconds: 13860, tasksAffected: 36 }
+      },
       wesContext: {
         issue: 'Elevator bottleneck',
         description: 'Elevator 2A experiencing frequent delays due to maintenance',
@@ -1516,7 +1567,13 @@ export const DELAY_PATTERNS = {
         fastMovingOrders: 15,
         serviceRisk: 'high',
         description: 'Multiple fast-moving SKUs stored in this zone - SLA at risk'
-      }
+      },
+      affectedPickerRoutes: [
+        { picker: 'W008 - Kevin Liu', routeId: 'RT-0412', plannedStopTime: '09:12:00', actualArrival: '09:19:42', delaySeconds: 462 },
+        { picker: 'W050 - Taylor Knight', routeId: 'RT-0418', plannedStopTime: '09:45:00', actualArrival: '09:52:18', delaySeconds: 438 },
+        { picker: 'W051 - Lennon Warren', routeId: 'RT-0421', plannedStopTime: '10:05:00', actualArrival: '10:11:55', delaySeconds: 415 },
+        { picker: 'W052 - Finley Wood', routeId: 'RT-0427', plannedStopTime: '10:30:00', actualArrival: '10:37:22', delaySeconds: 442 },
+      ]
     },
     {
       id: 'ZONE-MZ1',
@@ -1525,6 +1582,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 35,
       avgDelaySeconds: 298,
       taskCount: 12,
+      accumulated: {
+        shift: { delayedSeconds: 3576, tasksAffected: 12 },
+        day: { delayedSeconds: 5960, tasksAffected: 20 },
+        projectedEndOfShift: { delayedSeconds: 4770, tasksAffected: 16 },
+        projectedEndOfDay: { delayedSeconds: 7155, tasksAffected: 24 }
+      },
       wesContext: {
         issue: 'Conveyor slowdown',
         description: 'Conveyor belt C-3 running at 60% capacity due to sensor issue',
@@ -1535,7 +1598,12 @@ export const DELAY_PATTERNS = {
         fastMovingOrders: 8,
         serviceRisk: 'medium',
         description: 'Moderate impact on order fulfillment SLAs'
-      }
+      },
+      affectedPickerRoutes: [
+        { picker: 'W053 - Remy Spencer', routeId: 'RT-0508', plannedStopTime: '10:15:00', actualArrival: '10:20:14', delaySeconds: 314 },
+        { picker: 'W054 - Bellamy Kim', routeId: 'RT-0515', plannedStopTime: '10:40:00', actualArrival: '10:45:02', delaySeconds: 302 },
+        { picker: 'W055 - Shiloh Park', routeId: 'RT-0519', plannedStopTime: '11:00:00', actualArrival: '11:04:58', delaySeconds: 298 },
+      ]
     }
   ],
   equipment: [
@@ -1546,6 +1614,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 48,
       avgDelaySeconds: 452,
       taskCount: 9,
+      accumulated: {
+        shift: { delayedSeconds: 4068, tasksAffected: 9 },
+        day: { delayedSeconds: 6780, tasksAffected: 15 },
+        projectedEndOfShift: { delayedSeconds: 5424, tasksAffected: 12 },
+        projectedEndOfDay: { delayedSeconds: 8136, tasksAffected: 18 }
+      },
       wesContext: {
         issue: 'Frequent micro-stoppages',
         description: 'Put-wall sensors misreading carton barcodes - requires manual override',
@@ -1556,7 +1630,12 @@ export const DELAY_PATTERNS = {
         fastMovingOrders: 7,
         serviceRisk: 'critical',
         description: 'Fast-moving order types routed here - urgent SLA risk'
-      }
+      },
+      affectedPickerRoutes: [
+        { picker: 'W008 - Kevin Liu', routeId: 'RT-0412', plannedStopTime: '09:18:00', actualArrival: '09:26:32', delaySeconds: 512 },
+        { picker: 'W051 - Lennon Warren', routeId: 'RT-0421', plannedStopTime: '09:52:00', actualArrival: '10:00:10', delaySeconds: 490 },
+        { picker: 'W055 - Shiloh Park', routeId: 'RT-0522', plannedStopTime: '10:22:00', actualArrival: '10:29:44', delaySeconds: 464 },
+      ]
     },
     {
       id: 'EQ-CV-07',
@@ -1565,6 +1644,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 38,
       avgDelaySeconds: 312,
       taskCount: 8,
+      accumulated: {
+        shift: { delayedSeconds: 2496, tasksAffected: 8 },
+        day: { delayedSeconds: 4160, tasksAffected: 13 },
+        projectedEndOfShift: { delayedSeconds: 3120, tasksAffected: 10 },
+        projectedEndOfDay: { delayedSeconds: 4992, tasksAffected: 16 }
+      },
       wesContext: {
         issue: 'Reduced conveyor speed',
         description: 'Speed reduced to 0.8 m/s (normal: 1.5 m/s) pending maintenance',
@@ -1575,7 +1660,11 @@ export const DELAY_PATTERNS = {
         fastMovingOrders: 4,
         serviceRisk: 'medium',
         description: 'Primarily bulk orders - manageable SLA impact'
-      }
+      },
+      affectedPickerRoutes: [
+        { picker: 'W052 - Finley Wood', routeId: 'RT-0601', plannedStopTime: '09:30:00', actualArrival: '09:35:18', delaySeconds: 318 },
+        { picker: 'W053 - Remy Spencer', routeId: 'RT-0607', plannedStopTime: '10:00:00', actualArrival: '10:05:10', delaySeconds: 310 },
+      ]
     }
   ],
   orderTypes: [
@@ -1586,6 +1675,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 33,
       avgDelaySeconds: 267,
       taskCount: 22,
+      accumulated: {
+        shift: { delayedSeconds: 5874, tasksAffected: 22 },
+        day: { delayedSeconds: 9690, tasksAffected: 37 },
+        projectedEndOfShift: { delayedSeconds: 7842, tasksAffected: 30 },
+        projectedEndOfDay: { delayedSeconds: 11763, tasksAffected: 45 }
+      },
       wesContext: {
         issue: 'High picker congestion',
         description: 'Multiple pickers competing for same zone access during peak hours',
@@ -1605,6 +1700,12 @@ export const DELAY_PATTERNS = {
       delayPercent: 31,
       avgDelaySeconds: 245,
       taskCount: 15,
+      accumulated: {
+        shift: { delayedSeconds: 3675, tasksAffected: 15 },
+        day: { delayedSeconds: 6125, tasksAffected: 25 },
+        projectedEndOfShift: { delayedSeconds: 4900, tasksAffected: 20 },
+        projectedEndOfDay: { delayedSeconds: 7350, tasksAffected: 30 }
+      },
       wesContext: {
         issue: 'Loading dock coordination',
         description: 'Bulk orders waiting for trailer availability',
@@ -1626,4 +1727,167 @@ export const MISPLACED_ACTIONS = [
   { id: 'audit-location', label: 'Audit Location', description: 'Physical audit and verify location integrity' },
   { id: 're-slot-sku', label: 'Re-slot SKU', description: 'Move SKU to optimal location based on velocity' },
   { id: 'ignore', label: 'Ignore', description: 'Mark as resolved without action (false positive)' }
+]
+
+// ─── Generate large orders dataset for wave drill-down ────────────────────────
+const _generateWaveOrders = () => {
+  const brands = ['NKE', 'ADS', 'PUM', 'NB', 'UA', 'RBK', 'TBL', 'VNS', 'SKC', 'CRS']
+  const rndSku = (i) => `SHOE-${brands[i % brands.length]}-${String(Math.floor(Math.random() * 900000 + 100000))}`
+  const rndUnits = () => Math.floor(Math.random() * 800 + 100)
+  const rndMin = (base) => Math.round((base + (Math.random() - 0.5) * base * 0.4) * 10) / 10
+
+  const orders = []
+  let n = 4521
+
+  // WAVE-001 (ahead): 60 complete orders
+  for (let i = 0; i < 60; i++) {
+    const planned = rndMin(12)
+    const actual = Math.round(planned * (0.7 + Math.random() * 0.5) * 10) / 10
+    orders.push({ id: `ORD-${n++}`, sku: rndSku(i), units: rndUnits(), plannedMinutes: planned, actualMinutes: actual, status: 'complete', accumulatedDurationSec: Math.floor(actual * 60), delayMinutes: Math.round((actual - planned) * 10) / 10, delayType: actual <= planned ? 'ahead' : 'delayed', waveId: 'WAVE-001' })
+  }
+
+  // WAVE-002 (delayed): 25 complete + 10 ongoing + 20 planned
+  for (let i = 0; i < 55; i++) {
+    const planned = rndMin(14)
+    let status, actual, elapsed
+    if (i < 25)      { status = 'complete'; actual = Math.round(planned * (0.9 + Math.random() * 0.6) * 10) / 10; elapsed = Math.floor(actual * 60) }
+    else if (i < 35) { status = 'ongoing';  actual = Math.round(planned * (0.4 + Math.random() * 0.4) * 10) / 10; elapsed = Math.floor(actual * 60) }
+    else             { status = 'planned';  actual = null; elapsed = null }
+    orders.push({ id: `ORD-${n++}`, sku: rndSku(i + 2), units: rndUnits(), plannedMinutes: planned, actualMinutes: actual, status, accumulatedDurationSec: elapsed, delayMinutes: actual != null ? Math.round((actual - planned) * 10) / 10 : null, delayType: actual != null ? (actual <= planned ? 'ahead' : 'delayed') : 'planned', waveId: 'WAVE-002' })
+  }
+
+  // WAVE-003 (delayed): 10 complete + 10 ongoing + 30 planned
+  for (let i = 0; i < 50; i++) {
+    const planned = rndMin(16)
+    let status, actual, elapsed
+    if (i < 10)      { status = 'complete'; actual = Math.round(planned * (1.1 + Math.random() * 0.4) * 10) / 10; elapsed = Math.floor(actual * 60) }
+    else if (i < 20) { status = 'ongoing';  actual = Math.round(planned * (0.3 + Math.random() * 0.4) * 10) / 10; elapsed = Math.floor(actual * 60) }
+    else             { status = 'planned';  actual = null; elapsed = null }
+    orders.push({ id: `ORD-${n++}`, sku: rndSku(i + 4), units: rndUnits(), plannedMinutes: planned, actualMinutes: actual, status, accumulatedDurationSec: elapsed, delayMinutes: actual != null ? Math.round((actual - planned) * 10) / 10 : null, delayType: actual != null ? (actual <= planned ? 'ahead' : 'delayed') : 'planned', waveId: 'WAVE-003' })
+  }
+
+  return orders
+}
+
+// ─── Unified Plan vs Execution: Wave/Order Data for Overview Tab ─────────────
+export const WAVE_ORDER_DATA = {
+  period: 'Current Shift (06:00-14:00)',
+  waves: [
+    {
+      id: 'WAVE-001',
+      name: 'ADIDAS0012 08:00 - Same-Day',
+      plannedHours: 42.5,
+      actualHours: 38.2,
+      delayHours: -4.3,  // Negative = ahead
+      delayType: 'ahead',
+      delayBreakdown: {
+        delayMinutes: 0,
+        denialMinutes: 0
+      },
+      tasksCompleted: 245,
+      totalTasks: 267
+    },
+    {
+      id: 'WAVE-002',
+      name: 'NIKE0034 09:00 - Standard',
+      plannedHours: 35.8,
+      actualHours: 42.1,
+      delayHours: 6.3,
+      delayType: 'delayed',
+      delayBreakdown: {
+        delayMinutes: 278,  // ~4.6 hours of delays
+        denialMinutes: 100   // ~1.7 hours of pick denials
+      },
+      tasksCompleted: 198,
+      totalTasks: 212
+    },
+    {
+      id: 'WAVE-003',
+      name: 'B2BBULK47 10:00 - B2B Bulk',
+      plannedHours: 28.5,
+      actualHours: 31.2,
+      delayHours: 2.7,
+      delayType: 'delayed',
+      delayBreakdown: {
+        delayMinutes: 112,
+        denialMinutes: 50
+      },
+      tasksCompleted: 156,
+      totalTasks: 168
+    }
+  ],
+  orders: _generateWaveOrders()
+}
+
+// ─── Projections for end-of-shift/day outcomes ────────────────────────────────
+export const PROJECTIONS = {
+  shift: {
+    currentDifference: -1.3,  // Hours ahead (negative)
+    projectedDifference: 0.5,  // Slightly behind projected
+    projectedEndHour: '13:45',
+    trend: 'improving',
+    confidence: 85
+  },
+  day: {
+    currentDifference: 8.5,
+    projectedDifference: 12.3,
+    trend: 'worsening',
+    confidence: 72
+  }
+}
+
+// ─── Alert Subscription Data ───────────────────────────────────────────────────
+export const ALERT_SUBSCRIPTIONS = [
+  {
+    id: 'ALERT-SUB-001',
+    type: 'misplacement',
+    enabled: true,
+    filters: {
+      zones: ['Zone A', 'Zone B'],
+      shifts: ['AM', 'PM'],
+      severityThreshold: 'high'
+    },
+    notificationMethods: ['email', 'sms'],
+    lastTriggered: '2026-02-22 14:32:15'
+  },
+  {
+    id: 'ALERT-SUB-002',
+    type: 'sustained-delay',
+    enabled: true,
+    filters: {
+      zones: ['Zone C', 'Zone D'],
+      shifts: ['AM'],
+      severityThreshold: 'critical',
+      sustainedMinutes: 30
+    },
+    notificationMethods: ['email'],
+    lastTriggered: '2026-02-22 12:15:00'
+  },
+  {
+    id: 'ALERT-SUB-003',
+    type: 'trend',
+    enabled: false,
+    filters: {
+      zones: ['All'],
+      shifts: ['AM', 'PM', 'Night'],
+      severityThreshold: 'medium',
+      trendType: 'worsening',
+      thresholdPercent: 10
+    },
+    notificationMethods: ['email', 'sms', 'slack'],
+    lastTriggered: null
+  },
+  {
+    id: 'ALERT-SUB-004',
+    type: 'sla-risk',
+    enabled: true,
+    filters: {
+      zones: ['Zone D'],
+      shifts: ['All'],
+      severityThreshold: 'high',
+      orderTypes: ['Same-Day Delivery']
+    },
+    notificationMethods: ['email', 'slack'],
+    lastTriggered: '2026-02-22 10:45:30'
+  }
 ]
