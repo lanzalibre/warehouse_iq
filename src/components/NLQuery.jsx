@@ -677,6 +677,7 @@ export default function NLQueryScreen() {
   const [openCats, setOpenCats] = useState(['yard', 'labor', 'workload', 'performance'])
   const [mentionSuggestions, setMentionSuggestions] = useState([])
   const [mentionToken, setMentionToken] = useState(null) // { start, end }
+  const [highlightedIndex, setHighlightedIndex] = useState(0)
 
   const textareaRef = useRef(null)
   const messagesEndRef = useRef(null)
@@ -748,9 +749,11 @@ export default function NLQueryScreen() {
       const tokenStart = before.length - match[0].length
       setMentionToken({ start: tokenStart, end: cursor })
       setMentionSuggestions(getMentionSuggestions(afterAt))
+      setHighlightedIndex(0)
     } else {
       setMentionSuggestions([])
       setMentionToken(null)
+      setHighlightedIndex(0)
     }
   }
 
@@ -758,7 +761,25 @@ export default function NLQueryScreen() {
     if (e.key === 'Escape') {
       setMentionSuggestions([])
       setMentionToken(null)
+      setHighlightedIndex(0)
       return
+    }
+    if (mentionSuggestions.length > 0) {
+      if (e.key === 'Tab' || e.key === 'Enter') {
+        e.preventDefault()
+        selectMention(mentionSuggestions[highlightedIndex])
+        return
+      }
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        setHighlightedIndex(i => (i + 1) % mentionSuggestions.length)
+        return
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        setHighlightedIndex(i => (i - 1 + mentionSuggestions.length) % mentionSuggestions.length)
+        return
+      }
     }
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
@@ -774,6 +795,7 @@ export default function NLQueryScreen() {
     setInputText(newVal)
     setMentionSuggestions([])
     setMentionToken(null)
+    setHighlightedIndex(0)
     setTimeout(() => textareaRef.current?.focus(), 0)
   }
 
@@ -846,10 +868,13 @@ export default function NLQueryScreen() {
                 <button
                   key={i}
                   onMouseDown={(e) => { e.preventDefault(); selectMention(s) }}
-                  className="w-full flex items-center gap-3 px-3 py-2 hover:bg-blue-50 text-left transition-colors"
+                  onMouseEnter={() => setHighlightedIndex(i)}
+                  className={`w-full flex items-center gap-3 px-3 py-2 text-left transition-colors ${
+                    i === highlightedIndex ? 'bg-blue-50' : 'hover:bg-slate-50'
+                  }`}
                 >
                   <span className="font-mono text-xs bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded">{s.category}</span>
-                  <span className="text-sm text-slate-800 font-medium flex-1">{s.label}</span>
+                  <span className={`text-sm font-medium flex-1 ${i === highlightedIndex ? 'text-blue-700' : 'text-slate-800'}`}>{s.label}</span>
                   {s.meta && <span className="text-xs text-slate-400">{s.meta}</span>}
                 </button>
               ))}
