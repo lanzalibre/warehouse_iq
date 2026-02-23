@@ -1444,7 +1444,7 @@ const MISPLACED_LOCATIONS_BASE = [
 export const MISPLACED_ACCUMULATED_STATS = {
   shift: {
     totalBypasses: 847,
-    totalMinutesLost: 2,541,  // ~42 hours
+    totalMinutesLost: 2541,  // ~42 hours
     byZone: [
       { zone: 'Zone A', bypasses: 156, minutesLost: 468 },
       { zone: 'Zone B', bypasses: 234, minutesLost: 702 },
@@ -1453,23 +1453,23 @@ export const MISPLACED_ACCUMULATED_STATS = {
       { zone: 'Crossdock', bypasses: 56, minutesLost: 168 }
     ],
     projectedEndOfShift: {
-      totalBypasses: 1,124,
-      totalMinutesLost: 3,372  // ~56 hours projected
+      totalBypasses: 1124,
+      totalMinutesLost: 3372  // ~56 hours projected
     }
   },
   day: {
-    totalBypasses: 2,456,
-    totalMinutesLost: 7,368,
+    totalBypasses: 2456,
+    totalMinutesLost: 7368,
     byZone: [
-      { zone: 'Zone A', bypasses: 423, minutesLost: 1,269 },
-      { zone: 'Zone B', bypasses: 678, minutesLost: 2,034 },
-      { zone: 'Zone C', bypasses: 901, minutesLost: 2,703 },
+      { zone: 'Zone A', bypasses: 423, minutesLost: 1269 },
+      { zone: 'Zone B', bypasses: 678, minutesLost: 2034 },
+      { zone: 'Zone C', bypasses: 901, minutesLost: 2703 },
       { zone: 'Zone D', bypasses: 289, minutesLost: 867 },
       { zone: 'Crossdock', bypasses: 165, minutesLost: 495 }
     ],
     projectedEndOfDay: {
-      totalBypasses: 2,892,
-      totalMinutesLost: 8,676
+      totalBypasses: 2892,
+      totalMinutesLost: 8676
     }
   }
 }
@@ -1546,10 +1546,10 @@ export const DELAY_PATTERNS = {
       avgDelaySeconds: 385,
       taskCount: 18,
       accumulated: {
-        shift: { delayedSeconds: 6,930, tasksAffected: 18 },
-        day: { delayedSeconds: 11,550, tasksAffected: 30 },
-        projectedEndOfShift: { delayedSeconds: 9,240, tasksAffected: 24 },
-        projectedEndOfDay: { delayedSeconds: 13,860, tasksAffected: 36 }
+        shift: { delayedSeconds: 6930, tasksAffected: 18 },
+        day: { delayedSeconds: 11550, tasksAffected: 30 },
+        projectedEndOfShift: { delayedSeconds: 9240, tasksAffected: 24 },
+        projectedEndOfDay: { delayedSeconds: 13860, tasksAffected: 36 }
       },
       wesContext: {
         issue: 'Elevator bottleneck',
@@ -1571,10 +1571,10 @@ export const DELAY_PATTERNS = {
       avgDelaySeconds: 298,
       taskCount: 12,
       accumulated: {
-        shift: { delayedSeconds: 3,576, tasksAffected: 12 },
-        day: { delayedSeconds: 5,960, tasksAffected: 20 },
-        projectedEndOfShift: { delayedSeconds: 4,770, tasksAffected: 16 },
-        projectedEndOfDay: { delayedSeconds: 7,155, tasksAffected: 24 }
+        shift: { delayedSeconds: 3576, tasksAffected: 12 },
+        day: { delayedSeconds: 5960, tasksAffected: 20 },
+        projectedEndOfShift: { delayedSeconds: 4770, tasksAffected: 16 },
+        projectedEndOfDay: { delayedSeconds: 7155, tasksAffected: 24 }
       },
       wesContext: {
         issue: 'Conveyor slowdown',
@@ -1598,10 +1598,10 @@ export const DELAY_PATTERNS = {
       avgDelaySeconds: 452,
       taskCount: 9,
       accumulated: {
-        shift: { delayedSeconds: 4,068, tasksAffected: 9 },
-        day: { delayedSeconds: 6,780, tasksAffected: 15 },
-        projectedEndOfShift: { delayedSeconds: 5,424, tasksAffected: 12 },
-        projectedEndOfDay: { delayedSeconds: 8,136, tasksAffected: 18 }
+        shift: { delayedSeconds: 4068, tasksAffected: 9 },
+        day: { delayedSeconds: 6780, tasksAffected: 15 },
+        projectedEndOfShift: { delayedSeconds: 5424, tasksAffected: 12 },
+        projectedEndOfDay: { delayedSeconds: 8136, tasksAffected: 18 }
       },
       wesContext: {
         issue: 'Frequent micro-stoppages',
@@ -1623,10 +1623,10 @@ export const DELAY_PATTERNS = {
       avgDelaySeconds: 312,
       taskCount: 8,
       accumulated: {
-        shift: { delayedSeconds: 2,496, tasksAffected: 8 },
-        day: { delayedSeconds: 4,160, tasksAffected: 13 },
-        projectedEndOfShift: { delayedSeconds: 3,120, tasksAffected: 10 },
-        projectedEndOfDay: { delayedSeconds: 4,992, tasksAffected: 16 }
+        shift: { delayedSeconds: 2496, tasksAffected: 8 },
+        day: { delayedSeconds: 4160, tasksAffected: 13 },
+        projectedEndOfShift: { delayedSeconds: 3120, tasksAffected: 10 },
+        projectedEndOfDay: { delayedSeconds: 4992, tasksAffected: 16 }
       },
       wesContext: {
         issue: 'Reduced conveyor speed',
@@ -1650,10 +1650,10 @@ export const DELAY_PATTERNS = {
       avgDelaySeconds: 267,
       taskCount: 22,
       accumulated: {
-        shift: { delayedSeconds: 5,874, tasksAffected: 22 },
-        day: { delayedSeconds: 9,690, tasksAffected: 37 },
-        projectedEndOfShift: { delayedSeconds: 7,842, tasksAffected: 30 },
-        projectedEndOfDay: { delayedSeconds: 11,763, tasksAffected: 45 }
+        shift: { delayedSeconds: 5874, tasksAffected: 22 },
+        day: { delayedSeconds: 9690, tasksAffected: 37 },
+        projectedEndOfShift: { delayedSeconds: 7842, tasksAffected: 30 },
+        projectedEndOfDay: { delayedSeconds: 11763, tasksAffected: 45 }
       },
       wesContext: {
         issue: 'High picker congestion',
@@ -1675,10 +1675,10 @@ export const DELAY_PATTERNS = {
       avgDelaySeconds: 245,
       taskCount: 15,
       accumulated: {
-        shift: { delayedSeconds: 3,675, tasksAffected: 15 },
-        day: { delayedSeconds: 6,125, tasksAffected: 25 },
-        projectedEndOfShift: { delayedSeconds: 4,900, tasksAffected: 20 },
-        projectedEndOfDay: { delayedSeconds: 7,350, tasksAffected: 30 }
+        shift: { delayedSeconds: 3675, tasksAffected: 15 },
+        day: { delayedSeconds: 6125, tasksAffected: 25 },
+        projectedEndOfShift: { delayedSeconds: 4900, tasksAffected: 20 },
+        projectedEndOfDay: { delayedSeconds: 7350, tasksAffected: 30 }
       },
       wesContext: {
         issue: 'Loading dock coordination',
