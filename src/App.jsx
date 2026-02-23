@@ -5,6 +5,7 @@ import ContainerSelection from './components/ContainerSelection.jsx'
 import UnloadingBay from './components/UnloadingBay.jsx'
 import LaborManagement from './components/LaborManagement.jsx'
 import PlanVsExecution from './components/PlanVsExecution/index.jsx'
+import NLQueryScreen from './components/NLQuery.jsx'
 
 export default function App() {
   const [activeScreen, setActiveScreen] = useState('yard')
@@ -67,6 +68,7 @@ export default function App() {
           )}
           {activeScreen === 'labor' && <LaborManagement />}
           {activeScreen === 'plan-exec' && <PlanVsExecution />}
+          {activeScreen === 'nl-query' && <NLQueryScreen />}
         </div>
 
         {/* Right-side navigation */}
