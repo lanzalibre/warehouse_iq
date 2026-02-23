@@ -117,6 +117,3 @@ src/
 | Misplaced / Not Found | Location issue tracking and resolution actions |
 | Delay Patterns | >30% delay analysis by zone, equipment, order type |
 
-## License
-
-© 2026 SpinnakerSCA. All rights reserved.
