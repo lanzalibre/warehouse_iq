@@ -26,6 +26,9 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
     if (activeScreen === 'plan-exec') {
       return <span className="text-slate-300">Plan vs. Execution</span>
     }
+    if (activeScreen === 'nl-query') {
+      return <span className="text-slate-300">Natural Language Queries</span>
+    }
     if (activeScreen === 'misplaced') {
       return <span className="text-slate-300">Misplaced / Not Found</span>
     }

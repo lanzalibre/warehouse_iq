@@ -1,9 +1,10 @@
-import { Boxes, Users2, GitCompare, MapPinOff, Clock } from 'lucide-react'
+import { Boxes, Users2, GitCompare, MapPinOff, Clock, MessageSquare } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { id: 'yard',          icon: Boxes,       shortLabel: 'Yard',    fullLabel: 'Yard Management'      },
-  { id: 'labor',         icon: Users2,      shortLabel: 'Labor',   fullLabel: 'Labor Management'     },
-  { id: 'plan-exec',     icon: GitCompare,   shortLabel: 'Plan',    fullLabel: 'Plan vs Execution'    },
+  { id: 'yard',          icon: Boxes,          shortLabel: 'Yard',    fullLabel: 'Yard Management'           },
+  { id: 'labor',         icon: Users2,         shortLabel: 'Labor',   fullLabel: 'Labor Management'          },
+  { id: 'plan-exec',     icon: GitCompare,     shortLabel: 'Plan',    fullLabel: 'Plan vs Execution'         },
+  { id: 'nl-query',      icon: MessageSquare,  shortLabel: 'Query',   fullLabel: 'Natural Language Queries'  },
 ]
 
 export default function Navbar({ activeScreen, onNavigate }) {
