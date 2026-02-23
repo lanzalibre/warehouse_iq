@@ -56,31 +56,40 @@ function StatusIndicator({ status }) {
 }
 
 // ─── Time Comparison ─────────────────────────────────────────────────────────────
-function TimeComparison({ wes }) {
-  const totalSeconds = wes.travelTime + wes.dwellTime
-  const isSlow = totalSeconds > 300
+function TimeComparison({ wes, plannedDurationSeconds }) {
+  const actualSeconds = wes.travelTime + wes.dwellTime
+  const isSlow = actualSeconds > 300
+  const diffSeconds = plannedDurationSeconds != null ? actualSeconds - plannedDurationSeconds : null
+  const isOverPlan = diffSeconds != null && diffSeconds > 0
+
+  const fmtSec = (s) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, '0')}`
 
   return (
-    <div className="flex items-center gap-4 text-xs">
-      <div className="flex items-center gap-1">
-        <Clock size={11} />
-        <span className="text-slate-500">Travel:</span>
-        <span className={`font-mono font-semibold ${isSlow ? 'text-amber-600' : 'text-slate-700'}`}>
-          {Math.floor(wes.travelTime / 60)}:{(wes.travelTime % 60).toString().padStart(2, '0')}
-        </span>
+    <div className="space-y-1 text-xs">
+      {/* Plan vs Actual total */}
+      <div className="flex items-center gap-3">
+        {plannedDurationSeconds != null && (
+          <div className="flex items-center gap-1">
+            <span className="text-[10px] text-slate-400 uppercase">Plan:</span>
+            <span className="font-mono font-semibold text-slate-500">{fmtSec(plannedDurationSeconds)}</span>
+          </div>
+        )}
+        <div className="flex items-center gap-1">
+          <span className="text-[10px] text-slate-400 uppercase">Act:</span>
+          <span className={`font-mono font-bold ${isSlow ? 'text-red-600' : 'text-slate-700'}`}>
+            {fmtSec(actualSeconds)}
+          </span>
+        </div>
+        {diffSeconds != null && (
+          <div className={`font-mono font-semibold text-[10px] ${isOverPlan ? 'text-red-600' : 'text-emerald-600'}`}>
+            {isOverPlan ? '+' : ''}{fmtSec(Math.abs(diffSeconds))}
+          </div>
+        )}
       </div>
-      <div className="flex items-center gap-1">
-        <Clock size={11} />
-        <span className="text-slate-500">Dwell:</span>
-        <span className={`font-mono font-semibold ${wes.dwellTime > 180 ? 'text-amber-600' : 'text-slate-700'}`}>
-          {Math.floor(wes.dwellTime / 60)}:{(wes.dwellTime % 60).toString().padStart(2, '0')}
-        </span>
-      </div>
-      <div className="flex items-center gap-1">
-        <span className="text-slate-500">Total:</span>
-        <span className={`font-mono font-bold ${isSlow ? 'text-red-600' : 'text-slate-700'}`}>
-          {Math.floor(totalSeconds / 60)}:{(totalSeconds % 60).toString().padStart(2, '0')}
-        </span>
+      {/* Travel / Dwell breakdown */}
+      <div className="flex items-center gap-3 text-[10px] text-slate-400">
+        <span>Trv: <span className="text-slate-600">{fmtSec(wes.travelTime)}</span></span>
+        <span>Dwell: <span className={wes.dwellTime > 180 ? 'text-amber-600 font-semibold' : 'text-slate-600'}>{fmtSec(wes.dwellTime)}</span></span>
       </div>
     </div>
   )
@@ -112,10 +121,13 @@ function TaskRow({ task, isExpanded, onToggle }) {
           {/* Order & SKU info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs font-mono text-slate-400">{task.id}</span>
+              <span className="text-xs font-mono text-blue-600 font-semibold">{task.id}</span>
               <span className="text-xs font-semibold text-slate-700">{task.orderId}</span>
               <span className="text-xs text-slate-500">|</span>
               <span className="text-xs font-mono text-slate-600">{task.sku}</span>
+              {task.waveId && (
+                <span className="text-[10px] font-mono bg-slate-100 text-slate-500 px-1.5 py-0.5 rounded">{task.waveId}</span>
+              )}
             </div>
             <div className="text-sm font-medium text-slate-800 truncate">{task.description}</div>
           </div>
@@ -178,7 +190,7 @@ function TaskRow({ task, isExpanded, onToggle }) {
           {/* Time summary */}
           <div className="flex-shrink-0 w-44">
             {task.wes.completeTime && (
-              <TimeComparison wes={task.wes} />
+              <TimeComparison wes={task.wes} plannedDurationSeconds={task.wms.plannedDurationSeconds} />
             )}
             {!task.wes.completeTime && (
               <div className="text-xs font-semibold text-red-600">Incomplete</div>
@@ -483,7 +495,7 @@ export default function HistoricalTrace() {
           <div className="w-32">Exceptions</div>
           <div className="w-40">WMS Plan</div>
           <div className="w-44">WES Execution</div>
-          <div className="w-44">Timing</div>
+          <div className="w-44">Timing (Plan vs Act)</div>
         </div>
       </div>
 

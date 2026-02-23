@@ -73,44 +73,44 @@ function generateVolumeMetrics(baseVolume, variance = 0.3) {
 // ─── Generate expanded Pick Tasks (simulating 500+ tasks) ───────────────────────
 const PICK_TASKS_BASE = [
   {
-    id: 'PICK-001', orderId: 'ORD-4521', sku: 'NIKE-AIRMAX-42', description: 'Nike Air Max 270 - Size 42 - White/Black',
-    wms: { location: 'Zone C-Aisle 12-Shelf B3', plannedQty: 3, plannedWindow: '09:00-09:15', priority: 'high' },
+    id: 'PICK-001', orderId: 'ORD-4521', sku: 'NIKE-AIRMAX-42', waveId: 'WAVE-001', description: 'Nike Air Max 270 - Size 42 - White/Black',
+    wms: { location: 'Zone C-Aisle 12-Shelf B3', plannedQty: 3, plannedWindow: '09:00-09:15', plannedDurationSeconds: 240, priority: 'high' },
     wes: { picker: 'W008 - Kevin Liu', station: 'Pick Station C-4', actualQty: 3, scanTime: '09:08:23', completeTime: '09:11:42', travelTime: 185, dwellTime: 99 },
     status: 'normal', exceptions: [], volume7Days: 245
   },
   {
-    id: 'PICK-002', orderId: 'ORD-4522', sku: 'ADIDAS-ULTRA-40', description: 'Adidas UltraBoost 22 - Size 40 - Core Black',
-    wms: { location: 'Zone C-Aisle 08-Shelf A1', plannedQty: 2, plannedWindow: '09:15-09:30', priority: 'normal' },
+    id: 'PICK-002', orderId: 'ORD-4522', sku: 'ADIDAS-ULTRA-40', waveId: 'WAVE-001', description: 'Adidas UltraBoost 22 - Size 40 - Core Black',
+    wms: { location: 'Zone C-Aisle 08-Shelf A1', plannedQty: 2, plannedWindow: '09:15-09:30', plannedDurationSeconds: 240, priority: 'normal' },
     wes: { picker: 'W008 - Kevin Liu', station: 'Pick Station C-4', actualQty: 1, scanTime: '09:18:45', completeTime: '09:24:12', travelTime: 245, dwellTime: 327 },
     status: 'exception', exceptions: ['under-pick', 'excessive-duration'], volume7Days: 189
   },
   {
-    id: 'PICK-003', orderId: 'ORD-4523', sku: 'PUMA-NITRO-43', description: 'Puma NITRO Running Shoes - Size 43 - Blue/Orange',
-    wms: { location: 'Zone C-Aisle 15-Shelf C2', plannedQty: 1, plannedWindow: '09:30-09:45', priority: 'urgent' },
+    id: 'PICK-003', orderId: 'ORD-4523', sku: 'PUMA-NITRO-43', waveId: 'WAVE-002', description: 'Puma NITRO Running Shoes - Size 43 - Blue/Orange',
+    wms: { location: 'Zone C-Aisle 15-Shelf C2', plannedQty: 1, plannedWindow: '09:30-09:45', plannedDurationSeconds: 210, priority: 'urgent' },
     wes: { picker: 'W050 - Taylor Knight', station: 'Pick Station C-2', actualQty: null, scanTime: null, completeTime: '09:42:15', travelTime: 198, dwellTime: 0 },
     status: 'exception', exceptions: ['no-scan', 'wrong-location'], volume7Days: 312
   },
   {
-    id: 'PICK-004', orderId: 'ORD-4524', sku: 'NB-574-41', description: 'New Balance 574 Classic - Size 41 - Grey',
-    wms: { location: 'Zone C-Aisle 05-Shelf D4', plannedQty: 4, plannedWindow: '09:45-10:00', priority: 'high' },
+    id: 'PICK-004', orderId: 'ORD-4524', sku: 'NB-574-41', waveId: 'WAVE-002', description: 'New Balance 574 Classic - Size 41 - Grey',
+    wms: { location: 'Zone C-Aisle 05-Shelf D4', plannedQty: 4, plannedWindow: '09:45-10:00', plannedDurationSeconds: 270, priority: 'high' },
     wes: { picker: 'W051 - Lennon Warren', station: 'Pick Station C-3', actualQty: 4, scanTime: '09:48:22', completeTime: '09:53:08', travelTime: 165, dwellTime: 281 },
     status: 'normal', exceptions: [], volume7Days: 178
   },
   {
-    id: 'PICK-005', orderId: 'ORD-4525', sku: 'UA-HOVR-39', description: 'Under Armour HOVR Phantom - Size 39 - Navy',
-    wms: { location: 'Zone C-Aisle 18-Shelf A5', plannedQty: 2, plannedWindow: '10:00-10:15', priority: 'normal' },
+    id: 'PICK-005', orderId: 'ORD-4525', sku: 'UA-HOVR-39', waveId: 'WAVE-003', description: 'Under Armour HOVR Phantom - Size 39 - Navy',
+    wms: { location: 'Zone C-Aisle 18-Shelf A5', plannedQty: 2, plannedWindow: '10:00-10:15', plannedDurationSeconds: 240, priority: 'normal' },
     wes: { picker: 'W052 - Finley Wood', station: 'Pick Station C-1', actualQty: 3, scanTime: '10:02:15', completeTime: '10:08:42', travelTime: 192, dwellTime: 387 },
     status: 'exception', exceptions: ['over-pick'], volume7Days: 156
   },
   {
-    id: 'PICK-006', orderId: 'ORD-4526', sku: 'REEBOK-CLUB-44', description: 'Reebok Club C 85 - Size 44 - White/Green',
-    wms: { location: 'Zone C-Aisle 03-Shelf B1', plannedQty: 1, plannedWindow: '10:15-10:30', priority: 'low' },
+    id: 'PICK-006', orderId: 'ORD-4526', sku: 'REEBOK-CLUB-44', waveId: 'WAVE-003', description: 'Reebok Club C 85 - Size 44 - White/Green',
+    wms: { location: 'Zone C-Aisle 03-Shelf B1', plannedQty: 1, plannedWindow: '10:15-10:30', plannedDurationSeconds: 200, priority: 'low' },
     wes: { picker: 'W053 - Remy Spencer', station: 'Pick Station C-5', actualQty: 1, scanTime: '10:18:33', completeTime: '10:21:05', travelTime: 178, dwellTime: 154 },
     status: 'normal', exceptions: [], volume7Days: 134
   },
   {
-    id: 'PICK-007', orderId: 'ORD-4527', sku: 'TIMBERLAND-PRO-45', description: 'Timberland PRO Boots - Size 45 - Wheat',
-    wms: { location: 'Zone C-Aisle 22-Shelf E2', plannedQty: 2, plannedWindow: '10:30-10:45', priority: 'high' },
+    id: 'PICK-007', orderId: 'ORD-4527', sku: 'TIMBERLAND-PRO-45', waveId: 'WAVE-001', description: 'Timberland PRO Boots - Size 45 - Wheat',
+    wms: { location: 'Zone C-Aisle 22-Shelf E2', plannedQty: 2, plannedWindow: '10:30-10:45', plannedDurationSeconds: 240, priority: 'high' },
     wes: { picker: 'W054 - Bellamy Kim', station: 'Pick Station C-2', actualQty: 2, scanTime: '10:32:18', completeTime: '10:55:42', travelTime: 312, dwellTime: 724 },
     status: 'exception', exceptions: ['excessive-duration'], volume7Days: 298
   }
@@ -124,6 +124,8 @@ export const PICK_TASKS_ALL = (() => {
   const shelves = ['Shelf A1', 'Shelf A2', 'Shelf B1', 'Shelf B2', 'Shelf C1', 'Shelf C2', 'Shelf D1', 'Shelf D2', 'Shelf E1', 'Shelf E2']
   const priorities = ['urgent', 'high', 'normal', 'low']
   const exceptionsTypes = ['no-scan', 'wrong-location', 'under-pick', 'over-pick', 'excessive-duration']
+
+  const waveIds = ['WAVE-001', 'WAVE-002', 'WAVE-003']
 
   for (let i = 8; i <= 500; i++) {
     const zone = zones[Math.floor(Math.random() * zones.length)]
@@ -148,17 +150,21 @@ export const PICK_TASKS_ALL = (() => {
         ? Math.floor(Math.random() * 600) + 400
         : Math.floor(Math.random() * 300) + 50
 
+    const plannedDurationSeconds = Math.floor(Math.random() * 60) + 180  // 180-240s planned
+
     const volume = generateVolumeMetrics(Math.random() * 300 + 50)
 
     tasks.push({
       id: `PICK-${String(i).padStart(4, '0')}`,
       orderId: `ORD-${4000 + i}`,
       sku: `SKU-${10000 + i}`,
+      waveId: waveIds[Math.floor(Math.random() * waveIds.length)],
       description: `${['Nike', 'Adidas', 'Puma', 'New Balance', 'Under Armour', 'Reebok'][Math.floor(Math.random() * 6)]} ${['Running', 'Training', 'Basketball', 'Lifestyle', 'Performance'][Math.floor(Math.random() * 5)]} - ${['Black', 'White', 'Blue', 'Red', 'Grey'][Math.floor(Math.random() * 5)]}`,
       wms: {
         location: `${zone}-${aisles[Math.floor(Math.random() * aisles.length)]}-${shelves[Math.floor(Math.random() * shelves.length)]}`,
         plannedQty,
         plannedWindow: `${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 12) * 5).padStart(2, '0')}-${String(Math.floor(Math.random() * 24)).padStart(2, '0')}:${String(Math.floor(Math.random() * 12) * 5).padStart(2, '0')}`,
+        plannedDurationSeconds,
         priority: priorities[Math.floor(Math.random() * priorities.length)]
       },
       wes: {
@@ -1561,7 +1567,13 @@ export const DELAY_PATTERNS = {
         fastMovingOrders: 15,
         serviceRisk: 'high',
         description: 'Multiple fast-moving SKUs stored in this zone - SLA at risk'
-      }
+      },
+      affectedPickerRoutes: [
+        { picker: 'W008 - Kevin Liu', routeId: 'RT-0412', plannedStopTime: '09:12:00', actualArrival: '09:19:42', delaySeconds: 462 },
+        { picker: 'W050 - Taylor Knight', routeId: 'RT-0418', plannedStopTime: '09:45:00', actualArrival: '09:52:18', delaySeconds: 438 },
+        { picker: 'W051 - Lennon Warren', routeId: 'RT-0421', plannedStopTime: '10:05:00', actualArrival: '10:11:55', delaySeconds: 415 },
+        { picker: 'W052 - Finley Wood', routeId: 'RT-0427', plannedStopTime: '10:30:00', actualArrival: '10:37:22', delaySeconds: 442 },
+      ]
     },
     {
       id: 'ZONE-MZ1',
@@ -1586,7 +1598,12 @@ export const DELAY_PATTERNS = {
         fastMovingOrders: 8,
         serviceRisk: 'medium',
         description: 'Moderate impact on order fulfillment SLAs'
-      }
+      },
+      affectedPickerRoutes: [
+        { picker: 'W053 - Remy Spencer', routeId: 'RT-0508', plannedStopTime: '10:15:00', actualArrival: '10:20:14', delaySeconds: 314 },
+        { picker: 'W054 - Bellamy Kim', routeId: 'RT-0515', plannedStopTime: '10:40:00', actualArrival: '10:45:02', delaySeconds: 302 },
+        { picker: 'W055 - Shiloh Park', routeId: 'RT-0519', plannedStopTime: '11:00:00', actualArrival: '11:04:58', delaySeconds: 298 },
+      ]
     }
   ],
   equipment: [
@@ -1613,7 +1630,12 @@ export const DELAY_PATTERNS = {
         fastMovingOrders: 7,
         serviceRisk: 'critical',
         description: 'Fast-moving order types routed here - urgent SLA risk'
-      }
+      },
+      affectedPickerRoutes: [
+        { picker: 'W008 - Kevin Liu', routeId: 'RT-0412', plannedStopTime: '09:18:00', actualArrival: '09:26:32', delaySeconds: 512 },
+        { picker: 'W051 - Lennon Warren', routeId: 'RT-0421', plannedStopTime: '09:52:00', actualArrival: '10:00:10', delaySeconds: 490 },
+        { picker: 'W055 - Shiloh Park', routeId: 'RT-0522', plannedStopTime: '10:22:00', actualArrival: '10:29:44', delaySeconds: 464 },
+      ]
     },
     {
       id: 'EQ-CV-07',
@@ -1638,7 +1660,11 @@ export const DELAY_PATTERNS = {
         fastMovingOrders: 4,
         serviceRisk: 'medium',
         description: 'Primarily bulk orders - manageable SLA impact'
-      }
+      },
+      affectedPickerRoutes: [
+        { picker: 'W052 - Finley Wood', routeId: 'RT-0601', plannedStopTime: '09:30:00', actualArrival: '09:35:18', delaySeconds: 318 },
+        { picker: 'W053 - Remy Spencer', routeId: 'RT-0607', plannedStopTime: '10:00:00', actualArrival: '10:05:10', delaySeconds: 310 },
+      ]
     }
   ],
   orderTypes: [
@@ -1709,7 +1735,7 @@ export const WAVE_ORDER_DATA = {
   waves: [
     {
       id: 'WAVE-001',
-      name: 'Wave 08:00 - Same-Day',
+      name: 'ADIDAS0012 08:00 - Same-Day',
       plannedHours: 42.5,
       actualHours: 38.2,
       delayHours: -4.3,  // Negative = ahead
@@ -1723,7 +1749,7 @@ export const WAVE_ORDER_DATA = {
     },
     {
       id: 'WAVE-002',
-      name: 'Wave 09:00 - Standard',
+      name: 'NIKE0034 09:00 - Standard',
       plannedHours: 35.8,
       actualHours: 42.1,
       delayHours: 6.3,
@@ -1737,7 +1763,7 @@ export const WAVE_ORDER_DATA = {
     },
     {
       id: 'WAVE-003',
-      name: 'Wave 10:00 - B2B Bulk',
+      name: 'B2BBULK47 10:00 - B2B Bulk',
       plannedHours: 28.5,
       actualHours: 31.2,
       delayHours: 2.7,
@@ -1753,56 +1779,74 @@ export const WAVE_ORDER_DATA = {
   orders: [
     {
       id: 'ORD-4521',
-      plannedHours: 2.5,
-      actualHours: 3.1,
-      delayMinutes: 36,
+      sku: 'SHOE-NKE-123445',
+      units: 525,
+      plannedMinutes: 12.5,
+      actualMinutes: 14.2,
+      status: 'complete',
+      accumulatedDurationSec: 852,
+      delayMinutes: 1.7,
       delayType: 'delayed',
-      exceptionType: 'delay',
       waveId: 'WAVE-001'
     },
     {
       id: 'ORD-4522',
-      plannedHours: 1.8,
-      actualHours: 1.5,
-      delayMinutes: -18,
+      sku: 'SHOE-ADS-098712',
+      units: 310,
+      plannedMinutes: 8.0,
+      actualMinutes: 7.1,
+      status: 'complete',
+      accumulatedDurationSec: 426,
+      delayMinutes: -0.9,
       delayType: 'ahead',
-      exceptionType: null,
       waveId: 'WAVE-001'
     },
     {
       id: 'ORD-4523',
-      plannedHours: 3.2,
-      actualHours: 4.5,
-      delayMinutes: 78,
+      sku: 'SHOE-PUM-334421',
+      units: 780,
+      plannedMinutes: 18.0,
+      actualMinutes: 21.3,
+      status: 'ongoing',
+      accumulatedDurationSec: 1278,
+      delayMinutes: 3.3,
       delayType: 'delayed',
-      exceptionType: 'denial',
       waveId: 'WAVE-002'
     },
     {
       id: 'ORD-4524',
-      plannedHours: 2.1,
-      actualHours: 2.0,
-      delayMinutes: -6,
-      delayType: 'ahead',
-      exceptionType: null,
+      sku: 'SHOE-NB-556677',
+      units: 215,
+      plannedMinutes: 6.5,
+      actualMinutes: null,
+      status: 'planned',
+      accumulatedDurationSec: null,
+      delayMinutes: null,
+      delayType: 'planned',
       waveId: 'WAVE-002'
     },
     {
       id: 'ORD-4525',
-      plannedHours: 2.8,
-      actualHours: 3.6,
-      delayMinutes: 48,
-      delayType: 'delayed',
-      exceptionType: 'delay',
+      sku: 'SHOE-UA-889900',
+      units: 640,
+      plannedMinutes: 15.0,
+      actualMinutes: null,
+      status: 'planned',
+      accumulatedDurationSec: null,
+      delayMinutes: null,
+      delayType: 'planned',
       waveId: 'WAVE-003'
     },
     {
       id: 'ORD-4526',
-      plannedHours: 1.5,
-      actualHours: 1.2,
-      delayMinutes: -18,
-      delayType: 'ahead',
-      exceptionType: null,
+      sku: 'SHOE-RBK-112233',
+      units: 420,
+      plannedMinutes: 10.5,
+      actualMinutes: null,
+      status: 'planned',
+      accumulatedDurationSec: null,
+      delayMinutes: null,
+      delayType: 'planned',
       waveId: 'WAVE-003'
     }
   ]

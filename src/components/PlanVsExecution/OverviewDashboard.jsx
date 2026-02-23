@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BarChart3, Clock, TrendingUp, TrendingDown, ArrowUp, ArrowDown, CheckCircle, AlertTriangle } from 'lucide-react'
+import { BarChart3, Clock, TrendingUp, TrendingDown, ArrowUp, ArrowDown, CheckCircle, AlertTriangle, Package, Loader } from 'lucide-react'
 import { WAVE_ORDER_DATA, PROJECTIONS, LABOR_PERIOD_DATA } from '../../mockData.js'
 import HorizontalBarChart from './HorizontalBarChart.jsx'
 import ProjectionPanel from './ProjectionPanel.jsx'
@@ -135,42 +135,72 @@ export default function OverviewDashboard() {
           {/* Orders Section */}
           <div className="bg-white rounded-xl border border-slate-200 p-4">
             <h2 className="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
-              <Clock size={16} className="text-blue-600" />
+              <Package size={16} className="text-blue-600" />
               Orders
             </h2>
 
             <div className="space-y-2">
               {currentData.orders.map(order => {
-                const isDelayed = order.delayType === 'delayed'
+                const statusConfig = {
+                  complete: { bg: 'bg-emerald-50', border: 'border-emerald-200', icon: <CheckCircle size={13} className="text-emerald-600" />, label: 'Complete', labelClass: 'bg-emerald-100 text-emerald-700' },
+                  ongoing:  { bg: 'bg-blue-50',    border: 'border-blue-200',    icon: <Loader size={13} className="text-blue-600" />,         label: 'Ongoing',  labelClass: 'bg-blue-100 text-blue-700' },
+                  planned:  { bg: 'bg-slate-50',   border: 'border-slate-200',   icon: <Clock size={13} className="text-slate-400" />,         label: 'Planned',  labelClass: 'bg-slate-100 text-slate-600' },
+                  delayed:  { bg: 'bg-red-50',     border: 'border-red-200',     icon: <AlertTriangle size={13} className="text-red-600" />,   label: 'Delayed',  labelClass: 'bg-red-100 text-red-700' },
+                }
+                const cfg = statusConfig[order.status] || statusConfig.planned
+                const delayDiff = order.actualMinutes != null ? (order.actualMinutes - order.plannedMinutes) : null
+
                 return (
                   <div
                     key={order.id}
-                    className={`flex items-center justify-between p-3 rounded-lg border ${
-                      isDelayed
-                        ? 'bg-red-50 border-red-200'
-                        : 'bg-emerald-50 border-emerald-200'
-                    }`}
+                    className={`p-3 rounded-lg border ${cfg.bg} ${cfg.border}`}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 rounded-full ${isDelayed ? 'bg-red-100' : 'bg-emerald-100'}`}>
-                        {isDelayed ? <AlertTriangle size={14} className="text-red-600" /> : <CheckCircle size={14} className="text-emerald-600" />}
+                    {/* Top row: order ID + wave + status */}
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        {cfg.icon}
+                        <span className="text-xs font-mono font-semibold text-slate-700">{order.id}</span>
+                        <span className="text-[10px] text-slate-400">Wave: {order.waveId}</span>
                       </div>
-                      <div>
-                        <div className="text-xs font-mono text-slate-400">{order.id}</div>
-                        <div className="text-sm font-semibold text-slate-700">
-                          {isDelayed ? '+' : ''}{Math.abs(order.delayMinutes)}m {isDelayed ? 'delay' : 'ahead'}
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wide ${cfg.labelClass}`}>
+                        {cfg.label}
+                      </span>
+                    </div>
+
+                    {/* SKU + units */}
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-xs font-mono text-slate-600">{order.sku}</span>
+                      <span className="text-xs text-slate-500">{order.units} units</span>
+                    </div>
+
+                    {/* Workload plan vs actual */}
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-[10px] text-slate-500">Plan:</span>
+                        <span className="text-xs font-semibold text-slate-700">{order.plannedMinutes}m</span>
+                      </div>
+                      {order.actualMinutes != null && (
+                        <>
+                          <div className="flex items-center gap-1.5">
+                            <span className="text-[10px] text-slate-500">Actual:</span>
+                            <span className={`text-xs font-semibold ${delayDiff > 0 ? 'text-red-600' : 'text-emerald-600'}`}>
+                              {order.actualMinutes}m
+                            </span>
+                          </div>
+                          <div className={`text-[10px] font-semibold ${delayDiff > 0 ? 'text-red-600' : 'text-emerald-600'}`}>
+                            {delayDiff > 0 ? '+' : ''}{delayDiff.toFixed(1)}m
+                          </div>
+                        </>
+                      )}
+                      {order.accumulatedDurationSec != null && (
+                        <div className="ml-auto flex items-center gap-1.5">
+                          <Clock size={10} className="text-slate-400" />
+                          <span className="text-[10px] text-slate-500">Elapsed:</span>
+                          <span className="text-xs font-semibold text-slate-700">
+                            {Math.floor(order.accumulatedDurationSec / 60)}:{(order.accumulatedDurationSec % 60).toString().padStart(2, '0')}
+                          </span>
                         </div>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs text-slate-500">Planned</div>
-                      <div className="text-sm font-semibold text-slate-700">{order.plannedHours}h</div>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs text-slate-500">Actual</div>
-                      <div className={`text-sm font-semibold ${isDelayed ? 'text-red-600' : 'text-emerald-600'}`}>
-                        {order.actualHours}h
-                      </div>
+                      )}
                     </div>
                   </div>
                 )
