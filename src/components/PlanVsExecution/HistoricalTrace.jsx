@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import {
   AlertTriangle, CheckCircle, XCircle, Clock,
-  User, MapPin, Package, Filter, ChevronDown, Eye, EyeOff, Info, ArrowUpDown,
-  TrendingUp,
+  User, MapPin, Package, Filter, ChevronDown, Info,
 } from 'lucide-react'
 import { PICK_TASKS_ALL, getPriorityConfig, ZONE_CONFIG } from '../../mockData.js'
 
@@ -132,15 +131,6 @@ function TaskRow({ task, isExpanded, onToggle }) {
             <div className="text-sm font-medium text-slate-800 truncate">{task.description}</div>
           </div>
 
-          {/* Volume 7 days */}
-          <div className="flex-shrink-0 w-20 text-center">
-            <div className="flex items-center justify-center gap-1 text-xs text-slate-500">
-              <TrendingUp size={10} />
-              <span>7d Vol</span>
-            </div>
-            <div className="text-sm font-bold text-slate-800">{task.volume7Days}</div>
-          </div>
-
           {/* Zone */}
           <div className="flex-shrink-0">
             <div className={`flex items-center gap-1.5 px-2 py-1 rounded-full text-[10px] font-semibold ${zoneConfig?.lightClass}`}>
@@ -154,27 +144,31 @@ function TaskRow({ task, isExpanded, onToggle }) {
             <ExceptionBadge exceptions={task.exceptions} />
           </div>
 
-          {/* WMS Summary */}
-          <div className="flex-shrink-0 w-40">
-            <div className="flex items-center gap-1 text-xs mb-1">
-              <MapPin size={10} className="text-slate-400" />
-              <span className="text-slate-600 truncate">{task.wms.location}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500">Qty:</span>
-              <span className="text-xs font-semibold text-slate-700">{task.wms.plannedQty}</span>
+          {/* WMS Plan */}
+          <div className="flex-shrink-0 w-48">
+            <div className="text-xs font-mono text-slate-600 truncate mb-0.5">{task.sku}</div>
+            <div className="text-xs text-slate-700 truncate mb-1">{task.description}</div>
+            <div className="flex items-center gap-3">
+              <span className="text-[10px] text-slate-500">Qty: <span className="font-semibold text-slate-700">{task.wms.plannedQty}</span></span>
+              <span className={`text-[10px] font-semibold uppercase tracking-wide ${getPriorityConfig(task.wms.priority).text}`}>
+                {getPriorityConfig(task.wms.priority).label}
+              </span>
             </div>
           </div>
 
-          {/* WES Summary */}
+          {/* WES Execution */}
           <div className="flex-shrink-0 w-44">
             <div className="flex items-center gap-1 text-xs mb-1">
               <User size={10} className="text-slate-400" />
               <span className="text-slate-600 truncate">{task.wes.picker.split(' - ')[1]}</span>
             </div>
+            <div className="flex items-center gap-1 text-xs mb-1">
+              <MapPin size={10} className="text-slate-400" />
+              <span className="text-slate-500 truncate text-[10px]">{task.wms.location}</span>
+            </div>
             {task.wes.actualQty !== null && (
               <div className="flex items-center gap-2">
-                <span className="text-xs text-slate-500">Actual:</span>
+                <span className="text-xs text-slate-500">Actual qty:</span>
                 <span className={`text-xs font-semibold ${
                   task.wes.actualQty !== task.wms.plannedQty ? 'text-amber-600' : 'text-slate-700'
                 }`}>
@@ -211,16 +205,16 @@ function TaskRow({ task, isExpanded, onToggle }) {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500">Location</span>
-                  <span className="text-xs font-semibold text-slate-700">{task.wms.location}</span>
+                  <span className="text-xs text-slate-500">SKU</span>
+                  <span className="text-xs font-mono font-semibold text-slate-700">{task.sku}</span>
+                </div>
+                <div className="flex items-start justify-between gap-4">
+                  <span className="text-xs text-slate-500 flex-shrink-0">Description</span>
+                  <span className="text-xs font-semibold text-slate-700 text-right">{task.description}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-slate-500">Quantity</span>
                   <span className="text-xs font-semibold text-slate-700">{task.wms.plannedQty}</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-slate-500">Time Window</span>
-                  <span className="text-xs font-semibold text-slate-700">{task.wms.plannedWindow}</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-slate-500">Priority</span>
@@ -245,6 +239,10 @@ function TaskRow({ task, isExpanded, onToggle }) {
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-slate-500">Station</span>
                   <span className="text-xs font-semibold text-slate-700">{task.wes.station}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-slate-500">Location</span>
+                  <span className="text-xs font-semibold text-slate-700">{task.wms.location}</span>
                 </div>
                 {task.wes.scanTime && (
                   <div className="flex items-center justify-between">
@@ -487,13 +485,9 @@ export default function HistoricalTrace() {
           <div className="w-6" />
           <div className="w-24">Status</div>
           <div className="flex-1">Task Details</div>
-          <div className="w-20 text-center flex items-center gap-1">
-            Volume
-            <ArrowUpDown size={10} className="text-blue-500" />
-          </div>
           <div className="w-20">Zone</div>
           <div className="w-32">Exceptions</div>
-          <div className="w-40">WMS Plan</div>
+          <div className="w-48">WMS Plan</div>
           <div className="w-44">WES Execution</div>
           <div className="w-44">Timing (Plan vs Act)</div>
         </div>
