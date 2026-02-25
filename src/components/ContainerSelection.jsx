@@ -41,7 +41,8 @@ function SiteStatsBar() {
   )
 }
 
-// ─── Processing Method Config ──────────────────────────────────────────────────
+// ─── Processing Method Config (unloading methods only) ─────────────────────────
+// Hazard and Fragile are SKU labels, not processing methods
 const PM_CONFIG = [
   { key: 'CR',      barClass: 'bg-blue-500',    chipClass: 'bg-blue-100 text-blue-700' },
   { key: 'PR',      barClass: 'bg-violet-500',  chipClass: 'bg-violet-100 text-violet-700' },
@@ -49,31 +50,85 @@ const PM_CONFIG = [
   { key: 'PTL',     barClass: 'bg-amber-500',   chipClass: 'bg-amber-100 text-amber-700' },
   { key: 'XDK',     barClass: 'bg-yellow-500',  chipClass: 'bg-yellow-100 text-yellow-700' },
   { key: 'NonCon',  barClass: 'bg-orange-500',  chipClass: 'bg-orange-100 text-orange-700' },
-  { key: 'Hazard',  barClass: 'bg-red-400',     chipClass: 'bg-red-100 text-red-600' },
 ]
 
-// ─── Container Card (left panel) ──────────────────────────────────────────────
-function ContainerCard({ container, rank, isSelected, onClick, onDoubleClick }) {
-  const priority = getPriorityConfig(container.priority)
+// ─── SKU Label Config ─────────────────────────────────────────────────────────
+const LABEL_CONFIG = {
+  Hazard:  { chipClass: 'bg-red-100 text-red-700 border-red-200' },
+  Fragile: { chipClass: 'bg-purple-100 text-purple-700 border-purple-200' },
+}
 
+// ─── Get PO-level processing methods and labels ─────────────────────────────────
+function getPOProcessingMethodsAndLabels(container, isProcessed = false) {
+  if (isProcessed) {
+    // For processed containers, use the skus directly
+    const methods = new Set()
+    const labels = new Set()
+    container.skus?.forEach(sku => {
+      if (sku.actualMethod) methods.add(sku.actualMethod)
+      sku.labels?.forEach(label => labels.add(label))
+    })
+    return {
+      methods: Array.from(methods).sort(),
+      labels: Array.from(labels).sort(),
+    }
+  }
+
+  // For unprocessed containers, look at all containers in the same PO
+  const allPOContainers = CONTAINERS_ALL.filter(c => c.poNumber === container.poNumber)
+  const methods = new Set()
+  const labels = new Set()
+
+  allPOContainers.forEach(cont => {
+    const products = CONTAINER_PRODUCTS.find(cp => cp.containerId === cont.id)
+    products?.products?.forEach(product => {
+      if (product.processingMethod) methods.add(product.processingMethod)
+      product.labels?.forEach(label => labels.add(label))
+    })
+  })
+
+  // Also check historical data for this PO
+  const historicalPO = HISTORICAL_PO_CONTAINERS.find(h => h.poNumber === container.poNumber)
+  historicalPO?.pastContainers?.forEach(past => {
+    past.skus?.forEach(sku => {
+      if (sku.actualMethod) methods.add(sku.actualMethod)
+      sku.labels?.forEach(label => labels.add(label))
+    })
+  })
+
+  return {
+    methods: Array.from(methods).sort(),
+    labels: Array.from(labels).sort(),
+  }
+}
+
+// ─── Container Card (left panel) ──────────────────────────────────────────────
+function ContainerCard({ container, rank, isSelected, onClick, isProcessed = false }) {
   const borderClass = isSelected
     ? 'border-blue-500 bg-blue-50'
     : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50'
 
+  const { methods: poMethods, labels: poLabels } = getPOProcessingMethodsAndLabels(container, isProcessed)
+
   return (
     <button
       onClick={onClick}
-      onDoubleClick={onDoubleClick}
       className={`w-full text-left rounded-xl border-2 p-3 mb-2 transition-all ${borderClass}`}
     >
       <div className="flex items-start justify-between gap-2 mb-1.5">
         <div className="flex items-center gap-2">
-          {/* Rank badge */}
-          <span className={`text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
-            rank === 1 ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-500'
-          }`}>
-            {rank}
-          </span>
+          {/* Rank badge or processed indicator */}
+          {isProcessed ? (
+            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 flex-shrink-0">
+              Done
+            </span>
+          ) : (
+            <span className={`text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${
+              rank === 1 ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-500'
+            }`}>
+              {rank}
+            </span>
+          )}
           <div>
             <div className="flex items-center gap-1.5 flex-wrap">
               <span className="font-bold text-slate-800 text-sm">{container.supplier}</span>
@@ -81,38 +136,43 @@ function ContainerCard({ container, rank, isSelected, onClick, onDoubleClick }) 
             <div className="text-xs text-slate-400 mt-0.5">{getCategoryAbbr(container.category)} · {container.id}</div>
           </div>
         </div>
-        <div className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${priority.bg} ${priority.text}`}>
-          {priority.label}
+        {container.priority && !isProcessed && (
+          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0 ${getPriorityConfig(container.priority).bg} ${getPriorityConfig(container.priority).text}`}>
+            {getPriorityConfig(container.priority).label}
+          </span>
+        )}
+        {isProcessed && (
+          <span className="text-[10px] text-slate-400 flex-shrink-0">
+            {container.processedDate}
+          </span>
+        )}
+      </div>
+
+      {!isProcessed && (
+        <div className="flex items-center gap-4 text-xs text-slate-600 mb-2">
+          <span className="flex items-center gap-1">
+            <Clock size={11} />
+            {container.ageInYard}d in yard
+          </span>
         </div>
-      </div>
+      )}
 
-      <div className="flex items-center gap-4 text-xs text-slate-600 mb-2">
-        <span className="flex items-center gap-1">
-          <Clock size={11} />
-          {container.ageInYard}d in yard
-        </span>
-        <span className="flex items-center gap-1 text-slate-500">
-          <BarChart3 size={11} />
-          {container.initialEstimate?.totalHours?.toFixed(1)}h total
-        </span>
-      </div>
-
-      {/* Processing method pills + stacked bar */}
+      {/* PO processing methods and labels */}
       <div className="mb-2">
-        <div className="flex flex-wrap gap-1 mb-1">
-          {PM_CONFIG.filter(pm => (container.initialEstimate.processingMethods?.[pm.key] ?? 0) > 0)
-            .map(pm => (
-              <span key={pm.key} className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${pm.chipClass}`}>
-                {pm.key} {container.initialEstimate.processingMethods[pm.key].toFixed(1)}h
+        <div className="flex flex-wrap gap-1">
+          {poMethods.map(method => {
+            const cfg = PM_CONFIG.find(p => p.key === method)
+            return (
+              <span key={method} className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${cfg?.chipClass || 'bg-slate-100 text-slate-600'}`}>
+                {method}
               </span>
-            ))}
-        </div>
-        <div className="flex h-1.5 rounded-full overflow-hidden bg-slate-100">
-          {PM_CONFIG.filter(pm => (container.initialEstimate.processingMethods?.[pm.key] ?? 0) > 0)
-            .map(pm => {
-              const pct = (container.initialEstimate.processingMethods[pm.key] / container.initialEstimate.totalHours) * 100
-              return <div key={pm.key} className={pm.barClass} style={{ width: `${pct}%` }} />
-            })}
+            )
+          })}
+          {poLabels.map(label => (
+            <span key={label} className={`text-[8px] font-bold px-1 py-0.5 rounded-full border ${LABEL_CONFIG[label]?.chipClass || 'bg-slate-100 text-slate-600'}`}>
+              {label}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -192,7 +252,16 @@ function POContentsBox({ container }) {
               <tbody>
                 {containerProducts.products.map((p, idx) => (
                   <tr key={idx} className="border-b border-slate-50 last:border-0">
-                    <td className="py-1.5 font-mono text-[10px] text-slate-600">{p.sku}</td>
+                    <td className="py-1.5">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-mono text-[10px] text-slate-600">{p.sku}</span>
+                        {p.labels?.map(label => (
+                          <span key={label} className={`text-[8px] font-bold px-1 py-0.5 rounded-full border ${LABEL_CONFIG[label]?.chipClass || 'bg-slate-100 text-slate-600'}`}>
+                            {label}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
                     <td className="py-1.5 text-slate-500">{p.division ?? '—'}</td>
                     <td className="py-1.5 text-right font-semibold text-slate-700">{p.quantity}</td>
                     <td className="py-1.5 text-right text-slate-600">{p.forecastedProcessingHours?.toFixed(1) ?? '—'}h</td>
@@ -214,6 +283,58 @@ function POContentsBox({ container }) {
       {/* Tab: Same PO */}
       {activeTab === 'same-po' && (
         <div className="space-y-4">
+          {/* Previously Processed (shown first) */}
+          {historicalPO?.pastContainers?.length > 0 && (
+            <div>
+              <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide mb-2">
+                Previously Processed
+              </div>
+              {historicalPO.pastContainers.map(past => (
+                <div key={past.containerId} className="mb-3 bg-slate-50 rounded-lg p-3 border border-slate-100">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-slate-700">{past.containerId}</span>
+                    <span className="text-[10px] text-slate-400">Processed {past.processedDate}</span>
+                  </div>
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="text-[10px] text-slate-400 border-b border-slate-100">
+                        <th className="text-left pb-1 font-medium">SKU</th>
+                        <th className="text-left pb-1 font-medium">Division</th>
+                        <th className="text-right pb-1 font-medium">Qty</th>
+                        <th className="text-right pb-1 font-medium">Actual hrs</th>
+                        <th className="text-right pb-1 font-medium">Method</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {past.skus.map((s, idx) => (
+                        <tr key={idx} className="border-b border-slate-50 last:border-0">
+                          <td className="py-1">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="font-mono text-[10px] text-slate-600">{s.sku}</span>
+                              {s.labels?.map(label => (
+                                <span key={label} className={`text-[8px] font-bold px-1 py-0.5 rounded-full border ${LABEL_CONFIG[label]?.chipClass || 'bg-slate-100 text-slate-600'}`}>
+                                  {label}
+                                </span>
+                              ))}
+                            </div>
+                          </td>
+                          <td className="py-1 text-slate-500">{s.division}</td>
+                          <td className="py-1 text-right font-semibold text-slate-700">{s.quantity}</td>
+                          <td className="py-1 text-right text-slate-600">{s.actualTimeHours.toFixed(1)}h</td>
+                          <td className="py-1 text-right">
+                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${getMethodChip(s.actualMethod)}`}>
+                              {s.actualMethod}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* In Yard (Not Yet Processed) */}
           {siblingContainers.length > 0 && (
             <div>
@@ -240,7 +361,16 @@ function POContentsBox({ container }) {
                         <tbody>
                           {siblingProducts.products.map((p, idx) => (
                             <tr key={idx} className="border-b border-slate-50 last:border-0">
-                              <td className="py-1 font-mono text-[10px] text-slate-600">{p.sku}</td>
+                              <td className="py-1">
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                  <span className="font-mono text-[10px] text-slate-600">{p.sku}</span>
+                                  {p.labels?.map(label => (
+                                    <span key={label} className={`text-[8px] font-bold px-1 py-0.5 rounded-full border ${LABEL_CONFIG[label]?.chipClass || 'bg-slate-100 text-slate-600'}`}>
+                                      {label}
+                                    </span>
+                                  ))}
+                                </div>
+                              </td>
                               <td className="py-1 text-right font-semibold text-slate-700">{p.quantity}</td>
                               <td className="py-1 text-right">
                                 {p.processingMethod ? (
@@ -261,49 +391,6 @@ function POContentsBox({ container }) {
               })}
             </div>
           )}
-
-          {/* Previously Processed */}
-          {historicalPO?.pastContainers?.length > 0 && (
-            <div>
-              <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide mb-2">
-                Previously Processed
-              </div>
-              {historicalPO.pastContainers.map(past => (
-                <div key={past.containerId} className="mb-3 bg-slate-50 rounded-lg p-3 border border-slate-100">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs font-semibold text-slate-700">{past.containerId}</span>
-                    <span className="text-[10px] text-slate-400">Processed {past.processedDate}</span>
-                  </div>
-                  <table className="w-full text-xs">
-                    <thead>
-                      <tr className="text-[10px] text-slate-400 border-b border-slate-100">
-                        <th className="text-left pb-1 font-medium">SKU</th>
-                        <th className="text-left pb-1 font-medium">Division</th>
-                        <th className="text-right pb-1 font-medium">Qty</th>
-                        <th className="text-right pb-1 font-medium">Actual hrs</th>
-                        <th className="text-right pb-1 font-medium">Method</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {past.skus.map((s, idx) => (
-                        <tr key={idx} className="border-b border-slate-50 last:border-0">
-                          <td className="py-1 font-mono text-[10px] text-slate-600">{s.sku}</td>
-                          <td className="py-1 text-slate-500">{s.division}</td>
-                          <td className="py-1 text-right font-semibold text-slate-700">{s.quantity}</td>
-                          <td className="py-1 text-right text-slate-600">{s.actualTimeHours.toFixed(1)}h</td>
-                          <td className="py-1 text-right">
-                            <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${getMethodChip(s.actualMethod)}`}>
-                              {s.actualMethod}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       )}
     </div>
@@ -312,9 +399,98 @@ function POContentsBox({ container }) {
 
 
 // ─── Container Detail Panel (right side) ──────────────────────────────────────
-function ContainerDetail({ container, onAccept }) {
+function ContainerDetail({ container, onAccept, isProcessed = false }) {
   if (!container) return null
 
+  const getMethodChip = (method) => {
+    const cfg = PM_CONFIG.find(p => p.key === method)
+    return cfg?.chipClass ?? 'bg-slate-100 text-slate-600'
+  }
+
+  if (isProcessed) {
+    // Processed container view
+    return (
+      <div className="flex flex-col gap-5 animate-fade-in">
+        {/* Header */}
+        <div className="bg-white rounded-xl border border-slate-200 p-5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-xl font-bold text-slate-900">Processed Container</h2>
+                <span className="text-xs font-bold px-2 py-1 rounded-full bg-emerald-100 text-emerald-700">
+                  Done
+                </span>
+              </div>
+              <div className="text-sm text-slate-500 mt-1">
+                {container.id} · Processed on {container.processedDate}
+              </div>
+            </div>
+          </div>
+
+          {/* Quick stats */}
+          <div className="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-slate-100">
+            <div className="bg-slate-50 rounded-lg p-3">
+              <div className="text-xs text-slate-400 mb-1">PO Number</div>
+              <div className="text-sm font-bold text-slate-800">{container.poNumber}</div>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-3">
+              <div className="text-xs text-slate-400 mb-1">SKUs</div>
+              <div className="text-sm font-bold text-slate-800">{container.totalSkus}</div>
+            </div>
+            <div className="bg-slate-50 rounded-lg p-3">
+              <div className="text-xs text-slate-400 mb-1">Actual Hours</div>
+              <div className="text-sm font-bold text-slate-800">{container.totalActualHours.toFixed(1)}h</div>
+            </div>
+          </div>
+        </div>
+
+        {/* SKU Details */}
+        <div className="bg-white rounded-xl border border-slate-200 p-5">
+          <h3 className="text-sm font-semibold text-slate-700 mb-4 flex items-center gap-2">
+            <Package size={15} className="text-slate-500" />
+            SKU Details
+          </h3>
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="text-[10px] text-slate-400 border-b border-slate-100">
+                <th className="text-left pb-1.5 font-medium">SKU</th>
+                <th className="text-left pb-1.5 font-medium">Division</th>
+                <th className="text-right pb-1.5 font-medium">Qty</th>
+                <th className="text-right pb-1.5 font-medium">Actual hrs</th>
+                <th className="text-right pb-1.5 font-medium">Method</th>
+              </tr>
+            </thead>
+            <tbody>
+              {container.skus.map((s, idx) => (
+                <tr key={idx} className="border-b border-slate-50 last:border-0">
+                  <td className="py-1.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="font-mono text-[10px] text-slate-600">{s.sku}</span>
+                      {s.labels?.map(label => (
+                        <span key={label} className={`text-[8px] font-bold px-1 py-0.5 rounded-full border ${LABEL_CONFIG[label]?.chipClass || 'bg-slate-100 text-slate-600'}`}>
+                          {label}
+                        </span>
+                      ))}
+                    </div>
+                  </td>
+                  <td className="py-1.5 text-slate-500">{s.division}</td>
+                  <td className="py-1.5 text-right font-semibold text-slate-700">{s.quantity}</td>
+                  <td className="py-1.5 text-right text-slate-600">{s.actualTimeHours.toFixed(1)}h</td>
+                  <td className="py-1.5 text-right">
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${getMethodChip(s.actualMethod)}`}>
+                      {s.actualMethod}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    )
+  }
+
+  // Unprocessed container view
   const { initialEstimate } = container
   const priority = getPriorityConfig(container.priority)
 
@@ -403,14 +579,38 @@ export default function ContainerSelection({ onAccept }) {
   const [prioritizeBy, setPrioritizeBy] = useState('none')
   const [filterOutMethods, setFilterOutMethods] = useState([])
   const [autoLaunch, setAutoLaunch] = useState(false)
-  const [visibleCount, setVisibleCount] = useState(50)
+  const [visibleCount, setVisibleCount] = useState(8)
 
   const recommended = CONTAINERS_ALL.find(c => c.isRecommended)
   const [selectedId, setSelectedId] = useState(recommended?.id)
+  const [selectedType, setSelectedType] = useState('unprocessed')
 
-  const selected = CONTAINERS_ALL.find(c => c.id === selectedId)
+  const selected = selectedType === 'processed'
+    ? getProcessedContainers().find(c => c.id === selectedId)
+    : CONTAINERS_ALL.find(c => c.id === selectedId)
 
-  // Filter containers
+  // Build processed containers from historical data
+  function getProcessedContainers() {
+    const processed = []
+    HISTORICAL_PO_CONTAINERS.forEach(po => {
+      po.pastContainers.forEach(past => {
+        processed.push({
+          id: past.containerId,
+          supplier: 'Processed',
+          category: 'Historical',
+          subcategory: 'Archive',
+          poNumber: po.poNumber,
+          processedDate: past.processedDate,
+          totalSkus: past.skus.length,
+          totalActualHours: past.skus.reduce((sum, s) => sum + s.actualTimeHours, 0),
+          skus: past.skus,
+        })
+      })
+    })
+    return processed
+  }
+
+  // Filter unprocessed containers
   const filteredContainers = CONTAINERS_ALL.filter(container => {
     if (filterOutMethods.length === 0) return true
     const pm = container.initialEstimate.processingMethods
@@ -419,7 +619,7 @@ export default function ContainerSelection({ onAccept }) {
     return !filterOutMethods.includes(topMethod)
   })
 
-  // Sort containers
+  // Sort unprocessed containers
   const sortedContainers = [...filteredContainers].sort((a, b) => {
     if (prioritizeBy === 'age') return b.ageInYard - a.ageInYard
     if (prioritizeBy === 'xdk') {
@@ -429,6 +629,9 @@ export default function ContainerSelection({ onAccept }) {
     }
     return b.criteria.overall - a.criteria.overall
   })
+
+  // Get processed containers (already sorted by processed date in data)
+  const processedContainers = getProcessedContainers()
 
   const visibleContainers = sortedContainers.slice(0, visibleCount)
   const totalCount = sortedContainers.length
@@ -441,7 +644,7 @@ export default function ContainerSelection({ onAccept }) {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          setVisibleCount(prev => Math.min(prev + 10, totalCount))
+          setVisibleCount(prev => Math.min(prev + 5, totalCount))
         }
       },
       { threshold: 0.1 }
@@ -456,23 +659,29 @@ export default function ContainerSelection({ onAccept }) {
 
   // Update visible count when filters change
   useEffect(() => {
-    setVisibleCount(50)
+    setVisibleCount(8)
   }, [prioritizeBy, filterOutMethods])
 
+  // Handle selecting a container
+  const handleSelectContainer = (id, type) => {
+    setSelectedId(id)
+    setSelectedType(type)
+  }
+
   return (
-    <div className="flex flex-col flex-1 overflow-hidden">
+    <div className="flex flex-col h-screen overflow-hidden">
       <SiteStatsBar />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* Left panel: Container list */}
-        <div className="w-80 xl:w-96 flex-shrink-0 bg-slate-50 border-r border-slate-200 overflow-y-auto">
-          <div className="p-4">
+        <div className="w-80 xl:w-96 flex-shrink-0 bg-slate-50 border-r border-slate-200 flex flex-col min-h-0">
+          <div className="p-4 flex-1 overflow-y-auto min-h-0">
             {/* Header */}
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-semibold text-slate-700">Containers in Yard</h2>
+              <h2 className="text-sm font-semibold text-slate-700">Containers</h2>
             </div>
 
             {/* Filters */}
-            <div className="mb-3 p-3 bg-white rounded-lg border border-slate-200 space-y-3">
+            <div className="mb-4 p-3 bg-white rounded-lg border border-slate-200 space-y-3 flex-shrink-0">
               {/* Prioritize by */}
               <div>
                 <label className="text-[10px] text-slate-500 block mb-1">Prioritize by</label>
@@ -491,7 +700,7 @@ export default function ContainerSelection({ onAccept }) {
               <div>
                 <label className="text-[10px] text-slate-500 block mb-1">Filter out by processing method</label>
                 <div className="flex flex-wrap gap-1">
-                  {['FBD','PTL','CR','PR','XDK','NonCon','Hazard'].map(method => (
+                  {['FBD','PTL','CR','PR','XDK','NonCon'].map(method => (
                     <button
                       key={method}
                       onClick={() => setFilterOutMethods(prev =>
@@ -532,14 +741,18 @@ export default function ContainerSelection({ onAccept }) {
               )}
             </div>
 
-            {/* Container cards */}
+            {/* Not Yet Processed Section */}
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-blue-500" />
+              Not Yet Processed ({totalCount})
+            </div>
             {visibleContainers.map((container, rank) => (
               <ContainerCard
                 key={container.id}
                 container={container}
                 rank={rank + 1}
                 isSelected={container.id === selectedId}
-                onClick={() => setSelectedId(container.id)}
+                onClick={() => handleSelectContainer(container.id, 'unprocessed')}
               />
             ))}
 
@@ -548,6 +761,26 @@ export default function ContainerSelection({ onAccept }) {
               <div ref={lastElementRef} className="py-4 text-center text-xs text-slate-400">
                 Loading more containers...
               </div>
+            )}
+
+            {/* Previously Processed Section (shown at bottom) */}
+            {processedContainers.length > 0 && (
+              <>
+                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wide mb-2 mt-6 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  Previously Processed ({processedContainers.length})
+                </div>
+                {processedContainers.map((container) => (
+                  <ContainerCard
+                    key={container.id}
+                    container={container}
+                    rank={0}
+                    isSelected={container.id === selectedId}
+                    onClick={() => handleSelectContainer(container.id, 'processed')}
+                    isProcessed={true}
+                  />
+                ))}
+              </>
             )}
           </div>
         </div>
@@ -559,6 +792,7 @@ export default function ContainerSelection({ onAccept }) {
               key={selected.id}
               container={selected}
               onAccept={onAccept}
+              isProcessed={selectedType === 'processed'}
             />
           ) : (
             <div className="flex flex-col items-center justify-center h-full text-slate-400">

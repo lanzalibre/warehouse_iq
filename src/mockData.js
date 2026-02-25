@@ -204,7 +204,7 @@ export const CONTAINERS = [
       certainty: 62,
       totalHours: 18.5,
       breakdown: { unloading: 3.2, binning: 11.8, crossdocking: 3.5 },
-      processingMethods: { CR: 2.1, PR: 3.4, FBD: 4.2, PTL: 3.8, XDK: 3.5, NonCon: 0.8, Hazard: 0.7 },
+      processingMethods: { CR: 2.1, PR: 3.4, FBD: 4.2, PTL: 3.8, XDK: 3.5, NonCon: 0.8 },
       byZone: {
         'Zone A': { hours: 4.5, units: 210 },
         'Zone B': { hours: 6.3, units: 400 },
@@ -262,7 +262,7 @@ export const CONTAINERS = [
       certainty: 58,
       totalHours: 42.0,
       breakdown: { unloading: 6.5, binning: 28.5, crossdocking: 7.0 },
-      processingMethods: { CR: 8.5, PR: 5.2, FBD: 10.8, PTL: 9.5, XDK: 5.0, NonCon: 2.2, Hazard: 0.8 },
+      processingMethods: { CR: 8.5, PR: 5.2, FBD: 10.8, PTL: 9.5, XDK: 5.0, NonCon: 2.2 },
       byZone: {
         'Zone A': { hours: 8.2, units: 380 },
         'Zone B': { hours: 14.6, units: 520 },
@@ -299,7 +299,7 @@ export const CONTAINERS = [
       certainty: 71,
       totalHours: 35.0,
       breakdown: { unloading: 5.0, binning: 24.0, crossdocking: 6.0 },
-      processingMethods: { CR: 2.5, PR: 1.5, FBD: 12.5, PTL: 11.0, XDK: 5.5, NonCon: 1.5, Hazard: 0.5 },
+      processingMethods: { CR: 2.5, PR: 1.5, FBD: 12.5, PTL: 11.0, XDK: 5.5, NonCon: 1.5 },
       byZone: {
         'Zone A': { hours: 6.8, units: 480 },
         'Zone B': { hours: 16.2, units: 920 },
@@ -342,7 +342,7 @@ export const CONTAINERS = [
       certainty: 65,
       totalHours: 32.0,
       breakdown: { unloading: 4.8, binning: 21.2, crossdocking: 6.0 },
-      processingMethods: { CR: 8.5, PR: 9.5, FBD: 4.0, PTL: 3.5, XDK: 4.5, NonCon: 1.5, Hazard: 0.5 },
+      processingMethods: { CR: 8.5, PR: 9.5, FBD: 4.0, PTL: 3.5, XDK: 4.5, NonCon: 1.5 },
       byZone: {
         'Zone A': { hours: 5.5, units: 350 },
         'Zone B': { hours: 14.5, units: 720 },
@@ -379,7 +379,7 @@ export const CONTAINERS = [
       certainty: 75,
       totalHours: 28.0,
       breakdown: { unloading: 3.5, binning: 22.0, crossdocking: 2.5 },
-      processingMethods: { CR: 5.0, PR: 4.5, FBD: 7.0, PTL: 6.5, XDK: 3.5, NonCon: 1.0, Hazard: 0.5 },
+      processingMethods: { CR: 5.0, PR: 4.5, FBD: 7.0, PTL: 6.5, XDK: 3.5, NonCon: 1.0 },
       byZone: {
         'Zone A': { hours: 5.0, units: 640 },
         'Zone B': { hours: 12.0, units: 1200 },
@@ -417,7 +417,7 @@ export const CONTAINERS = [
       certainty: 69,
       totalHours: 24.0,
       breakdown: { unloading: 3.2, binning: 18.0, crossdocking: 2.8 },
-      processingMethods: { CR: 7.0, PR: 5.5, FBD: 4.5, PTL: 3.5, XDK: 2.5, NonCon: 0.8, Hazard: 0.2 },
+      processingMethods: { CR: 7.0, PR: 5.5, FBD: 4.5, PTL: 3.5, XDK: 2.5, NonCon: 0.8 },
       byZone: {
         'Zone A': { hours: 4.2, units: 560 },
         'Zone B': { hours: 10.5, units: 1100 },
@@ -454,7 +454,7 @@ export const CONTAINERS = [
       certainty: 55,
       totalHours: 48.0,
       breakdown: { unloading: 7.5, binning: 32.5, crossdocking: 8.0 },
-      processingMethods: { CR: 5.0, PR: 3.5, FBD: 15.0, PTL: 14.0, XDK: 8.0, NonCon: 2.0, Hazard: 0.5 },
+      processingMethods: { CR: 5.0, PR: 3.5, FBD: 15.0, PTL: 14.0, XDK: 8.0, NonCon: 2.0 },
       byZone: {
         'Zone A': { hours: 9.2, units: 320 },
         'Zone B': { hours: 22.0, units: 880 },
@@ -491,7 +491,7 @@ export const CONTAINERS = [
       certainty: 61,
       totalHours: 30.0,
       breakdown: { unloading: 4.5, binning: 20.5, crossdocking: 5.0 },
-      processingMethods: { CR: 7.5, PR: 6.5, FBD: 6.0, PTL: 5.0, XDK: 3.5, NonCon: 1.0, Hazard: 0.5 },
+      processingMethods: { CR: 7.5, PR: 6.5, FBD: 6.0, PTL: 5.0, XDK: 3.5, NonCon: 1.0 },
       byZone: {
         'Zone A': { hours: 5.8, units: 620 },
         'Zone B': { hours: 10.2, units: 1100 },
@@ -528,7 +528,7 @@ export const CONTAINERS = [
       certainty: 72,
       totalHours: 36.0,
       breakdown: { unloading: 5.0, binning: 26.0, crossdocking: 5.0 },
-      processingMethods: { CR: 8.0, PR: 5.5, FBD: 9.0, PTL: 8.0, XDK: 4.0, NonCon: 1.0, Hazard: 0.5 },
+      processingMethods: { CR: 8.0, PR: 5.5, FBD: 9.0, PTL: 8.0, XDK: 4.0, NonCon: 1.0 },
       byZone: {
         'Zone A': { hours: 6.5, units: 840 },
         'Zone B': { hours: 16.0, units: 1900 },
@@ -565,7 +565,7 @@ export const CONTAINERS = [
       certainty: 78,
       totalHours: 14.0,
       breakdown: { unloading: 2.5, binning: 9.0, crossdocking: 2.5 },
-      processingMethods: { CR: 1.5, PR: 1.0, FBD: 4.5, PTL: 4.0, XDK: 2.0, NonCon: 0.8, Hazard: 0.2 },
+      processingMethods: { CR: 1.5, PR: 1.0, FBD: 4.5, PTL: 4.0, XDK: 2.0, NonCon: 0.8 },
       byZone: {
         'Zone A': { hours: 3.0, units: 160 },
         'Zone B': { hours: 6.5, units: 380 },
@@ -1096,8 +1096,9 @@ export const CONTAINERS_ALL = (() => {
     // Calculate crossdock percentage
     const crossdockPercent = crossdockHours / totalHours
 
-    // Compute random-weighted processing method distribution
-    const pmWeights = { CR: Math.random() * 0.25 + 0.05, PR: Math.random() * 0.2 + 0.03, FBD: Math.random() * 0.25 + 0.05, PTL: Math.random() * 0.2 + 0.03, NonCon: Math.random() * 0.05 + 0.01, Hazard: Math.random() * 0.03 + 0.005 }
+    // Compute random-weighted processing method distribution (unloading methods only)
+    // Hazard and Fragile are SKU labels, not processing methods
+    const pmWeights = { CR: Math.random() * 0.25 + 0.05, PR: Math.random() * 0.2 + 0.03, FBD: Math.random() * 0.25 + 0.05, PTL: Math.random() * 0.2 + 0.03, NonCon: Math.random() * 0.05 + 0.01 }
     const pmWeightSum = Object.values(pmWeights).reduce((a, b) => a + b, 0)
     const remainingHours = totalHours - crossdockHours
     const processingMethods = {
@@ -1107,7 +1108,6 @@ export const CONTAINERS_ALL = (() => {
       PTL:     Math.round((pmWeights.PTL / pmWeightSum) * remainingHours * 10) / 10,
       XDK:     Math.round(crossdockHours * 10) / 10,
       NonCon:  Math.round((pmWeights.NonCon / pmWeightSum) * remainingHours * 10) / 10,
-      Hazard: Math.round((pmWeights.Hazard / pmWeightSum) * remainingHours * 10) / 10,
     }
 
     // Assign PO: ~60% get shared POs, ~40% get null (no PO)
@@ -1155,37 +1155,88 @@ export const CONTAINERS_ALL = (() => {
   return containers
 })()
 
-// ─── Expanded containers with products for detail view ─────────────────────────
-export const CONTAINER_PRODUCTS = [
-  {
-    containerId: 'CONT-4201',
-    products: [
-      { sku: 'NIKE-AIRMAX-42', description: 'Nike Air Max 270 - Size 42 - White/Black', quantity: 24, volume7Days: 245, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 2 } },
-      { sku: 'NIKE-METCON-40', description: 'Nike Metcon Training Shoes - Size 40 - Core Black', quantity: 12, volume7Days: 189, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 0, 'Zone D': 0, 'Crossdock': 1 } },
-      { sku: 'NIKE-AIRFORCE-43', description: 'Nike Air Force 1 - Size 43 - White', quantity: 18, volume7Days: 312, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 2, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
-      { sku: 'NIKE-LEBRON-44', description: 'Nike LeBron Basketball - Size 44 - Red/Black', quantity: 8, volume7Days: 156, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 0, 'Zone B': 2, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 0 } },
-      { sku: 'NIKE-DUNK-39', description: 'Nike Dunk Low - Size 39 - Panda', quantity: 15, volume7Days: 278, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
-    ]
-  },
-  {
-    containerId: 'CONT-2847',
-    products: [
-      { sku: 'UA-PROJECT-40', description: 'Under Armour Project Rock - Size 40 - Black', quantity: 20, volume7Days: 198, division: 'Performance Apparel', zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 2 } },
-      { sku: 'UA-HOVR-42', description: 'Under Armour HOVR Phantom - Size 42 - Navy', quantity: 16, volume7Days: 245, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
-      { sku: 'UA-CURRY-39', description: 'Under Armour Curry Flow - Size 39 - Yellow', quantity: 12, volume7Days: 178, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 1, 'Zone B': 2, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
-    ]
-  },
-  {
-    containerId: 'CONT-1943',
-    products: [
-      { sku: 'HM-TSHIRT-L', description: 'H&M Cotton T-Shirt - Size L - White', quantity: 50, volume7Days: 156, division: 'Casual Wear', forecastedProcessingHours: 2.1, processingMethod: 'FBD', zoneWorkload: { 'Zone A': 3, 'Zone B': 5, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 2 } },
-      { sku: 'HM-JEANS-32', description: 'H&M Slim Jeans - Size 32 - Blue', quantity: 40, volume7Days: 234, division: 'Casual Wear', forecastedProcessingHours: 2.8, processingMethod: 'PTL', zoneWorkload: { 'Zone A': 2, 'Zone B': 6, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 2 } },
-      { sku: 'HM-HOODIE-M', description: 'H&M Hoodie - Size M - Grey', quantity: 30, volume7Days: 189, division: 'Casual Wear', forecastedProcessingHours: 1.9, processingMethod: 'FBD', zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 1 } },
-    ]
-  },
-]
+// ─── Helper: Generate SKU details for a container ───────────────────────────────
+function generateContainerProducts(containerId, category, subcategory, processingMethods) {
+  const numProducts = Math.floor(Math.random() * 4) + 3 // 3-6 products per container
+  const products = []
+  const divisions = ['Athletic Footwear', 'Performance Apparel', 'Casual Wear', 'Outdoor Gear', 'Lifestyle']
+  // Unloading methods only (Hazard is a SKU label, not a processing method)
+  const pmKeys = Object.keys(processingMethods)
+    .filter(k => processingMethods[k] > 0)
+    .filter(k => ['CR', 'PR', 'FBD', 'PTL', 'XDK', 'NonCon'].includes(k))
+  const totalHours = Object.entries(processingMethods)
+    .filter(([k]) => ['CR', 'PR', 'FBD', 'PTL', 'XDK', 'NonCon'].includes(k))
+    .reduce((sum, [, v]) => sum + v, 0)
+
+  for (let i = 0; i < numProducts; i++) {
+    const supplier = category.replace(/\s/g, '').toUpperCase().substring(0, 4)
+    const style = subcategory.replace(/\s/g, '-').toUpperCase().substring(0, 8)
+    const size = Math.floor(Math.random() * 12) + 36 // 36-47
+    const color = ['Black', 'White', 'Red', 'Blue', 'Navy', 'Grey', 'White/Black', 'Core Black'][Math.floor(Math.random() * 8)]
+
+    const sku = `${supplier}-${style}-${size}-${i + 1}`
+    const description = `${category} ${subcategory} - Size ${size} - ${color}`
+    const quantity = Math.floor(Math.random() * 40) + 8
+    const volume7Days = Math.floor(Math.random() * 200) + 100
+    const division = divisions[Math.floor(Math.random() * divisions.length)]
+
+    // Assign processing method based on the container's processing methods distribution
+    const methodIndex = pmKeys.length > 0 ? Math.floor(Math.random() * pmKeys.length) : 0
+    const processingMethod = pmKeys.length > 0 ? pmKeys[methodIndex] : 'CR'
+
+    // Calculate forecasted hours proportionally
+    const hoursPerUnit = totalHours > 0 ? totalHours / numProducts : 1.5
+    const forecastedProcessingHours = Math.round((hoursPerUnit + (Math.random() - 0.5) * 0.5) * 10) / 10
+
+    // Assign labels (Hazard/Fragile) - ~15% chance of having a label
+    const hasHazard = Math.random() < 0.08
+    const hasFragile = Math.random() < 0.07
+    const labels = []
+    if (hasHazard) labels.push('Hazard')
+    if (hasFragile) labels.push('Fragile')
+
+    products.push({
+      sku,
+      description,
+      quantity,
+      volume7Days,
+      division,
+      forecastedProcessingHours: Math.max(0.5, forecastedProcessingHours),
+      processingMethod,
+      labels: labels.length > 0 ? labels : undefined,
+    })
+  }
+
+  return products
+}
+
+// ─── Container Products (forecasted data for all unprocessed containers) ────────
+export const CONTAINER_PRODUCTS = (() => {
+  const productsByContainer = []
+
+  // Get all container IDs from CONTAINERS_ALL
+  const allContainerIds = CONTAINERS_ALL.map(c => c.id)
+
+  // Generate products for each container
+  allContainerIds.forEach(containerId => {
+    const container = CONTAINERS_ALL.find(c => c.id === containerId)
+    if (container) {
+      const products = generateContainerProducts(
+        containerId,
+        container.category,
+        container.subcategory,
+        container.initialEstimate?.processingMethods || { CR: 1 }
+      )
+      productsByContainer.push({ containerId, products })
+    }
+  })
+
+  return productsByContainer
+})()
 
 // ─── Historical PO container data (already-processed containers per PO) ────────
+// These containers have been processed and only show actual hours and method
+// Hazard and Fragile are SKU labels, not processing methods
 export const HISTORICAL_PO_CONTAINERS = [
   {
     poNumber: 'PO-6124',
@@ -1194,15 +1245,17 @@ export const HISTORICAL_PO_CONTAINERS = [
         containerId: 'CONT-4098',
         processedDate: '2026-02-18',
         skus: [
-          { sku: 'NIKE-AIRMAX-42', quantity: 18, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.4 },
-          { sku: 'NIKE-AIRFORCE-43', quantity: 24, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.9 },
+          { sku: 'NIKE-AIRMAX-42', description: 'Nike Air Max 270 - Size 42 - White/Black', quantity: 18, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.4, labels: ['Fragile'] },
+          { sku: 'NIKE-AIRFORCE-43', description: 'Nike Air Force 1 - Size 43 - White', quantity: 24, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.9 },
+          { sku: 'NIKE-DUNK-39', description: 'Nike Dunk Low - Size 39 - Panda', quantity: 15, division: 'Athletic Footwear', actualMethod: 'XDK', actualTimeHours: 0.8 },
         ],
       },
       {
         containerId: 'CONT-3871',
         processedDate: '2026-02-20',
         skus: [
-          { sku: 'NIKE-DUNK-39', quantity: 12, division: 'Athletic Footwear', actualMethod: 'Hazard', actualTimeHours: 2.2 },
+          { sku: 'NIKE-METCON-40', description: 'Nike Metcon Training Shoes - Size 40 - Core Black', quantity: 12, division: 'Athletic Footwear', actualMethod: 'FBD', actualTimeHours: 1.8, labels: ['Hazard'] },
+          { sku: 'NIKE-LEBRON-44', description: 'Nike LeBron Basketball - Size 44 - Red/Black', quantity: 8, division: 'Athletic Footwear', actualMethod: 'PR', actualTimeHours: 2.2 },
         ],
       },
     ],
@@ -1214,8 +1267,30 @@ export const HISTORICAL_PO_CONTAINERS = [
         containerId: 'CONT-2701',
         processedDate: '2026-02-21',
         skus: [
-          { sku: 'UA-PROJECT-40', quantity: 16, division: 'Performance Apparel', actualMethod: 'FBD', actualTimeHours: 1.6 },
-          { sku: 'UA-HOVR-42', quantity: 20, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.8 },
+          { sku: 'UA-PROJECT-40', description: 'Under Armour Project Rock - Size 40 - Black', quantity: 16, division: 'Performance Apparel', actualMethod: 'FBD', actualTimeHours: 1.6 },
+          { sku: 'UA-HOVR-42', description: 'Under Armour HOVR Phantom - Size 42 - Navy', quantity: 20, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.8 },
+          { sku: 'UA-CURRY-39', description: 'Under Armour Curry Flow - Size 39 - Yellow', quantity: 12, division: 'Athletic Footwear', actualMethod: 'PTL', actualTimeHours: 2.1, labels: ['Fragile'] },
+        ],
+      },
+      {
+        containerId: 'CONT-3544',
+        processedDate: '2026-02-22',
+        skus: [
+          { sku: 'NB-574-41', description: 'New Balance 574 Classic - Size 41 - Grey', quantity: 25, division: 'Athletic Footwear', actualMethod: 'PR', actualTimeHours: 2.3 },
+          { sku: 'NB-990-43', description: 'New Balance 990 - Size 43 - Silver', quantity: 10, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.4, labels: ['Fragile', 'Hazard'] },
+        ],
+      },
+    ],
+  },
+  {
+    poNumber: 'PO-3876',
+    pastContainers: [
+      {
+        containerId: 'CONT-2991',
+        processedDate: '2026-02-23',
+        skus: [
+          { sku: 'HM-TSHIRT-L', description: 'H&M Cotton T-Shirt - Size L - White', quantity: 50, division: 'Casual Wear', actualMethod: 'FBD', actualTimeHours: 2.0 },
+          { sku: 'HM-JEANS-32', description: 'H&M Slim Jeans - Size 32 - Blue', quantity: 40, division: 'Casual Wear', actualMethod: 'PTL', actualTimeHours: 2.7 },
         ],
       },
     ],
