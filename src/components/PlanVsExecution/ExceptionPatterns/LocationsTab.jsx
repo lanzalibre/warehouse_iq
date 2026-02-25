@@ -10,7 +10,7 @@ import { MISPLACED_LOCATIONS_ALL, MISPLACED_ACTIONS, MISPLACED_ACCUMULATED_STATS
 function IssueTypeBadge({ issueType }) {
   const config = {
     'inventory-issue': {
-      label: 'Inventory Issue',
+      label: 'Inventory Accuracy Issue',
       bg: 'bg-red-100',
       text: 'text-red-700',
       dot: 'bg-red-500',
@@ -368,7 +368,7 @@ export default function LocationsTab() {
             <div className="flex gap-1">
               {[
                 { value: 'all', label: `All (${activeLocations})` },
-                { value: 'inventory-issue', label: `Inventory (${inventoryIssues})` },
+                { value: 'inventory-issue', label: `Inventory Accuracy (${inventoryIssues})` },
                 { value: 'slotting-issue', label: `Slotting (${slottingIssues})` },
                 { value: 'ignored', label: `Ignored (${ignoredCount})` },
               ].map(f => (

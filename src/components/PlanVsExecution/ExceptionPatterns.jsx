@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { MapPin, Cog, ShoppingCart } from 'lucide-react'
+import { MapPin, Cog, ShoppingCart, Layers } from 'lucide-react'
 import LocationsTab from './ExceptionPatterns/LocationsTab.jsx'
+import SlottingTab from './ExceptionPatterns/SlottingTab.jsx'
 import EquipmentTab from './ExceptionPatterns/EquipmentTab.jsx'
 import OrderTypesTab from './ExceptionPatterns/OrderTypesTab.jsx'
 
@@ -48,6 +49,13 @@ export default function ExceptionPatterns() {
           <TabButton
             activeTab={activeTab}
             setActiveTab={setActiveTab}
+            id="slotting"
+            label="Slotting"
+            icon={Layers}
+          />
+          <TabButton
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
             id="equipment"
             label="Equipment & Zones"
             icon={Cog}
@@ -65,6 +73,7 @@ export default function ExceptionPatterns() {
       {/* Tab content */}
       <div className="flex-1 overflow-hidden">
         {activeTab === 'locations' && <LocationsTab />}
+        {activeTab === 'slotting' && <SlottingTab />}
         {activeTab === 'equipment' && <EquipmentTab />}
         {activeTab === 'order-types' && <OrderTypesTab />}
       </div>
