@@ -204,6 +204,7 @@ export const CONTAINERS = [
       certainty: 62,
       totalHours: 18.5,
       breakdown: { unloading: 3.2, binning: 11.8, crossdocking: 3.5 },
+      processingMethods: { CR: 2.1, PR: 3.4, FBD: 4.2, PTL: 3.8, XDK: 3.5, NonCon: 0.8, Hazard: 0.7 },
       byZone: {
         'Zone A': { hours: 4.5, units: 210 },
         'Zone B': { hours: 6.3, units: 400 },
@@ -261,6 +262,7 @@ export const CONTAINERS = [
       certainty: 58,
       totalHours: 42.0,
       breakdown: { unloading: 6.5, binning: 28.5, crossdocking: 7.0 },
+      processingMethods: { CR: 8.5, PR: 5.2, FBD: 10.8, PTL: 9.5, XDK: 5.0, NonCon: 2.2, Hazard: 0.8 },
       byZone: {
         'Zone A': { hours: 8.2, units: 380 },
         'Zone B': { hours: 14.6, units: 520 },
@@ -297,6 +299,7 @@ export const CONTAINERS = [
       certainty: 71,
       totalHours: 35.0,
       breakdown: { unloading: 5.0, binning: 24.0, crossdocking: 6.0 },
+      processingMethods: { CR: 2.5, PR: 1.5, FBD: 12.5, PTL: 11.0, XDK: 5.5, NonCon: 1.5, Hazard: 0.5 },
       byZone: {
         'Zone A': { hours: 6.8, units: 480 },
         'Zone B': { hours: 16.2, units: 920 },
@@ -325,7 +328,7 @@ export const CONTAINERS = [
   },
   {
     id: 'CONT-2599',
-    poNumber: 'PO-4502',
+    poNumber: 'PO-6124',
     category: 'Shoes',
     subcategory: 'Running Shoes',
     supplier: 'Adidas',
@@ -339,6 +342,7 @@ export const CONTAINERS = [
       certainty: 65,
       totalHours: 32.0,
       breakdown: { unloading: 4.8, binning: 21.2, crossdocking: 6.0 },
+      processingMethods: { CR: 8.5, PR: 9.5, FBD: 4.0, PTL: 3.5, XDK: 4.5, NonCon: 1.5, Hazard: 0.5 },
       byZone: {
         'Zone A': { hours: 5.5, units: 350 },
         'Zone B': { hours: 14.5, units: 720 },
@@ -375,6 +379,7 @@ export const CONTAINERS = [
       certainty: 75,
       totalHours: 28.0,
       breakdown: { unloading: 3.5, binning: 22.0, crossdocking: 2.5 },
+      processingMethods: { CR: 5.0, PR: 4.5, FBD: 7.0, PTL: 6.5, XDK: 3.5, NonCon: 1.0, Hazard: 0.5 },
       byZone: {
         'Zone A': { hours: 5.0, units: 640 },
         'Zone B': { hours: 12.0, units: 1200 },
@@ -398,7 +403,7 @@ export const CONTAINERS = [
   // ── Containers ranked 6-10 (complete the visible top-10 from 312 in yard) ────
   {
     id: 'CONT-5102',
-    poNumber: 'PO-7234',
+    poNumber: 'PO-4821',
     category: 'Shoes',
     subcategory: 'Sneakers & Casual Shoes',
     supplier: 'New Balance',
@@ -412,6 +417,7 @@ export const CONTAINERS = [
       certainty: 69,
       totalHours: 24.0,
       breakdown: { unloading: 3.2, binning: 18.0, crossdocking: 2.8 },
+      processingMethods: { CR: 7.0, PR: 5.5, FBD: 4.5, PTL: 3.5, XDK: 2.5, NonCon: 0.8, Hazard: 0.2 },
       byZone: {
         'Zone A': { hours: 4.2, units: 560 },
         'Zone B': { hours: 10.5, units: 1100 },
@@ -448,6 +454,7 @@ export const CONTAINERS = [
       certainty: 55,
       totalHours: 48.0,
       breakdown: { unloading: 7.5, binning: 32.5, crossdocking: 8.0 },
+      processingMethods: { CR: 5.0, PR: 3.5, FBD: 15.0, PTL: 14.0, XDK: 8.0, NonCon: 2.0, Hazard: 0.5 },
       byZone: {
         'Zone A': { hours: 9.2, units: 320 },
         'Zone B': { hours: 22.0, units: 880 },
@@ -484,6 +491,7 @@ export const CONTAINERS = [
       certainty: 61,
       totalHours: 30.0,
       breakdown: { unloading: 4.5, binning: 20.5, crossdocking: 5.0 },
+      processingMethods: { CR: 7.5, PR: 6.5, FBD: 6.0, PTL: 5.0, XDK: 3.5, NonCon: 1.0, Hazard: 0.5 },
       byZone: {
         'Zone A': { hours: 5.8, units: 620 },
         'Zone B': { hours: 10.2, units: 1100 },
@@ -520,6 +528,7 @@ export const CONTAINERS = [
       certainty: 72,
       totalHours: 36.0,
       breakdown: { unloading: 5.0, binning: 26.0, crossdocking: 5.0 },
+      processingMethods: { CR: 8.0, PR: 5.5, FBD: 9.0, PTL: 8.0, XDK: 4.0, NonCon: 1.0, Hazard: 0.5 },
       byZone: {
         'Zone A': { hours: 6.5, units: 840 },
         'Zone B': { hours: 16.0, units: 1900 },
@@ -556,6 +565,7 @@ export const CONTAINERS = [
       certainty: 78,
       totalHours: 14.0,
       breakdown: { unloading: 2.5, binning: 9.0, crossdocking: 2.5 },
+      processingMethods: { CR: 1.5, PR: 1.0, FBD: 4.5, PTL: 4.0, XDK: 2.0, NonCon: 0.8, Hazard: 0.2 },
       byZone: {
         'Zone A': { hours: 3.0, units: 160 },
         'Zone B': { hours: 6.5, units: 380 },
@@ -1037,6 +1047,16 @@ export const CONTAINERS_ALL = (() => {
   const suppliers = ['Nike', 'Adidas', 'Puma', 'New Balance', 'Under Armour', 'Reebok', 'Timberland', 'H&M', 'Mango', 'Gap', 'Zara']
   const priorities = ['urgent', 'high', 'normal', 'low']
 
+  // Create a pool of shared PO numbers for ~60% of containers
+  // Shared POs: each will be used for 2-4 containers
+  const sharedPOs = [
+    'PO-6124', 'PO-4821', 'PO-3876', 'PO-5033', 'PO-8192', 'PO-9021', 'PO-3344', 'PO-2211',
+    'PO-9100', 'PO-7555', 'PO-6248', 'PO-3892', 'PO-5176', 'PO-9034', 'PO-4471', 'PO-2683', 'PO-8150',
+    'PO-5921', 'PO-3707', 'PO-7346', 'PO-1952', 'PO-6289', 'PO-8473', 'PO-5108', 'PO-2895', 'PO-4102', 'PO-6729',
+    'PO-9558', 'PO-3180', 'PO-7463', 'PO-2017', 'PO-6354', 'PO-8530', 'PO-5167', 'PO-2954', 'PO-4261', 'PO-6888',
+    'PO-9273', 'PO-3466', 'PO-7578', 'PO-2129', 'PO-6466', 'PO-8642', 'PO-5279', 'PO-3066', 'PO-4373', 'PO-6999',
+  ]
+
   for (let i = 0; i < 292; i++) {
     const category = categories[Math.floor(Math.random() * categories.length)]
     const subcategory = subcategories[Math.floor(Math.random() * subcategories.length)]
@@ -1076,9 +1096,27 @@ export const CONTAINERS_ALL = (() => {
     // Calculate crossdock percentage
     const crossdockPercent = crossdockHours / totalHours
 
+    // Compute random-weighted processing method distribution
+    const pmWeights = { CR: Math.random() * 0.25 + 0.05, PR: Math.random() * 0.2 + 0.03, FBD: Math.random() * 0.25 + 0.05, PTL: Math.random() * 0.2 + 0.03, NonCon: Math.random() * 0.05 + 0.01, Hazard: Math.random() * 0.03 + 0.005 }
+    const pmWeightSum = Object.values(pmWeights).reduce((a, b) => a + b, 0)
+    const remainingHours = totalHours - crossdockHours
+    const processingMethods = {
+      CR:      Math.round((pmWeights.CR / pmWeightSum) * remainingHours * 10) / 10,
+      PR:      Math.round((pmWeights.PR / pmWeightSum) * remainingHours * 10) / 10,
+      FBD:     Math.round((pmWeights.FBD / pmWeightSum) * remainingHours * 10) / 10,
+      PTL:     Math.round((pmWeights.PTL / pmWeightSum) * remainingHours * 10) / 10,
+      XDK:     Math.round(crossdockHours * 10) / 10,
+      NonCon:  Math.round((pmWeights.NonCon / pmWeightSum) * remainingHours * 10) / 10,
+      Hazard: Math.round((pmWeights.Hazard / pmWeightSum) * remainingHours * 10) / 10,
+    }
+
+    // Assign PO: ~60% get shared POs, ~40% get null (no PO)
+    const hasPO = Math.random() < 0.60
+    const poNumber = hasPO ? sharedPOs[i % sharedPOs.length] : null
+
     containers.push({
       id: `CONT-${9000 + i}`,
-      poNumber: `PO-${8000 + i}`,
+      poNumber,
       category,
       subcategory,
       supplier,
@@ -1096,6 +1134,7 @@ export const CONTAINERS_ALL = (() => {
           binning: Math.round((totalHours * 0.70) * 10) / 10,
           crossdocking: Math.round((totalHours * 0.15) * 10) / 10,
         },
+        processingMethods,
         byZone: {
           'Zone A': { hours: Math.round(zoneAHours * 10) / 10, units: Math.floor(zoneAHours * 80) },
           'Zone B': { hours: Math.round(zoneBHours * 10) / 10, units: Math.floor(zoneBHours * 80) },
@@ -1121,28 +1160,65 @@ export const CONTAINER_PRODUCTS = [
   {
     containerId: 'CONT-4201',
     products: [
-      { sku: 'NIKE-AIRMAX-42', description: 'Nike Air Max 270 - Size 42 - White/Black', quantity: 24, volume7Days: 245, zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 2 } },
-      { sku: 'NIKE-METCON-40', description: 'Nike Metcon Training Shoes - Size 40 - Core Black', quantity: 12, volume7Days: 189, zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 0, 'Zone D': 0, 'Crossdock': 1 } },
-      { sku: 'NIKE-AIRFORCE-43', description: 'Nike Air Force 1 - Size 43 - White', quantity: 18, volume7Days: 312, zoneWorkload: { 'Zone A': 2, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
-      { sku: 'NIKE-LEBRON-44', description: 'Nike LeBron Basketball - Size 44 - Red/Black', quantity: 8, volume7Days: 156, zoneWorkload: { 'Zone A': 0, 'Zone B': 2, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 0 } },
-      { sku: 'NIKE-DUNK-39', description: 'Nike Dunk Low - Size 39 - Panda', quantity: 15, volume7Days: 278, zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'NIKE-AIRMAX-42', description: 'Nike Air Max 270 - Size 42 - White/Black', quantity: 24, volume7Days: 245, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 2 } },
+      { sku: 'NIKE-METCON-40', description: 'Nike Metcon Training Shoes - Size 40 - Core Black', quantity: 12, volume7Days: 189, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 0, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'NIKE-AIRFORCE-43', description: 'Nike Air Force 1 - Size 43 - White', quantity: 18, volume7Days: 312, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 2, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'NIKE-LEBRON-44', description: 'Nike LeBron Basketball - Size 44 - Red/Black', quantity: 8, volume7Days: 156, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 0, 'Zone B': 2, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 0 } },
+      { sku: 'NIKE-DUNK-39', description: 'Nike Dunk Low - Size 39 - Panda', quantity: 15, volume7Days: 278, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
     ]
   },
   {
     containerId: 'CONT-2847',
     products: [
-      { sku: 'UA-PROJECT-40', description: 'Under Armour Project Rock - Size 40 - Black', quantity: 20, volume7Days: 198, zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 2 } },
-      { sku: 'UA-HOVR-42', description: 'Under Armour HOVR Phantom - Size 42 - Navy', quantity: 16, volume7Days: 245, zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
-      { sku: 'UA-CURRY-39', description: 'Under Armour Curry Flow - Size 39 - Yellow', quantity: 12, volume7Days: 178, zoneWorkload: { 'Zone A': 1, 'Zone B': 2, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'UA-PROJECT-40', description: 'Under Armour Project Rock - Size 40 - Black', quantity: 20, volume7Days: 198, division: 'Performance Apparel', zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 2 } },
+      { sku: 'UA-HOVR-42', description: 'Under Armour HOVR Phantom - Size 42 - Navy', quantity: 16, volume7Days: 245, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 1, 'Zone B': 3, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'UA-CURRY-39', description: 'Under Armour Curry Flow - Size 39 - Yellow', quantity: 12, volume7Days: 178, division: 'Athletic Footwear', zoneWorkload: { 'Zone A': 1, 'Zone B': 2, 'Zone C': 1, 'Zone D': 0, 'Crossdock': 1 } },
     ]
   },
   {
     containerId: 'CONT-1943',
     products: [
-      { sku: 'HM-TSHIRT-L', description: 'H&M Cotton T-Shirt - Size L - White', quantity: 50, volume7Days: 156, zoneWorkload: { 'Zone A': 3, 'Zone B': 5, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 2 } },
-      { sku: 'HM-JEANS-32', description: 'H&M Slim Jeans - Size 32 - Blue', quantity: 40, volume7Days: 234, zoneWorkload: { 'Zone A': 2, 'Zone B': 6, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 2 } },
-      { sku: 'HM-HOODIE-M', description: 'H&M Hoodie - Size M - Grey', quantity: 30, volume7Days: 189, zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 1 } },
+      { sku: 'HM-TSHIRT-L', description: 'H&M Cotton T-Shirt - Size L - White', quantity: 50, volume7Days: 156, division: 'Casual Wear', forecastedProcessingHours: 2.1, processingMethod: 'FBD', zoneWorkload: { 'Zone A': 3, 'Zone B': 5, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 2 } },
+      { sku: 'HM-JEANS-32', description: 'H&M Slim Jeans - Size 32 - Blue', quantity: 40, volume7Days: 234, division: 'Casual Wear', forecastedProcessingHours: 2.8, processingMethod: 'PTL', zoneWorkload: { 'Zone A': 2, 'Zone B': 6, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 2 } },
+      { sku: 'HM-HOODIE-M', description: 'H&M Hoodie - Size M - Grey', quantity: 30, volume7Days: 189, division: 'Casual Wear', forecastedProcessingHours: 1.9, processingMethod: 'FBD', zoneWorkload: { 'Zone A': 2, 'Zone B': 4, 'Zone C': 2, 'Zone D': 0, 'Crossdock': 1 } },
     ]
+  },
+]
+
+// ─── Historical PO container data (already-processed containers per PO) ────────
+export const HISTORICAL_PO_CONTAINERS = [
+  {
+    poNumber: 'PO-6124',
+    pastContainers: [
+      {
+        containerId: 'CONT-4098',
+        processedDate: '2026-02-18',
+        skus: [
+          { sku: 'NIKE-AIRMAX-42', quantity: 18, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.4 },
+          { sku: 'NIKE-AIRFORCE-43', quantity: 24, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.9 },
+        ],
+      },
+      {
+        containerId: 'CONT-3871',
+        processedDate: '2026-02-20',
+        skus: [
+          { sku: 'NIKE-DUNK-39', quantity: 12, division: 'Athletic Footwear', actualMethod: 'Hazard', actualTimeHours: 2.2 },
+        ],
+      },
+    ],
+  },
+  {
+    poNumber: 'PO-4821',
+    pastContainers: [
+      {
+        containerId: 'CONT-2701',
+        processedDate: '2026-02-21',
+        skus: [
+          { sku: 'UA-PROJECT-40', quantity: 16, division: 'Performance Apparel', actualMethod: 'FBD', actualTimeHours: 1.6 },
+          { sku: 'UA-HOVR-42', quantity: 20, division: 'Athletic Footwear', actualMethod: 'CR', actualTimeHours: 1.8 },
+        ],
+      },
+    ],
   },
 ]
 
