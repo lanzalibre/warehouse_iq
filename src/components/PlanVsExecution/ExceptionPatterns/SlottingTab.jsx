@@ -260,13 +260,13 @@ function SlottingIssueCard({ issue, isSelected, onSelect, onAction }) {
 }
 
 // ─── Movement Stat Card ─────────────────────────────────────────────────────
-function MovementStatCard({ icon, label, value, subtext, trend, isPositive }) {
+function MovementStatCard({ icon: IconComponent, iconBg, iconColor, label, value, subtext, trend, isPositive }) {
   return (
     <div className="bg-white rounded-xl border border-slate-200 p-4">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
-          <div className={`p-2.5 rounded-full ${icon.bg || 'bg-blue-100'}`}>
-            <icon.icon size={18} className={icon.textClass || 'text-blue-600'} />
+          <div className={`p-2.5 rounded-full ${iconBg || 'bg-blue-100'}`}>
+            <IconComponent size={18} className={iconColor || 'text-blue-600'} />
           </div>
           <div>
             <div className="text-xs text-slate-400 mb-1">{label}</div>
@@ -360,7 +360,9 @@ export default function SlottingTab() {
           {/* Stats Cards Row */}
           <div className="grid grid-cols-5 gap-4 mb-6">
             <MovementStatCard
-              icon={{ bg: 'bg-blue-100', textClass: 'text-blue-600' }}
+              icon={TrendingUp}
+              iconBg="bg-blue-100"
+              iconColor="text-blue-600"
               label="Total Daily Picks"
               value={MOVEMENT_STATS.totalDailyPicks.toLocaleString()}
               subtext={`${MOVEMENT_STATS.percentageFromDistantRacks}% from distant racks`}
@@ -368,7 +370,9 @@ export default function SlottingTab() {
               isPositive={false}
             />
             <MovementStatCard
-              icon={{ bg: 'bg-red-100', textClass: 'text-red-600' }}
+              icon={TrendingUp}
+              iconBg="bg-red-100"
+              iconColor="text-red-600"
               label="Distant Rack Picks"
               value={MOVEMENT_STATS.picksFromDistantRacks.toLocaleString()}
               subtext={`${MOVEMENT_STATS.percentageFromDistantRacks}% of total`}
@@ -376,19 +380,25 @@ export default function SlottingTab() {
               isPositive={false}
             />
             <MovementStatCard
-              icon={{ bg: 'bg-amber-100', textClass: 'text-amber-600' }}
+              icon={Clock}
+              iconBg="bg-amber-100"
+              iconColor="text-amber-600"
               label="Avg Pick Time"
               value={`${MOVEMENT_STATS.avgPickTimeSeconds}s`}
               subtext={`${MOVEMENT_STATS.avgWalkTimeSeconds}s walking`}
             />
             <MovementStatCard
-              icon={{ bg: 'bg-purple-100', textClass: 'text-purple-600' }}
+              icon={Activity}
+              iconBg="bg-purple-100"
+              iconColor="text-purple-600"
               label="Peak Efficiency"
               value="9-11am"
               subtext="Most productive window"
             />
             <MovementStatCard
-              icon={{ bg: 'bg-emerald-100', textClass: 'text-emerald-600' }}
+              icon={BarChart3}
+              iconBg="bg-emerald-100"
+              iconColor="text-emerald-600"
               label="Off-Peak Efficiency"
               value="12:30-5pm"
               subtext="Lower picker volume"

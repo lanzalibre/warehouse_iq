@@ -142,9 +142,9 @@ function LocationCard({ location, selected, onToggleSelect, onToggleIgnore, onAc
               <span className="text-xs text-slate-500">Reasons:</span>
             </div>
             <div className="flex flex-wrap gap-1">
-              {location.denialReasons.map(reason => (
+              {location.denialReasons.map((reason, idx) => (
                 <span
-                  key={reason}
+                  key={`${reason}-${idx}`}
                   className="px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-100 text-amber-700"
                 >
                   {reason}
