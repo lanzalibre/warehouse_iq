@@ -2041,4 +2041,2187 @@ export const ALERT_SUBSCRIPTIONS = [
     notificationMethods: ['email', 'slack'],
     lastTriggered: '2026-02-22 10:45:30'
   }
+]// ─── MFA Data ─────────────────────────────────────────────────────────────
+
+// ─── Mock Data: Single Product Reslotting Opportunities ───────────────
+export const SINGLE_PRODUCT_OPPORTUNITIES = [
+  {
+    "id": "SPO-007",
+    "locationId": "B-16-03",
+    "currentSku": "SAUCONY-JAZZ-40",
+    "currentLocation": {
+      "zone": "B",
+      "rack": 16,
+      "level": 3
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 8,
+      "level": 10
+    },
+    "timeSavingsMinutes": 4.5,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-003",
+    "locationId": "B-11-01",
+    "currentSku": "ASICS-GEL-43",
+    "currentLocation": {
+      "zone": "B",
+      "rack": 11,
+      "level": 1
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 3,
+      "level": 10
+    },
+    "timeSavingsMinutes": 4.3,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-008",
+    "locationId": "B-19-02",
+    "currentSku": "CONVERSE-ALLSTAR-41",
+    "currentLocation": {
+      "zone": "B",
+      "rack": 19,
+      "level": 2
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 8,
+      "level": 4
+    },
+    "timeSavingsMinutes": 4.3,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-010",
+    "locationId": "D-09-05",
+    "currentSku": "SAUCONY-JAZZ-41",
+    "currentLocation": {
+      "zone": "D",
+      "rack": 9,
+      "level": 5
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 3,
+      "level": 1
+    },
+    "timeSavingsMinutes": 4.3,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-006",
+    "locationId": "C-21-03",
+    "currentSku": "NB-530-42",
+    "currentLocation": {
+      "zone": "C",
+      "rack": 21,
+      "level": 3
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 8,
+      "level": 8
+    },
+    "timeSavingsMinutes": 3.7,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-013",
+    "locationId": "D-10-02",
+    "currentSku": "NB-996-43",
+    "currentLocation": {
+      "zone": "D",
+      "rack": 10,
+      "level": 2
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 2,
+      "level": 4
+    },
+    "timeSavingsMinutes": 3.6,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-004",
+    "locationId": "C-08-02",
+    "currentSku": "CONVERSE-ALLSTAR-41",
+    "currentLocation": {
+      "zone": "C",
+      "rack": 8,
+      "level": 2
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 3,
+      "level": 9
+    },
+    "timeSavingsMinutes": 3.1,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-012",
+    "locationId": "B-11-06",
+    "currentSku": "PUMA-SNEAKER-41",
+    "currentLocation": {
+      "zone": "B",
+      "rack": 11,
+      "level": 6
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 3,
+      "level": 1
+    },
+    "timeSavingsMinutes": 2.9,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-011",
+    "locationId": "D-20-01",
+    "currentSku": "NEW-BALANCE-44",
+    "currentLocation": {
+      "zone": "D",
+      "rack": 20,
+      "level": 1
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 4,
+      "level": 6
+    },
+    "timeSavingsMinutes": 2.7,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-001",
+    "locationId": "B-22-04",
+    "currentSku": "REEBOK-CROSS-38",
+    "currentLocation": {
+      "zone": "B",
+      "rack": 22,
+      "level": 4
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 6,
+      "level": 3
+    },
+    "timeSavingsMinutes": 2.6,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-005",
+    "locationId": "B-11-05",
+    "currentSku": "HM-TSHIRT-XL",
+    "currentLocation": {
+      "zone": "B",
+      "rack": 11,
+      "level": 5
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 2,
+      "level": 4
+    },
+    "timeSavingsMinutes": 2.6,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-015",
+    "locationId": "D-25-02",
+    "currentSku": "PUMA-SNEAKER-40",
+    "currentLocation": {
+      "zone": "D",
+      "rack": 25,
+      "level": 2
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 1,
+      "level": 6
+    },
+    "timeSavingsMinutes": 2.2,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-009",
+    "locationId": "B-11-06",
+    "currentSku": "CONVERSE-ALLSTAR-42",
+    "currentLocation": {
+      "zone": "B",
+      "rack": 11,
+      "level": 6
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 8,
+      "level": 1
+    },
+    "timeSavingsMinutes": 1.9,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-014",
+    "locationId": "C-23-03",
+    "currentSku": "HM-TSHIRT-XL",
+    "currentLocation": {
+      "zone": "C",
+      "rack": 23,
+      "level": 3
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 7,
+      "level": 2
+    },
+    "timeSavingsMinutes": 1.9,
+    "status": "pending"
+  },
+  {
+    "id": "SPO-002",
+    "locationId": "C-11-01",
+    "currentSku": "PUMA-SNEAKER-39",
+    "currentLocation": {
+      "zone": "C",
+      "rack": 11,
+      "level": 1
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 7,
+      "level": 1
+    },
+    "timeSavingsMinutes": 1.2,
+    "status": "pending"
+  }
 ]
+
+// ─── Mock Data: Product Pairs Reslotting Opportunities ───────────────────
+export const PRODUCT_PAIRS_OPPORTUNITIES = [
+  {
+    "id": "PPO-002",
+    "skuA": "VANS-OLD-SKOOL-44",
+    "skuB": "CONVERSE-ALLSTAR-41",
+    "locationA": {
+      "zone": "D",
+      "rack": 9,
+      "level": 3
+    },
+    "locationB": {
+      "zone": "D",
+      "rack": 5,
+      "level": 6
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 2,
+      "level": 1
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 3,
+      "level": 9
+    },
+    "timeSavingsMinutes": 4.6,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-006",
+    "skuA": "NEW-BALANCE-43",
+    "skuB": "NIKE-AIRMAX-43",
+    "locationA": {
+      "zone": "D",
+      "rack": 18,
+      "level": 6
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 6,
+      "level": 4
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 5,
+      "level": 7
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 6,
+      "level": 5
+    },
+    "timeSavingsMinutes": 4.6,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-007",
+    "skuA": "VANS-OLD-SKOOL-45",
+    "skuB": "NIKE-AIRMAX-44",
+    "locationA": {
+      "zone": "B",
+      "rack": 13,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 9,
+      "level": 4
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 6,
+      "level": 2
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 7,
+      "level": 8
+    },
+    "timeSavingsMinutes": 4.5,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-001",
+    "skuA": "NEW-BALANCE-44",
+    "skuB": "NIKE-AIRMAX-43",
+    "locationA": {
+      "zone": "D",
+      "rack": 20,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 14,
+      "level": 2
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 3,
+      "level": 5
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 4,
+      "level": 1
+    },
+    "timeSavingsMinutes": 4.3,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-003",
+    "skuA": "NEW-BALANCE-43",
+    "skuB": "CONVERSE-ALLSTAR-43",
+    "locationA": {
+      "zone": "D",
+      "rack": 7,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 6,
+      "level": 5
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 1,
+      "level": 10
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 2,
+      "level": 4
+    },
+    "timeSavingsMinutes": 4.2,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-008",
+    "skuA": "SAUCONY-JAZZ-40",
+    "skuB": "HM-TSHIRT-M",
+    "locationA": {
+      "zone": "B",
+      "rack": 7,
+      "level": 4
+    },
+    "locationB": {
+      "zone": "B",
+      "rack": 6,
+      "level": 4
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 2,
+      "level": 6
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 3,
+      "level": 8
+    },
+    "timeSavingsMinutes": 4.1,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-005",
+    "skuA": "VANS-OLD-SKOOL-45",
+    "skuB": "NEW-BALANCE-44",
+    "locationA": {
+      "zone": "B",
+      "rack": 5,
+      "level": 4
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 19,
+      "level": 3
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 5,
+      "level": 6
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 6,
+      "level": 5
+    },
+    "timeSavingsMinutes": 2.3,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-004",
+    "skuA": "NIKE-AIRMAX-44",
+    "skuB": "SAUCONY-JAZZ-40",
+    "locationA": {
+      "zone": "B",
+      "rack": 8,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 12,
+      "level": 5
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 2,
+      "level": 3
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 3,
+      "level": 3
+    },
+    "timeSavingsMinutes": 1.6,
+    "status": "pending"
+  }
+]
+
+// ─── Mock Data: Product Triplets Reslotting Opportunities ──────────────────
+export const PRODUCT_TRIPLETS_OPPORTUNITIES = [
+  {
+    "id": "TPO-003",
+    "skuA": "NEW-BALANCE-44",
+    "skuB": "CONVERSE-ALLSTAR-41",
+    "skuC": "CONVERSE-ALLSTAR-42",
+    "locationA": {
+      "zone": "C",
+      "rack": 9,
+      "level": 3
+    },
+    "locationB": {
+      "zone": "D",
+      "rack": 13,
+      "level": 1
+    },
+    "locationC": {
+      "zone": "C",
+      "rack": 21,
+      "level": 2
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 2,
+      "level": 10
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 3,
+      "level": 6
+    },
+    "suggestedLocationC": {
+      "zone": "A",
+      "rack": 4,
+      "level": 10
+    },
+    "timeSavingsMinutes": 5.8,
+    "status": "pending"
+  },
+  {
+    "id": "TPO-001",
+    "skuA": "ADIDAS-ULTRA-41",
+    "skuB": "ASICS-GEL-43",
+    "skuC": "NEW-BALANCE-43",
+    "locationA": {
+      "zone": "B",
+      "rack": 6,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "D",
+      "rack": 17,
+      "level": 1
+    },
+    "locationC": {
+      "zone": "B",
+      "rack": 21,
+      "level": 6
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 4,
+      "level": 4
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 5,
+      "level": 10
+    },
+    "suggestedLocationC": {
+      "zone": "A",
+      "rack": 6,
+      "level": 7
+    },
+    "timeSavingsMinutes": 5,
+    "status": "pending"
+  },
+  {
+    "id": "TPO-005",
+    "skuA": "NIKE-AIRMAX-43",
+    "skuB": "HM-TSHIRT-XL",
+    "skuC": "SAUCONY-JAZZ-41",
+    "locationA": {
+      "zone": "C",
+      "rack": 18,
+      "level": 6
+    },
+    "locationB": {
+      "zone": "D",
+      "rack": 9,
+      "level": 2
+    },
+    "locationC": {
+      "zone": "C",
+      "rack": 8,
+      "level": 5
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 4,
+      "level": 6
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 5,
+      "level": 5
+    },
+    "suggestedLocationC": {
+      "zone": "A",
+      "rack": 6,
+      "level": 5
+    },
+    "timeSavingsMinutes": 4.9,
+    "status": "pending"
+  },
+  {
+    "id": "TPO-002",
+    "skuA": "REEBOK-CROSS-38",
+    "skuB": "ADIDAS-ULTRA-41",
+    "skuC": "CONVERSE-ALLSTAR-41",
+    "locationA": {
+      "zone": "C",
+      "rack": 20,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "D",
+      "rack": 8,
+      "level": 2
+    },
+    "locationC": {
+      "zone": "B",
+      "rack": 14,
+      "level": 5
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 3,
+      "level": 5
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 4,
+      "level": 7
+    },
+    "suggestedLocationC": {
+      "zone": "A",
+      "rack": 5,
+      "level": 4
+    },
+    "timeSavingsMinutes": 3.2,
+    "status": "pending"
+  },
+  {
+    "id": "TPO-004",
+    "skuA": "REEBOK-CROSS-38",
+    "skuB": "SAUCONY-JAZZ-40",
+    "skuC": "PUMA-SNEAKER-41",
+    "locationA": {
+      "zone": "D",
+      "rack": 19,
+      "level": 5
+    },
+    "locationB": {
+      "zone": "B",
+      "rack": 16,
+      "level": 6
+    },
+    "locationC": {
+      "zone": "C",
+      "rack": 7,
+      "level": 4
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 3,
+      "level": 9
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 4,
+      "level": 8
+    },
+    "suggestedLocationC": {
+      "zone": "A",
+      "rack": 5,
+      "level": 8
+    },
+    "timeSavingsMinutes": 3,
+    "status": "accepted"
+  }
+]
+
+// ─── Mock Data: Trips for Detail View ───────────────────────────────────────
+export const TRIP_DATA = {
+  "SPO-007": [
+    {
+      "employee": "John Lee",
+      "date": "2026-02-25",
+      "orderId": "ORD-6082",
+      "picksInRoute": 21,
+      "routeLength": "6m 50s",
+      "updatedRouteLength": "1.5m 20s",
+      "timeSaved": "4m 30s"
+    },
+    {
+      "employee": "John Lee",
+      "date": "2026-02-24",
+      "orderId": "ORD-7924",
+      "picksInRoute": 22,
+      "routeLength": "3m 37s",
+      "updatedRouteLength": "0m 07s",
+      "timeSaved": "4m 30s"
+    },
+    {
+      "employee": "Emily Smith",
+      "date": "2026-02-23",
+      "orderId": "ORD-1125",
+      "picksInRoute": 22,
+      "routeLength": "11m 24s",
+      "updatedRouteLength": "6.5m 00s",
+      "timeSaved": "4m 30s"
+    },
+    {
+      "employee": "Anna Lee",
+      "date": "2026-02-22",
+      "orderId": "ORD-9080",
+      "picksInRoute": 15,
+      "routeLength": "11m 52s",
+      "updatedRouteLength": "6.5m 22s",
+      "timeSaved": "4m 30s"
+    },
+    {
+      "employee": "John Chen",
+      "date": "2026-02-21",
+      "orderId": "ORD-5099",
+      "picksInRoute": 10,
+      "routeLength": "3m 56s",
+      "updatedRouteLength": "0m 26s",
+      "timeSaved": "4m 30s"
+    },
+    {
+      "employee": "Lisa Wilson",
+      "date": "2026-02-20",
+      "orderId": "ORD-9125",
+      "picksInRoute": 19,
+      "routeLength": "6m 22s",
+      "updatedRouteLength": "1.5m 00s",
+      "timeSaved": "4m 30s"
+    },
+    {
+      "employee": "Chris Martinez",
+      "date": "2026-02-19",
+      "orderId": "ORD-4774",
+      "picksInRoute": 24,
+      "routeLength": "9m 04s",
+      "updatedRouteLength": "4.5m 00s",
+      "timeSaved": "4m 30s"
+    },
+    {
+      "employee": "Tom Chen",
+      "date": "2026-02-18",
+      "orderId": "ORD-7230",
+      "picksInRoute": 24,
+      "routeLength": "7m 18s",
+      "updatedRouteLength": "2.5m 00s",
+      "timeSaved": "4m 30s"
+    }
+  ],
+  "SPO-003": [
+    {
+      "employee": "Maria Brown",
+      "date": "2026-02-25",
+      "orderId": "ORD-5676",
+      "picksInRoute": 18,
+      "routeLength": "3m 40s",
+      "updatedRouteLength": "0m 22s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Maria Johnson",
+      "date": "2026-02-24",
+      "orderId": "ORD-2270",
+      "picksInRoute": 18,
+      "routeLength": "12m 13s",
+      "updatedRouteLength": "7.7m 00s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Sarah Chen",
+      "date": "2026-02-23",
+      "orderId": "ORD-8406",
+      "picksInRoute": 23,
+      "routeLength": "3m 14s",
+      "updatedRouteLength": "0m 00s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "James Taylor",
+      "date": "2026-02-22",
+      "orderId": "ORD-4190",
+      "picksInRoute": 24,
+      "routeLength": "5m 31s",
+      "updatedRouteLength": "0.7000000000000002m 13s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Lisa Wilson",
+      "date": "2026-02-21",
+      "orderId": "ORD-7215",
+      "picksInRoute": 10,
+      "routeLength": "11m 11s",
+      "updatedRouteLength": "6.7m 00s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Sarah Martinez",
+      "date": "2026-02-20",
+      "orderId": "ORD-3238",
+      "picksInRoute": 15,
+      "routeLength": "12m 51s",
+      "updatedRouteLength": "7.7m 33s",
+      "timeSaved": "4m 18s"
+    }
+  ],
+  "SPO-008": [
+    {
+      "employee": "Mike Brown",
+      "date": "2026-02-25",
+      "orderId": "ORD-3209",
+      "picksInRoute": 25,
+      "routeLength": "5m 21s",
+      "updatedRouteLength": "0.7000000000000002m 03s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "James Johnson",
+      "date": "2026-02-24",
+      "orderId": "ORD-9873",
+      "picksInRoute": 10,
+      "routeLength": "8m 22s",
+      "updatedRouteLength": "3.7m 04s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "David Johnson",
+      "date": "2026-02-23",
+      "orderId": "ORD-4213",
+      "picksInRoute": 9,
+      "routeLength": "9m 31s",
+      "updatedRouteLength": "4.7m 13s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Emily Smith",
+      "date": "2026-02-22",
+      "orderId": "ORD-2884",
+      "picksInRoute": 16,
+      "routeLength": "5m 48s",
+      "updatedRouteLength": "0.7000000000000002m 30s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Maria Johnson",
+      "date": "2026-02-21",
+      "orderId": "ORD-5826",
+      "picksInRoute": 18,
+      "routeLength": "5m 28s",
+      "updatedRouteLength": "0.7000000000000002m 10s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Mike Martinez",
+      "date": "2026-02-20",
+      "orderId": "ORD-1179",
+      "picksInRoute": 17,
+      "routeLength": "8m 49s",
+      "updatedRouteLength": "3.7m 31s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "James Johnson",
+      "date": "2026-02-19",
+      "orderId": "ORD-4348",
+      "picksInRoute": 19,
+      "routeLength": "3m 22s",
+      "updatedRouteLength": "0m 04s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Maria Garcia",
+      "date": "2026-02-18",
+      "orderId": "ORD-3795",
+      "picksInRoute": 17,
+      "routeLength": "6m 25s",
+      "updatedRouteLength": "1.7000000000000002m 07s",
+      "timeSaved": "4m 18s"
+    }
+  ],
+  "SPO-010": [
+    {
+      "employee": "Tom Martinez",
+      "date": "2026-02-25",
+      "orderId": "ORD-1749",
+      "picksInRoute": 20,
+      "routeLength": "10m 06s",
+      "updatedRouteLength": "5.7m 00s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "James Smith",
+      "date": "2026-02-24",
+      "orderId": "ORD-7377",
+      "picksInRoute": 11,
+      "routeLength": "7m 14s",
+      "updatedRouteLength": "2.7m 00s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "Anna Davis",
+      "date": "2026-02-23",
+      "orderId": "ORD-7908",
+      "picksInRoute": 15,
+      "routeLength": "3m 02s",
+      "updatedRouteLength": "0m 00s",
+      "timeSaved": "4m 18s"
+    },
+    {
+      "employee": "John Chen",
+      "date": "2026-02-22",
+      "orderId": "ORD-3108",
+      "picksInRoute": 15,
+      "routeLength": "5m 21s",
+      "updatedRouteLength": "0.7000000000000002m 03s",
+      "timeSaved": "4m 18s"
+    }
+  ],
+  "SPO-006": [
+    {
+      "employee": "Sarah Taylor",
+      "date": "2026-02-25",
+      "orderId": "ORD-9730",
+      "picksInRoute": 9,
+      "routeLength": "11m 00s",
+      "updatedRouteLength": "7.3m 00s",
+      "timeSaved": "3m 42s"
+    },
+    {
+      "employee": "Anna Garcia",
+      "date": "2026-02-24",
+      "orderId": "ORD-2863",
+      "picksInRoute": 11,
+      "routeLength": "7m 38s",
+      "updatedRouteLength": "3.3m 00s",
+      "timeSaved": "3m 42s"
+    },
+    {
+      "employee": "Chris Smith",
+      "date": "2026-02-23",
+      "orderId": "ORD-3064",
+      "picksInRoute": 23,
+      "routeLength": "8m 38s",
+      "updatedRouteLength": "4.3m 00s",
+      "timeSaved": "3m 42s"
+    },
+    {
+      "employee": "Lisa Smith",
+      "date": "2026-02-22",
+      "orderId": "ORD-1517",
+      "picksInRoute": 19,
+      "routeLength": "3m 14s",
+      "updatedRouteLength": "0m 00s",
+      "timeSaved": "3m 42s"
+    }
+  ],
+  "SPO-013": [
+    {
+      "employee": "Lisa Garcia",
+      "date": "2026-02-25",
+      "orderId": "ORD-3783",
+      "picksInRoute": 16,
+      "routeLength": "4m 07s",
+      "updatedRouteLength": "0.3999999999999999m 00s",
+      "timeSaved": "3m 36s"
+    },
+    {
+      "employee": "John Martinez",
+      "date": "2026-02-24",
+      "orderId": "ORD-3466",
+      "picksInRoute": 9,
+      "routeLength": "5m 48s",
+      "updatedRouteLength": "1.4m 12s",
+      "timeSaved": "3m 36s"
+    },
+    {
+      "employee": "James Brown",
+      "date": "2026-02-23",
+      "orderId": "ORD-5684",
+      "picksInRoute": 20,
+      "routeLength": "6m 48s",
+      "updatedRouteLength": "2.4m 12s",
+      "timeSaved": "3m 36s"
+    }
+  ],
+  "SPO-004": [
+    {
+      "employee": "Emily Smith",
+      "date": "2026-02-25",
+      "orderId": "ORD-4915",
+      "picksInRoute": 22,
+      "routeLength": "6m 57s",
+      "updatedRouteLength": "2.9m 51s",
+      "timeSaved": "3m 06s"
+    },
+    {
+      "employee": "Sarah Brown",
+      "date": "2026-02-24",
+      "orderId": "ORD-3018",
+      "picksInRoute": 12,
+      "routeLength": "8m 54s",
+      "updatedRouteLength": "4.9m 48s",
+      "timeSaved": "3m 06s"
+    },
+    {
+      "employee": "James Martinez",
+      "date": "2026-02-23",
+      "orderId": "ORD-5448",
+      "picksInRoute": 22,
+      "routeLength": "7m 25s",
+      "updatedRouteLength": "3.9m 19s",
+      "timeSaved": "3m 06s"
+    },
+    {
+      "employee": "Chris Taylor",
+      "date": "2026-02-22",
+      "orderId": "ORD-5841",
+      "picksInRoute": 24,
+      "routeLength": "3m 16s",
+      "updatedRouteLength": "0m 10s",
+      "timeSaved": "3m 06s"
+    },
+    {
+      "employee": "Maria Brown",
+      "date": "2026-02-21",
+      "orderId": "ORD-7424",
+      "picksInRoute": 23,
+      "routeLength": "10m 14s",
+      "updatedRouteLength": "6.9m 08s",
+      "timeSaved": "3m 06s"
+    },
+    {
+      "employee": "Mike Brown",
+      "date": "2026-02-20",
+      "orderId": "ORD-3955",
+      "picksInRoute": 10,
+      "routeLength": "5m 21s",
+      "updatedRouteLength": "1.9m 15s",
+      "timeSaved": "3m 06s"
+    }
+  ],
+  "SPO-012": [
+    {
+      "employee": "Sarah Smith",
+      "date": "2026-02-25",
+      "orderId": "ORD-4547",
+      "picksInRoute": 24,
+      "routeLength": "12m 09s",
+      "updatedRouteLength": "9.1m 00s",
+      "timeSaved": "2m 54s"
+    },
+    {
+      "employee": "Maria Johnson",
+      "date": "2026-02-24",
+      "orderId": "ORD-5203",
+      "picksInRoute": 20,
+      "routeLength": "8m 48s",
+      "updatedRouteLength": "5.1m 00s",
+      "timeSaved": "2m 54s"
+    },
+    {
+      "employee": "Anna Johnson",
+      "date": "2026-02-23",
+      "orderId": "ORD-2920",
+      "picksInRoute": 20,
+      "routeLength": "7m 03s",
+      "updatedRouteLength": "4.1m 00s",
+      "timeSaved": "2m 54s"
+    },
+    {
+      "employee": "Mike Taylor",
+      "date": "2026-02-22",
+      "orderId": "ORD-5502",
+      "picksInRoute": 21,
+      "routeLength": "11m 39s",
+      "updatedRouteLength": "8.1m 00s",
+      "timeSaved": "2m 54s"
+    }
+  ],
+  "SPO-011": [
+    {
+      "employee": "Lisa Wilson",
+      "date": "2026-02-25",
+      "orderId": "ORD-9630",
+      "picksInRoute": 15,
+      "routeLength": "9m 00s",
+      "updatedRouteLength": "6.3m 00s",
+      "timeSaved": "2m 42s"
+    },
+    {
+      "employee": "Sarah Taylor",
+      "date": "2026-02-24",
+      "orderId": "ORD-7125",
+      "picksInRoute": 15,
+      "routeLength": "4m 51s",
+      "updatedRouteLength": "1.2999999999999998m 09s",
+      "timeSaved": "2m 42s"
+    },
+    {
+      "employee": "Tom Wilson",
+      "date": "2026-02-23",
+      "orderId": "ORD-8197",
+      "picksInRoute": 23,
+      "routeLength": "12m 44s",
+      "updatedRouteLength": "9.3m 02s",
+      "timeSaved": "2m 42s"
+    },
+    {
+      "employee": "Tom Johnson",
+      "date": "2026-02-22",
+      "orderId": "ORD-7286",
+      "picksInRoute": 17,
+      "routeLength": "6m 59s",
+      "updatedRouteLength": "3.3m 17s",
+      "timeSaved": "2m 42s"
+    },
+    {
+      "employee": "Sarah Martinez",
+      "date": "2026-02-21",
+      "orderId": "ORD-9985",
+      "picksInRoute": 21,
+      "routeLength": "6m 36s",
+      "updatedRouteLength": "3.3m 00s",
+      "timeSaved": "2m 42s"
+    },
+    {
+      "employee": "Emily Martinez",
+      "date": "2026-02-20",
+      "orderId": "ORD-1105",
+      "picksInRoute": 13,
+      "routeLength": "7m 54s",
+      "updatedRouteLength": "4.3m 12s",
+      "timeSaved": "2m 42s"
+    },
+    {
+      "employee": "Lisa Smith",
+      "date": "2026-02-19",
+      "orderId": "ORD-2229",
+      "picksInRoute": 19,
+      "routeLength": "9m 31s",
+      "updatedRouteLength": "6.3m 00s",
+      "timeSaved": "2m 42s"
+    },
+    {
+      "employee": "Mike Davis",
+      "date": "2026-02-18",
+      "orderId": "ORD-4576",
+      "picksInRoute": 19,
+      "routeLength": "6m 57s",
+      "updatedRouteLength": "3.3m 15s",
+      "timeSaved": "2m 42s"
+    }
+  ],
+  "SPO-001": [
+    {
+      "employee": "James Taylor",
+      "date": "2026-02-25",
+      "orderId": "ORD-6460",
+      "picksInRoute": 8,
+      "routeLength": "9m 59s",
+      "updatedRouteLength": "6.4m 23s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "John Smith",
+      "date": "2026-02-24",
+      "orderId": "ORD-4545",
+      "picksInRoute": 19,
+      "routeLength": "7m 25s",
+      "updatedRouteLength": "4.4m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Lisa Johnson",
+      "date": "2026-02-23",
+      "orderId": "ORD-2761",
+      "picksInRoute": 18,
+      "routeLength": "12m 52s",
+      "updatedRouteLength": "9.4m 16s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Mike Chen",
+      "date": "2026-02-22",
+      "orderId": "ORD-2155",
+      "picksInRoute": 24,
+      "routeLength": "5m 10s",
+      "updatedRouteLength": "2.4m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "John Martinez",
+      "date": "2026-02-21",
+      "orderId": "ORD-1431",
+      "picksInRoute": 13,
+      "routeLength": "3m 24s",
+      "updatedRouteLength": "0.3999999999999999m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Tom Johnson",
+      "date": "2026-02-20",
+      "orderId": "ORD-7435",
+      "picksInRoute": 8,
+      "routeLength": "5m 08s",
+      "updatedRouteLength": "2.4m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Chris Brown",
+      "date": "2026-02-19",
+      "orderId": "ORD-8043",
+      "picksInRoute": 10,
+      "routeLength": "9m 32s",
+      "updatedRouteLength": "6.4m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Maria Martinez",
+      "date": "2026-02-18",
+      "orderId": "ORD-6534",
+      "picksInRoute": 9,
+      "routeLength": "7m 26s",
+      "updatedRouteLength": "4.4m 00s",
+      "timeSaved": "2m 36s"
+    }
+  ],
+  "SPO-005": [
+    {
+      "employee": "James Taylor",
+      "date": "2026-02-25",
+      "orderId": "ORD-2698",
+      "picksInRoute": 9,
+      "routeLength": "3m 20s",
+      "updatedRouteLength": "0.3999999999999999m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Emily Chen",
+      "date": "2026-02-24",
+      "orderId": "ORD-8370",
+      "picksInRoute": 12,
+      "routeLength": "3m 17s",
+      "updatedRouteLength": "0.3999999999999999m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Sarah Taylor",
+      "date": "2026-02-23",
+      "orderId": "ORD-3834",
+      "picksInRoute": 17,
+      "routeLength": "11m 30s",
+      "updatedRouteLength": "8.4m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "David Wilson",
+      "date": "2026-02-22",
+      "orderId": "ORD-5591",
+      "picksInRoute": 16,
+      "routeLength": "6m 16s",
+      "updatedRouteLength": "3.4m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Mike Johnson",
+      "date": "2026-02-21",
+      "orderId": "ORD-8095",
+      "picksInRoute": 9,
+      "routeLength": "9m 42s",
+      "updatedRouteLength": "6.4m 06s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Chris Garcia",
+      "date": "2026-02-20",
+      "orderId": "ORD-5479",
+      "picksInRoute": 23,
+      "routeLength": "6m 32s",
+      "updatedRouteLength": "3.4m 00s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Lisa Wilson",
+      "date": "2026-02-19",
+      "orderId": "ORD-9942",
+      "picksInRoute": 24,
+      "routeLength": "9m 46s",
+      "updatedRouteLength": "6.4m 10s",
+      "timeSaved": "2m 36s"
+    },
+    {
+      "employee": "Mike Chen",
+      "date": "2026-02-18",
+      "orderId": "ORD-5258",
+      "picksInRoute": 19,
+      "routeLength": "9m 24s",
+      "updatedRouteLength": "6.4m 00s",
+      "timeSaved": "2m 36s"
+    }
+  ],
+  "SPO-015": [
+    {
+      "employee": "Maria Johnson",
+      "date": "2026-02-25",
+      "orderId": "ORD-8431",
+      "picksInRoute": 23,
+      "routeLength": "12m 33s",
+      "updatedRouteLength": "9.8m 21s",
+      "timeSaved": "2m 12s"
+    },
+    {
+      "employee": "James Chen",
+      "date": "2026-02-24",
+      "orderId": "ORD-4159",
+      "picksInRoute": 10,
+      "routeLength": "4m 42s",
+      "updatedRouteLength": "1.7999999999999998m 30s",
+      "timeSaved": "2m 12s"
+    },
+    {
+      "employee": "Mike Garcia",
+      "date": "2026-02-23",
+      "orderId": "ORD-8464",
+      "picksInRoute": 11,
+      "routeLength": "8m 14s",
+      "updatedRouteLength": "5.8m 02s",
+      "timeSaved": "2m 12s"
+    },
+    {
+      "employee": "Sarah Garcia",
+      "date": "2026-02-22",
+      "orderId": "ORD-9874",
+      "picksInRoute": 19,
+      "routeLength": "9m 19s",
+      "updatedRouteLength": "6.8m 07s",
+      "timeSaved": "2m 12s"
+    },
+    {
+      "employee": "Mike Brown",
+      "date": "2026-02-21",
+      "orderId": "ORD-3624",
+      "picksInRoute": 18,
+      "routeLength": "8m 11s",
+      "updatedRouteLength": "5.8m 00s",
+      "timeSaved": "2m 12s"
+    },
+    {
+      "employee": "David Davis",
+      "date": "2026-02-20",
+      "orderId": "ORD-8984",
+      "picksInRoute": 17,
+      "routeLength": "10m 20s",
+      "updatedRouteLength": "7.8m 08s",
+      "timeSaved": "2m 12s"
+    },
+    {
+      "employee": "Chris Brown",
+      "date": "2026-02-19",
+      "orderId": "ORD-8210",
+      "picksInRoute": 10,
+      "routeLength": "11m 02s",
+      "updatedRouteLength": "8.8m 00s",
+      "timeSaved": "2m 12s"
+    }
+  ],
+  "SPO-009": [
+    {
+      "employee": "John Lee",
+      "date": "2026-02-25",
+      "orderId": "ORD-6011",
+      "picksInRoute": 21,
+      "routeLength": "8m 53s",
+      "updatedRouteLength": "6.1m 00s",
+      "timeSaved": "1m 54s"
+    },
+    {
+      "employee": "Chris Martinez",
+      "date": "2026-02-24",
+      "orderId": "ORD-8870",
+      "picksInRoute": 24,
+      "routeLength": "7m 35s",
+      "updatedRouteLength": "5.1m 00s",
+      "timeSaved": "1m 54s"
+    },
+    {
+      "employee": "Anna Davis",
+      "date": "2026-02-23",
+      "orderId": "ORD-9404",
+      "picksInRoute": 12,
+      "routeLength": "8m 26s",
+      "updatedRouteLength": "6.1m 00s",
+      "timeSaved": "1m 54s"
+    }
+  ],
+  "SPO-014": [
+    {
+      "employee": "John Wilson",
+      "date": "2026-02-25",
+      "orderId": "ORD-1310",
+      "picksInRoute": 20,
+      "routeLength": "10m 10s",
+      "updatedRouteLength": "8.1m 00s",
+      "timeSaved": "1m 54s"
+    },
+    {
+      "employee": "Mike Taylor",
+      "date": "2026-02-24",
+      "orderId": "ORD-5604",
+      "picksInRoute": 14,
+      "routeLength": "12m 57s",
+      "updatedRouteLength": "10.1m 03s",
+      "timeSaved": "1m 54s"
+    },
+    {
+      "employee": "Mike Taylor",
+      "date": "2026-02-23",
+      "orderId": "ORD-2830",
+      "picksInRoute": 9,
+      "routeLength": "7m 51s",
+      "updatedRouteLength": "5.1m 00s",
+      "timeSaved": "1m 54s"
+    },
+    {
+      "employee": "Lisa Davis",
+      "date": "2026-02-22",
+      "orderId": "ORD-5341",
+      "picksInRoute": 25,
+      "routeLength": "3m 23s",
+      "updatedRouteLength": "1.1m 00s",
+      "timeSaved": "1m 54s"
+    },
+    {
+      "employee": "Maria Taylor",
+      "date": "2026-02-21",
+      "orderId": "ORD-1287",
+      "picksInRoute": 9,
+      "routeLength": "8m 56s",
+      "updatedRouteLength": "6.1m 02s",
+      "timeSaved": "1m 54s"
+    },
+    {
+      "employee": "Lisa Lee",
+      "date": "2026-02-20",
+      "orderId": "ORD-3775",
+      "picksInRoute": 22,
+      "routeLength": "7m 18s",
+      "updatedRouteLength": "5.1m 00s",
+      "timeSaved": "1m 54s"
+    }
+  ],
+  "SPO-002": [
+    {
+      "employee": "Chris Johnson",
+      "date": "2026-02-25",
+      "orderId": "ORD-7867",
+      "picksInRoute": 8,
+      "routeLength": "4m 52s",
+      "updatedRouteLength": "2.8m 40s",
+      "timeSaved": "1m 12s"
+    },
+    {
+      "employee": "John Taylor",
+      "date": "2026-02-24",
+      "orderId": "ORD-8318",
+      "picksInRoute": 22,
+      "routeLength": "7m 31s",
+      "updatedRouteLength": "5.8m 19s",
+      "timeSaved": "1m 12s"
+    },
+    {
+      "employee": "Maria Martinez",
+      "date": "2026-02-23",
+      "orderId": "ORD-8141",
+      "picksInRoute": 15,
+      "routeLength": "11m 11s",
+      "updatedRouteLength": "9.8m 00s",
+      "timeSaved": "1m 12s"
+    },
+    {
+      "employee": "Anna Wilson",
+      "date": "2026-02-22",
+      "orderId": "ORD-8791",
+      "picksInRoute": 9,
+      "routeLength": "6m 32s",
+      "updatedRouteLength": "4.8m 20s",
+      "timeSaved": "1m 12s"
+    },
+    {
+      "employee": "John Martinez",
+      "date": "2026-02-21",
+      "orderId": "ORD-8229",
+      "picksInRoute": 24,
+      "routeLength": "4m 24s",
+      "updatedRouteLength": "2.8m 12s",
+      "timeSaved": "1m 12s"
+    },
+    {
+      "employee": "John Johnson",
+      "date": "2026-02-20",
+      "orderId": "ORD-3543",
+      "picksInRoute": 24,
+      "routeLength": "3m 09s",
+      "updatedRouteLength": "1.8m 00s",
+      "timeSaved": "1m 12s"
+    },
+    {
+      "employee": "James Taylor",
+      "date": "2026-02-19",
+      "orderId": "ORD-1991",
+      "picksInRoute": 13,
+      "routeLength": "6m 40s",
+      "updatedRouteLength": "4.8m 28s",
+      "timeSaved": "1m 12s"
+    }
+  ],
+  "PPO-002": [
+    {
+      "employee": "John Brown",
+      "date": "2026-02-25",
+      "orderId": "ORD-8913",
+      "picksInRoute": 9,
+      "routeLength": "10m 17s",
+      "updatedRouteLength": "5.4m 00s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    },
+    {
+      "employee": "Sarah Wilson",
+      "date": "2026-02-24",
+      "orderId": "ORD-9158",
+      "picksInRoute": 23,
+      "routeLength": "10m 37s",
+      "updatedRouteLength": "5.4m 01s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    },
+    {
+      "employee": "Chris Wilson",
+      "date": "2026-02-23",
+      "orderId": "ORD-4238",
+      "picksInRoute": 20,
+      "routeLength": "11m 04s",
+      "updatedRouteLength": "6.4m 00s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    },
+    {
+      "employee": "Mike Smith",
+      "date": "2026-02-22",
+      "orderId": "ORD-6590",
+      "picksInRoute": 25,
+      "routeLength": "11m 20s",
+      "updatedRouteLength": "6.4m 00s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    },
+    {
+      "employee": "Mike Chen",
+      "date": "2026-02-21",
+      "orderId": "ORD-2673",
+      "picksInRoute": 21,
+      "routeLength": "12m 33s",
+      "updatedRouteLength": "7.4m 00s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    },
+    {
+      "employee": "Lisa Garcia",
+      "date": "2026-02-20",
+      "orderId": "ORD-9715",
+      "picksInRoute": 11,
+      "routeLength": "12m 55s",
+      "updatedRouteLength": "7.4m 19s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    }
+  ],
+  "PPO-006": [
+    {
+      "employee": "Maria Davis",
+      "date": "2026-02-25",
+      "orderId": "ORD-9961",
+      "picksInRoute": 22,
+      "routeLength": "6m 13s",
+      "updatedRouteLength": "1.4000000000000004m 00s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "Tom Wilson",
+      "date": "2026-02-24",
+      "orderId": "ORD-6357",
+      "picksInRoute": 25,
+      "routeLength": "4m 28s",
+      "updatedRouteLength": "0m 00s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "Mike Chen",
+      "date": "2026-02-23",
+      "orderId": "ORD-7296",
+      "picksInRoute": 9,
+      "routeLength": "3m 21s",
+      "updatedRouteLength": "0m 00s",
+      "timeSaved": "4m 36s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    }
+  ],
+  "PPO-007": [
+    {
+      "employee": "Mike Wilson",
+      "date": "2026-02-25",
+      "orderId": "ORD-9644",
+      "picksInRoute": 21,
+      "routeLength": "10m 26s",
+      "updatedRouteLength": "5.5m 00s",
+      "timeSaved": "4m 30s",
+      "sameRoute": "NIKE-AIRMAX-44"
+    },
+    {
+      "employee": "Mike Smith",
+      "date": "2026-02-24",
+      "orderId": "ORD-2634",
+      "picksInRoute": 19,
+      "routeLength": "11m 09s",
+      "updatedRouteLength": "6.5m 00s",
+      "timeSaved": "4m 30s",
+      "sameRoute": "NIKE-AIRMAX-44"
+    },
+    {
+      "employee": "Maria Smith",
+      "date": "2026-02-23",
+      "orderId": "ORD-6740",
+      "picksInRoute": 14,
+      "routeLength": "11m 34s",
+      "updatedRouteLength": "6.5m 04s",
+      "timeSaved": "4m 30s",
+      "sameRoute": "NIKE-AIRMAX-44"
+    },
+    {
+      "employee": "David Wilson",
+      "date": "2026-02-22",
+      "orderId": "ORD-8480",
+      "picksInRoute": 24,
+      "routeLength": "6m 59s",
+      "updatedRouteLength": "1.5m 29s",
+      "timeSaved": "4m 30s",
+      "sameRoute": "NIKE-AIRMAX-44"
+    }
+  ],
+  "PPO-001": [
+    {
+      "employee": "Lisa Smith",
+      "date": "2026-02-25",
+      "orderId": "ORD-3552",
+      "picksInRoute": 9,
+      "routeLength": "12m 25s",
+      "updatedRouteLength": "7.7m 07s",
+      "timeSaved": "4m 18s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "James Garcia",
+      "date": "2026-02-24",
+      "orderId": "ORD-4574",
+      "picksInRoute": 8,
+      "routeLength": "5m 00s",
+      "updatedRouteLength": "0.7000000000000002m 00s",
+      "timeSaved": "4m 18s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "Maria Wilson",
+      "date": "2026-02-23",
+      "orderId": "ORD-7610",
+      "picksInRoute": 23,
+      "routeLength": "9m 08s",
+      "updatedRouteLength": "4.7m 00s",
+      "timeSaved": "4m 18s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "Tom Martinez",
+      "date": "2026-02-22",
+      "orderId": "ORD-3989",
+      "picksInRoute": 18,
+      "routeLength": "5m 33s",
+      "updatedRouteLength": "0.7000000000000002m 15s",
+      "timeSaved": "4m 18s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "Maria Davis",
+      "date": "2026-02-21",
+      "orderId": "ORD-8727",
+      "picksInRoute": 19,
+      "routeLength": "3m 09s",
+      "updatedRouteLength": "0m 00s",
+      "timeSaved": "4m 18s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "John Lee",
+      "date": "2026-02-20",
+      "orderId": "ORD-4900",
+      "picksInRoute": 16,
+      "routeLength": "6m 02s",
+      "updatedRouteLength": "1.7000000000000002m 00s",
+      "timeSaved": "4m 18s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "David Wilson",
+      "date": "2026-02-19",
+      "orderId": "ORD-7013",
+      "picksInRoute": 24,
+      "routeLength": "11m 33s",
+      "updatedRouteLength": "6.7m 15s",
+      "timeSaved": "4m 18s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    },
+    {
+      "employee": "Chris Wilson",
+      "date": "2026-02-18",
+      "orderId": "ORD-2685",
+      "picksInRoute": 14,
+      "routeLength": "6m 03s",
+      "updatedRouteLength": "1.7000000000000002m 00s",
+      "timeSaved": "4m 18s",
+      "sameRoute": "NIKE-AIRMAX-43"
+    }
+  ],
+  "PPO-003": [
+    {
+      "employee": "Anna Brown",
+      "date": "2026-02-25",
+      "orderId": "ORD-9112",
+      "picksInRoute": 11,
+      "routeLength": "7m 20s",
+      "updatedRouteLength": "2.8m 08s",
+      "timeSaved": "4m 12s",
+      "sameRoute": "CONVERSE-ALLSTAR-43"
+    },
+    {
+      "employee": "Emily Taylor",
+      "date": "2026-02-24",
+      "orderId": "ORD-3378",
+      "picksInRoute": 13,
+      "routeLength": "4m 05s",
+      "updatedRouteLength": "0m 00s",
+      "timeSaved": "4m 12s",
+      "sameRoute": "CONVERSE-ALLSTAR-43"
+    },
+    {
+      "employee": "Sarah Wilson",
+      "date": "2026-02-23",
+      "orderId": "ORD-2175",
+      "picksInRoute": 19,
+      "routeLength": "9m 30s",
+      "updatedRouteLength": "4.8m 18s",
+      "timeSaved": "4m 12s",
+      "sameRoute": "CONVERSE-ALLSTAR-43"
+    },
+    {
+      "employee": "Sarah Martinez",
+      "date": "2026-02-22",
+      "orderId": "ORD-4144",
+      "picksInRoute": 18,
+      "routeLength": "11m 21s",
+      "updatedRouteLength": "6.8m 09s",
+      "timeSaved": "4m 12s",
+      "sameRoute": "CONVERSE-ALLSTAR-43"
+    },
+    {
+      "employee": "Anna Martinez",
+      "date": "2026-02-21",
+      "orderId": "ORD-5380",
+      "picksInRoute": 17,
+      "routeLength": "10m 29s",
+      "updatedRouteLength": "5.8m 17s",
+      "timeSaved": "4m 12s",
+      "sameRoute": "CONVERSE-ALLSTAR-43"
+    }
+  ],
+  "PPO-008": [
+    {
+      "employee": "Emily Taylor",
+      "date": "2026-02-25",
+      "orderId": "ORD-8163",
+      "picksInRoute": 16,
+      "routeLength": "8m 07s",
+      "updatedRouteLength": "3.9000000000000004m 02s",
+      "timeSaved": "4m 05s",
+      "sameRoute": "HM-TSHIRT-M"
+    },
+    {
+      "employee": "Lisa Davis",
+      "date": "2026-02-24",
+      "orderId": "ORD-9068",
+      "picksInRoute": 23,
+      "routeLength": "8m 38s",
+      "updatedRouteLength": "3.9000000000000004m 33s",
+      "timeSaved": "4m 05s",
+      "sameRoute": "HM-TSHIRT-M"
+    },
+    {
+      "employee": "Mike Garcia",
+      "date": "2026-02-23",
+      "orderId": "ORD-3134",
+      "picksInRoute": 25,
+      "routeLength": "7m 25s",
+      "updatedRouteLength": "2.9000000000000004m 20s",
+      "timeSaved": "4m 05s",
+      "sameRoute": "HM-TSHIRT-M"
+    },
+    {
+      "employee": "Maria Taylor",
+      "date": "2026-02-22",
+      "orderId": "ORD-6550",
+      "picksInRoute": 25,
+      "routeLength": "4m 18s",
+      "updatedRouteLength": "0m 13s",
+      "timeSaved": "4m 05s",
+      "sameRoute": "HM-TSHIRT-M"
+    },
+    {
+      "employee": "Emily Davis",
+      "date": "2026-02-21",
+      "orderId": "ORD-6565",
+      "picksInRoute": 20,
+      "routeLength": "11m 51s",
+      "updatedRouteLength": "6.9m 46s",
+      "timeSaved": "4m 05s",
+      "sameRoute": "HM-TSHIRT-M"
+    },
+    {
+      "employee": "Lisa Lee",
+      "date": "2026-02-20",
+      "orderId": "ORD-6328",
+      "picksInRoute": 21,
+      "routeLength": "3m 15s",
+      "updatedRouteLength": "0m 10s",
+      "timeSaved": "4m 05s",
+      "sameRoute": "HM-TSHIRT-M"
+    },
+    {
+      "employee": "Sarah Brown",
+      "date": "2026-02-19",
+      "orderId": "ORD-9047",
+      "picksInRoute": 10,
+      "routeLength": "10m 08s",
+      "updatedRouteLength": "5.9m 03s",
+      "timeSaved": "4m 05s",
+      "sameRoute": "HM-TSHIRT-M"
+    }
+  ],
+  "PPO-005": [
+    {
+      "employee": "Anna Johnson",
+      "date": "2026-02-25",
+      "orderId": "ORD-5982",
+      "picksInRoute": 21,
+      "routeLength": "5m 27s",
+      "updatedRouteLength": "2.7m 09s",
+      "timeSaved": "2m 18s",
+      "sameRoute": "NEW-BALANCE-44"
+    },
+    {
+      "employee": "Tom Davis",
+      "date": "2026-02-24",
+      "orderId": "ORD-6811",
+      "picksInRoute": 21,
+      "routeLength": "7m 50s",
+      "updatedRouteLength": "4.7m 32s",
+      "timeSaved": "2m 18s",
+      "sameRoute": "NEW-BALANCE-44"
+    },
+    {
+      "employee": "Anna Taylor",
+      "date": "2026-02-23",
+      "orderId": "ORD-4142",
+      "picksInRoute": 8,
+      "routeLength": "8m 50s",
+      "updatedRouteLength": "5.7m 32s",
+      "timeSaved": "2m 18s",
+      "sameRoute": "NEW-BALANCE-44"
+    },
+    {
+      "employee": "James Lee",
+      "date": "2026-02-22",
+      "orderId": "ORD-4300",
+      "picksInRoute": 10,
+      "routeLength": "4m 26s",
+      "updatedRouteLength": "1.7000000000000002m 08s",
+      "timeSaved": "2m 18s",
+      "sameRoute": "NEW-BALANCE-44"
+    },
+    {
+      "employee": "Emily Taylor",
+      "date": "2026-02-21",
+      "orderId": "ORD-2951",
+      "picksInRoute": 13,
+      "routeLength": "12m 31s",
+      "updatedRouteLength": "9.7m 13s",
+      "timeSaved": "2m 18s",
+      "sameRoute": "NEW-BALANCE-44"
+    },
+    {
+      "employee": "David Lee",
+      "date": "2026-02-20",
+      "orderId": "ORD-7987",
+      "picksInRoute": 10,
+      "routeLength": "4m 21s",
+      "updatedRouteLength": "1.7000000000000002m 03s",
+      "timeSaved": "2m 18s",
+      "sameRoute": "NEW-BALANCE-44"
+    },
+    {
+      "employee": "Chris Brown",
+      "date": "2026-02-19",
+      "orderId": "ORD-7406",
+      "picksInRoute": 17,
+      "routeLength": "4m 05s",
+      "updatedRouteLength": "1.7000000000000002m 00s",
+      "timeSaved": "2m 18s",
+      "sameRoute": "NEW-BALANCE-44"
+    },
+    {
+      "employee": "Chris Taylor",
+      "date": "2026-02-18",
+      "orderId": "ORD-3315",
+      "picksInRoute": 23,
+      "routeLength": "9m 19s",
+      "updatedRouteLength": "6.7m 01s",
+      "timeSaved": "2m 18s",
+      "sameRoute": "NEW-BALANCE-44"
+    }
+  ],
+  "PPO-004": [
+    {
+      "employee": "Maria Johnson",
+      "date": "2026-02-25",
+      "orderId": "ORD-2219",
+      "picksInRoute": 15,
+      "routeLength": "10m 16s",
+      "updatedRouteLength": "8.4m 00s",
+      "timeSaved": "1m 36s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    },
+    {
+      "employee": "Sarah Martinez",
+      "date": "2026-02-24",
+      "orderId": "ORD-9686",
+      "picksInRoute": 18,
+      "routeLength": "7m 34s",
+      "updatedRouteLength": "5.4m 00s",
+      "timeSaved": "1m 36s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    },
+    {
+      "employee": "Sarah Garcia",
+      "date": "2026-02-23",
+      "orderId": "ORD-9513",
+      "picksInRoute": 17,
+      "routeLength": "7m 05s",
+      "updatedRouteLength": "5.4m 00s",
+      "timeSaved": "1m 36s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    },
+    {
+      "employee": "Lisa Chen",
+      "date": "2026-02-22",
+      "orderId": "ORD-9636",
+      "picksInRoute": 15,
+      "routeLength": "7m 14s",
+      "updatedRouteLength": "5.4m 00s",
+      "timeSaved": "1m 36s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    },
+    {
+      "employee": "Chris Taylor",
+      "date": "2026-02-21",
+      "orderId": "ORD-3854",
+      "picksInRoute": 23,
+      "routeLength": "8m 50s",
+      "updatedRouteLength": "6.4m 14s",
+      "timeSaved": "1m 36s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    },
+    {
+      "employee": "Anna Johnson",
+      "date": "2026-02-20",
+      "orderId": "ORD-8538",
+      "picksInRoute": 25,
+      "routeLength": "5m 07s",
+      "updatedRouteLength": "3.4m 00s",
+      "timeSaved": "1m 36s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    }
+  ],
+  "TPO-003": [
+    {
+      "employee": "Lisa Taylor",
+      "date": "2026-02-25",
+      "orderId": "ORD-2926",
+      "picksInRoute": 25,
+      "routeLength": "12m 58s",
+      "updatedRouteLength": "6.2m 10s",
+      "timeSaved": "5m 48s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    },
+    {
+      "employee": "Emily Martinez",
+      "date": "2026-02-24",
+      "orderId": "ORD-1010",
+      "picksInRoute": 11,
+      "routeLength": "8m 55s",
+      "updatedRouteLength": "2.2m 07s",
+      "timeSaved": "5m 48s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    },
+    {
+      "employee": "Maria Johnson",
+      "date": "2026-02-23",
+      "orderId": "ORD-1826",
+      "picksInRoute": 23,
+      "routeLength": "8m 07s",
+      "updatedRouteLength": "2.2m 00s",
+      "timeSaved": "5m 48s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    },
+    {
+      "employee": "David Johnson",
+      "date": "2026-02-22",
+      "orderId": "ORD-2782",
+      "picksInRoute": 8,
+      "routeLength": "8m 32s",
+      "updatedRouteLength": "2.2m 00s",
+      "timeSaved": "5m 48s",
+      "sameRoute": "CONVERSE-ALLSTAR-41"
+    }
+  ],
+  "TPO-001": [
+    {
+      "employee": "Sarah Smith",
+      "date": "2026-02-25",
+      "orderId": "ORD-7584",
+      "picksInRoute": 10,
+      "routeLength": "7m 29s",
+      "updatedRouteLength": "2m 29s",
+      "timeSaved": "5m 00s",
+      "sameRoute": "ASICS-GEL-43"
+    },
+    {
+      "employee": "Chris Chen",
+      "date": "2026-02-24",
+      "orderId": "ORD-5377",
+      "picksInRoute": 18,
+      "routeLength": "7m 16s",
+      "updatedRouteLength": "2m 16s",
+      "timeSaved": "5m 00s",
+      "sameRoute": "ASICS-GEL-43"
+    },
+    {
+      "employee": "Maria Davis",
+      "date": "2026-02-23",
+      "orderId": "ORD-8900",
+      "picksInRoute": 15,
+      "routeLength": "12m 31s",
+      "updatedRouteLength": "7m 31s",
+      "timeSaved": "5m 00s",
+      "sameRoute": "ASICS-GEL-43"
+    }
+  ],
+  "TPO-005": [
+    {
+      "employee": "John Davis",
+      "date": "2026-02-25",
+      "orderId": "ORD-6873",
+      "picksInRoute": 18,
+      "routeLength": "7m 50s",
+      "updatedRouteLength": "2.0999999999999996m 00s",
+      "timeSaved": "4m 54s",
+      "sameRoute": "HM-TSHIRT-XL"
+    },
+    {
+      "employee": "Lisa Johnson",
+      "date": "2026-02-24",
+      "orderId": "ORD-7475",
+      "picksInRoute": 25,
+      "routeLength": "10m 04s",
+      "updatedRouteLength": "5.1m 00s",
+      "timeSaved": "4m 54s",
+      "sameRoute": "HM-TSHIRT-XL"
+    },
+    {
+      "employee": "Sarah Smith",
+      "date": "2026-02-23",
+      "orderId": "ORD-1628",
+      "picksInRoute": 24,
+      "routeLength": "3m 45s",
+      "updatedRouteLength": "0m 00s",
+      "timeSaved": "4m 54s",
+      "sameRoute": "HM-TSHIRT-XL"
+    }
+  ],
+  "TPO-002": [
+    {
+      "employee": "Mike Lee",
+      "date": "2026-02-25",
+      "orderId": "ORD-8269",
+      "picksInRoute": 17,
+      "routeLength": "10m 17s",
+      "updatedRouteLength": "6.8m 05s",
+      "timeSaved": "3m 12s",
+      "sameRoute": "ADIDAS-ULTRA-41"
+    },
+    {
+      "employee": "Chris Johnson",
+      "date": "2026-02-24",
+      "orderId": "ORD-9072",
+      "picksInRoute": 11,
+      "routeLength": "8m 30s",
+      "updatedRouteLength": "4.8m 18s",
+      "timeSaved": "3m 12s",
+      "sameRoute": "ADIDAS-ULTRA-41"
+    },
+    {
+      "employee": "John Wilson",
+      "date": "2026-02-23",
+      "orderId": "ORD-4294",
+      "picksInRoute": 10,
+      "routeLength": "11m 46s",
+      "updatedRouteLength": "7.8m 34s",
+      "timeSaved": "3m 12s",
+      "sameRoute": "ADIDAS-ULTRA-41"
+    }
+  ],
+  "TPO-004": [
+    {
+      "employee": "Tom Davis",
+      "date": "2026-02-25",
+      "orderId": "ORD-1948",
+      "picksInRoute": 12,
+      "routeLength": "9m 54s",
+      "updatedRouteLength": "6m 54s",
+      "timeSaved": "3m 00s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    },
+    {
+      "employee": "Sarah Wilson",
+      "date": "2026-02-24",
+      "orderId": "ORD-3671",
+      "picksInRoute": 17,
+      "routeLength": "7m 02s",
+      "updatedRouteLength": "4m 02s",
+      "timeSaved": "3m 00s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    },
+    {
+      "employee": "Tom Davis",
+      "date": "2026-02-23",
+      "orderId": "ORD-5455",
+      "picksInRoute": 12,
+      "routeLength": "12m 00s",
+      "updatedRouteLength": "9m 00s",
+      "timeSaved": "3m 00s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    },
+    {
+      "employee": "Anna Johnson",
+      "date": "2026-02-22",
+      "orderId": "ORD-7933",
+      "picksInRoute": 25,
+      "routeLength": "4m 21s",
+      "updatedRouteLength": "1m 21s",
+      "timeSaved": "3m 00s",
+      "sameRoute": "SAUCONY-JAZZ-40"
+    }
+  ]
+}

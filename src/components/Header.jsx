@@ -29,6 +29,9 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
     if (activeScreen === 'nl-query') {
       return <span className="text-slate-300">Natural Language Queries</span>
     }
+    if (activeScreen === 'mfa') {
+      return <span className="text-slate-300">Multi-Faceted Analytics</span>
+    }
     if (activeScreen === 'misplaced') {
       return <span className="text-slate-300">Misplaced / Not Found</span>
     }
