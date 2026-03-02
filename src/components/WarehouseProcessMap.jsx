@@ -54,15 +54,16 @@ function ProcessNode({ data, selected }) {
       style={{
         width: '100%',
         height: '100%',
-        background: selected ? '#FFF3CD' : '#FFFDE7',
-        border: `2px solid ${selected ? '#F59E0B' : '#FFB74D'}`,
+        background: selected ? '#EFF6FF' : '#FFFDE7',
+        border: `2px solid ${selected ? '#2563EB' : '#FFB74D'}`,
         borderRadius: 5,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
         boxSizing: 'border-box',
-        transition: 'border-color 0.15s, background 0.15s',
+        transition: 'border-color 0.15s, background 0.15s, box-shadow 0.15s',
+        boxShadow: selected ? '0 0 0 3px rgba(37,99,235,0.25)' : 'none',
         padding: '4px 6px',
       }}
     >
@@ -72,7 +73,7 @@ function ProcessNode({ data, selected }) {
       <Handle type="source" position={Position.Bottom} style={{ opacity: 0, pointerEvents: 'none' }} />
       <div style={{ textAlign: 'center' }}>
         {lines.map((line, i) => (
-          <div key={i} style={{ fontSize: 10, fontWeight: 'bold', lineHeight: 1.35, color: '#333' }}>
+          <div key={i} style={{ fontSize: 10, fontWeight: 'bold', lineHeight: 1.35, color: selected ? '#1E40AF' : '#333' }}>
             {line}
           </div>
         ))}
@@ -89,15 +90,16 @@ function BarNode({ data, selected }) {
       style={{
         width: '100%',
         height: '100%',
-        background: selected ? '#FFF3CD' : '#FFFDE7',
-        border: `2px solid ${selected ? '#F59E0B' : '#FFB74D'}`,
+        background: selected ? '#EFF6FF' : '#FFFDE7',
+        border: `2px solid ${selected ? '#2563EB' : '#FFB74D'}`,
         borderRadius: 5,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
         boxSizing: 'border-box',
-        transition: 'border-color 0.15s, background 0.15s',
+        boxShadow: selected ? '0 0 0 3px rgba(37,99,235,0.25)' : 'none',
+        transition: 'border-color 0.15s, background 0.15s, box-shadow 0.15s',
         writingMode: 'vertical-rl',
         textOrientation: 'mixed',
       }}
@@ -108,7 +110,7 @@ function BarNode({ data, selected }) {
       <Handle type="source" position={Position.Bottom} style={{ opacity: 0, pointerEvents: 'none' }} />
       <div style={{ transform: 'rotate(180deg)', textAlign: 'center' }}>
         {lines.map((line, i) => (
-          <div key={i} style={{ fontSize: 10, fontWeight: 'bold', lineHeight: 1.35, color: '#333' }}>
+          <div key={i} style={{ fontSize: 10, fontWeight: 'bold', lineHeight: 1.35, color: selected ? '#1E40AF' : '#333' }}>
             {line}
           </div>
         ))}
@@ -174,8 +176,8 @@ export default function WarehouseProcessMap() {
       {/* Flow canvas */}
       <div style={{ width: '100%', height: 620, borderRadius: 8, overflow: 'hidden', border: '1px solid #e2e8f0' }}>
         <ReactFlow
-          nodes={rfNodes}
-          edges={rfEdges}
+          defaultNodes={rfNodes}
+          defaultEdges={rfEdges}
           nodeTypes={nodeTypes}
           nodesDraggable={false}
           nodesConnectable={false}
