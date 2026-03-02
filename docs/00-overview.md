@@ -12,6 +12,7 @@ SpinnakerSCA Warehouse IQ is a warehouse management dashboard application built 
 | Vite | 5.3.5 | Build tool and dev server |
 | Tailwind CSS | 3.4.6 | Styling framework |
 | Lucide React | 0.400.0 | Icon library |
+| @xyflow/react | latest | Interactive flow diagram (Warehouse Process Map) |
 | PostCSS | 8.4.40 | CSS processing |
 | Autoprefixer | 10.4.19 | CSS vendor prefixes |
 
@@ -77,6 +78,20 @@ App
 │   └── NLQueryScreen
 └── Navbar (right-side vertical navigation)
 ```
+
+## Deployment
+
+The app is deployed as a static site on **AWS S3 + CloudFront**.
+
+| Resource | Value |
+|----------|-------|
+| S3 bucket | `ssca-demfcast/warehouse-iq/` (us-east-1) |
+| CloudFront domain | `https://d9p3fj3jgp9b9.cloudfront.net` |
+
+To deploy: add temporary STS credentials to `.env`, then run `make deploy`.
+See `DEPLOY.md` for full instructions and troubleshooting.
+
+---
 
 ## Design Principles
 

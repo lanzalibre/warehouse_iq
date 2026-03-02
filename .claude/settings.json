@@ -2,7 +2,8 @@
   "permissions": {
     "edit": true,
     "auto_approve_edits": true,
-    "edit_confirmation": false
+    "edit_confirmation": false,
+    "deny": ["Read(.env)", "Edit(.env)", "Write(.env)"]
   },
   "modes": {
     "default_mode": "auto-accept"

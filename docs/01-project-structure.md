@@ -28,10 +28,13 @@ burl_demo/
 │   │   │       ├── LocationsTab.jsx
 │   │   │       ├── OrderTypesTab.jsx
 │   │   │       └── EquipmentTab.jsx
-│   │   ├── MFA.jsx                # Multi-Faceted Analytics
+│   │   ├── MFA.jsx                # Multi-Faceted Analytics (Overview, Reslotting, Simulation tabs)
+│   │   ├── WarehouseProcessMap.jsx # Interactive React Flow process diagram (used in MFA Overview)
 │   │   ├── NLQuery.jsx            # Natural Language Queries
 │   │   ├── DelayPatterns.jsx      # Delay pattern analysis
 │   │   └── MisplacedItems.jsx     # Misplaced items tracking
+│   ├── data/
+│   │   └── warehouseProcessMap.json # Node/edge/swimlane data for the process map
 │   ├── App.jsx                    # Root component with screen routing
 │   ├── main.jsx                   # React DOM entry point
 │   ├── index.css                  # Global styles and Tailwind imports
@@ -41,6 +44,8 @@ burl_demo/
 ├── vite.config.js                 # Vite configuration
 ├── tailwind.config.js             # Tailwind CSS configuration
 ├── postcss.config.js              # PostCSS configuration
+├── Makefile                       # Deploy/build/sync/invalidate targets
+├── DEPLOY.md                      # Deployment guide (S3 + CloudFront)
 └── CLAUDE.md                      # Claude AI instructions
 ```
 
@@ -55,6 +60,8 @@ burl_demo/
 | `tailwind.config.js` | Tailwind CSS theme extensions and animations |
 | `postcss.config.js` | PostCSS plugins configuration |
 | `index.html` | HTML entry point with root div |
+| `Makefile` | Deploy pipeline: `make deploy` runs build → S3 sync → CloudFront invalidation |
+| `DEPLOY.md` | Deployment guide for AWS S3 + CloudFront |
 
 ### Core Application Files
 
@@ -75,7 +82,8 @@ burl_demo/
 | `UnloadingBay.jsx` | Active unloading operations with SKU scanning |
 | `LaborManagement.jsx` | Worker allocation, zone management, rebalancing |
 | `PlanVsExecution/index.jsx` | Main Plan vs Execution with sub-tabs |
-| `MFA.jsx` | Multi-Faceted Analytics for reslotting optimization |
+| `MFA.jsx` | Multi-Faceted Analytics — Overview, Reslotting, and Simulation tabs |
+| `WarehouseProcessMap.jsx` | Interactive React Flow diagram of warehouse operations; used in MFA Overview |
 | `NLQuery.jsx` | Natural language query interface |
 
 ### Plan vs Execution Sub-components
@@ -100,9 +108,13 @@ burl_demo/
 // External libraries
 import { useState, useEffect } from 'react'
 import { IconName, IconName2 } from 'lucide-react'
+import { ReactFlow, Background, Controls, Handle, Position, MarkerType } from '@xyflow/react'
 
 // Mock data
 import { DATA_NAME, HELPER_FUNCTION } from '../mockData.js'
+
+// JSON data files
+import mapData from '../data/warehouseProcessMap.json'
 
 // Child components (relative paths)
 import ChildComponent from './ChildComponent.jsx'

@@ -1,0 +1,451 @@
+{
+  "swimlanes": [
+    {
+      "id": "inbound",
+      "label": "INBOUND",
+      "x": 15,
+      "y": 40,
+      "width": 160,
+      "height": 540
+    },
+    {
+      "id": "warehouse",
+      "label": "WAREHOUSE MID-05",
+      "x": 190,
+      "y": 40,
+      "width": 770,
+      "height": 540
+    },
+    {
+      "id": "outbound",
+      "label": "OUTBOUND",
+      "x": 975,
+      "y": 40,
+      "width": 160,
+      "height": 540
+    }
+  ],
+  "nodes": [
+    {
+      "id": "vendor_containers",
+      "label": "Vendor\nContainers",
+      "swimlane": "inbound",
+      "nodeType": "process",
+      "x": 30,
+      "y": 80,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Containers / day": "48",
+        "Avg lead time": "2.3 days",
+        "Active vendors": "12"
+      },
+      "metricBenchmarks": {
+        "7":  { "Containers / day": 45 },
+        "30": { "Containers / day": 43 },
+        "90": { "Containers / day": 40 }
+      }
+    },
+    {
+      "id": "inbound_transfers",
+      "label": "Inbound\nTransfers",
+      "swimlane": "inbound",
+      "nodeType": "process",
+      "x": 30,
+      "y": 250,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Transfers / day": "22",
+        "Origin DCs": "4",
+        "Avg pallet count": "180"
+      },
+      "metricBenchmarks": {
+        "7":  { "Transfers / day": 20 },
+        "30": { "Transfers / day": 19 },
+        "90": { "Transfers / day": 18 }
+      }
+    },
+    {
+      "id": "returns_3pl",
+      "label": "Returns / 3PL",
+      "swimlane": "inbound",
+      "nodeType": "process",
+      "x": 30,
+      "y": 420,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Returns / day": "8",
+        "3PL carriers": "3",
+        "Avg processing time": "45 min"
+      },
+      "metricBenchmarks": {
+        "7":  { "Returns / day": 9 },
+        "30": { "Returns / day": 10 },
+        "90": { "Returns / day": 11 }
+      }
+    },
+    {
+      "id": "receiving",
+      "label": "Receiving /\nUnloading",
+      "swimlane": "warehouse",
+      "nodeType": "bar",
+      "x": 210,
+      "y": 175,
+      "width": 50,
+      "height": 200,
+      "metrics": {
+        "Throughput": "210 pallets/hr",
+        "Dock doors": "12",
+        "Efficiency": "91%",
+        "Avg unload time": "28 min"
+      },
+      "metricBenchmarks": {
+        "7":  { "Throughput": 198, "Efficiency": 89 },
+        "30": { "Throughput": 191, "Efficiency": 87 },
+        "90": { "Throughput": 182, "Efficiency": 85 }
+      }
+    },
+    {
+      "id": "priority_orders",
+      "label": "Priority\nOrders",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 340,
+      "y": 100,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Orders / day": "34",
+        "Avg pick volume": "48 units",
+        "Fill rate": "98.2%",
+        "Avg order value": "$4,200"
+      },
+      "metricBenchmarks": {
+        "7":  { "Orders / day": 31, "Fill rate": 97.1 },
+        "30": { "Orders / day": 29, "Fill rate": 96.8 },
+        "90": { "Orders / day": 27, "Fill rate": 95.9 }
+      }
+    },
+    {
+      "id": "rack_storage",
+      "label": "Rack Storage",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 340,
+      "y": 250,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Capacity": "4,200 pallets",
+        "Utilization": "76%",
+        "Locations": "1,050",
+        "Avg storage time": "4.2 days"
+      },
+      "metricBenchmarks": {
+        "7":  { "Utilization": 73 },
+        "30": { "Utilization": 71 },
+        "90": { "Utilization": 69 }
+      }
+    },
+    {
+      "id": "deep_storage",
+      "label": "Deep Storage",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 340,
+      "y": 400,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Capacity": "8,800 pallets",
+        "Utilization": "83%",
+        "Locations": "2,200",
+        "Avg storage time": "7.8 days"
+      },
+      "metricBenchmarks": {
+        "7":  { "Utilization": 80 },
+        "30": { "Utilization": 78 },
+        "90": { "Utilization": 75 }
+      }
+    },
+    {
+      "id": "shuttle_xdk",
+      "label": "Shuttle / XDK",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 550,
+      "y": 40,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Trips / day": "18",
+        "Avg load": "24 pallets",
+        "Transit time": "2.1 hr",
+        "On-time rate": "97%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Trips / day": 16, "On-time rate": 95 },
+        "30": { "Trips / day": 15, "On-time rate": 94 },
+        "90": { "Trips / day": 14, "On-time rate": 93 }
+      }
+    },
+    {
+      "id": "sample_noncon_pick",
+      "label": "Sample /\nNonCon Pick",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 550,
+      "y": 120,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Picks / day": "312",
+        "Accuracy": "99.1%",
+        "Avg cycle time": "4.2 min",
+        "Hold rate": "1.8%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Picks / day": 295, "Accuracy": 98.8 },
+        "30": { "Picks / day": 281, "Accuracy": 98.5 },
+        "90": { "Picks / day": 265, "Accuracy": 98.1 }
+      }
+    },
+    {
+      "id": "ptl_order_picking",
+      "label": "PTL Order\nPicking",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 550,
+      "y": 200,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Picks / hr": "180",
+        "Orders / day": "620",
+        "Error rate": "0.4%",
+        "Lines / order": "8.2"
+      },
+      "metricBenchmarks": {
+        "7":  { "Picks / hr": 171, "Orders / day": 592, "Error rate": 0.5 },
+        "30": { "Picks / hr": 165, "Orders / day": 574, "Error rate": 0.6 },
+        "90": { "Picks / hr": 158, "Orders / day": 551, "Error rate": 0.7 }
+      }
+    },
+    {
+      "id": "cart_pick_fbd",
+      "label": "Cart Pick\n(FBD)",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 550,
+      "y": 300,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Picks / hr": "95",
+        "Carts / shift": "48",
+        "Avg units / cart": "62",
+        "Accuracy": "98.7%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Picks / hr": 90, "Accuracy": 98.2 },
+        "30": { "Picks / hr": 87, "Accuracy": 97.9 },
+        "90": { "Picks / hr": 83, "Accuracy": 97.5 }
+      }
+    },
+    {
+      "id": "pallet_pick",
+      "label": "Pallet Pick",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 550,
+      "y": 400,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Pallets / hr": "28",
+        "Orders / day": "210",
+        "Accuracy": "99.7%",
+        "Avg weight": "1.1 t"
+      },
+      "metricBenchmarks": {
+        "7":  { "Pallets / hr": 26, "Orders / day": 198, "Accuracy": 99.4 },
+        "30": { "Pallets / hr": 25, "Orders / day": 191, "Accuracy": 99.2 },
+        "90": { "Pallets / hr": 24, "Orders / day": 182, "Accuracy": 99.0 }
+      }
+    },
+    {
+      "id": "pick_and_load",
+      "label": "Pick & Load",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 550,
+      "y": 500,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Pallets / hr": "22",
+        "Loads / day": "14",
+        "Direct-to-dock": "100%",
+        "Avg load time": "52 min"
+      },
+      "metricBenchmarks": {
+        "7":  { "Pallets / hr": 21, "Loads / day": 13 },
+        "30": { "Pallets / hr": 20, "Loads / day": 12 },
+        "90": { "Pallets / hr": 19, "Loads / day": 11 }
+      }
+    },
+    {
+      "id": "noncon_staging",
+      "label": "NonCon\nStaging",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 740,
+      "y": 180,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Staging positions": "24",
+        "Avg dwell time": "1.8 hr",
+        "Holds / day": "18",
+        "Clearance rate": "94%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Clearance rate": 91 },
+        "30": { "Clearance rate": 89 },
+        "90": { "Clearance rate": 86 }
+      }
+    },
+    {
+      "id": "staging",
+      "label": "Staging",
+      "swimlane": "warehouse",
+      "nodeType": "process",
+      "x": 740,
+      "y": 350,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Staging positions": "120",
+        "Avg dwell time": "0.9 hr",
+        "Trailers staged": "32",
+        "Utilization": "82%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Utilization": 78 },
+        "30": { "Utilization": 75 },
+        "90": { "Utilization": 72 }
+      }
+    },
+    {
+      "id": "loading_dispatch",
+      "label": "Loading /\nDispatch",
+      "swimlane": "warehouse",
+      "nodeType": "bar",
+      "x": 890,
+      "y": 175,
+      "width": 50,
+      "height": 200,
+      "metrics": {
+        "Trailers / day": "48",
+        "Avg load time": "38 min",
+        "On-time departure": "94%",
+        "Dock doors": "16"
+      },
+      "metricBenchmarks": {
+        "7":  { "Trailers / day": 45, "On-time departure": 92 },
+        "30": { "Trailers / day": 43, "On-time departure": 91 },
+        "90": { "Trailers / day": 41, "On-time departure": 89 }
+      }
+    },
+    {
+      "id": "distribution_dcs",
+      "label": "Distribution\nDCs",
+      "swimlane": "outbound",
+      "nodeType": "process",
+      "x": 990,
+      "y": 80,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Units / day": "48,000",
+        "Destination DCs": "6",
+        "Avg order size": "240 units",
+        "Lead time": "1.2 days"
+      },
+      "metricBenchmarks": {
+        "7":  { "Units / day": 45200 },
+        "30": { "Units / day": 43800 },
+        "90": { "Units / day": 41500 }
+      }
+    },
+    {
+      "id": "retail_stores",
+      "label": "Retail Stores",
+      "swimlane": "outbound",
+      "nodeType": "process",
+      "x": 990,
+      "y": 250,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Units / day": "31,000",
+        "Store accounts": "180",
+        "Avg drop size": "172 units",
+        "OTIF": "96.4%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Units / day": 29400, "OTIF": 95.8 },
+        "30": { "Units / day": 28100, "OTIF": 95.2 },
+        "90": { "Units / day": 26800, "OTIF": 94.6 }
+      }
+    },
+    {
+      "id": "direct_customers",
+      "label": "Direct\nCustomers",
+      "swimlane": "outbound",
+      "nodeType": "process",
+      "x": 990,
+      "y": 420,
+      "width": 130,
+      "height": 55,
+      "metrics": {
+        "Units / day": "12,000",
+        "Accounts": "94",
+        "Same-day orders": "18%",
+        "Fill rate": "99.0%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Units / day": 11200, "Fill rate": 98.6 },
+        "30": { "Units / day": 10700, "Fill rate": 98.2 },
+        "90": { "Units / day": 10100, "Fill rate": 97.8 }
+      }
+    }
+  ],
+  "edges": [
+    { "id": "e-vc-r",   "source": "vendor_containers",  "target": "receiving" },
+    { "id": "e-it-r",   "source": "inbound_transfers",   "target": "receiving" },
+    { "id": "e-r3-r",   "source": "returns_3pl",         "target": "receiving" },
+    { "id": "e-r-po",   "source": "receiving",           "target": "priority_orders" },
+    { "id": "e-r-rs",   "source": "receiving",           "target": "rack_storage" },
+    { "id": "e-r-ds",   "source": "receiving",           "target": "deep_storage" },
+    { "id": "e-po-sx",  "source": "priority_orders",     "target": "shuttle_xdk" },
+    { "id": "e-po-snp", "source": "priority_orders",     "target": "sample_noncon_pick" },
+    { "id": "e-rs-ptl", "source": "rack_storage",        "target": "ptl_order_picking" },
+    { "id": "e-rs-cp",  "source": "rack_storage",        "target": "cart_pick_fbd" },
+    { "id": "e-rs-pp",  "source": "rack_storage",        "target": "pallet_pick" },
+    { "id": "e-ds-pal", "source": "deep_storage",        "target": "pick_and_load" },
+    { "id": "e-snp-ns", "source": "sample_noncon_pick",  "target": "noncon_staging" },
+    { "id": "e-ptl-st", "source": "ptl_order_picking",   "target": "staging" },
+    { "id": "e-cp-st",  "source": "cart_pick_fbd",       "target": "staging" },
+    { "id": "e-pp-st",  "source": "pallet_pick",         "target": "staging" },
+    { "id": "e-ns-ld",  "source": "noncon_staging",      "target": "loading_dispatch" },
+    { "id": "e-st-ld",  "source": "staging",             "target": "loading_dispatch" },
+    { "id": "e-sx-ld",  "source": "shuttle_xdk",         "target": "loading_dispatch" },
+    { "id": "e-pal-ld", "source": "pick_and_load",       "target": "loading_dispatch" },
+    { "id": "e-ld-dc",  "source": "loading_dispatch",    "target": "distribution_dcs" },
+    { "id": "e-ld-rs",  "source": "loading_dispatch",    "target": "retail_stores" },
+    { "id": "e-ld-rc",  "source": "loading_dispatch",    "target": "direct_customers" }
+  ]
+}

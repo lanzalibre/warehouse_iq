@@ -12,7 +12,7 @@ npm create vite@latest warehouse-iq -- --template react
 cd warehouse-iq
 
 # Install dependencies
-npm install lucide-react
+npm install lucide-react @xyflow/react
 
 # Install dev dependencies
 npm install -D tailwindcss postcss autoprefixer
@@ -115,7 +115,10 @@ src/
 │   │       ├── OrderTypesTab.jsx
 │   │       └── EquipmentTab.jsx
 │   ├── MFA.jsx
+│   ├── WarehouseProcessMap.jsx
 │   └── NLQuery.jsx
+├── data/
+│   └── warehouseProcessMap.json
 ├── App.jsx
 ├── main.jsx
 ├── index.css
@@ -345,4 +348,6 @@ export default function TabbedView() {
 9. `src/components/LaborManagement.jsx` - Labor dashboard
 10. `src/components/PlanVsExecution/index.jsx` - Plan vs Exec
 11. `src/components/MFA.jsx` - Multi-Faceted Analytics
-12. `src/components/NLQuery.jsx` - Natural Language Queries
+12. `src/components/WarehouseProcessMap.jsx` - Interactive process flow diagram
+13. `src/data/warehouseProcessMap.json` - Node/edge/swimlane data for process map
+14. `src/components/NLQuery.jsx` - Natural Language Queries
