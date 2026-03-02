@@ -125,8 +125,30 @@ const nodeTypes = {
   barNode: BarNode,
 }
 
+// ─── Delta helpers ────────────────────────────────────────────────────────────
+function parseNumeric(str) {
+  return parseFloat(String(str).replace(/[^0-9.]/g, ''))
+}
+
+function DeltaBadge({ current, benchmarkVal }) {
+  if (benchmarkVal == null) return null
+  const delta = ((parseNumeric(current) - benchmarkVal) / benchmarkVal) * 100
+  if (isNaN(delta)) return null
+  const positive = delta >= 0
+  return (
+    <span style={{
+      fontSize: 10,
+      fontWeight: 600,
+      color: positive ? '#059669' : '#dc2626',
+      marginLeft: 5,
+    }}>
+      {positive ? '↑' : '↓'} {positive ? '+' : ''}{delta.toFixed(1)}%
+    </span>
+  )
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
-export default function WarehouseProcessMap() {
+export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
   const [selectedNode, setSelectedNode] = useState(null)
 
   const rfNodes = useMemo(() => {
@@ -229,16 +251,20 @@ export default function WarehouseProcessMap() {
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '8px 24px' }}>
-            {Object.entries(selectedNode.data.metrics || {}).map(([key, value]) => (
-              <div key={key}>
-                <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 2 }}>
-                  {key}
+            {Object.entries(selectedNode.data.metrics || {}).map(([key, value]) => {
+              const benchmarkVal = selectedNode.data.nodeInfo?.metricBenchmarks?.[benchmarkPeriod]?.[key]
+              return (
+                <div key={key}>
+                  <div style={{ fontSize: 10, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 2 }}>
+                    {key}
+                  </div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a', display: 'flex', alignItems: 'baseline' }}>
+                    {value}
+                    <DeltaBadge current={value} benchmarkVal={benchmarkVal} />
+                  </div>
                 </div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: '#0f172a' }}>
-                  {value}
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       )}

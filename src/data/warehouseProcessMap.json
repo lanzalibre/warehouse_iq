@@ -39,6 +39,11 @@
         "Containers / day": "48",
         "Avg lead time": "2.3 days",
         "Active vendors": "12"
+      },
+      "metricBenchmarks": {
+        "7":  { "Containers / day": 45 },
+        "30": { "Containers / day": 43 },
+        "90": { "Containers / day": 40 }
       }
     },
     {
@@ -54,6 +59,11 @@
         "Transfers / day": "22",
         "Origin DCs": "4",
         "Avg pallet count": "180"
+      },
+      "metricBenchmarks": {
+        "7":  { "Transfers / day": 20 },
+        "30": { "Transfers / day": 19 },
+        "90": { "Transfers / day": 18 }
       }
     },
     {
@@ -69,6 +79,11 @@
         "Returns / day": "8",
         "3PL carriers": "3",
         "Avg processing time": "45 min"
+      },
+      "metricBenchmarks": {
+        "7":  { "Returns / day": 9 },
+        "30": { "Returns / day": 10 },
+        "90": { "Returns / day": 11 }
       }
     },
     {
@@ -85,6 +100,11 @@
         "Dock doors": "12",
         "Efficiency": "91%",
         "Avg unload time": "28 min"
+      },
+      "metricBenchmarks": {
+        "7":  { "Throughput": 198, "Efficiency": 89 },
+        "30": { "Throughput": 191, "Efficiency": 87 },
+        "90": { "Throughput": 182, "Efficiency": 85 }
       }
     },
     {
@@ -101,6 +121,11 @@
         "Avg pick volume": "48 units",
         "Fill rate": "98.2%",
         "Avg order value": "$4,200"
+      },
+      "metricBenchmarks": {
+        "7":  { "Orders / day": 31, "Fill rate": 97.1 },
+        "30": { "Orders / day": 29, "Fill rate": 96.8 },
+        "90": { "Orders / day": 27, "Fill rate": 95.9 }
       }
     },
     {
@@ -117,6 +142,11 @@
         "Utilization": "76%",
         "Locations": "1,050",
         "Avg storage time": "4.2 days"
+      },
+      "metricBenchmarks": {
+        "7":  { "Utilization": 73 },
+        "30": { "Utilization": 71 },
+        "90": { "Utilization": 69 }
       }
     },
     {
@@ -133,6 +163,11 @@
         "Utilization": "83%",
         "Locations": "2,200",
         "Avg storage time": "7.8 days"
+      },
+      "metricBenchmarks": {
+        "7":  { "Utilization": 80 },
+        "30": { "Utilization": 78 },
+        "90": { "Utilization": 75 }
       }
     },
     {
@@ -149,6 +184,11 @@
         "Avg load": "24 pallets",
         "Transit time": "2.1 hr",
         "On-time rate": "97%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Trips / day": 16, "On-time rate": 95 },
+        "30": { "Trips / day": 15, "On-time rate": 94 },
+        "90": { "Trips / day": 14, "On-time rate": 93 }
       }
     },
     {
@@ -165,6 +205,11 @@
         "Accuracy": "99.1%",
         "Avg cycle time": "4.2 min",
         "Hold rate": "1.8%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Picks / day": 295, "Accuracy": 98.8 },
+        "30": { "Picks / day": 281, "Accuracy": 98.5 },
+        "90": { "Picks / day": 265, "Accuracy": 98.1 }
       }
     },
     {
@@ -181,6 +226,11 @@
         "Orders / day": "620",
         "Error rate": "0.4%",
         "Lines / order": "8.2"
+      },
+      "metricBenchmarks": {
+        "7":  { "Picks / hr": 171, "Orders / day": 592, "Error rate": 0.5 },
+        "30": { "Picks / hr": 165, "Orders / day": 574, "Error rate": 0.6 },
+        "90": { "Picks / hr": 158, "Orders / day": 551, "Error rate": 0.7 }
       }
     },
     {
@@ -197,6 +247,11 @@
         "Carts / shift": "48",
         "Avg units / cart": "62",
         "Accuracy": "98.7%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Picks / hr": 90, "Accuracy": 98.2 },
+        "30": { "Picks / hr": 87, "Accuracy": 97.9 },
+        "90": { "Picks / hr": 83, "Accuracy": 97.5 }
       }
     },
     {
@@ -213,6 +268,11 @@
         "Orders / day": "210",
         "Accuracy": "99.7%",
         "Avg weight": "1.1 t"
+      },
+      "metricBenchmarks": {
+        "7":  { "Pallets / hr": 26, "Orders / day": 198, "Accuracy": 99.4 },
+        "30": { "Pallets / hr": 25, "Orders / day": 191, "Accuracy": 99.2 },
+        "90": { "Pallets / hr": 24, "Orders / day": 182, "Accuracy": 99.0 }
       }
     },
     {
@@ -229,6 +289,11 @@
         "Loads / day": "14",
         "Direct-to-dock": "100%",
         "Avg load time": "52 min"
+      },
+      "metricBenchmarks": {
+        "7":  { "Pallets / hr": 21, "Loads / day": 13 },
+        "30": { "Pallets / hr": 20, "Loads / day": 12 },
+        "90": { "Pallets / hr": 19, "Loads / day": 11 }
       }
     },
     {
@@ -245,6 +310,11 @@
         "Avg dwell time": "1.8 hr",
         "Holds / day": "18",
         "Clearance rate": "94%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Clearance rate": 91 },
+        "30": { "Clearance rate": 89 },
+        "90": { "Clearance rate": 86 }
       }
     },
     {
@@ -261,6 +331,11 @@
         "Avg dwell time": "0.9 hr",
         "Trailers staged": "32",
         "Utilization": "82%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Utilization": 78 },
+        "30": { "Utilization": 75 },
+        "90": { "Utilization": 72 }
       }
     },
     {
@@ -277,6 +352,11 @@
         "Avg load time": "38 min",
         "On-time departure": "94%",
         "Dock doors": "16"
+      },
+      "metricBenchmarks": {
+        "7":  { "Trailers / day": 45, "On-time departure": 92 },
+        "30": { "Trailers / day": 43, "On-time departure": 91 },
+        "90": { "Trailers / day": 41, "On-time departure": 89 }
       }
     },
     {
@@ -293,6 +373,11 @@
         "Destination DCs": "6",
         "Avg order size": "240 units",
         "Lead time": "1.2 days"
+      },
+      "metricBenchmarks": {
+        "7":  { "Units / day": 45200 },
+        "30": { "Units / day": 43800 },
+        "90": { "Units / day": 41500 }
       }
     },
     {
@@ -309,6 +394,11 @@
         "Store accounts": "180",
         "Avg drop size": "172 units",
         "OTIF": "96.4%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Units / day": 29400, "OTIF": 95.8 },
+        "30": { "Units / day": 28100, "OTIF": 95.2 },
+        "90": { "Units / day": 26800, "OTIF": 94.6 }
       }
     },
     {
@@ -325,6 +415,11 @@
         "Accounts": "94",
         "Same-day orders": "18%",
         "Fill rate": "99.0%"
+      },
+      "metricBenchmarks": {
+        "7":  { "Units / day": 11200, "Fill rate": 98.6 },
+        "30": { "Units / day": 10700, "Fill rate": 98.2 },
+        "90": { "Units / day": 10100, "Fill rate": 97.8 }
       }
     }
   ],
