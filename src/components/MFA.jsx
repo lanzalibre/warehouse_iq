@@ -40,6 +40,13 @@ function calculateNetSavings(opportunity, timePeriod) {
   const totalCosts = delayTrips * costPerTrip
   const netSavings = totalSavings - totalCosts
 
+  const switchingCost = calculateSwitchingCost(
+    opportunity.inventoryUnits,
+    delayInfo?.inventoryUnits
+  )
+  const netSavingsPerDay = netSavings / parseInt(timePeriod)
+  const switchingBreakEvenDays = calculateBreakEvenDays(switchingCost, netSavingsPerDay)
+
   return {
     totalSavings,
     totalCosts,
@@ -47,7 +54,9 @@ function calculateNetSavings(opportunity, timePeriod) {
     savingsTrips: trips,
     costTrips: delayTrips,
     savingsPerTrip,
-    costPerTrip
+    costPerTrip,
+    switchingCost,
+    switchingBreakEvenDays
   }
 }
 
@@ -67,6 +76,17 @@ function formatTime(minutes) {
   const mins = Math.abs(minutes) % 60
   const sign = minutes < 0 ? '-' : ''
   return `${sign}${hours}h ${mins.toFixed(0)}m`
+}
+
+const SWITCH_COST_PER_UNIT = 0.5 // minutes per unit to relocate
+
+function calculateSwitchingCost(movedUnits, displacedUnits) {
+  return ((movedUnits ?? 0) + (displacedUnits ?? 0)) * SWITCH_COST_PER_UNIT
+}
+
+function calculateBreakEvenDays(switchingCostMinutes, netSavingsPerDay) {
+  if (!netSavingsPerDay || netSavingsPerDay <= 0) return null
+  return Math.ceil(switchingCostMinutes / netSavingsPerDay)
 }
 
 // ─── Tab Button ─────────────────────────────────────────────────────────────
@@ -301,6 +321,45 @@ function TimeSavingsSummary({ opportunity, selectedAlternative, timePeriod }) {
           </div>
         </div>
       )}
+
+      {/* Switching Cost Section */}
+      {(() => {
+        const movedUnits = opportunity.inventoryUnits ?? 0
+        const displacedUnits = ALTERNATIVE_LOCATION_DATA[selectedLocationStr]?.inventoryUnits ?? 0
+        const switchingCostMinutes = calculateSwitchingCost(movedUnits, displacedUnits)
+        const netSavingsPerDay = (savings.totalMinutes - totalDelayMinutes) / parseInt(timePeriod)
+        const breakEvenDays = calculateBreakEvenDays(switchingCostMinutes, netSavingsPerDay)
+        return (
+          <div className="px-4 py-3 border-b border-slate-100">
+            <div className="flex items-center gap-2 mb-2">
+              <Move size={14} className="text-amber-600" />
+              <span className="text-xs font-semibold text-amber-700">Inventory Switching Cost</span>
+              <span className="text-[10px] text-slate-400 ml-auto">one-time</span>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              <div>
+                <div className="text-[10px] text-slate-400 mb-0.5">Total Cost</div>
+                <div className="text-lg font-bold text-amber-600">{formatTime(switchingCostMinutes)}</div>
+              </div>
+              <div>
+                <div className="text-[10px] text-slate-400 mb-0.5">Units Moved</div>
+                <div className="text-lg font-bold text-slate-700">{movedUnits + displacedUnits}</div>
+              </div>
+              <div>
+                <div className="text-[10px] text-slate-400 mb-0.5">Break-even</div>
+                <div className={`text-lg font-bold ${
+                  breakEvenDays == null ? 'text-slate-400'
+                  : breakEvenDays <= 30 ? 'text-emerald-600'
+                  : breakEvenDays <= 90 ? 'text-amber-600'
+                  : 'text-red-500'
+                }`}>
+                  {breakEvenDays != null ? `${breakEvenDays}d` : 'N/A'}
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
 
       {/* Net Impact */}
       <div className={`px-4 py-3 ${isNetPositive ? 'bg-emerald-50' : 'bg-red-50'}`}>
@@ -565,6 +624,15 @@ function OpportunityCard({ opportunity, isSelected, onSelect, selectedIds, onTog
             {netSavingsPerDay >= 0 ? '+' : ''}{netSavingsPerDay.toFixed(1)}m
           </div>
           <div className="text-[10px] text-slate-500">per day</div>
+          {netSavings.switchingBreakEvenDays != null && (
+            <div className={`text-[10px] font-semibold mt-0.5 ${
+              netSavings.switchingBreakEvenDays <= 30 ? 'text-emerald-500'
+              : netSavings.switchingBreakEvenDays <= 90 ? 'text-amber-500'
+              : 'text-red-400'
+            }`}>
+              Break-even: {netSavings.switchingBreakEvenDays}d
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -587,6 +655,10 @@ function ProductGroupCard({ opportunity, isSelected, onSelect, selectedIds, onTo
 
   // Suggested location (for pairs = alternativeLocations[0] = suggested)
   const suggestedAlt = isPair ? opportunity.alternativeLocations?.find(a => a.isSuggested) : null
+
+  // Break-even for pairs
+  const pairSwitchCost = isPair ? calculateSwitchingCost(opportunity.inventoryUnitsB, suggestedAlt?.inventoryUnitsC) : 0
+  const pairBreakEven = isPair && netPerDay != null ? calculateBreakEvenDays(pairSwitchCost, netPerDay) : null
 
   return (
     <div
@@ -680,6 +752,15 @@ function ProductGroupCard({ opportunity, isSelected, onSelect, selectedIds, onTo
               <div className="text-[10px] text-slate-400 mb-0.5">Net Savings</div>
               <div className="text-lg font-bold text-emerald-600">+{netPerDay.toFixed(1)}m</div>
               <div className="text-[10px] text-slate-500">per day</div>
+              {pairBreakEven != null && (
+                <div className={`text-[10px] font-semibold mt-0.5 ${
+                  pairBreakEven <= 30 ? 'text-emerald-500'
+                  : pairBreakEven <= 90 ? 'text-amber-500'
+                  : 'text-red-400'
+                }`}>
+                  Break-even: {pairBreakEven}d
+                </div>
+              )}
             </>
           ) : (
             <>
@@ -1029,6 +1110,14 @@ function DetailPanel({ opportunity, timePeriod, onClose }) {
             <div className={`text-2xl font-bold ${opportunity.timeSavingsMinutes < 0 ? 'text-red-600' : 'text-emerald-600'}`}>
               {opportunity.timeSavingsMinutes ? `${opportunity.timeSavingsMinutes > 0 ? '+' : ''}${opportunity.timeSavingsMinutes.toFixed(1)} minutes per order` : 'N/A'}
             </div>
+            {(opportunity.inventoryUnitsA || opportunity.inventoryUnitsB) && (
+              <div className="mt-2 flex items-center gap-1.5 text-xs text-amber-600">
+                <Move size={12} />
+                <span>Switching cost: {formatTime(calculateSwitchingCost(
+                  (opportunity.inventoryUnitsA ?? 0) + (opportunity.inventoryUnitsB ?? 0) + (opportunity.inventoryUnitsC ?? 0), 0
+                ))} one-time</span>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -1061,6 +1150,10 @@ function PairDetailPanel({ opportunity, timePeriod, onClose }) {
   const netMinutesTotal = Math.abs(table1Sum) - table2Sum
   const netPerDay = netMinutesTotal / period
   const isNetPositive = netPerDay >= 0
+
+  // Switching cost calculations
+  const pairSwitchCost = calculateSwitchingCost(opportunity.inventoryUnitsB, selectedAlt?.inventoryUnitsC)
+  const pairBreakEvenDays = calculateBreakEvenDays(pairSwitchCost, netPerDay)
 
   const demandLevelColor = (level) =>
     level === 'high' ? 'text-blue-600 bg-blue-50' : level === 'medium' ? 'text-amber-600 bg-amber-50' : 'text-slate-600 bg-slate-100'
@@ -1239,6 +1332,40 @@ function PairDetailPanel({ opportunity, timePeriod, onClose }) {
                 <div>
                   <div className="text-[10px] text-slate-400 mb-0.5">Avg/Day</div>
                   <div className="text-lg font-bold text-red-600">+{(table2Sum / period).toFixed(1)}m</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Block 3: Switching Cost */}
+            <div className="px-4 py-3 border-b border-slate-100">
+              <div className="flex items-center gap-2 mb-2">
+                <Move size={14} className="text-amber-600" />
+                <span className="text-xs font-semibold text-amber-700">Switching Cost</span>
+                <span className="text-[10px] text-slate-400 ml-auto">one-time</span>
+              </div>
+              <div className="grid grid-cols-4 gap-3">
+                <div>
+                  <div className="text-[10px] text-slate-400 mb-0.5">Total Cost</div>
+                  <div className="text-lg font-bold text-amber-600">{formatTime(pairSwitchCost)}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-400 mb-0.5">SKU B Units</div>
+                  <div className="text-lg font-bold text-slate-700">{opportunity.inventoryUnitsB ?? '—'}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-400 mb-0.5">SKU C Units</div>
+                  <div className="text-lg font-bold text-slate-700">{selectedAlt?.inventoryUnitsC ?? '—'}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] text-slate-400 mb-0.5">Break-even</div>
+                  <div className={`text-lg font-bold ${
+                    pairBreakEvenDays == null ? 'text-slate-400'
+                    : pairBreakEvenDays <= 30 ? 'text-emerald-600'
+                    : pairBreakEvenDays <= 90 ? 'text-amber-600'
+                    : 'text-red-500'
+                  }`}>
+                    {pairBreakEvenDays != null ? `${pairBreakEvenDays}d` : 'N/A'}
+                  </div>
                 </div>
               </div>
             </div>

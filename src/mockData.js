@@ -2089,6 +2089,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "B-16-03",
     "currentSku": "SAUCONY-JAZZ-40",
     "demandLevel": "high",
+    "inventoryUnits": 85,
     "tripFrequency": { days7: 42, days30: 178, days90: 534 },
     "currentLocation": {
       "zone": "B",
@@ -2113,6 +2114,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "B-11-01",
     "currentSku": "ASICS-GEL-43",
     "demandLevel": "high",
+    "inventoryUnits": 72,
     "tripFrequency": { days7: 35, days30: 142, days90: 426 },
     "currentLocation": {
       "zone": "B",
@@ -2137,6 +2139,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "B-19-02",
     "currentSku": "CONVERSE-ALLSTAR-41",
     "demandLevel": "high",
+    "inventoryUnits": 91,
     "tripFrequency": { days7: 45, days30: 189, days90: 567 },
     "currentLocation": {
       "zone": "B",
@@ -2161,6 +2164,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "D-09-05",
     "currentSku": "SAUCONY-JAZZ-41",
     "demandLevel": "high",
+    "inventoryUnits": 78,
     "tripFrequency": { days7: 38, days30: 156, days90: 468 },
     "currentLocation": {
       "zone": "D",
@@ -2185,6 +2189,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "C-21-03",
     "currentSku": "NB-530-42",
     "demandLevel": "high",
+    "inventoryUnits": 68,
     "tripFrequency": { days7: 28, days30: 112, days90: 336 },
     "currentLocation": {
       "zone": "C",
@@ -2209,6 +2214,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "D-10-02",
     "currentSku": "NB-996-43",
     "demandLevel": "high",
+    "inventoryUnits": 65,
     "tripFrequency": { days7: 24, days30: 96, days90: 288 },
     "currentLocation": {
       "zone": "D",
@@ -2233,6 +2239,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "C-08-02",
     "currentSku": "CONVERSE-ALLSTAR-41",
     "demandLevel": "high",
+    "inventoryUnits": 88,
     "tripFrequency": { days7: 45, days30: 189, days90: 567 },
     "currentLocation": {
       "zone": "C",
@@ -2257,6 +2264,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "B-11-06",
     "currentSku": "PUMA-SNEAKER-41",
     "demandLevel": "low",
+    "inventoryUnits": 22,
     "tripFrequency": { days7: 7, days30: 28, days90: 84 },
     "currentLocation": {
       "zone": "B",
@@ -2281,6 +2289,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "D-20-01",
     "currentSku": "NEW-BALANCE-44",
     "demandLevel": "medium",
+    "inventoryUnits": 45,
     "tripFrequency": { days7: 18, days30: 72, days90: 216 },
     "currentLocation": {
       "zone": "D",
@@ -2305,6 +2314,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "A-22-04",
     "currentSku": "REEBOK-CROSS-38",
     "demandLevel": "low",
+    "inventoryUnits": 18,
     "tripFrequency": { days7: 8, days30: 32, days90: 96 },
     "currentLocation": {
       "zone": "A",
@@ -2329,6 +2339,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "A-11-05",
     "currentSku": "HM-TSHIRT-XL",
     "demandLevel": "low",
+    "inventoryUnits": 15,
     "tripFrequency": { days7: 6, days30: 24, days90: 72 },
     "currentLocation": {
       "zone": "A",
@@ -2353,6 +2364,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "D-25-02",
     "currentSku": "PUMA-SNEAKER-40",
     "demandLevel": "low",
+    "inventoryUnits": 20,
     "tripFrequency": { days7: 4, days30: 16, days90: 48 },
     "currentLocation": {
       "zone": "D",
@@ -2377,6 +2389,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "B-11-06",
     "currentSku": "CONVERSE-ALLSTAR-42",
     "demandLevel": "high",
+    "inventoryUnits": 75,
     "tripFrequency": { days7: 32, days30: 128, days90: 384 },
     "currentLocation": {
       "zone": "B",
@@ -2401,6 +2414,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "A-23-03",
     "currentSku": "HM-TSHIRT-XL",
     "demandLevel": "low",
+    "inventoryUnits": 17,
     "tripFrequency": { days7: 6, days30: 24, days90: 72 },
     "currentLocation": {
       "zone": "A",
@@ -2425,6 +2439,7 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
     "locationId": "A-11-01",
     "currentSku": "PUMA-SNEAKER-39",
     "demandLevel": "low",
+    "inventoryUnits": 19,
     "tripFrequency": { days7: 5, days30: 20, days90: 60 },
     "currentLocation": {
       "zone": "A",
@@ -2461,11 +2476,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 16, "days30": 63, "days90": 189 },
     "demandRateA": { "unitsPerDay": 14.1, "level": "high" },
     "demandRateB": { "unitsPerDay": 9.8, "level": "high" },
+    "inventoryUnitsB": 82,
     "distanceAB": 52.4,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 3, "level": 9, "skuAtLocation": "REEBOK-CLASSIC-42", "demandRateC": { "unitsPerDay": 4.8, "level": "low" }, "distanceAC": 2.8, "timeSavingsMinutes": 4.6, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 4, "level": 7, "skuAtLocation": "PUMA-RS-X-41", "demandRateC": { "unitsPerDay": 6.1, "level": "medium" }, "distanceAC": 3.5, "timeSavingsMinutes": 4.1 },
-      { "id": "alt-2", "zone": "A", "rack": 5, "level": 4, "skuAtLocation": "ASICS-GEL-41", "demandRateC": { "unitsPerDay": 7.3, "level": "medium" }, "distanceAC": 4.2, "timeSavingsMinutes": 3.6 }
+      { "id": "suggested", "zone": "A", "rack": 3, "level": 9, "skuAtLocation": "REEBOK-CLASSIC-42", "demandRateC": { "unitsPerDay": 4.8, "level": "low" }, "inventoryUnitsC": 20, "distanceAC": 2.8, "timeSavingsMinutes": 4.6, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 4, "level": 7, "skuAtLocation": "PUMA-RS-X-41", "demandRateC": { "unitsPerDay": 6.1, "level": "medium" }, "inventoryUnitsC": 35, "distanceAC": 3.5, "timeSavingsMinutes": 4.1 },
+      { "id": "alt-2", "zone": "A", "rack": 5, "level": 4, "skuAtLocation": "ASICS-GEL-41", "demandRateC": { "unitsPerDay": 7.3, "level": "medium" }, "inventoryUnitsC": 42, "distanceAC": 4.2, "timeSavingsMinutes": 3.6 }
     ]
   },
   {
@@ -2481,11 +2497,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 15, "days30": 61, "days90": 183 },
     "demandRateA": { "unitsPerDay": 13.5, "level": "high" },
     "demandRateB": { "unitsPerDay": 11.2, "level": "high" },
+    "inventoryUnitsB": 78,
     "distanceAB": 48.7,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 6, "level": 5, "skuAtLocation": "SAUCONY-JAZZ-41", "demandRateC": { "unitsPerDay": 5.5, "level": "medium" }, "distanceAC": 3.1, "timeSavingsMinutes": 4.6, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 7, "level": 3, "skuAtLocation": "CONVERSE-ALLSTAR-42", "demandRateC": { "unitsPerDay": 6.9, "level": "medium" }, "distanceAC": 3.9, "timeSavingsMinutes": 4.0 },
-      { "id": "alt-2", "zone": "A", "rack": 8, "level": 2, "skuAtLocation": "ADIDAS-ULTRA-42", "demandRateC": { "unitsPerDay": 8.1, "level": "medium" }, "distanceAC": 4.8, "timeSavingsMinutes": 3.3 }
+      { "id": "suggested", "zone": "A", "rack": 6, "level": 5, "skuAtLocation": "SAUCONY-JAZZ-41", "demandRateC": { "unitsPerDay": 5.5, "level": "medium" }, "inventoryUnitsC": 38, "distanceAC": 3.1, "timeSavingsMinutes": 4.6, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 7, "level": 3, "skuAtLocation": "CONVERSE-ALLSTAR-42", "demandRateC": { "unitsPerDay": 6.9, "level": "medium" }, "inventoryUnitsC": 45, "distanceAC": 3.9, "timeSavingsMinutes": 4.0 },
+      { "id": "alt-2", "zone": "A", "rack": 8, "level": 2, "skuAtLocation": "ADIDAS-ULTRA-42", "demandRateC": { "unitsPerDay": 8.1, "level": "medium" }, "inventoryUnitsC": 50, "distanceAC": 4.8, "timeSavingsMinutes": 3.3 }
     ]
   },
   {
@@ -2501,11 +2518,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 14, "days30": 57, "days90": 171 },
     "demandRateA": { "unitsPerDay": 12.8, "level": "high" },
     "demandRateB": { "unitsPerDay": 10.4, "level": "high" },
+    "inventoryUnitsB": 75,
     "distanceAB": 46.1,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 7, "level": 8, "skuAtLocation": "REEBOK-CLASSIC-43", "demandRateC": { "unitsPerDay": 4.2, "level": "low" }, "distanceAC": 2.9, "timeSavingsMinutes": 4.5, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 8, "level": 5, "skuAtLocation": "PUMA-RS-X-43", "demandRateC": { "unitsPerDay": 5.8, "level": "medium" }, "distanceAC": 3.7, "timeSavingsMinutes": 3.9 },
-      { "id": "alt-2", "zone": "B", "rack": 1, "level": 2, "skuAtLocation": "ASICS-GEL-44", "demandRateC": { "unitsPerDay": 7.1, "level": "medium" }, "distanceAC": 5.1, "timeSavingsMinutes": 3.2 }
+      { "id": "suggested", "zone": "A", "rack": 7, "level": 8, "skuAtLocation": "REEBOK-CLASSIC-43", "demandRateC": { "unitsPerDay": 4.2, "level": "low" }, "inventoryUnitsC": 22, "distanceAC": 2.9, "timeSavingsMinutes": 4.5, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 8, "level": 5, "skuAtLocation": "PUMA-RS-X-43", "demandRateC": { "unitsPerDay": 5.8, "level": "medium" }, "inventoryUnitsC": 40, "distanceAC": 3.7, "timeSavingsMinutes": 3.9 },
+      { "id": "alt-2", "zone": "B", "rack": 1, "level": 2, "skuAtLocation": "ASICS-GEL-44", "demandRateC": { "unitsPerDay": 7.1, "level": "medium" }, "inventoryUnitsC": 48, "distanceAC": 5.1, "timeSavingsMinutes": 3.2 }
     ]
   },
   {
@@ -2521,11 +2539,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 14, "days30": 58, "days90": 175 },
     "demandRateA": { "unitsPerDay": 12.3, "level": "high" },
     "demandRateB": { "unitsPerDay": 8.7, "level": "medium" },
+    "inventoryUnitsB": 42,
     "distanceAB": 45.2,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 4, "level": 1, "skuAtLocation": "PUMA-RS-X-40", "demandRateC": { "unitsPerDay": 5.2, "level": "medium" }, "distanceAC": 3.2, "timeSavingsMinutes": 4.3, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 5, "level": 2, "skuAtLocation": "REEBOK-CLASSIC-41", "demandRateC": { "unitsPerDay": 6.4, "level": "medium" }, "distanceAC": 4.1, "timeSavingsMinutes": 3.8 },
-      { "id": "alt-2", "zone": "A", "rack": 6, "level": 3, "skuAtLocation": "VANS-OLD-SKOOL-42", "demandRateC": { "unitsPerDay": 7.8, "level": "medium" }, "distanceAC": 5.0, "timeSavingsMinutes": 3.1 }
+      { "id": "suggested", "zone": "A", "rack": 4, "level": 1, "skuAtLocation": "PUMA-RS-X-40", "demandRateC": { "unitsPerDay": 5.2, "level": "medium" }, "inventoryUnitsC": 35, "distanceAC": 3.2, "timeSavingsMinutes": 4.3, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 5, "level": 2, "skuAtLocation": "REEBOK-CLASSIC-41", "demandRateC": { "unitsPerDay": 6.4, "level": "medium" }, "inventoryUnitsC": 42, "distanceAC": 4.1, "timeSavingsMinutes": 3.8 },
+      { "id": "alt-2", "zone": "A", "rack": 6, "level": 3, "skuAtLocation": "VANS-OLD-SKOOL-42", "demandRateC": { "unitsPerDay": 7.8, "level": "medium" }, "inventoryUnitsC": 52, "distanceAC": 5.0, "timeSavingsMinutes": 3.1 }
     ]
   },
   {
@@ -2541,11 +2560,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 13, "days30": 54, "days90": 162 },
     "demandRateA": { "unitsPerDay": 11.9, "level": "high" },
     "demandRateB": { "unitsPerDay": 8.1, "level": "medium" },
+    "inventoryUnitsB": 38,
     "distanceAB": 43.8,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 2, "level": 4, "skuAtLocation": "ADIDAS-ULTRA-40", "demandRateC": { "unitsPerDay": 4.9, "level": "low" }, "distanceAC": 3.0, "timeSavingsMinutes": 4.2, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 3, "level": 6, "skuAtLocation": "SAUCONY-JAZZ-42", "demandRateC": { "unitsPerDay": 6.2, "level": "medium" }, "distanceAC": 3.8, "timeSavingsMinutes": 3.7 },
-      { "id": "alt-2", "zone": "A", "rack": 4, "level": 8, "skuAtLocation": "ASICS-GEL-42", "demandRateC": { "unitsPerDay": 7.5, "level": "medium" }, "distanceAC": 4.6, "timeSavingsMinutes": 3.0 }
+      { "id": "suggested", "zone": "A", "rack": 2, "level": 4, "skuAtLocation": "ADIDAS-ULTRA-40", "demandRateC": { "unitsPerDay": 4.9, "level": "low" }, "inventoryUnitsC": 18, "distanceAC": 3.0, "timeSavingsMinutes": 4.2, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 3, "level": 6, "skuAtLocation": "SAUCONY-JAZZ-42", "demandRateC": { "unitsPerDay": 6.2, "level": "medium" }, "inventoryUnitsC": 38, "distanceAC": 3.8, "timeSavingsMinutes": 3.7 },
+      { "id": "alt-2", "zone": "A", "rack": 4, "level": 8, "skuAtLocation": "ASICS-GEL-42", "demandRateC": { "unitsPerDay": 7.5, "level": "medium" }, "inventoryUnitsC": 45, "distanceAC": 4.6, "timeSavingsMinutes": 3.0 }
     ]
   },
   {
@@ -2561,11 +2581,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 12, "days30": 49, "days90": 148 },
     "demandRateA": { "unitsPerDay": 10.7, "level": "high" },
     "demandRateB": { "unitsPerDay": 7.4, "level": "medium" },
+    "inventoryUnitsB": 45,
     "distanceAB": 38.5,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 3, "level": 8, "skuAtLocation": "REEBOK-CLASSIC-40", "demandRateC": { "unitsPerDay": 3.9, "level": "low" }, "distanceAC": 2.6, "timeSavingsMinutes": 4.1, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 4, "level": 5, "skuAtLocation": "PUMA-RS-X-42", "demandRateC": { "unitsPerDay": 5.3, "level": "medium" }, "distanceAC": 3.4, "timeSavingsMinutes": 3.5 },
-      { "id": "alt-2", "zone": "A", "rack": 5, "level": 3, "skuAtLocation": "CONVERSE-ALLSTAR-40", "demandRateC": { "unitsPerDay": 6.7, "level": "medium" }, "distanceAC": 4.3, "timeSavingsMinutes": 2.9 }
+      { "id": "suggested", "zone": "A", "rack": 3, "level": 8, "skuAtLocation": "REEBOK-CLASSIC-40", "demandRateC": { "unitsPerDay": 3.9, "level": "low" }, "inventoryUnitsC": 15, "distanceAC": 2.6, "timeSavingsMinutes": 4.1, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 4, "level": 5, "skuAtLocation": "PUMA-RS-X-42", "demandRateC": { "unitsPerDay": 5.3, "level": "medium" }, "inventoryUnitsC": 32, "distanceAC": 3.4, "timeSavingsMinutes": 3.5 },
+      { "id": "alt-2", "zone": "A", "rack": 5, "level": 3, "skuAtLocation": "CONVERSE-ALLSTAR-40", "demandRateC": { "unitsPerDay": 6.7, "level": "medium" }, "inventoryUnitsC": 42, "distanceAC": 4.3, "timeSavingsMinutes": 2.9 }
     ]
   },
   {
@@ -2581,11 +2602,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 9, "days30": 37, "days90": 111 },
     "demandRateA": { "unitsPerDay": 8.2, "level": "medium" },
     "demandRateB": { "unitsPerDay": 6.5, "level": "medium" },
+    "inventoryUnitsB": 40,
     "distanceAB": 35.9,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 6, "level": 5, "skuAtLocation": "ADIDAS-ULTRA-43", "demandRateC": { "unitsPerDay": 4.1, "level": "low" }, "distanceAC": 3.3, "timeSavingsMinutes": 2.3, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 7, "level": 4, "skuAtLocation": "SAUCONY-JAZZ-43", "demandRateC": { "unitsPerDay": 5.6, "level": "medium" }, "distanceAC": 4.0, "timeSavingsMinutes": 1.9 },
-      { "id": "alt-2", "zone": "B", "rack": 1, "level": 6, "skuAtLocation": "ASICS-GEL-45", "demandRateC": { "unitsPerDay": 6.8, "level": "medium" }, "distanceAC": 5.2, "timeSavingsMinutes": 1.4 }
+      { "id": "suggested", "zone": "A", "rack": 6, "level": 5, "skuAtLocation": "ADIDAS-ULTRA-43", "demandRateC": { "unitsPerDay": 4.1, "level": "low" }, "inventoryUnitsC": 20, "distanceAC": 3.3, "timeSavingsMinutes": 2.3, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 7, "level": 4, "skuAtLocation": "SAUCONY-JAZZ-43", "demandRateC": { "unitsPerDay": 5.6, "level": "medium" }, "inventoryUnitsC": 36, "distanceAC": 4.0, "timeSavingsMinutes": 1.9 },
+      { "id": "alt-2", "zone": "B", "rack": 1, "level": 6, "skuAtLocation": "ASICS-GEL-45", "demandRateC": { "unitsPerDay": 6.8, "level": "medium" }, "inventoryUnitsC": 45, "distanceAC": 5.2, "timeSavingsMinutes": 1.4 }
     ]
   },
   {
@@ -2601,11 +2623,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 7, "days30": 29, "days90": 87 },
     "demandRateA": { "unitsPerDay": 6.8, "level": "medium" },
     "demandRateB": { "unitsPerDay": 5.3, "level": "medium" },
+    "inventoryUnitsB": 35,
     "distanceAB": 31.4,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 3, "level": 3, "skuAtLocation": "REEBOK-CLASSIC-44", "demandRateC": { "unitsPerDay": 3.5, "level": "low" }, "distanceAC": 2.4, "timeSavingsMinutes": 1.6, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 4, "level": 4, "skuAtLocation": "PUMA-RS-X-44", "demandRateC": { "unitsPerDay": 4.8, "level": "low" }, "distanceAC": 3.2, "timeSavingsMinutes": 1.2 },
-      { "id": "alt-2", "zone": "A", "rack": 5, "level": 5, "skuAtLocation": "VANS-OLD-SKOOL-43", "demandRateC": { "unitsPerDay": 5.9, "level": "medium" }, "distanceAC": 4.0, "timeSavingsMinutes": 0.8 }
+      { "id": "suggested", "zone": "A", "rack": 3, "level": 3, "skuAtLocation": "REEBOK-CLASSIC-44", "demandRateC": { "unitsPerDay": 3.5, "level": "low" }, "inventoryUnitsC": 17, "distanceAC": 2.4, "timeSavingsMinutes": 1.6, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 4, "level": 4, "skuAtLocation": "PUMA-RS-X-44", "demandRateC": { "unitsPerDay": 4.8, "level": "low" }, "inventoryUnitsC": 22, "distanceAC": 3.2, "timeSavingsMinutes": 1.2 },
+      { "id": "alt-2", "zone": "A", "rack": 5, "level": 5, "skuAtLocation": "VANS-OLD-SKOOL-43", "demandRateC": { "unitsPerDay": 5.9, "level": "medium" }, "inventoryUnitsC": 38, "distanceAC": 4.0, "timeSavingsMinutes": 0.8 }
     ]
   },
   {
@@ -2621,11 +2644,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 11, "days30": 45, "days90": 136 },
     "demandRateA": { "unitsPerDay": 10.2, "level": "high" },
     "demandRateB": { "unitsPerDay": 7.9, "level": "medium" },
+    "inventoryUnitsB": 48,
     "distanceAB": 41.3,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 2, "level": 2, "skuAtLocation": "ASICS-GEL-40", "demandRateC": { "unitsPerDay": 4.4, "level": "low" }, "distanceAC": 2.7, "timeSavingsMinutes": 3.9, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 3, "level": 4, "skuAtLocation": "CONVERSE-ALLSTAR-44", "demandRateC": { "unitsPerDay": 5.7, "level": "medium" }, "distanceAC": 3.6, "timeSavingsMinutes": 3.4 },
-      { "id": "alt-2", "zone": "A", "rack": 4, "level": 6, "skuAtLocation": "SAUCONY-JAZZ-44", "demandRateC": { "unitsPerDay": 7.0, "level": "medium" }, "distanceAC": 4.4, "timeSavingsMinutes": 2.8 }
+      { "id": "suggested", "zone": "A", "rack": 2, "level": 2, "skuAtLocation": "ASICS-GEL-40", "demandRateC": { "unitsPerDay": 4.4, "level": "low" }, "inventoryUnitsC": 19, "distanceAC": 2.7, "timeSavingsMinutes": 3.9, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 3, "level": 4, "skuAtLocation": "CONVERSE-ALLSTAR-44", "demandRateC": { "unitsPerDay": 5.7, "level": "medium" }, "inventoryUnitsC": 35, "distanceAC": 3.6, "timeSavingsMinutes": 3.4 },
+      { "id": "alt-2", "zone": "A", "rack": 4, "level": 6, "skuAtLocation": "SAUCONY-JAZZ-44", "demandRateC": { "unitsPerDay": 7.0, "level": "medium" }, "inventoryUnitsC": 46, "distanceAC": 4.4, "timeSavingsMinutes": 2.8 }
     ]
   },
   {
@@ -2641,11 +2665,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 10, "days30": 41, "days90": 124 },
     "demandRateA": { "unitsPerDay": 9.6, "level": "medium" },
     "demandRateB": { "unitsPerDay": 7.2, "level": "medium" },
+    "inventoryUnitsB": 43,
     "distanceAB": 39.7,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 4, "level": 3, "skuAtLocation": "NIKE-AIRMAX-42", "demandRateC": { "unitsPerDay": 4.0, "level": "low" }, "distanceAC": 2.5, "timeSavingsMinutes": 3.5, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 5, "level": 1, "skuAtLocation": "PUMA-RS-X-45", "demandRateC": { "unitsPerDay": 5.4, "level": "medium" }, "distanceAC": 3.3, "timeSavingsMinutes": 3.0 },
-      { "id": "alt-2", "zone": "A", "rack": 6, "level": 4, "skuAtLocation": "VANS-OLD-SKOOL-41", "demandRateC": { "unitsPerDay": 6.6, "level": "medium" }, "distanceAC": 4.1, "timeSavingsMinutes": 2.4 }
+      { "id": "suggested", "zone": "A", "rack": 4, "level": 3, "skuAtLocation": "NIKE-AIRMAX-42", "demandRateC": { "unitsPerDay": 4.0, "level": "low" }, "inventoryUnitsC": 16, "distanceAC": 2.5, "timeSavingsMinutes": 3.5, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 5, "level": 1, "skuAtLocation": "PUMA-RS-X-45", "demandRateC": { "unitsPerDay": 5.4, "level": "medium" }, "inventoryUnitsC": 33, "distanceAC": 3.3, "timeSavingsMinutes": 3.0 },
+      { "id": "alt-2", "zone": "A", "rack": 6, "level": 4, "skuAtLocation": "VANS-OLD-SKOOL-41", "demandRateC": { "unitsPerDay": 6.6, "level": "medium" }, "inventoryUnitsC": 42, "distanceAC": 4.1, "timeSavingsMinutes": 2.4 }
     ]
   },
   {
@@ -2661,11 +2686,12 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "ordersInPeriod": { "days7": 8, "days30": 33, "days90": 99 },
     "demandRateA": { "unitsPerDay": 7.5, "level": "medium" },
     "demandRateB": { "unitsPerDay": 5.9, "level": "medium" },
+    "inventoryUnitsB": 36,
     "distanceAB": 33.6,
     "alternativeLocations": [
-      { "id": "suggested", "zone": "A", "rack": 2, "level": 8, "skuAtLocation": "CONVERSE-ALLSTAR-45", "demandRateC": { "unitsPerDay": 3.7, "level": "low" }, "distanceAC": 2.3, "timeSavingsMinutes": 2.8, "isSuggested": true },
-      { "id": "alt-1", "zone": "A", "rack": 3, "level": 7, "skuAtLocation": "ADIDAS-ULTRA-44", "demandRateC": { "unitsPerDay": 5.1, "level": "medium" }, "distanceAC": 3.1, "timeSavingsMinutes": 2.3 },
-      { "id": "alt-2", "zone": "A", "rack": 4, "level": 9, "skuAtLocation": "ASICS-GEL-45", "demandRateC": { "unitsPerDay": 6.3, "level": "medium" }, "distanceAC": 3.9, "timeSavingsMinutes": 1.8 }
+      { "id": "suggested", "zone": "A", "rack": 2, "level": 8, "skuAtLocation": "CONVERSE-ALLSTAR-45", "demandRateC": { "unitsPerDay": 3.7, "level": "low" }, "inventoryUnitsC": 18, "distanceAC": 2.3, "timeSavingsMinutes": 2.8, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 3, "level": 7, "skuAtLocation": "ADIDAS-ULTRA-44", "demandRateC": { "unitsPerDay": 5.1, "level": "medium" }, "inventoryUnitsC": 34, "distanceAC": 3.1, "timeSavingsMinutes": 2.3 },
+      { "id": "alt-2", "zone": "A", "rack": 4, "level": 9, "skuAtLocation": "ASICS-GEL-45", "demandRateC": { "unitsPerDay": 6.3, "level": "medium" }, "inventoryUnitsC": 44, "distanceAC": 3.9, "timeSavingsMinutes": 1.8 }
     ]
   }
 ]
@@ -2677,6 +2703,9 @@ export const PRODUCT_TRIPLETS_OPPORTUNITIES = [
     "skuA": "NEW-BALANCE-44",
     "skuB": "CONVERSE-ALLSTAR-41",
     "skuC": "CONVERSE-ALLSTAR-42",
+    "inventoryUnitsA": 78,
+    "inventoryUnitsB": 85,
+    "inventoryUnitsC": 82,
     "locationA": {
       "zone": "C",
       "rack": 9,
@@ -2715,6 +2744,9 @@ export const PRODUCT_TRIPLETS_OPPORTUNITIES = [
     "skuA": "ADIDAS-ULTRA-41",
     "skuB": "ASICS-GEL-43",
     "skuC": "NEW-BALANCE-43",
+    "inventoryUnitsA": 72,
+    "inventoryUnitsB": 68,
+    "inventoryUnitsC": 74,
     "locationA": {
       "zone": "B",
       "rack": 6,
@@ -2753,6 +2785,9 @@ export const PRODUCT_TRIPLETS_OPPORTUNITIES = [
     "skuA": "NIKE-AIRMAX-43",
     "skuB": "HM-TSHIRT-XL",
     "skuC": "SAUCONY-JAZZ-41",
+    "inventoryUnitsA": 80,
+    "inventoryUnitsB": 24,
+    "inventoryUnitsC": 45,
     "locationA": {
       "zone": "C",
       "rack": 18,
@@ -2791,6 +2826,9 @@ export const PRODUCT_TRIPLETS_OPPORTUNITIES = [
     "skuA": "REEBOK-CROSS-38",
     "skuB": "ADIDAS-ULTRA-41",
     "skuC": "CONVERSE-ALLSTAR-41",
+    "inventoryUnitsA": 20,
+    "inventoryUnitsB": 72,
+    "inventoryUnitsC": 88,
     "locationA": {
       "zone": "C",
       "rack": 20,
@@ -2829,6 +2867,9 @@ export const PRODUCT_TRIPLETS_OPPORTUNITIES = [
     "skuA": "REEBOK-CROSS-38",
     "skuB": "SAUCONY-JAZZ-40",
     "skuC": "PUMA-SNEAKER-41",
+    "inventoryUnitsA": 18,
+    "inventoryUnitsB": 70,
+    "inventoryUnitsC": 25,
     "locationA": {
       "zone": "D",
       "rack": 19,
@@ -4535,6 +4576,7 @@ export const ALTERNATIVE_LOCATION_DATA = {
   // For SPO-007: SAUCONY-JAZZ-40 moving from B-16-03
   "A-8-10": {
     currentSku: "NIKE-AIR-MAX-42",
+    inventoryUnits: 45,
     frequency: { days7: 8, days30: 32, days90: 96 },
     avgImpactMinutes: 2.1,
     trips: [
@@ -4547,6 +4589,7 @@ export const ALTERNATIVE_LOCATION_DATA = {
   },
   "A-5-8": {
     currentSku: "ADIDAS-ULTRA-41",
+    inventoryUnits: 30,
     frequency: { days7: 6, days30: 24, days90: 72 },
     avgImpactMinutes: 1.8,
     trips: [
@@ -4557,6 +4600,7 @@ export const ALTERNATIVE_LOCATION_DATA = {
   },
   "A-3-6": {
     currentSku: "PUMA-RS-X-40",
+    inventoryUnits: 22,
     frequency: { days7: 5, days30: 20, days90: 60 },
     avgImpactMinutes: 1.5,
     trips: [
@@ -4568,6 +4612,7 @@ export const ALTERNATIVE_LOCATION_DATA = {
   // For SPO-003: ASICS-GEL-43 moving from B-11-01
   "A-3-10": {
     currentSku: "VANS-OLD-SKOOL-42",
+    inventoryUnits: 30,
     frequency: { days7: 6, days30: 24, days90: 72 },
     avgImpactMinutes: 1.8,
     trips: [
