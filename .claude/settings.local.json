@@ -1,7 +1,17 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm run dev)"
+      "Bash(*)",
+      "Edit(*)",
+      "Write(*)",
+      "Read(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "mcp__playwright__*",
+      "mcp__ide__*",
+      "Agent(*)",
+      "WebFetch(*)",
+      "WebSearch(*)"
     ]
   }
 }

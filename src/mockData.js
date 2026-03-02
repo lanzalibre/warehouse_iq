@@ -2043,12 +2043,53 @@ export const ALERT_SUBSCRIPTIONS = [
   }
 ]// ─── MFA Data ─────────────────────────────────────────────────────────────
 
+// Zone distance from staging (A = staging area)
+export const ZONE_DISTANCE_FROM_STAGING = {
+  'A': 0, 'B': 1, 'C': 2, 'D': 3
+}
+
+// SKU demand levels - high demand SKUs should be closer to staging
+export const SKU_DEMAND_LEVELS = {
+  'SAUCONY-JAZZ-40': 'high',
+  'SAUCONY-JAZZ-41': 'high',
+  'ASICS-GEL-43': 'high',
+  'CONVERSE-ALLSTAR-41': 'high',
+  'CONVERSE-ALLSTAR-42': 'high',
+  'NB-530-42': 'high',
+  'NB-996-43': 'high',
+  'NEW-BALANCE-44': 'medium',
+  'REEBOK-CROSS-38': 'low',
+  'HM-TSHIRT-XL': 'low',
+  'PUMA-SNEAKER-39': 'low',
+  'PUMA-SNEAKER-40': 'low',
+  'PUMA-SNEAKER-41': 'low'
+}
+
+// Trip frequency by time window (number of picks/orders)
+export const SKU_TRIP_FREQUENCY = {
+  'SAUCONY-JAZZ-40': { days7: 42, days30: 178, days90: 534 },
+  'SAUCONY-JAZZ-41': { days7: 38, days30: 156, days90: 468 },
+  'ASICS-GEL-43': { days7: 35, days30: 142, days90: 426 },
+  'CONVERSE-ALLSTAR-41': { days7: 45, days30: 189, days90: 567 },
+  'CONVERSE-ALLSTAR-42': { days7: 32, days30: 128, days90: 384 },
+  'NB-530-42': { days7: 28, days30: 112, days90: 336 },
+  'NB-996-43': { days7: 24, days30: 96, days90: 288 },
+  'NEW-BALANCE-44': { days7: 18, days30: 72, days90: 216 },
+  'REEBOK-CROSS-38': { days7: 8, days30: 32, days90: 96 },
+  'HM-TSHIRT-XL': { days7: 6, days30: 24, days90: 72 },
+  'PUMA-SNEAKER-39': { days7: 5, days30: 20, days90: 60 },
+  'PUMA-SNEAKER-40': { days7: 4, days30: 16, days90: 48 },
+  'PUMA-SNEAKER-41': { days7: 7, days30: 28, days90: 84 }
+}
+
 // ─── Mock Data: Single Product Reslotting Opportunities ───────────────
 export const SINGLE_PRODUCT_OPPORTUNITIES = [
   {
     "id": "SPO-007",
     "locationId": "B-16-03",
     "currentSku": "SAUCONY-JAZZ-40",
+    "demandLevel": "high",
+    "tripFrequency": { days7: 42, days30: 178, days90: 534 },
     "currentLocation": {
       "zone": "B",
       "rack": 16,
@@ -2060,12 +2101,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 10
     },
     "timeSavingsMinutes": 4.5,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 8, level: 10, timeSavingsMinutes: 4.5 },
+      { id: 'alt-2', zone: 'A', rack: 5, level: 8, timeSavingsMinutes: 4.2 },
+      { id: 'alt-3', zone: 'A', rack: 3, level: 6, timeSavingsMinutes: 3.8 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-003",
     "locationId": "B-11-01",
     "currentSku": "ASICS-GEL-43",
+    "demandLevel": "high",
+    "tripFrequency": { days7: 35, days30: 142, days90: 426 },
     "currentLocation": {
       "zone": "B",
       "rack": 11,
@@ -2077,12 +2125,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 10
     },
     "timeSavingsMinutes": 4.3,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 3, level: 10, timeSavingsMinutes: 4.3 },
+      { id: 'alt-2', zone: 'A', rack: 2, level: 8, timeSavingsMinutes: 4.0 },
+      { id: 'alt-3', zone: 'A', rack: 1, level: 5, timeSavingsMinutes: 3.5 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-008",
     "locationId": "B-19-02",
     "currentSku": "CONVERSE-ALLSTAR-41",
+    "demandLevel": "high",
+    "tripFrequency": { days7: 45, days30: 189, days90: 567 },
     "currentLocation": {
       "zone": "B",
       "rack": 19,
@@ -2094,12 +2149,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 4
     },
     "timeSavingsMinutes": 4.3,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 8, level: 4, timeSavingsMinutes: 4.3 },
+      { id: 'alt-2', zone: 'A', rack: 6, level: 3, timeSavingsMinutes: 4.0 },
+      { id: 'alt-3', zone: 'A', rack: 4, level: 2, timeSavingsMinutes: 3.6 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-010",
     "locationId": "D-09-05",
     "currentSku": "SAUCONY-JAZZ-41",
+    "demandLevel": "high",
+    "tripFrequency": { days7: 38, days30: 156, days90: 468 },
     "currentLocation": {
       "zone": "D",
       "rack": 9,
@@ -2111,12 +2173,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 1
     },
     "timeSavingsMinutes": 4.3,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 3, level: 1, timeSavingsMinutes: 4.3 },
+      { id: 'alt-2', zone: 'A', rack: 5, level: 3, timeSavingsMinutes: 4.0 },
+      { id: 'alt-3', zone: 'B', rack: 2, level: 1, timeSavingsMinutes: 2.5 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-006",
     "locationId": "C-21-03",
     "currentSku": "NB-530-42",
+    "demandLevel": "high",
+    "tripFrequency": { days7: 28, days30: 112, days90: 336 },
     "currentLocation": {
       "zone": "C",
       "rack": 21,
@@ -2128,12 +2197,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 8
     },
     "timeSavingsMinutes": 3.7,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 8, level: 8, timeSavingsMinutes: 3.7 },
+      { id: 'alt-2', zone: 'A', rack: 6, level: 5, timeSavingsMinutes: 3.4 },
+      { id: 'alt-3', zone: 'B', rack: 3, level: 2, timeSavingsMinutes: 2.0 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-013",
     "locationId": "D-10-02",
     "currentSku": "NB-996-43",
+    "demandLevel": "high",
+    "tripFrequency": { days7: 24, days30: 96, days90: 288 },
     "currentLocation": {
       "zone": "D",
       "rack": 10,
@@ -2145,12 +2221,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 4
     },
     "timeSavingsMinutes": 3.6,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 2, level: 4, timeSavingsMinutes: 3.6 },
+      { id: 'alt-2', zone: 'A', rack: 4, level: 6, timeSavingsMinutes: 3.3 },
+      { id: 'alt-3', zone: 'B', rack: 1, level: 3, timeSavingsMinutes: 2.0 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-004",
     "locationId": "C-08-02",
     "currentSku": "CONVERSE-ALLSTAR-41",
+    "demandLevel": "high",
+    "tripFrequency": { days7: 45, days30: 189, days90: 567 },
     "currentLocation": {
       "zone": "C",
       "rack": 8,
@@ -2162,12 +2245,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 9
     },
     "timeSavingsMinutes": 3.1,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 3, level: 9, timeSavingsMinutes: 3.1 },
+      { id: 'alt-2', zone: 'A', rack: 5, level: 7, timeSavingsMinutes: 2.8 },
+      { id: 'alt-3', zone: 'B', rack: 2, level: 4, timeSavingsMinutes: 1.5 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-012",
     "locationId": "B-11-06",
     "currentSku": "PUMA-SNEAKER-41",
+    "demandLevel": "low",
+    "tripFrequency": { days7: 7, days30: 28, days90: 84 },
     "currentLocation": {
       "zone": "B",
       "rack": 11,
@@ -2179,12 +2269,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 1
     },
     "timeSavingsMinutes": 2.9,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'C', rack: 5, level: 3, timeSavingsMinutes: -1.5 },
+      { id: 'alt-2', zone: 'C', rack: 8, level: 5, timeSavingsMinutes: -1.8 },
+      { id: 'alt-3', zone: 'D', rack: 3, level: 2, timeSavingsMinutes: -2.5 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-011",
     "locationId": "D-20-01",
     "currentSku": "NEW-BALANCE-44",
+    "demandLevel": "medium",
+    "tripFrequency": { days7: 18, days30: 72, days90: 216 },
     "currentLocation": {
       "zone": "D",
       "rack": 20,
@@ -2196,46 +2293,67 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 6
     },
     "timeSavingsMinutes": 2.7,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 4, level: 6, timeSavingsMinutes: 2.7 },
+      { id: 'alt-2', zone: 'B', rack: 3, level: 4, timeSavingsMinutes: 1.5 },
+      { id: 'alt-3', zone: 'C', rack: 2, level: 3, timeSavingsMinutes: 0.8 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-001",
-    "locationId": "B-22-04",
+    "locationId": "A-22-04",
     "currentSku": "REEBOK-CROSS-38",
+    "demandLevel": "low",
+    "tripFrequency": { days7: 8, days30: 32, days90: 96 },
     "currentLocation": {
-      "zone": "B",
+      "zone": "A",
       "rack": 22,
       "level": 4
     },
     "suggestedLocation": {
-      "zone": "A",
-      "rack": 6,
+      "zone": "C",
+      "rack": 10,
       "level": 3
     },
-    "timeSavingsMinutes": 2.6,
+    "timeSavingsMinutes": -2.6,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'C', rack: 10, level: 3, timeSavingsMinutes: -2.6 },
+      { id: 'alt-2', zone: 'C', rack: 15, level: 5, timeSavingsMinutes: -2.8 },
+      { id: 'alt-3', zone: 'D', rack: 8, level: 2, timeSavingsMinutes: -3.5 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-005",
-    "locationId": "B-11-05",
+    "locationId": "A-11-05",
     "currentSku": "HM-TSHIRT-XL",
+    "demandLevel": "low",
+    "tripFrequency": { days7: 6, days30: 24, days90: 72 },
     "currentLocation": {
-      "zone": "B",
+      "zone": "A",
       "rack": 11,
       "level": 5
     },
     "suggestedLocation": {
-      "zone": "A",
-      "rack": 2,
+      "zone": "C",
+      "rack": 12,
       "level": 4
     },
-    "timeSavingsMinutes": 2.6,
+    "timeSavingsMinutes": -2.6,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'C', rack: 12, level: 4, timeSavingsMinutes: -2.6 },
+      { id: 'alt-2', zone: 'C', rack: 18, level: 6, timeSavingsMinutes: -3.0 },
+      { id: 'alt-3', zone: 'D', rack: 5, level: 3, timeSavingsMinutes: -3.8 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-015",
     "locationId": "D-25-02",
     "currentSku": "PUMA-SNEAKER-40",
+    "demandLevel": "low",
+    "tripFrequency": { days7: 4, days30: 16, days90: 48 },
     "currentLocation": {
       "zone": "D",
       "rack": 25,
@@ -2247,12 +2365,19 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 6
     },
     "timeSavingsMinutes": 2.2,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 1, level: 6, timeSavingsMinutes: 2.2 },
+      { id: 'alt-2', zone: 'B', rack: 3, level: 4, timeSavingsMinutes: 1.2 },
+      { id: 'alt-3', zone: 'C', rack: 5, level: 2, timeSavingsMinutes: 0.5 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-009",
     "locationId": "B-11-06",
     "currentSku": "CONVERSE-ALLSTAR-42",
+    "demandLevel": "high",
+    "tripFrequency": { days7: 32, days30: 128, days90: 384 },
     "currentLocation": {
       "zone": "B",
       "rack": 11,
@@ -2264,40 +2389,59 @@ export const SINGLE_PRODUCT_OPPORTUNITIES = [
       "level": 1
     },
     "timeSavingsMinutes": 1.9,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'A', rack: 8, level: 1, timeSavingsMinutes: 1.9 },
+      { id: 'alt-2', zone: 'A', rack: 6, level: 3, timeSavingsMinutes: 1.6 },
+      { id: 'alt-3', zone: 'A', rack: 4, level: 5, timeSavingsMinutes: 1.3 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-014",
-    "locationId": "C-23-03",
+    "locationId": "A-23-03",
     "currentSku": "HM-TSHIRT-XL",
+    "demandLevel": "low",
+    "tripFrequency": { days7: 6, days30: 24, days90: 72 },
     "currentLocation": {
-      "zone": "C",
+      "zone": "A",
       "rack": 23,
       "level": 3
     },
     "suggestedLocation": {
-      "zone": "A",
-      "rack": 7,
-      "level": 2
+      "zone": "C",
+      "rack": 15,
+      "level": 4
     },
-    "timeSavingsMinutes": 1.9,
+    "timeSavingsMinutes": -1.9,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'C', rack: 15, level: 4, timeSavingsMinutes: -1.9 },
+      { id: 'alt-2', zone: 'C', rack: 20, level: 6, timeSavingsMinutes: -2.3 },
+      { id: 'alt-3', zone: 'D', rack: 10, level: 3, timeSavingsMinutes: -3.0 }
+    ],
     "status": "pending"
   },
   {
     "id": "SPO-002",
-    "locationId": "C-11-01",
+    "locationId": "A-11-01",
     "currentSku": "PUMA-SNEAKER-39",
+    "demandLevel": "low",
+    "tripFrequency": { days7: 5, days30: 20, days90: 60 },
     "currentLocation": {
-      "zone": "C",
+      "zone": "A",
       "rack": 11,
       "level": 1
     },
     "suggestedLocation": {
-      "zone": "A",
-      "rack": 7,
-      "level": 1
+      "zone": "C",
+      "rack": 8,
+      "level": 2
     },
-    "timeSavingsMinutes": 1.2,
+    "timeSavingsMinutes": -1.2,
+    "alternativeLocations": [
+      { id: 'alt-1', zone: 'C', rack: 8, level: 2, timeSavingsMinutes: -1.2 },
+      { id: 'alt-2', zone: 'C', rack: 12, level: 4, timeSavingsMinutes: -1.6 },
+      { id: 'alt-3', zone: 'D', rack: 6, level: 3, timeSavingsMinutes: -2.2 }
+    ],
     "status": "pending"
   }
 ]
@@ -2308,217 +2452,221 @@ export const PRODUCT_PAIRS_OPPORTUNITIES = [
     "id": "PPO-002",
     "skuA": "VANS-OLD-SKOOL-44",
     "skuB": "CONVERSE-ALLSTAR-41",
-    "locationA": {
-      "zone": "D",
-      "rack": 9,
-      "level": 3
-    },
-    "locationB": {
-      "zone": "D",
-      "rack": 5,
-      "level": 6
-    },
-    "suggestedLocationA": {
-      "zone": "A",
-      "rack": 2,
-      "level": 1
-    },
-    "suggestedLocationB": {
-      "zone": "A",
-      "rack": 3,
-      "level": 9
-    },
+    "locationA": { "zone": "D", "rack": 9, "level": 3 },
+    "locationB": { "zone": "D", "rack": 5, "level": 6 },
+    "suggestedLocationA": { "zone": "A", "rack": 2, "level": 1 },
+    "suggestedLocationB": { "zone": "A", "rack": 3, "level": 9 },
     "timeSavingsMinutes": 4.6,
-    "status": "pending"
+    "status": "pending",
+    "ordersInPeriod": { "days7": 16, "days30": 63, "days90": 189 },
+    "demandRateA": { "unitsPerDay": 14.1, "level": "high" },
+    "demandRateB": { "unitsPerDay": 9.8, "level": "high" },
+    "distanceAB": 52.4,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 3, "level": 9, "skuAtLocation": "REEBOK-CLASSIC-42", "demandRateC": { "unitsPerDay": 4.8, "level": "low" }, "distanceAC": 2.8, "timeSavingsMinutes": 4.6, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 4, "level": 7, "skuAtLocation": "PUMA-RS-X-41", "demandRateC": { "unitsPerDay": 6.1, "level": "medium" }, "distanceAC": 3.5, "timeSavingsMinutes": 4.1 },
+      { "id": "alt-2", "zone": "A", "rack": 5, "level": 4, "skuAtLocation": "ASICS-GEL-41", "demandRateC": { "unitsPerDay": 7.3, "level": "medium" }, "distanceAC": 4.2, "timeSavingsMinutes": 3.6 }
+    ]
   },
   {
     "id": "PPO-006",
     "skuA": "NEW-BALANCE-43",
     "skuB": "NIKE-AIRMAX-43",
-    "locationA": {
-      "zone": "D",
-      "rack": 18,
-      "level": 6
-    },
-    "locationB": {
-      "zone": "C",
-      "rack": 6,
-      "level": 4
-    },
-    "suggestedLocationA": {
-      "zone": "A",
-      "rack": 5,
-      "level": 7
-    },
-    "suggestedLocationB": {
-      "zone": "A",
-      "rack": 6,
-      "level": 5
-    },
+    "locationA": { "zone": "D", "rack": 18, "level": 6 },
+    "locationB": { "zone": "C", "rack": 6, "level": 4 },
+    "suggestedLocationA": { "zone": "A", "rack": 5, "level": 7 },
+    "suggestedLocationB": { "zone": "A", "rack": 6, "level": 5 },
     "timeSavingsMinutes": 4.6,
-    "status": "pending"
+    "status": "pending",
+    "ordersInPeriod": { "days7": 15, "days30": 61, "days90": 183 },
+    "demandRateA": { "unitsPerDay": 13.5, "level": "high" },
+    "demandRateB": { "unitsPerDay": 11.2, "level": "high" },
+    "distanceAB": 48.7,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 6, "level": 5, "skuAtLocation": "SAUCONY-JAZZ-41", "demandRateC": { "unitsPerDay": 5.5, "level": "medium" }, "distanceAC": 3.1, "timeSavingsMinutes": 4.6, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 7, "level": 3, "skuAtLocation": "CONVERSE-ALLSTAR-42", "demandRateC": { "unitsPerDay": 6.9, "level": "medium" }, "distanceAC": 3.9, "timeSavingsMinutes": 4.0 },
+      { "id": "alt-2", "zone": "A", "rack": 8, "level": 2, "skuAtLocation": "ADIDAS-ULTRA-42", "demandRateC": { "unitsPerDay": 8.1, "level": "medium" }, "distanceAC": 4.8, "timeSavingsMinutes": 3.3 }
+    ]
   },
   {
     "id": "PPO-007",
     "skuA": "VANS-OLD-SKOOL-45",
     "skuB": "NIKE-AIRMAX-44",
-    "locationA": {
-      "zone": "B",
-      "rack": 13,
-      "level": 1
-    },
-    "locationB": {
-      "zone": "C",
-      "rack": 9,
-      "level": 4
-    },
-    "suggestedLocationA": {
-      "zone": "A",
-      "rack": 6,
-      "level": 2
-    },
-    "suggestedLocationB": {
-      "zone": "A",
-      "rack": 7,
-      "level": 8
-    },
+    "locationA": { "zone": "B", "rack": 13, "level": 1 },
+    "locationB": { "zone": "C", "rack": 9, "level": 4 },
+    "suggestedLocationA": { "zone": "A", "rack": 6, "level": 2 },
+    "suggestedLocationB": { "zone": "A", "rack": 7, "level": 8 },
     "timeSavingsMinutes": 4.5,
-    "status": "pending"
+    "status": "pending",
+    "ordersInPeriod": { "days7": 14, "days30": 57, "days90": 171 },
+    "demandRateA": { "unitsPerDay": 12.8, "level": "high" },
+    "demandRateB": { "unitsPerDay": 10.4, "level": "high" },
+    "distanceAB": 46.1,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 7, "level": 8, "skuAtLocation": "REEBOK-CLASSIC-43", "demandRateC": { "unitsPerDay": 4.2, "level": "low" }, "distanceAC": 2.9, "timeSavingsMinutes": 4.5, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 8, "level": 5, "skuAtLocation": "PUMA-RS-X-43", "demandRateC": { "unitsPerDay": 5.8, "level": "medium" }, "distanceAC": 3.7, "timeSavingsMinutes": 3.9 },
+      { "id": "alt-2", "zone": "B", "rack": 1, "level": 2, "skuAtLocation": "ASICS-GEL-44", "demandRateC": { "unitsPerDay": 7.1, "level": "medium" }, "distanceAC": 5.1, "timeSavingsMinutes": 3.2 }
+    ]
   },
   {
     "id": "PPO-001",
     "skuA": "NEW-BALANCE-44",
     "skuB": "NIKE-AIRMAX-43",
-    "locationA": {
-      "zone": "D",
-      "rack": 20,
-      "level": 1
-    },
-    "locationB": {
-      "zone": "C",
-      "rack": 14,
-      "level": 2
-    },
-    "suggestedLocationA": {
-      "zone": "A",
-      "rack": 3,
-      "level": 5
-    },
-    "suggestedLocationB": {
-      "zone": "A",
-      "rack": 4,
-      "level": 1
-    },
+    "locationA": { "zone": "D", "rack": 20, "level": 1 },
+    "locationB": { "zone": "C", "rack": 14, "level": 2 },
+    "suggestedLocationA": { "zone": "A", "rack": 3, "level": 5 },
+    "suggestedLocationB": { "zone": "A", "rack": 4, "level": 1 },
     "timeSavingsMinutes": 4.3,
-    "status": "pending"
+    "status": "pending",
+    "ordersInPeriod": { "days7": 14, "days30": 58, "days90": 175 },
+    "demandRateA": { "unitsPerDay": 12.3, "level": "high" },
+    "demandRateB": { "unitsPerDay": 8.7, "level": "medium" },
+    "distanceAB": 45.2,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 4, "level": 1, "skuAtLocation": "PUMA-RS-X-40", "demandRateC": { "unitsPerDay": 5.2, "level": "medium" }, "distanceAC": 3.2, "timeSavingsMinutes": 4.3, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 5, "level": 2, "skuAtLocation": "REEBOK-CLASSIC-41", "demandRateC": { "unitsPerDay": 6.4, "level": "medium" }, "distanceAC": 4.1, "timeSavingsMinutes": 3.8 },
+      { "id": "alt-2", "zone": "A", "rack": 6, "level": 3, "skuAtLocation": "VANS-OLD-SKOOL-42", "demandRateC": { "unitsPerDay": 7.8, "level": "medium" }, "distanceAC": 5.0, "timeSavingsMinutes": 3.1 }
+    ]
   },
   {
     "id": "PPO-003",
     "skuA": "NEW-BALANCE-43",
     "skuB": "CONVERSE-ALLSTAR-43",
-    "locationA": {
-      "zone": "D",
-      "rack": 7,
-      "level": 1
-    },
-    "locationB": {
-      "zone": "C",
-      "rack": 6,
-      "level": 5
-    },
-    "suggestedLocationA": {
-      "zone": "A",
-      "rack": 1,
-      "level": 10
-    },
-    "suggestedLocationB": {
-      "zone": "A",
-      "rack": 2,
-      "level": 4
-    },
+    "locationA": { "zone": "D", "rack": 7, "level": 1 },
+    "locationB": { "zone": "C", "rack": 6, "level": 5 },
+    "suggestedLocationA": { "zone": "A", "rack": 1, "level": 10 },
+    "suggestedLocationB": { "zone": "A", "rack": 2, "level": 4 },
     "timeSavingsMinutes": 4.2,
-    "status": "pending"
+    "status": "pending",
+    "ordersInPeriod": { "days7": 13, "days30": 54, "days90": 162 },
+    "demandRateA": { "unitsPerDay": 11.9, "level": "high" },
+    "demandRateB": { "unitsPerDay": 8.1, "level": "medium" },
+    "distanceAB": 43.8,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 2, "level": 4, "skuAtLocation": "ADIDAS-ULTRA-40", "demandRateC": { "unitsPerDay": 4.9, "level": "low" }, "distanceAC": 3.0, "timeSavingsMinutes": 4.2, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 3, "level": 6, "skuAtLocation": "SAUCONY-JAZZ-42", "demandRateC": { "unitsPerDay": 6.2, "level": "medium" }, "distanceAC": 3.8, "timeSavingsMinutes": 3.7 },
+      { "id": "alt-2", "zone": "A", "rack": 4, "level": 8, "skuAtLocation": "ASICS-GEL-42", "demandRateC": { "unitsPerDay": 7.5, "level": "medium" }, "distanceAC": 4.6, "timeSavingsMinutes": 3.0 }
+    ]
   },
   {
     "id": "PPO-008",
     "skuA": "SAUCONY-JAZZ-40",
     "skuB": "HM-TSHIRT-M",
-    "locationA": {
-      "zone": "B",
-      "rack": 7,
-      "level": 4
-    },
-    "locationB": {
-      "zone": "B",
-      "rack": 6,
-      "level": 4
-    },
-    "suggestedLocationA": {
-      "zone": "A",
-      "rack": 2,
-      "level": 6
-    },
-    "suggestedLocationB": {
-      "zone": "A",
-      "rack": 3,
-      "level": 8
-    },
+    "locationA": { "zone": "B", "rack": 7, "level": 4 },
+    "locationB": { "zone": "B", "rack": 6, "level": 4 },
+    "suggestedLocationA": { "zone": "A", "rack": 2, "level": 6 },
+    "suggestedLocationB": { "zone": "A", "rack": 3, "level": 8 },
     "timeSavingsMinutes": 4.1,
-    "status": "pending"
+    "status": "pending",
+    "ordersInPeriod": { "days7": 12, "days30": 49, "days90": 148 },
+    "demandRateA": { "unitsPerDay": 10.7, "level": "high" },
+    "demandRateB": { "unitsPerDay": 7.4, "level": "medium" },
+    "distanceAB": 38.5,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 3, "level": 8, "skuAtLocation": "REEBOK-CLASSIC-40", "demandRateC": { "unitsPerDay": 3.9, "level": "low" }, "distanceAC": 2.6, "timeSavingsMinutes": 4.1, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 4, "level": 5, "skuAtLocation": "PUMA-RS-X-42", "demandRateC": { "unitsPerDay": 5.3, "level": "medium" }, "distanceAC": 3.4, "timeSavingsMinutes": 3.5 },
+      { "id": "alt-2", "zone": "A", "rack": 5, "level": 3, "skuAtLocation": "CONVERSE-ALLSTAR-40", "demandRateC": { "unitsPerDay": 6.7, "level": "medium" }, "distanceAC": 4.3, "timeSavingsMinutes": 2.9 }
+    ]
   },
   {
     "id": "PPO-005",
     "skuA": "VANS-OLD-SKOOL-45",
     "skuB": "NEW-BALANCE-44",
-    "locationA": {
-      "zone": "B",
-      "rack": 5,
-      "level": 4
-    },
-    "locationB": {
-      "zone": "C",
-      "rack": 19,
-      "level": 3
-    },
-    "suggestedLocationA": {
-      "zone": "A",
-      "rack": 5,
-      "level": 6
-    },
-    "suggestedLocationB": {
-      "zone": "A",
-      "rack": 6,
-      "level": 5
-    },
+    "locationA": { "zone": "B", "rack": 5, "level": 4 },
+    "locationB": { "zone": "C", "rack": 19, "level": 3 },
+    "suggestedLocationA": { "zone": "A", "rack": 5, "level": 6 },
+    "suggestedLocationB": { "zone": "A", "rack": 6, "level": 5 },
     "timeSavingsMinutes": 2.3,
-    "status": "pending"
+    "status": "pending",
+    "ordersInPeriod": { "days7": 9, "days30": 37, "days90": 111 },
+    "demandRateA": { "unitsPerDay": 8.2, "level": "medium" },
+    "demandRateB": { "unitsPerDay": 6.5, "level": "medium" },
+    "distanceAB": 35.9,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 6, "level": 5, "skuAtLocation": "ADIDAS-ULTRA-43", "demandRateC": { "unitsPerDay": 4.1, "level": "low" }, "distanceAC": 3.3, "timeSavingsMinutes": 2.3, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 7, "level": 4, "skuAtLocation": "SAUCONY-JAZZ-43", "demandRateC": { "unitsPerDay": 5.6, "level": "medium" }, "distanceAC": 4.0, "timeSavingsMinutes": 1.9 },
+      { "id": "alt-2", "zone": "B", "rack": 1, "level": 6, "skuAtLocation": "ASICS-GEL-45", "demandRateC": { "unitsPerDay": 6.8, "level": "medium" }, "distanceAC": 5.2, "timeSavingsMinutes": 1.4 }
+    ]
   },
   {
     "id": "PPO-004",
     "skuA": "NIKE-AIRMAX-44",
     "skuB": "SAUCONY-JAZZ-40",
-    "locationA": {
-      "zone": "B",
-      "rack": 8,
-      "level": 1
-    },
-    "locationB": {
-      "zone": "C",
-      "rack": 12,
-      "level": 5
-    },
-    "suggestedLocationA": {
-      "zone": "A",
-      "rack": 2,
-      "level": 3
-    },
-    "suggestedLocationB": {
-      "zone": "A",
-      "rack": 3,
-      "level": 3
-    },
+    "locationA": { "zone": "B", "rack": 8, "level": 1 },
+    "locationB": { "zone": "C", "rack": 12, "level": 5 },
+    "suggestedLocationA": { "zone": "A", "rack": 2, "level": 3 },
+    "suggestedLocationB": { "zone": "A", "rack": 3, "level": 3 },
     "timeSavingsMinutes": 1.6,
-    "status": "pending"
+    "status": "pending",
+    "ordersInPeriod": { "days7": 7, "days30": 29, "days90": 87 },
+    "demandRateA": { "unitsPerDay": 6.8, "level": "medium" },
+    "demandRateB": { "unitsPerDay": 5.3, "level": "medium" },
+    "distanceAB": 31.4,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 3, "level": 3, "skuAtLocation": "REEBOK-CLASSIC-44", "demandRateC": { "unitsPerDay": 3.5, "level": "low" }, "distanceAC": 2.4, "timeSavingsMinutes": 1.6, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 4, "level": 4, "skuAtLocation": "PUMA-RS-X-44", "demandRateC": { "unitsPerDay": 4.8, "level": "low" }, "distanceAC": 3.2, "timeSavingsMinutes": 1.2 },
+      { "id": "alt-2", "zone": "A", "rack": 5, "level": 5, "skuAtLocation": "VANS-OLD-SKOOL-43", "demandRateC": { "unitsPerDay": 5.9, "level": "medium" }, "distanceAC": 4.0, "timeSavingsMinutes": 0.8 }
+    ]
+  },
+  {
+    "id": "PPO-009",
+    "skuA": "ADIDAS-ULTRA-41",
+    "skuB": "REEBOK-CLASSIC-42",
+    "locationA": { "zone": "C", "rack": 11, "level": 3 },
+    "locationB": { "zone": "D", "rack": 8, "level": 2 },
+    "suggestedLocationA": { "zone": "A", "rack": 1, "level": 3 },
+    "suggestedLocationB": { "zone": "A", "rack": 2, "level": 2 },
+    "timeSavingsMinutes": 3.9,
+    "status": "pending",
+    "ordersInPeriod": { "days7": 11, "days30": 45, "days90": 136 },
+    "demandRateA": { "unitsPerDay": 10.2, "level": "high" },
+    "demandRateB": { "unitsPerDay": 7.9, "level": "medium" },
+    "distanceAB": 41.3,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 2, "level": 2, "skuAtLocation": "ASICS-GEL-40", "demandRateC": { "unitsPerDay": 4.4, "level": "low" }, "distanceAC": 2.7, "timeSavingsMinutes": 3.9, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 3, "level": 4, "skuAtLocation": "CONVERSE-ALLSTAR-44", "demandRateC": { "unitsPerDay": 5.7, "level": "medium" }, "distanceAC": 3.6, "timeSavingsMinutes": 3.4 },
+      { "id": "alt-2", "zone": "A", "rack": 4, "level": 6, "skuAtLocation": "SAUCONY-JAZZ-44", "demandRateC": { "unitsPerDay": 7.0, "level": "medium" }, "distanceAC": 4.4, "timeSavingsMinutes": 2.8 }
+    ]
+  },
+  {
+    "id": "PPO-010",
+    "skuA": "ASICS-GEL-43",
+    "skuB": "ADIDAS-ULTRA-42",
+    "locationA": { "zone": "C", "rack": 15, "level": 5 },
+    "locationB": { "zone": "D", "rack": 4, "level": 3 },
+    "suggestedLocationA": { "zone": "A", "rack": 3, "level": 1 },
+    "suggestedLocationB": { "zone": "A", "rack": 4, "level": 3 },
+    "timeSavingsMinutes": 3.5,
+    "status": "pending",
+    "ordersInPeriod": { "days7": 10, "days30": 41, "days90": 124 },
+    "demandRateA": { "unitsPerDay": 9.6, "level": "medium" },
+    "demandRateB": { "unitsPerDay": 7.2, "level": "medium" },
+    "distanceAB": 39.7,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 4, "level": 3, "skuAtLocation": "NIKE-AIRMAX-42", "demandRateC": { "unitsPerDay": 4.0, "level": "low" }, "distanceAC": 2.5, "timeSavingsMinutes": 3.5, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 5, "level": 1, "skuAtLocation": "PUMA-RS-X-45", "demandRateC": { "unitsPerDay": 5.4, "level": "medium" }, "distanceAC": 3.3, "timeSavingsMinutes": 3.0 },
+      { "id": "alt-2", "zone": "A", "rack": 6, "level": 4, "skuAtLocation": "VANS-OLD-SKOOL-41", "demandRateC": { "unitsPerDay": 6.6, "level": "medium" }, "distanceAC": 4.1, "timeSavingsMinutes": 2.4 }
+    ]
+  },
+  {
+    "id": "PPO-011",
+    "skuA": "REEBOK-CLASSIC-43",
+    "skuB": "SAUCONY-JAZZ-42",
+    "locationA": { "zone": "B", "rack": 16, "level": 2 },
+    "locationB": { "zone": "C", "rack": 3, "level": 6 },
+    "suggestedLocationA": { "zone": "A", "rack": 1, "level": 6 },
+    "suggestedLocationB": { "zone": "A", "rack": 2, "level": 8 },
+    "timeSavingsMinutes": 2.8,
+    "status": "pending",
+    "ordersInPeriod": { "days7": 8, "days30": 33, "days90": 99 },
+    "demandRateA": { "unitsPerDay": 7.5, "level": "medium" },
+    "demandRateB": { "unitsPerDay": 5.9, "level": "medium" },
+    "distanceAB": 33.6,
+    "alternativeLocations": [
+      { "id": "suggested", "zone": "A", "rack": 2, "level": 8, "skuAtLocation": "CONVERSE-ALLSTAR-45", "demandRateC": { "unitsPerDay": 3.7, "level": "low" }, "distanceAC": 2.3, "timeSavingsMinutes": 2.8, "isSuggested": true },
+      { "id": "alt-1", "zone": "A", "rack": 3, "level": 7, "skuAtLocation": "ADIDAS-ULTRA-44", "demandRateC": { "unitsPerDay": 5.1, "level": "medium" }, "distanceAC": 3.1, "timeSavingsMinutes": 2.3 },
+      { "id": "alt-2", "zone": "A", "rack": 4, "level": 9, "skuAtLocation": "ASICS-GEL-45", "demandRateC": { "unitsPerDay": 6.3, "level": "medium" }, "distanceAC": 3.9, "timeSavingsMinutes": 1.8 }
+    ]
   }
 ]
 
@@ -4224,4 +4372,391 @@ export const TRIP_DATA = {
       "sameRoute": "SAUCONY-JAZZ-40"
     }
   ]
+}
+
+// ─── Mock Data: Delays for Alternative Location ───────────────────────────────
+// These are trips that would be negatively affected if the alternative location is used
+export const DELAY_DATA = {
+  "SPO-007": {
+    // SKU: SAUCONY-JAZZ-40, moving from B-16-03 to A-8-10
+    // Delays for routes that currently use Zone A locations that would be displaced
+    frequency: { days7: 8, days30: 32, days90: 96 },
+    avgDelayMinutes: 2.1,
+    trips: [
+      {
+        "employee": "Mike Chen",
+        "date": "2026-02-25",
+        "orderId": "ORD-7123",
+        "picksInRoute": 18,
+        "currentRouteLength": "4m 15s",
+        "alternativeRouteLength": "6m 25s",
+        "timeAdded": "2m 10s",
+        "affectedSku": "NIKE-AIR-42"
+      },
+      {
+        "employee": "Sarah Jones",
+        "date": "2026-02-24",
+        "orderId": "ORD-8456",
+        "picksInRoute": 14,
+        "currentRouteLength": "5m 30s",
+        "alternativeRouteLength": "7m 45s",
+        "timeAdded": "2m 15s",
+        "affectedSku": "ADIDAS-RUN-39"
+      },
+      {
+        "employee": "Tom Wilson",
+        "date": "2026-02-23",
+        "orderId": "ORD-9012",
+        "picksInRoute": 22,
+        "currentRouteLength": "3m 45s",
+        "alternativeRouteLength": "5m 50s",
+        "timeAdded": "2m 05s",
+        "affectedSku": "PUMA-SPORT-41"
+      },
+      {
+        "employee": "Lisa Brown",
+        "date": "2026-02-22",
+        "orderId": "ORD-3456",
+        "picksInRoute": 16,
+        "currentRouteLength": "6m 20s",
+        "alternativeRouteLength": "8m 35s",
+        "timeAdded": "2m 15s",
+        "affectedSku": "NB-WALK-43"
+      },
+      {
+        "employee": "James Taylor",
+        "date": "2026-02-21",
+        "orderId": "ORD-5678",
+        "picksInRoute": 19,
+        "currentRouteLength": "4m 50s",
+        "alternativeRouteLength": "7m 00s",
+        "timeAdded": "2m 10s",
+        "affectedSku": "REEBOK-CROSS-40"
+      }
+    ]
+  },
+  "SPO-003": {
+    // SKU: ASICS-GEL-43, moving from B-11-01 to A-3-10
+    frequency: { days7: 6, days30: 24, days90: 72 },
+    avgDelayMinutes: 1.8,
+    trips: [
+      {
+        "employee": "Emily Davis",
+        "date": "2026-02-25",
+        "orderId": "ORD-2345",
+        "picksInRoute": 20,
+        "currentRouteLength": "5m 10s",
+        "alternativeRouteLength": "6m 55s",
+        "timeAdded": "1m 45s",
+        "affectedSku": "CONVERSE-CT-42"
+      },
+      {
+        "employee": "Robert Kim",
+        "date": "2026-02-24",
+        "orderId": "ORD-6789",
+        "picksInRoute": 15,
+        "currentRouteLength": "4m 30s",
+        "alternativeRouteLength": "6m 25s",
+        "timeAdded": "1m 55s",
+        "affectedSku": "VANS-OLD-41"
+      },
+      {
+        "employee": "Anna Lee",
+        "date": "2026-02-23",
+        "orderId": "ORD-1122",
+        "picksInRoute": 18,
+        "currentRouteLength": "3m 55s",
+        "alternativeRouteLength": "5m 40s",
+        "timeAdded": "1m 45s",
+        "affectedSku": "DC-SHOES-40"
+      }
+    ]
+  },
+  "SPO-008": {
+    // SKU: CONVERSE-ALLSTAR-41, moving from B-19-02 to A-8-4
+    frequency: { days7: 10, days30: 40, days90: 120 },
+    avgDelayMinutes: 2.3,
+    trips: [
+      {
+        "employee": "Chris Martin",
+        "date": "2026-02-25",
+        "orderId": "ORD-4455",
+        "picksInRoute": 24,
+        "currentRouteLength": "6m 30s",
+        "alternativeRouteLength": "9m 05s",
+        "timeAdded": "2m 35s",
+        "affectedSku": "JORDAN-AIR-44"
+      },
+      {
+        "employee": "Diana Ross",
+        "date": "2026-02-24",
+        "orderId": "ORD-7788",
+        "picksInRoute": 17,
+        "currentRouteLength": "5m 15s",
+        "alternativeRouteLength": "7m 30s",
+        "timeAdded": "2m 15s",
+        "affectedSku": "YEEZY-BOOST-42"
+      }
+    ]
+  },
+  "SPO-001": {
+    // SKU: REEBOK-CROSS-38, LOW demand in Zone A - moving OUT would free up space
+    // This is a "costs" item - the delays shown are for routes that benefit from current location
+    frequency: { days7: 3, days30: 12, days90: 36 },
+    avgDelayMinutes: -1.5, // Negative means removing this SKU from A would IMPROVE routes
+    trips: [
+      {
+        "employee": "John Smith",
+        "date": "2026-02-25",
+        "orderId": "ORD-9988",
+        "picksInRoute": 12,
+        "currentRouteLength": "8m 20s",
+        "alternativeRouteLength": "6m 50s",
+        "timeAdded": "-1m 30s", // Actually a savings
+        "affectedSku": "HIGH-DEMAND-SKU-01"
+      },
+      {
+        "employee": "Mary Johnson",
+        "date": "2026-02-24",
+        "orderId": "ORD-8877",
+        "picksInRoute": 15,
+        "currentRouteLength": "7m 45s",
+        "alternativeRouteLength": "6m 15s",
+        "timeAdded": "-1m 30s",
+        "affectedSku": "HIGH-DEMAND-SKU-02"
+      }
+    ]
+  }
+}
+
+// ─── Mock Data: Alternative Location Details ───────────────────────────────
+// Maps locations to the SKU currently there and trip impact data
+export const ALTERNATIVE_LOCATION_DATA = {
+  // For SPO-007: SAUCONY-JAZZ-40 moving from B-16-03
+  "A-8-10": {
+    currentSku: "NIKE-AIR-MAX-42",
+    frequency: { days7: 8, days30: 32, days90: 96 },
+    avgImpactMinutes: 2.1,
+    trips: [
+      { employee: "Mike Chen", date: "2026-02-25", orderId: "ORD-7123", picksInRoute: 18, currentRouteLength: "4m 15s", alternativeRouteLength: "6m 25s", timeAdded: "2m 10s" },
+      { employee: "Sarah Jones", date: "2026-02-24", orderId: "ORD-8456", picksInRoute: 14, currentRouteLength: "5m 30s", alternativeRouteLength: "7m 45s", timeAdded: "2m 15s" },
+      { employee: "Tom Wilson", date: "2026-02-23", orderId: "ORD-9012", picksInRoute: 22, currentRouteLength: "3m 45s", alternativeRouteLength: "5m 50s", timeAdded: "2m 05s" },
+      { employee: "Lisa Brown", date: "2026-02-22", orderId: "ORD-3456", picksInRoute: 16, currentRouteLength: "6m 20s", alternativeRouteLength: "8m 35s", timeAdded: "2m 15s" },
+      { employee: "James Taylor", date: "2026-02-21", orderId: "ORD-5678", picksInRoute: 19, currentRouteLength: "4m 50s", alternativeRouteLength: "7m 00s", timeAdded: "2m 10s" }
+    ]
+  },
+  "A-5-8": {
+    currentSku: "ADIDAS-ULTRA-41",
+    frequency: { days7: 6, days30: 24, days90: 72 },
+    avgImpactMinutes: 1.8,
+    trips: [
+      { employee: "Emily Davis", date: "2026-02-25", orderId: "ORD-2345", picksInRoute: 20, currentRouteLength: "5m 10s", alternativeRouteLength: "6m 55s", timeAdded: "1m 45s" },
+      { employee: "Robert Kim", date: "2026-02-24", orderId: "ORD-6789", picksInRoute: 15, currentRouteLength: "4m 30s", alternativeRouteLength: "6m 25s", timeAdded: "1m 55s" },
+      { employee: "Anna Lee", date: "2026-02-23", orderId: "ORD-1122", picksInRoute: 18, currentRouteLength: "3m 55s", alternativeRouteLength: "5m 40s", timeAdded: "1m 45s" }
+    ]
+  },
+  "A-3-6": {
+    currentSku: "PUMA-RS-X-40",
+    frequency: { days7: 5, days30: 20, days90: 60 },
+    avgImpactMinutes: 1.5,
+    trips: [
+      { employee: "Chris Park", date: "2026-02-25", orderId: "ORD-5566", picksInRoute: 12, currentRouteLength: "4m 00s", alternativeRouteLength: "5m 30s", timeAdded: "1m 30s" },
+      { employee: "Diana Lee", date: "2026-02-24", orderId: "ORD-4433", picksInRoute: 16, currentRouteLength: "5m 45s", alternativeRouteLength: "7m 15s", timeAdded: "1m 30s" },
+      { employee: "Eric Chen", date: "2026-02-23", orderId: "ORD-3322", picksInRoute: 14, currentRouteLength: "3m 30s", alternativeRouteLength: "5m 00s", timeAdded: "1m 30s" }
+    ]
+  },
+  // For SPO-003: ASICS-GEL-43 moving from B-11-01
+  "A-3-10": {
+    currentSku: "VANS-OLD-SKOOL-42",
+    frequency: { days7: 6, days30: 24, days90: 72 },
+    avgImpactMinutes: 1.8,
+    trips: [
+      { employee: "Emily Davis", date: "2026-02-25", orderId: "ORD-2345", picksInRoute: 20, currentRouteLength: "5m 10s", alternativeRouteLength: "6m 55s", timeAdded: "1m 45s" },
+      { employee: "Robert Kim", date: "2026-02-24", orderId: "ORD-6789", picksInRoute: 15, currentRouteLength: "4m 30s", alternativeRouteLength: "6m 25s", timeAdded: "1m 55s" },
+      { employee: "Anna Lee", date: "2026-02-23", orderId: "ORD-1122", picksInRoute: 18, currentRouteLength: "3m 55s", alternativeRouteLength: "5m 40s", timeAdded: "1m 45s" }
+    ]
+  }
+}
+
+// ─── Mock Data: Product Pairs Trip Data ───────────────────────────────────────
+export const PRODUCT_PAIRS_TRIP_DATA = {
+  "PPO-001": {
+    table1: [
+      { tripId: "TR-P001-001", employee: "Lisa Smith", date: "2026-02-25", orderId: "ORD-3552", picks: 9, difference: "picks A+B instead of A", duration: "12m 25s", timeDifferenceMinutes: -3.8 },
+      { tripId: "TR-P001-002", employee: "Mike Chen", date: "2026-02-24", orderId: "ORD-4271", picks: 14, difference: "picks A+B instead of B", duration: "9m 40s", timeDifferenceMinutes: -4.1 },
+      { tripId: "TR-P001-003", employee: "Sara Jones", date: "2026-02-23", orderId: "ORD-5183", picks: 11, difference: "picks A+B instead of A", duration: "11m 15s", timeDifferenceMinutes: -3.5 },
+      { tripId: "TR-P001-004", employee: "Tom Brown", date: "2026-02-22", orderId: "ORD-6094", picks: 8, difference: "picks A+B instead of B", duration: "8m 50s", timeDifferenceMinutes: -4.6 },
+      { tripId: "TR-P001-005", employee: "Amy Wilson", date: "2026-02-21", orderId: "ORD-7015", picks: 16, difference: "picks A+B instead of A", duration: "14m 30s", timeDifferenceMinutes: -3.2 },
+      { tripId: "TR-P001-006", employee: "Lisa Smith", date: "2026-02-20", orderId: "ORD-7936", picks: 12, difference: "picks A+B instead of B", duration: "10m 05s", timeDifferenceMinutes: -3.9 },
+      { tripId: "TR-P001-007", employee: "Carlos Diaz", date: "2026-02-19", orderId: "ORD-8847", picks: 10, difference: "picks A+B instead of A", duration: "11m 55s", timeDifferenceMinutes: -3.4 }
+    ],
+    table2: [
+      { tripId: "TR-P001-C01", employee: "Mike Chen", date: "2026-02-25", orderId: "ORD-7123", picks: 18, difference: "picks C at B instead of C", duration: "6m 25s", timeDifferenceMinutes: 2.1 },
+      { tripId: "TR-P001-C02", employee: "Amy Wilson", date: "2026-02-23", orderId: "ORD-8034", picks: 22, difference: "picks C at B instead of C", duration: "7m 10s", timeDifferenceMinutes: 1.9 },
+      { tripId: "TR-P001-C03", employee: "Tom Brown", date: "2026-02-20", orderId: "ORD-9145", picks: 15, difference: "picks C at B instead of C", duration: "5m 50s", timeDifferenceMinutes: 2.3 }
+    ]
+  },
+  "PPO-002": {
+    table1: [
+      { tripId: "TR-P002-001", employee: "Carlos Diaz", date: "2026-02-25", orderId: "ORD-3601", picks: 11, difference: "picks A+B instead of A", duration: "13m 10s", timeDifferenceMinutes: -4.2 },
+      { tripId: "TR-P002-002", employee: "Sara Jones", date: "2026-02-24", orderId: "ORD-4512", picks: 9, difference: "picks A+B instead of B", duration: "10m 30s", timeDifferenceMinutes: -4.5 },
+      { tripId: "TR-P002-003", employee: "Lisa Smith", date: "2026-02-23", orderId: "ORD-5423", picks: 15, difference: "picks A+B instead of A", duration: "12m 45s", timeDifferenceMinutes: -3.9 },
+      { tripId: "TR-P002-004", employee: "Mike Chen", date: "2026-02-22", orderId: "ORD-6334", picks: 13, difference: "picks A+B instead of B", duration: "9m 20s", timeDifferenceMinutes: -4.7 },
+      { tripId: "TR-P002-005", employee: "Amy Wilson", date: "2026-02-21", orderId: "ORD-7245", picks: 7, difference: "picks A+B instead of A", duration: "11m 00s", timeDifferenceMinutes: -3.6 },
+      { tripId: "TR-P002-006", employee: "Tom Brown", date: "2026-02-20", orderId: "ORD-8156", picks: 18, difference: "picks A+B instead of B", duration: "14m 15s", timeDifferenceMinutes: -4.1 },
+      { tripId: "TR-P002-007", employee: "Carlos Diaz", date: "2026-02-19", orderId: "ORD-9067", picks: 10, difference: "picks A+B instead of A", duration: "12m 35s", timeDifferenceMinutes: -3.8 },
+      { tripId: "TR-P002-008", employee: "Sara Jones", date: "2026-02-18", orderId: "ORD-9978", picks: 12, difference: "picks A+B instead of B", duration: "10m 50s", timeDifferenceMinutes: -4.0 }
+    ],
+    table2: [
+      { tripId: "TR-P002-C01", employee: "Tom Brown", date: "2026-02-25", orderId: "ORD-7234", picks: 20, difference: "picks C at B instead of C", duration: "6m 40s", timeDifferenceMinutes: 2.2 },
+      { tripId: "TR-P002-C02", employee: "Lisa Smith", date: "2026-02-22", orderId: "ORD-8345", picks: 17, difference: "picks C at B instead of C", duration: "5m 55s", timeDifferenceMinutes: 1.8 },
+      { tripId: "TR-P002-C03", employee: "Carlos Diaz", date: "2026-02-20", orderId: "ORD-9456", picks: 24, difference: "picks C at B instead of C", duration: "7m 20s", timeDifferenceMinutes: 2.4 },
+      { tripId: "TR-P002-C04", employee: "Mike Chen", date: "2026-02-18", orderId: "ORD-1567", picks: 19, difference: "picks C at B instead of C", duration: "6m 10s", timeDifferenceMinutes: 2.0 }
+    ]
+  },
+  "PPO-003": {
+    table1: [
+      { tripId: "TR-P003-001", employee: "Amy Wilson", date: "2026-02-25", orderId: "ORD-3650", picks: 10, difference: "picks A+B instead of A", duration: "11m 50s", timeDifferenceMinutes: -3.7 },
+      { tripId: "TR-P003-002", employee: "Tom Brown", date: "2026-02-24", orderId: "ORD-4561", picks: 13, difference: "picks A+B instead of B", duration: "9m 15s", timeDifferenceMinutes: -4.3 },
+      { tripId: "TR-P003-003", employee: "Lisa Smith", date: "2026-02-23", orderId: "ORD-5472", picks: 8, difference: "picks A+B instead of A", duration: "12m 20s", timeDifferenceMinutes: -3.4 },
+      { tripId: "TR-P003-004", employee: "Mike Chen", date: "2026-02-22", orderId: "ORD-6383", picks: 16, difference: "picks A+B instead of B", duration: "10m 40s", timeDifferenceMinutes: -4.1 },
+      { tripId: "TR-P003-005", employee: "Carlos Diaz", date: "2026-02-21", orderId: "ORD-7294", picks: 11, difference: "picks A+B instead of A", duration: "11m 05s", timeDifferenceMinutes: -3.9 },
+      { tripId: "TR-P003-006", employee: "Sara Jones", date: "2026-02-20", orderId: "ORD-8205", picks: 14, difference: "picks A+B instead of B", duration: "9m 50s", timeDifferenceMinutes: -4.4 },
+      { tripId: "TR-P003-007", employee: "Amy Wilson", date: "2026-02-19", orderId: "ORD-9116", picks: 9, difference: "picks A+B instead of A", duration: "12m 00s", timeDifferenceMinutes: -3.6 }
+    ],
+    table2: [
+      { tripId: "TR-P003-C01", employee: "Sara Jones", date: "2026-02-24", orderId: "ORD-7345", picks: 21, difference: "picks C at B instead of C", duration: "6m 05s", timeDifferenceMinutes: 1.9 },
+      { tripId: "TR-P003-C02", employee: "Tom Brown", date: "2026-02-21", orderId: "ORD-8456", picks: 16, difference: "picks C at B instead of C", duration: "5m 45s", timeDifferenceMinutes: 1.7 },
+      { tripId: "TR-P003-C03", employee: "Amy Wilson", date: "2026-02-19", orderId: "ORD-9567", picks: 23, difference: "picks C at B instead of C", duration: "7m 00s", timeDifferenceMinutes: 2.2 }
+    ]
+  },
+  "PPO-004": {
+    table1: [
+      { tripId: "TR-P004-001", employee: "Mike Chen", date: "2026-02-25", orderId: "ORD-3700", picks: 8, difference: "picks A+B instead of A", duration: "9m 30s", timeDifferenceMinutes: -1.4 },
+      { tripId: "TR-P004-002", employee: "Lisa Smith", date: "2026-02-24", orderId: "ORD-4611", picks: 12, difference: "picks A+B instead of B", duration: "7m 50s", timeDifferenceMinutes: -1.7 },
+      { tripId: "TR-P004-003", employee: "Carlos Diaz", date: "2026-02-23", orderId: "ORD-5522", picks: 10, difference: "picks A+B instead of A", duration: "10m 15s", timeDifferenceMinutes: -1.5 },
+      { tripId: "TR-P004-004", employee: "Sara Jones", date: "2026-02-22", orderId: "ORD-6433", picks: 14, difference: "picks A+B instead of B", duration: "8m 40s", timeDifferenceMinutes: -1.8 },
+      { tripId: "TR-P004-005", employee: "Tom Brown", date: "2026-02-21", orderId: "ORD-7344", picks: 9, difference: "picks A+B instead of A", duration: "9m 55s", timeDifferenceMinutes: -1.6 },
+      { tripId: "TR-P004-006", employee: "Amy Wilson", date: "2026-02-20", orderId: "ORD-8255", picks: 11, difference: "picks A+B instead of B", duration: "8m 10s", timeDifferenceMinutes: -1.9 },
+      { tripId: "TR-P004-007", employee: "Mike Chen", date: "2026-02-19", orderId: "ORD-9166", picks: 7, difference: "picks A+B instead of A", duration: "10m 00s", timeDifferenceMinutes: -1.3 }
+    ],
+    table2: [
+      { tripId: "TR-P004-C01", employee: "Carlos Diaz", date: "2026-02-25", orderId: "ORD-7456", picks: 19, difference: "picks C at B instead of C", duration: "5m 30s", timeDifferenceMinutes: 1.5 },
+      { tripId: "TR-P004-C02", employee: "Sara Jones", date: "2026-02-22", orderId: "ORD-8567", picks: 14, difference: "picks C at B instead of C", duration: "4m 55s", timeDifferenceMinutes: 1.3 },
+      { tripId: "TR-P004-C03", employee: "Lisa Smith", date: "2026-02-20", orderId: "ORD-9678", picks: 22, difference: "picks C at B instead of C", duration: "6m 20s", timeDifferenceMinutes: 1.7 }
+    ]
+  },
+  "PPO-005": {
+    table1: [
+      { tripId: "TR-P005-001", employee: "Sara Jones", date: "2026-02-25", orderId: "ORD-3749", picks: 9, difference: "picks A+B instead of A", duration: "10m 20s", timeDifferenceMinutes: -2.1 },
+      { tripId: "TR-P005-002", employee: "Carlos Diaz", date: "2026-02-24", orderId: "ORD-4660", picks: 13, difference: "picks A+B instead of B", duration: "8m 35s", timeDifferenceMinutes: -2.4 },
+      { tripId: "TR-P005-003", employee: "Amy Wilson", date: "2026-02-23", orderId: "ORD-5571", picks: 11, difference: "picks A+B instead of A", duration: "11m 00s", timeDifferenceMinutes: -2.0 },
+      { tripId: "TR-P005-004", employee: "Tom Brown", date: "2026-02-22", orderId: "ORD-6482", picks: 7, difference: "picks A+B instead of B", duration: "7m 50s", timeDifferenceMinutes: -2.5 },
+      { tripId: "TR-P005-005", employee: "Mike Chen", date: "2026-02-21", orderId: "ORD-7393", picks: 15, difference: "picks A+B instead of A", duration: "12m 40s", timeDifferenceMinutes: -1.9 },
+      { tripId: "TR-P005-006", employee: "Lisa Smith", date: "2026-02-20", orderId: "ORD-8304", picks: 10, difference: "picks A+B instead of B", duration: "9m 05s", timeDifferenceMinutes: -2.3 },
+      { tripId: "TR-P005-007", employee: "Sara Jones", date: "2026-02-19", orderId: "ORD-9215", picks: 12, difference: "picks A+B instead of A", duration: "10m 50s", timeDifferenceMinutes: -2.2 }
+    ],
+    table2: [
+      { tripId: "TR-P005-C01", employee: "Amy Wilson", date: "2026-02-25", orderId: "ORD-7567", picks: 18, difference: "picks C at B instead of C", duration: "5m 15s", timeDifferenceMinutes: 1.4 },
+      { tripId: "TR-P005-C02", employee: "Carlos Diaz", date: "2026-02-22", orderId: "ORD-8678", picks: 13, difference: "picks C at B instead of C", duration: "4m 40s", timeDifferenceMinutes: 1.2 },
+      { tripId: "TR-P005-C03", employee: "Tom Brown", date: "2026-02-19", orderId: "ORD-9789", picks: 21, difference: "picks C at B instead of C", duration: "6m 00s", timeDifferenceMinutes: 1.6 }
+    ]
+  },
+  "PPO-006": {
+    table1: [
+      { tripId: "TR-P006-001", employee: "Tom Brown", date: "2026-02-25", orderId: "ORD-3798", picks: 12, difference: "picks A+B instead of A", duration: "13m 45s", timeDifferenceMinutes: -4.3 },
+      { tripId: "TR-P006-002", employee: "Amy Wilson", date: "2026-02-24", orderId: "ORD-4709", picks: 10, difference: "picks A+B instead of B", duration: "11m 00s", timeDifferenceMinutes: -4.6 },
+      { tripId: "TR-P006-003", employee: "Carlos Diaz", date: "2026-02-23", orderId: "ORD-5620", picks: 14, difference: "picks A+B instead of A", duration: "12m 20s", timeDifferenceMinutes: -4.0 },
+      { tripId: "TR-P006-004", employee: "Sara Jones", date: "2026-02-22", orderId: "ORD-6531", picks: 8, difference: "picks A+B instead of B", duration: "9m 35s", timeDifferenceMinutes: -4.8 },
+      { tripId: "TR-P006-005", employee: "Lisa Smith", date: "2026-02-21", orderId: "ORD-7442", picks: 17, difference: "picks A+B instead of A", duration: "14m 50s", timeDifferenceMinutes: -3.7 },
+      { tripId: "TR-P006-006", employee: "Mike Chen", date: "2026-02-20", orderId: "ORD-8353", picks: 11, difference: "picks A+B instead of B", duration: "10m 25s", timeDifferenceMinutes: -4.2 },
+      { tripId: "TR-P006-007", employee: "Tom Brown", date: "2026-02-19", orderId: "ORD-9264", picks: 9, difference: "picks A+B instead of A", duration: "12m 55s", timeDifferenceMinutes: -3.9 }
+    ],
+    table2: [
+      { tripId: "TR-P006-C01", employee: "Lisa Smith", date: "2026-02-25", orderId: "ORD-7678", picks: 23, difference: "picks C at B instead of C", duration: "7m 05s", timeDifferenceMinutes: 2.3 },
+      { tripId: "TR-P006-C02", employee: "Mike Chen", date: "2026-02-22", orderId: "ORD-8789", picks: 18, difference: "picks C at B instead of C", duration: "6m 20s", timeDifferenceMinutes: 2.0 },
+      { tripId: "TR-P006-C03", employee: "Amy Wilson", date: "2026-02-20", orderId: "ORD-9890", picks: 25, difference: "picks C at B instead of C", duration: "7m 45s", timeDifferenceMinutes: 2.5 },
+      { tripId: "TR-P006-C04", employee: "Carlos Diaz", date: "2026-02-18", orderId: "ORD-1901", picks: 20, difference: "picks C at B instead of C", duration: "6m 50s", timeDifferenceMinutes: 2.2 }
+    ]
+  },
+  "PPO-007": {
+    table1: [
+      { tripId: "TR-P007-001", employee: "Lisa Smith", date: "2026-02-25", orderId: "ORD-3847", picks: 11, difference: "picks A+B instead of A", duration: "12m 55s", timeDifferenceMinutes: -4.1 },
+      { tripId: "TR-P007-002", employee: "Tom Brown", date: "2026-02-24", orderId: "ORD-4758", picks: 9, difference: "picks A+B instead of B", duration: "10m 10s", timeDifferenceMinutes: -4.4 },
+      { tripId: "TR-P007-003", employee: "Mike Chen", date: "2026-02-23", orderId: "ORD-5669", picks: 14, difference: "picks A+B instead of A", duration: "12m 30s", timeDifferenceMinutes: -3.8 },
+      { tripId: "TR-P007-004", employee: "Sara Jones", date: "2026-02-22", orderId: "ORD-6580", picks: 12, difference: "picks A+B instead of B", duration: "9m 45s", timeDifferenceMinutes: -4.6 },
+      { tripId: "TR-P007-005", employee: "Amy Wilson", date: "2026-02-21", orderId: "ORD-7491", picks: 16, difference: "picks A+B instead of A", duration: "14m 20s", timeDifferenceMinutes: -3.5 },
+      { tripId: "TR-P007-006", employee: "Carlos Diaz", date: "2026-02-20", orderId: "ORD-8402", picks: 10, difference: "picks A+B instead of B", duration: "10m 40s", timeDifferenceMinutes: -4.3 },
+      { tripId: "TR-P007-007", employee: "Lisa Smith", date: "2026-02-19", orderId: "ORD-9313", picks: 8, difference: "picks A+B instead of A", duration: "12m 05s", timeDifferenceMinutes: -4.0 }
+    ],
+    table2: [
+      { tripId: "TR-P007-C01", employee: "Sara Jones", date: "2026-02-25", orderId: "ORD-7789", picks: 22, difference: "picks C at B instead of C", duration: "6m 50s", timeDifferenceMinutes: 2.1 },
+      { tripId: "TR-P007-C02", employee: "Tom Brown", date: "2026-02-22", orderId: "ORD-8890", picks: 17, difference: "picks C at B instead of C", duration: "6m 05s", timeDifferenceMinutes: 1.8 },
+      { tripId: "TR-P007-C03", employee: "Mike Chen", date: "2026-02-19", orderId: "ORD-9901", picks: 20, difference: "picks C at B instead of C", duration: "7m 15s", timeDifferenceMinutes: 2.3 }
+    ]
+  },
+  "PPO-008": {
+    table1: [
+      { tripId: "TR-P008-001", employee: "Carlos Diaz", date: "2026-02-25", orderId: "ORD-3896", picks: 10, difference: "picks A+B instead of A", duration: "11m 40s", timeDifferenceMinutes: -3.8 },
+      { tripId: "TR-P008-002", employee: "Amy Wilson", date: "2026-02-24", orderId: "ORD-4807", picks: 8, difference: "picks A+B instead of B", duration: "9m 00s", timeDifferenceMinutes: -4.2 },
+      { tripId: "TR-P008-003", employee: "Sara Jones", date: "2026-02-23", orderId: "ORD-5718", picks: 13, difference: "picks A+B instead of A", duration: "12m 10s", timeDifferenceMinutes: -3.5 },
+      { tripId: "TR-P008-004", employee: "Mike Chen", date: "2026-02-22", orderId: "ORD-6629", picks: 11, difference: "picks A+B instead of B", duration: "9m 30s", timeDifferenceMinutes: -4.0 },
+      { tripId: "TR-P008-005", employee: "Lisa Smith", date: "2026-02-21", orderId: "ORD-7540", picks: 15, difference: "picks A+B instead of A", duration: "13m 55s", timeDifferenceMinutes: -3.3 },
+      { tripId: "TR-P008-006", employee: "Tom Brown", date: "2026-02-20", orderId: "ORD-8451", picks: 9, difference: "picks A+B instead of B", duration: "8m 20s", timeDifferenceMinutes: -4.5 },
+      { tripId: "TR-P008-007", employee: "Carlos Diaz", date: "2026-02-19", orderId: "ORD-9362", picks: 12, difference: "picks A+B instead of A", duration: "11m 25s", timeDifferenceMinutes: -3.7 }
+    ],
+    table2: [
+      { tripId: "TR-P008-C01", employee: "Amy Wilson", date: "2026-02-25", orderId: "ORD-7890", picks: 20, difference: "picks C at B instead of C", duration: "6m 35s", timeDifferenceMinutes: 2.0 },
+      { tripId: "TR-P008-C02", employee: "Sara Jones", date: "2026-02-22", orderId: "ORD-8901", picks: 15, difference: "picks C at B instead of C", duration: "5m 50s", timeDifferenceMinutes: 1.7 },
+      { tripId: "TR-P008-C03", employee: "Carlos Diaz", date: "2026-02-19", orderId: "ORD-9012", picks: 23, difference: "picks C at B instead of C", duration: "7m 10s", timeDifferenceMinutes: 2.2 }
+    ]
+  },
+  "PPO-009": {
+    table1: [
+      { tripId: "TR-P009-001", employee: "Mike Chen", date: "2026-02-25", orderId: "ORD-3945", picks: 10, difference: "picks A+B instead of A", duration: "11m 20s", timeDifferenceMinutes: -3.5 },
+      { tripId: "TR-P009-002", employee: "Lisa Smith", date: "2026-02-24", orderId: "ORD-4856", picks: 13, difference: "picks A+B instead of B", duration: "9m 35s", timeDifferenceMinutes: -3.9 },
+      { tripId: "TR-P009-003", employee: "Amy Wilson", date: "2026-02-23", orderId: "ORD-5767", picks: 9, difference: "picks A+B instead of A", duration: "11m 50s", timeDifferenceMinutes: -3.2 },
+      { tripId: "TR-P009-004", employee: "Tom Brown", date: "2026-02-22", orderId: "ORD-6678", picks: 15, difference: "picks A+B instead of B", duration: "8m 50s", timeDifferenceMinutes: -4.1 },
+      { tripId: "TR-P009-005", employee: "Sara Jones", date: "2026-02-21", orderId: "ORD-7589", picks: 11, difference: "picks A+B instead of A", duration: "12m 25s", timeDifferenceMinutes: -3.4 },
+      { tripId: "TR-P009-006", employee: "Carlos Diaz", date: "2026-02-20", orderId: "ORD-8500", picks: 8, difference: "picks A+B instead of B", duration: "9m 10s", timeDifferenceMinutes: -3.8 },
+      { tripId: "TR-P009-007", employee: "Mike Chen", date: "2026-02-19", orderId: "ORD-9411", picks: 14, difference: "picks A+B instead of A", duration: "11m 05s", timeDifferenceMinutes: -3.6 }
+    ],
+    table2: [
+      { tripId: "TR-P009-C01", employee: "Tom Brown", date: "2026-02-25", orderId: "ORD-7901", picks: 19, difference: "picks C at B instead of C", duration: "6m 00s", timeDifferenceMinutes: 1.8 },
+      { tripId: "TR-P009-C02", employee: "Amy Wilson", date: "2026-02-22", orderId: "ORD-8012", picks: 14, difference: "picks C at B instead of C", duration: "5m 25s", timeDifferenceMinutes: 1.5 },
+      { tripId: "TR-P009-C03", employee: "Lisa Smith", date: "2026-02-19", orderId: "ORD-9123", picks: 22, difference: "picks C at B instead of C", duration: "6m 50s", timeDifferenceMinutes: 2.0 }
+    ]
+  },
+  "PPO-010": {
+    table1: [
+      { tripId: "TR-P010-001", employee: "Sara Jones", date: "2026-02-25", orderId: "ORD-3994", picks: 9, difference: "picks A+B instead of A", duration: "10m 45s", timeDifferenceMinutes: -3.1 },
+      { tripId: "TR-P010-002", employee: "Carlos Diaz", date: "2026-02-24", orderId: "ORD-4905", picks: 12, difference: "picks A+B instead of B", duration: "8m 55s", timeDifferenceMinutes: -3.5 },
+      { tripId: "TR-P010-003", employee: "Tom Brown", date: "2026-02-23", orderId: "ORD-5816", picks: 10, difference: "picks A+B instead of A", duration: "11m 15s", timeDifferenceMinutes: -2.9 },
+      { tripId: "TR-P010-004", employee: "Amy Wilson", date: "2026-02-22", orderId: "ORD-6727", picks: 14, difference: "picks A+B instead of B", duration: "9m 20s", timeDifferenceMinutes: -3.7 },
+      { tripId: "TR-P010-005", employee: "Mike Chen", date: "2026-02-21", orderId: "ORD-7638", picks: 8, difference: "picks A+B instead of A", duration: "11m 40s", timeDifferenceMinutes: -2.8 },
+      { tripId: "TR-P010-006", employee: "Lisa Smith", date: "2026-02-20", orderId: "ORD-8549", picks: 11, difference: "picks A+B instead of B", duration: "8m 35s", timeDifferenceMinutes: -3.4 },
+      { tripId: "TR-P010-007", employee: "Sara Jones", date: "2026-02-19", orderId: "ORD-9460", picks: 13, difference: "picks A+B instead of A", duration: "10m 25s", timeDifferenceMinutes: -3.2 }
+    ],
+    table2: [
+      { tripId: "TR-P010-C01", employee: "Carlos Diaz", date: "2026-02-25", orderId: "ORD-8023", picks: 17, difference: "picks C at B instead of C", duration: "5m 40s", timeDifferenceMinutes: 1.6 },
+      { tripId: "TR-P010-C02", employee: "Tom Brown", date: "2026-02-22", orderId: "ORD-9134", picks: 21, difference: "picks C at B instead of C", duration: "6m 30s", timeDifferenceMinutes: 1.9 },
+      { tripId: "TR-P010-C03", employee: "Amy Wilson", date: "2026-02-19", orderId: "ORD-1245", picks: 15, difference: "picks C at B instead of C", duration: "5m 05s", timeDifferenceMinutes: 1.4 }
+    ]
+  },
+  "PPO-011": {
+    table1: [
+      { tripId: "TR-P011-001", employee: "Amy Wilson", date: "2026-02-25", orderId: "ORD-4043", picks: 8, difference: "picks A+B instead of A", duration: "9m 55s", timeDifferenceMinutes: -2.5 },
+      { tripId: "TR-P011-002", employee: "Sara Jones", date: "2026-02-24", orderId: "ORD-4954", picks: 11, difference: "picks A+B instead of B", duration: "7m 50s", timeDifferenceMinutes: -2.8 },
+      { tripId: "TR-P011-003", employee: "Carlos Diaz", date: "2026-02-23", orderId: "ORD-5865", picks: 9, difference: "picks A+B instead of A", duration: "10m 20s", timeDifferenceMinutes: -2.3 },
+      { tripId: "TR-P011-004", employee: "Mike Chen", date: "2026-02-22", orderId: "ORD-6776", picks: 13, difference: "picks A+B instead of B", duration: "8m 10s", timeDifferenceMinutes: -3.0 },
+      { tripId: "TR-P011-005", employee: "Tom Brown", date: "2026-02-21", orderId: "ORD-7687", picks: 10, difference: "picks A+B instead of A", duration: "10m 45s", timeDifferenceMinutes: -2.2 },
+      { tripId: "TR-P011-006", employee: "Lisa Smith", date: "2026-02-20", orderId: "ORD-8598", picks: 7, difference: "picks A+B instead of B", duration: "7m 35s", timeDifferenceMinutes: -2.7 },
+      { tripId: "TR-P011-007", employee: "Amy Wilson", date: "2026-02-19", orderId: "ORD-9509", picks: 12, difference: "picks A+B instead of A", duration: "9m 30s", timeDifferenceMinutes: -2.6 }
+    ],
+    table2: [
+      { tripId: "TR-P011-C01", employee: "Mike Chen", date: "2026-02-25", orderId: "ORD-8134", picks: 16, difference: "picks C at B instead of C", duration: "5m 10s", timeDifferenceMinutes: 1.4 },
+      { tripId: "TR-P011-C02", employee: "Carlos Diaz", date: "2026-02-22", orderId: "ORD-9245", picks: 20, difference: "picks C at B instead of C", duration: "6m 00s", timeDifferenceMinutes: 1.7 },
+      { tripId: "TR-P011-C03", employee: "Tom Brown", date: "2026-02-19", orderId: "ORD-1356", picks: 13, difference: "picks C at B instead of C", duration: "4m 50s", timeDifferenceMinutes: 1.3 }
+    ]
+  }
 }
