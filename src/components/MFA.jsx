@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import WarehouseProcessMap from './WarehouseProcessMap'
 import {
   LayoutGrid, TrendingUp, ArrowRight, Check, X,
   Package, Clock, BarChart3, DollarSign, ArrowUp,
@@ -1442,12 +1443,12 @@ export default function MFAScreen() {
               />
             </div>
 
-            {/* Empty placeholder */}
-            <div className="h-64 bg-white rounded-xl border border-slate-200 flex items-center justify-center">
-              <div className="text-center text-slate-400">
-                <LayoutGrid size={48} className="mx-auto mb-3 text-slate-300" />
-                <p className="text-sm">Additional metrics coming soon</p>
-              </div>
+            {/* Warehouse Process Map */}
+            <div className="bg-white rounded-xl border border-slate-200 p-4">
+              <p className="text-xs font-semibold text-slate-500 mb-3 tracking-wide uppercase">
+                Warehouse Process Flow — Site MID-05
+              </p>
+              <WarehouseProcessMap />
             </div>
           </div>
         )}
