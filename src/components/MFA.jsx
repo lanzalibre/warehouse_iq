@@ -103,28 +103,37 @@ function SubTabButton({ activeSubTab, setActiveSubTab, id, label }) {
 }
 
 // ─── KPI Card ───────────────────────────────────────────────────────────────
-function KPICard({ icon: Icon, label, value, subtext, trend }) {
+function KPICard({ icon: Icon, label, value, subtext, delta, benchmarkLabel }) {
+  const positive = delta > 0
+  const neutral = delta === 0 || delta == null
+  const colorClass = neutral ? 'text-blue-600' : positive ? 'text-emerald-600' : 'text-red-600'
+  const bgClass   = neutral ? 'bg-blue-100'  : positive ? 'bg-emerald-100'  : 'bg-red-100'
+
   return (
     <div className="bg-white rounded-xl border border-slate-200 p-4">
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-3">
-          <div className={`p-2.5 rounded-full ${trend === 'up' ? 'bg-emerald-100' : trend === 'down' ? 'bg-red-100' : 'bg-blue-100'}`}>
-            <Icon size={18} className={trend === 'up' ? 'text-emerald-600' : trend === 'down' ? 'text-red-600' : 'text-blue-600'} />
+          <div className={`p-2.5 rounded-full ${bgClass}`}>
+            <Icon size={18} className={colorClass} />
           </div>
           <div>
             <div className="text-xs text-slate-400 mb-1">{label}</div>
             <div className="text-2xl font-bold text-slate-800">{value}</div>
           </div>
         </div>
-        {trend && (
-          <div className={`flex items-center gap-1 text-xs font-semibold ${trend === 'up' ? 'text-emerald-600' : trend === 'down' ? 'text-red-600' : 'text-blue-600'}`}>
-            {trend === 'up' && <ArrowUp size={14} />}
-            {trend === 'down' && <ArrowDown size={14} />}
-            {trend === 'up' ? '+12%' : trend === 'down' ? '-5%' : '+8%'}
+        {delta != null && (
+          <div className={`flex items-center gap-1 text-xs font-semibold ${colorClass}`}>
+            {positive ? <ArrowUp size={14} /> : <ArrowDown size={14} />}
+            {positive ? '+' : ''}{delta.toFixed(1)}%
           </div>
         )}
       </div>
-      {subtext && <div className="text-xs text-slate-500">{subtext}</div>}
+      <div className="flex items-center justify-between">
+        {subtext && <div className="text-xs text-slate-500">{subtext}</div>}
+        {benchmarkLabel && (
+          <div className="text-xs text-slate-400 ml-auto">{benchmarkLabel}</div>
+        )}
+      </div>
     </div>
   )
 }
@@ -151,6 +160,42 @@ function TimePeriodSelector({ timePeriod, setTimePeriod }) {
       </div>
     </div>
   )
+}
+
+// ─── Benchmark Selector Component ─────────────────────────────────────────
+function BenchmarkSelector({ benchmarkPeriod, setBenchmarkPeriod }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="text-xs text-slate-500 font-medium">Benchmark</span>
+      <div className="flex gap-1">
+        {['7', '30', '90'].map(period => (
+          <button
+            key={period}
+            onClick={() => setBenchmarkPeriod(period)}
+            className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
+              benchmarkPeriod === period
+                ? 'bg-violet-500 text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            {period}d avg
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── KPI Benchmarks (historical averages per period) ──────────────────────
+const KPI_BENCHMARKS = {
+  '7':  { totalOpportunities: 29, pendingActions: 28, acceptedThisMonth: 1, timeSavingsHours: 72 },
+  '30': { totalOpportunities: 27, pendingActions: 27, acceptedThisMonth: 1, timeSavingsHours: 69 },
+  '90': { totalOpportunities: 25, pendingActions: 26, acceptedThisMonth: 1, timeSavingsHours: 64 },
+}
+
+function calcDelta(current, benchmark) {
+  if (!benchmark) return null
+  return ((current - benchmark) / benchmark) * 100
 }
 
 // ─── Time Savings Summary Component ───────────────────────────────────────
@@ -1341,7 +1386,27 @@ export default function MFAScreen() {
   const [selectedOpportunity, setSelectedOpportunity] = useState(null)
   const [selectedIds, setSelectedIds] = useState(new Set())
   const [timePeriod, setTimePeriod] = useState('7')
+  const [benchmarkPeriod, setBenchmarkPeriod] = useState('30')
   const [visibleCount, setVisibleCount] = useState(12)
+
+  // ── Computed KPIs from real data ──────────────────────────────────────────
+  const allOpportunities = [
+    ...SINGLE_PRODUCT_OPPORTUNITIES,
+    ...PRODUCT_PAIRS_OPPORTUNITIES,
+    ...PRODUCT_TRIPLETS_OPPORTUNITIES,
+  ]
+  const currentKPIs = {
+    totalOpportunities: allOpportunities.length,
+    pendingActions: allOpportunities.filter(o => o.status === 'pending').length,
+    acceptedThisMonth: allOpportunities.filter(o => o.status === 'accepted').length,
+    timeSavingsHours: Math.round(
+      allOpportunities.reduce((sum, opp) =>
+        sum + (opp.tripFrequency?.days30 || 0) * (opp.timeSavingsMinutes || 0), 0
+      ) / 60
+    ),
+  }
+  const benchmark = KPI_BENCHMARKS[benchmarkPeriod]
+  const benchmarkLabel = `vs ${benchmarkPeriod}d avg`
 
   // Handle bulk actions
   const handleToggleSelect = (id) => {
@@ -1412,34 +1477,45 @@ export default function MFAScreen() {
         {/* Overview Tab */}
         {activeTab === 'overview' && (
           <div className="flex-1 overflow-y-auto p-6">
+
+            {/* KPI header row */}
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-sm font-semibold text-slate-700">Performance Overview</h2>
+              <BenchmarkSelector benchmarkPeriod={benchmarkPeriod} setBenchmarkPeriod={setBenchmarkPeriod} />
+            </div>
+
             <div className="grid grid-cols-4 gap-4 mb-6">
               <KPICard
                 icon={TrendingUp}
                 label="Total Opportunities"
-                value="156"
+                value={currentKPIs.totalOpportunities}
                 subtext="Across all analysis types"
-                trend="up"
+                delta={calcDelta(currentKPIs.totalOpportunities, benchmark.totalOpportunities)}
+                benchmarkLabel={benchmarkLabel}
               />
               <KPICard
                 icon={Move}
                 label="Pending Actions"
-                value="48"
+                value={currentKPIs.pendingActions}
                 subtext="Awaiting review"
-                trend="up"
+                delta={calcDelta(currentKPIs.pendingActions, benchmark.pendingActions)}
+                benchmarkLabel={benchmarkLabel}
               />
               <KPICard
                 icon={Check}
                 label="Accepted This Month"
-                value="23"
-                subtext="12% of total"
-                trend="up"
+                value={currentKPIs.acceptedThisMonth}
+                subtext={`${((currentKPIs.acceptedThisMonth / currentKPIs.totalOpportunities) * 100).toFixed(0)}% of total`}
+                delta={calcDelta(currentKPIs.acceptedThisMonth, benchmark.acceptedThisMonth)}
+                benchmarkLabel={benchmarkLabel}
               />
               <KPICard
                 icon={DollarSign}
                 label="Est. Time Savings"
-                value="312"
-                subtext="Hours per month"
-                trend="up"
+                value={`${currentKPIs.timeSavingsHours}h`}
+                subtext="Hours per month (30d basis)"
+                delta={calcDelta(currentKPIs.timeSavingsHours, benchmark.timeSavingsHours)}
+                benchmarkLabel={benchmarkLabel}
               />
             </div>
 
