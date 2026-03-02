@@ -336,6 +336,45 @@ export const TRIP_DATA = {
 }
 ```
 
+### warehouseProcessMap.json
+
+Stored in `src/data/warehouseProcessMap.json`. Drives the interactive process flow diagram in the MFA Overview tab.
+
+```json
+{
+  "swimlanes": [
+    { "id": "sl_inbound", "label": "INBOUND", "x": 0, "y": 0, "width": 800, "height": 200 }
+  ],
+  "nodes": [
+    {
+      "id": "receiving",
+      "label": "Receiving",
+      "nodeType": "bar",
+      "x": 10, "y": 30, "width": 60, "height": 160,
+      "metrics": {
+        "Throughput": "210 pallets/hr",
+        "Efficiency": "94%",
+        "Dock doors": "12"
+      },
+      "metricBenchmarks": {
+        "7":  { "Throughput": 195, "Efficiency": 91 },
+        "30": { "Throughput": 185, "Efficiency": 89 },
+        "90": { "Throughput": 175, "Efficiency": 87 }
+      }
+    }
+  ],
+  "edges": [
+    { "id": "e1", "source": "receiving", "target": "rack_storage" }
+  ]
+}
+```
+
+**`metricBenchmarks` rules:**
+- Only operational / KPI-type metrics get benchmark values (throughput, rates, pick counts, etc.)
+- Static capacity fields (`Dock doors`, `Locations`, `Vendor count`) are excluded — no benchmark entry → no delta badge rendered
+- Keys in `metricBenchmarks` must exactly match the corresponding key in `metrics`
+- Benchmark values are raw numbers; the `parseNumeric()` helper strips units from the display string before computing the delta
+
 ### ALTERNATIVE_LOCATION_DATA
 Data for SKUs at alternative locations.
 
@@ -359,6 +398,20 @@ export const ALTERNATIVE_LOCATION_DATA = {
   },
 }
 ```
+
+### KPI_BENCHMARKS
+
+Defined as a local constant in `src/components/MFA.jsx` (not in `mockData.js`). Provides historical averages for the four Overview KPI cards.
+
+```javascript
+const KPI_BENCHMARKS = {
+  '7':  { totalOpportunities: 29, pendingActions: 28, acceptedThisMonth: 1, timeSavingsHours: 72 },
+  '30': { totalOpportunities: 27, pendingActions: 27, acceptedThisMonth: 1, timeSavingsHours: 69 },
+  '90': { totalOpportunities: 25, pendingActions: 26, acceptedThisMonth: 1, timeSavingsHours: 64 },
+}
+```
+
+Used with `calcDelta(current, benchmark)` to compute the ↑/↓ % shown on each `KPICard`.
 
 ---
 

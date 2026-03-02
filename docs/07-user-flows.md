@@ -315,19 +315,59 @@ This document details all user interactions and flows that each screen should en
 
 ### User Flows
 
-#### 5.1 Navigate Between Analysis Types
+#### 5.1 Navigate Between MFA Tabs
+**Goal**: Switch between Overview, Reslotting, and Simulation views
+
+**Steps**:
+1. User navigates to MFA screen — defaults to Overview tab
+2. Top tab bar shows: Overview / Reslotting / Simulation
+3. Click tab to switch view
+
+**State Changes**:
+- `activeTab` state tracks top-level tab ('overview' | 'reslotting' | 'simulation')
+
+#### 5.2 View Overview Tab — Benchmark Selector
+**Goal**: Change the benchmark comparison period for KPI cards and process map
+
+**Steps**:
+1. User sees violet pill buttons: **7d avg / 30d avg / 90d avg**
+2. Click a button to select benchmark period
+3. KPI card delta badges update immediately (↑/↓ %)
+4. Process map node detail panel delta badges also update if a node is open
+
+**State Changes**:
+- `benchmarkPeriod` changes to '7', '30', or '90'
+
+#### 5.3 Explore Warehouse Process Map
+**Goal**: Inspect KPI metrics for a specific warehouse process node
+
+**Steps**:
+1. User views the interactive flow diagram on the Overview tab
+2. Diagram shows 18 process nodes across 4 swimlanes (Inbound, Storage, Outbound, Customers)
+3. User clicks any amber process node
+4. A detail panel appears below the diagram showing:
+   - Node name (header)
+   - Metric grid: operational KPIs with delta badge vs selected benchmark period
+   - Static capacity fields (dock doors, locations) shown without badge
+5. Click a different node to switch; click the × or the same node again to close
+6. Switch benchmark period (7d / 30d / 90d) → all delta badges update live
+
+**State Changes**:
+- `selectedNode` tracks clicked node (null when closed)
+
+#### 5.4 Navigate Between Reslotting Analysis Types
 **Goal**: Access different reslotting opportunity types
 
 **Steps**:
-1. User navigates to MFA screen
-2. Top shows analysis type tabs: Single Products, Product Pairs, Product Triplets
+1. User clicks **Reslotting** tab in the MFA top tab bar
+2. Sub-tab bar appears: Single Products, Product Pairs, Product Triplets
 3. KPI cards show summary metrics
-4. Click tab to switch analysis type
+4. Click sub-tab to switch analysis type
 
 **State Changes**:
 - `activeSubTab` state tracks current analysis type
 
-#### 5.2 View Reslotting Opportunities
+#### 5.5 View Reslotting Opportunities
 **Goal**: See available optimization opportunities
 
 **Steps**:
@@ -346,7 +386,7 @@ This document details all user interactions and flows that each screen should en
 - Costs cards: red-tinted
 - Priority badges color-coded
 
-#### 5.3 View Opportunity Details
+#### 5.6 View Opportunity Details
 **Goal**: Analyze a specific reslotting opportunity
 
 **Steps**:
@@ -363,7 +403,7 @@ This document details all user interactions and flows that each screen should en
 - `selectedOpportunity` tracks selected item
 - `selectedAlternative` reset to null on new selection
 
-#### 5.4 Select Alternative Location
+#### 5.7 Select Alternative Location
 **Goal**: Compare impact of different location options
 
 **Steps**:
@@ -381,7 +421,7 @@ This document details all user interactions and flows that each screen should en
 - Impact Summary recalculates
 - Both grids update
 
-#### 5.5 Change Time Period
+#### 5.8 Change Time Period
 **Goal**: View impact over different time windows
 
 **Steps**:
@@ -395,7 +435,7 @@ This document details all user interactions and flows that each screen should en
 **State Changes**:
 - `timePeriod` state updated ('7', '30', or '90')
 
-#### 5.6 Review Impact Summary
+#### 5.9 Review Impact Summary
 **Goal**: Understand net impact of reslotting decision
 
 **Steps**:
@@ -419,7 +459,7 @@ This document details all user interactions and flows that each screen should en
    - Positive (green) or negative (red) indicator
    - Text summary
 
-#### 5.7 Analyze Historical Trips
+#### 5.10 Analyze Historical Trips
 **Goal**: See how routes would change for current SKU
 
 **Steps**:
@@ -440,7 +480,7 @@ This document details all user interactions and flows that each screen should en
 - Savings values recalculate
 - Same trips, different calculations
 
-#### 5.8 Review Delays Grid
+#### 5.11 Review Delays Grid
 **Goal**: Understand impact on SKU at alternative location
 
 **Steps**:
@@ -462,7 +502,7 @@ This document details all user interactions and flows that each screen should en
 - Different trips loaded
 - Different cost calculations
 
-#### 5.9 Select Costs Opportunity
+#### 5.12 Select Costs Opportunity
 **Goal**: View low-demand SKU that should be moved
 
 **Steps**:

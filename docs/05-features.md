@@ -132,65 +132,90 @@ Comparison of Warehouse Management System (WMS) plans vs Warehouse Execution Sys
 ## 4. Multi-Faceted Analytics (MFA)
 
 ### Overview
-Warehouse optimization analytics focused on reslotting opportunities.
+Warehouse optimization analytics with three top-level tabs: Overview, Reslotting, Simulation.
 
-### Sub-Tabs
+---
+
+### Overview Tab
+
+#### Benchmark Selector
+- Violet pill button group: **7d avg / 30d avg / 90d avg**
+- Sets the active benchmark period; all delta calculations on the page update live
+
+#### KPI Cards
+Four summary cards, each showing the current value and a delta badge (↑/↓ %) vs the selected benchmark:
+
+| Card | Metric source |
+|------|--------------|
+| Total Opportunities | Count across all 3 opportunity arrays |
+| Pending Actions | Pending items in all arrays |
+| Accepted This Month | Accepted items across all arrays |
+| Time Savings Hours | Derived from trip frequency in `days30` window |
+
+#### Warehouse Process Flow Diagram
+- Interactive React Flow diagram (powered by `@xyflow/react`)
+- 18 clickable process nodes spanning 4 swimlanes: Inbound, Storage, Outbound, Customers
+- Nodes are amber boxes (`processNode`) or vertical bars (`barNode`); swimlanes are dashed red outlines
+- **Click a node** → detail panel appears below the diagram showing that node's KPI metrics
+- Operational KPIs (throughput, rates, pick counts) display a delta badge vs the selected benchmark period
+- Static capacity fields (dock doors, location counts) show no badge
+- Click the same node again (or the × button) to dismiss the detail panel
+- Benchmark selector at the top of the Overview tab drives the delta badges in real time
+
+---
+
+### Reslotting Tab
+
+#### Sub-Tabs
 1. **Single Products** - Individual SKU reslotting
 2. **Product Pairs** - Co-location for frequently paired SKUs
 3. **Product Triplets** - Co-location for three related SKUs
 
-### Master Panel (Left)
+#### Master Panel (Left)
 **Two-Grid Layout**:
 
 **Savings Grid** (11 items):
 - High-demand SKUs currently far from staging
 - Moving them closer would save time
-- Green-tinted cards
-- Time savings per order displayed
+- Green-tinted cards, time savings per order displayed
 
 **Costs Grid** (4 items):
 - Low-demand SKUs in prime locations (Zone A)
 - Should be moved further from staging
-- Red/amber-tinted cards
-- Time cost per order displayed
+- Red/amber-tinted cards, time cost per order displayed
 
-### Detail Panel (Right)
+#### Detail Panel (Right)
 
 **Opportunity Details Section**:
-- Current location and SKU
-- Demand level badge
+- Current location and SKU, demand level badge
 - Alternative locations combobox (shows location + SKU at that location)
 
 **Time Period Selector**:
-- 7 Days / 30 Days / 90 Days buttons
-- Affects all calculations in panel
+- 7 Days / 30 Days / 90 Days buttons — affects all calculations in panel
 
 **Impact Summary**:
-- Savings section: "{SKU} at {new location} instead of {current location}"
-  - Total savings
-  - Average per trip
-  - Number of trips
-- Costs section: "{alt SKU} at {current location} instead of {alt location}"
-  - Total cost
-  - Average per trip
-  - Number of affected trips
-- Net Impact with positive/negative indicator
+- Savings: "{SKU} at {new location} instead of {current location}" — total, avg per trip, trip count
+- Costs: "{alt SKU} at {current location} instead of {alt location}" — total, avg per trip, affected trips
+- Net Impact with positive (green) or negative (red) indicator
 
 **Recent Trips Table**:
 - Title: "Time of historical routes for {SKU} if assigned to location {selected}"
-- Shows same trips with recalculated savings
 - Columns: Employee, Date, Order ID, Picks, Current, If at {location}, Saved
-- Time period indicator in header
 
 **Delays Grid**:
 - Title: "Time of historical routes for {alt SKU} if assigned to location {current}"
 - Shows different trips for SKU at alternative location
 - Columns: Employee, Date, Order ID, Picks, Current (at alt), If at {current}, Added
 
-### Dynamic Calculations
+#### Dynamic Calculations
 - All values update when alternative location is selected
-- Savings recalculate based on new location's time savings
 - Delays grid shows different SKU and trips entirely
+
+---
+
+### Simulation Tab
+
+Placeholder — reserved for future simulation features.
 
 ---
 

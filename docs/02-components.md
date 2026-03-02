@@ -174,30 +174,75 @@ Main Plan vs Execution component with sub-tab navigation.
 
 ## MFA.jsx (Multi-Faceted Analytics)
 
-Reslotting opportunities and warehouse optimization analytics.
+Warehouse optimization analytics with three top-level tabs.
 
-### Main Sections
-1. **Sub-tabs** - Single Products, Product Pairs, Product Triplets
-2. **Master Panel** (left) - Two grids: Savings and Costs
-3. **Detail Panel** (right) - Opportunity details and impact analysis
+### Top-Level Tabs
+| Tab | Content |
+|-----|---------|
+| `overview` | BenchmarkSelector + KPI cards + WarehouseProcessMap |
+| `reslotting` | Single Products / Product Pairs / Product Triplets sub-tabs |
+| `simulation` | Placeholder |
 
-### Opportunity Classification
-- **Savings**: High-demand SKUs moving closer to staging
-- **Costs**: Low-demand SKUs in prime locations (Zone A)
-
-### Detail Panel Components
-1. **Opportunity Details** - Current location, SKU, demand level
-2. **Alternative Locations** - Combobox with location and SKU at that location
-3. **Time Period Selector** - 7/30/90 days buttons
-4. **Impact Summary** - Savings, Costs, Net Impact
-5. **Recent Trips Table** - Historical route analysis
-6. **Delays Grid** - Impact on alternative location SKU
-
-### Key Helper Functions
+### State
 ```jsx
-classifyOpportunity(opportunity)  // Returns 'savings' or 'costs'
-calculateTimeSavings(opp, alt, period)  // Calculate time savings
-formatTime(minutes)  // Format minutes to "Xh Ym"
+const [activeTab, setActiveTab] = useState('overview')       // top-level tab
+const [benchmarkPeriod, setBenchmarkPeriod] = useState('30') // '7' | '30' | '90'
+const [activeSubTab, setActiveSubTab] = useState('single')   // reslotting sub-tab
+```
+
+### Overview Tab Components
+- **`BenchmarkSelector`** — violet pill buttons (7d avg / 30d avg / 90d avg) that set `benchmarkPeriod`
+- **`KPICard`** — 4 cards: Total Opportunities, Pending Actions, Accepted This Month, Time Savings Hours. Each shows a delta badge vs the selected benchmark period
+- **`WarehouseProcessMap`** — interactive process flow diagram (receives `benchmarkPeriod` prop)
+
+### Reslotting Tab
+- Sub-tabs: Single Products, Product Pairs, Product Triplets
+- Master panel (left): Savings grid (green) + Costs grid (red)
+- Detail panel (right): opportunity analysis, alternative locations, impact summary, trips table
+
+### Key Helpers (local to MFA.jsx)
+```jsx
+calcDelta(current, benchmark)     // Returns % delta or null
+// KPI benchmark values by period:
+const KPI_BENCHMARKS = {
+  '7':  { totalOpportunities: 29, pendingActions: 28, acceptedThisMonth: 1, timeSavingsHours: 72 },
+  '30': { totalOpportunities: 27, pendingActions: 27, acceptedThisMonth: 1, timeSavingsHours: 69 },
+  '90': { totalOpportunities: 25, pendingActions: 26, acceptedThisMonth: 1, timeSavingsHours: 64 },
+}
+// Reslotting helpers:
+classifyOpportunity(opportunity)          // Returns 'savings' or 'costs'
+calculateTimeSavings(opp, alt, period)    // Calculate time savings
+formatTime(minutes)                       // Format minutes to "Xh Ym"
+```
+
+---
+
+## WarehouseProcessMap.jsx
+
+Interactive React Flow diagram showing the end-to-end warehouse process, used in the MFA Overview tab.
+
+### Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `benchmarkPeriod` | string | `'30'` | Active benchmark period ('7', '30', or '90'); drives delta badges in detail panel |
+
+### Node Types
+| Type key | Component | Description |
+|----------|-----------|-------------|
+| `swimlane` | `SwimlaneNode` | Dashed-border group label (not selectable) |
+| `processNode` | `ProcessNode` | Standard amber process box |
+| `barNode` | `BarNode` | Tall vertical bar for Receiving / Loading |
+
+### Behavior
+- Clicking a `processNode` or `barNode` toggles an inline detail panel below the diagram
+- Detail panel shows a metric grid; operational KPIs display a `DeltaBadge` (↑/↓ %) vs the selected benchmark period
+- Static capacity fields (dock doors, locations, vendor counts) have no `metricBenchmarks` entry and show no badge
+- Data sourced from `src/data/warehouseProcessMap.json`
+
+### Local Helpers
+```jsx
+parseNumeric(str)                           // Strips non-numeric chars, returns float
+DeltaBadge({ current, benchmarkVal })       // Inline ↑/↓ % badge; returns null if no benchmark
 ```
 
 ---
