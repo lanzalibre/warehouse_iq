@@ -4,7 +4,7 @@ import {
   LayoutGrid, TrendingUp, ArrowRight, Check, X,
   Package, Clock, BarChart3, DollarSign, ArrowUp,
   ArrowDown, Move, Eye, EyeOff, Calendar,
-  ChevronDown, MapPin, Timer, TrendingDown, Target, Zap,
+  ChevronDown, MapPin, Timer, TrendingDown,
 } from 'lucide-react'
 
 import {
@@ -188,9 +188,9 @@ function BenchmarkSelector({ benchmarkPeriod, setBenchmarkPeriod }) {
 
 // ─── KPI Benchmarks (historical averages per period) ──────────────────────
 const KPI_BENCHMARKS = {
-  '7':  { totalOpportunities: 29, pendingActions: 28, acceptedThisMonth: 1, timeSavingsHours: 72, clearanceRate: 2.8, avgSavingsPerTrip: 2.75, highDemandOpps: 7,  zoneAMoves: 10 },
-  '30': { totalOpportunities: 27, pendingActions: 27, acceptedThisMonth: 1, timeSavingsHours: 69, clearanceRate: 2.5, avgSavingsPerTrip: 2.68, highDemandOpps: 6,  zoneAMoves: 9  },
-  '90': { totalOpportunities: 25, pendingActions: 26, acceptedThisMonth: 1, timeSavingsHours: 64, clearanceRate: 2.2, avgSavingsPerTrip: 2.55, highDemandOpps: 5,  zoneAMoves: 8  },
+  '7':  { totalOpportunities: 29, pendingActions: 28, acceptedThisMonth: 1, timeSavingsHours: 72 },
+  '30': { totalOpportunities: 27, pendingActions: 27, acceptedThisMonth: 1, timeSavingsHours: 69 },
+  '90': { totalOpportunities: 25, pendingActions: 26, acceptedThisMonth: 1, timeSavingsHours: 64 },
 }
 
 function calcDelta(current, benchmark) {
@@ -1395,20 +1395,15 @@ export default function MFAScreen() {
     ...PRODUCT_PAIRS_OPPORTUNITIES,
     ...PRODUCT_TRIPLETS_OPPORTUNITIES,
   ]
-  const acceptedCount = allOpportunities.filter(o => o.status === 'accepted').length
   const currentKPIs = {
     totalOpportunities: allOpportunities.length,
     pendingActions: allOpportunities.filter(o => o.status === 'pending').length,
-    acceptedThisMonth: acceptedCount,
+    acceptedThisMonth: allOpportunities.filter(o => o.status === 'accepted').length,
     timeSavingsHours: Math.round(
       allOpportunities.reduce((sum, opp) =>
         sum + (opp.tripFrequency?.days30 || 0) * (opp.timeSavingsMinutes || 0), 0
       ) / 60
     ),
-    clearanceRate: parseFloat(((acceptedCount / allOpportunities.length) * 100).toFixed(1)),
-    avgSavingsPerTrip: parseFloat((allOpportunities.reduce((s, o) => s + (o.timeSavingsMinutes || 0), 0) / allOpportunities.length).toFixed(2)),
-    highDemandOpps: allOpportunities.filter(o => o.demandLevel === 'high' || o.demandLevel === 'very-high').length,
-    zoneAMoves: allOpportunities.filter(o => o.suggestedLocation?.zone === 'A').length,
   }
   const benchmark = KPI_BENCHMARKS[benchmarkPeriod]
   const benchmarkLabel = `vs ${benchmarkPeriod}d avg`
@@ -1520,42 +1515,6 @@ export default function MFAScreen() {
                 value={`${currentKPIs.timeSavingsHours}h`}
                 subtext="Hours per month (30d basis)"
                 delta={calcDelta(currentKPIs.timeSavingsHours, benchmark.timeSavingsHours)}
-                benchmarkLabel={benchmarkLabel}
-              />
-            </div>
-
-            {/* Bottom KPI row */}
-            <div className="grid grid-cols-4 gap-4 mb-6">
-              <KPICard
-                icon={Target}
-                label="Clearance Rate"
-                value={`${currentKPIs.clearanceRate}%`}
-                subtext="Opportunities accepted"
-                delta={calcDelta(currentKPIs.clearanceRate, benchmark.clearanceRate)}
-                benchmarkLabel={benchmarkLabel}
-              />
-              <KPICard
-                icon={Zap}
-                label="Avg Savings / Trip"
-                value={`${currentKPIs.avgSavingsPerTrip}m`}
-                subtext="Minutes saved per picker trip"
-                delta={calcDelta(currentKPIs.avgSavingsPerTrip, benchmark.avgSavingsPerTrip)}
-                benchmarkLabel={benchmarkLabel}
-              />
-              <KPICard
-                icon={TrendingUp}
-                label="High Demand Opps"
-                value={currentKPIs.highDemandOpps}
-                subtext="High / very-high demand SKUs"
-                delta={calcDelta(currentKPIs.highDemandOpps, benchmark.highDemandOpps)}
-                benchmarkLabel={benchmarkLabel}
-              />
-              <KPICard
-                icon={MapPin}
-                label="Zone A Moves"
-                value={currentKPIs.zoneAMoves}
-                subtext="Suggestions to prime zone"
-                delta={calcDelta(currentKPIs.zoneAMoves, benchmark.zoneAMoves)}
                 benchmarkLabel={benchmarkLabel}
               />
             </div>
