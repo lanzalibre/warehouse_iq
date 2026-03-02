@@ -1,11 +1,12 @@
-import { Boxes, Users2, GitCompare, MapPinOff, Clock, MessageSquare, LayoutGrid } from 'lucide-react'
+import { Boxes, Users2, GitCompare, MapPinOff, Clock, MessageSquare, LayoutGrid, Cable } from 'lucide-react'
 
 const NAV_ITEMS = [
   { id: 'yard',          icon: Boxes,          shortLabel: 'Yard',    fullLabel: 'Yard Management'           },
   { id: 'labor',         icon: Users2,         shortLabel: 'Labor',   fullLabel: 'Labor Management'          },
   { id: 'plan-exec',     icon: GitCompare,     shortLabel: 'Plan',    fullLabel: 'Plan vs Execution'         },
-  { id: 'mfa',           icon: LayoutGrid,      shortLabel: 'MFA',     fullLabel: 'Multi-Faceted Analytics' },
+  { id: 'mfa',           icon: LayoutGrid,     shortLabel: 'MFA',     fullLabel: 'Multi-Faceted Analytics'   },
   { id: 'nl-query',      icon: MessageSquare,  shortLabel: 'Query',   fullLabel: 'Natural Language Queries'  },
+  { id: 'connections',   icon: Cable,          shortLabel: 'Data',    fullLabel: 'Data Connections'          },
 ]
 
 export default function Navbar({ activeScreen, onNavigate }) {

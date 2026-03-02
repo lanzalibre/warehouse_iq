@@ -7,6 +7,7 @@ import LaborManagement from './components/LaborManagement.jsx'
 import PlanVsExecution from './components/PlanVsExecution/index.jsx'
 import NLQueryScreen from './components/NLQuery.jsx'
 import MFAScreen from './components/MFA.jsx'
+import DataSourcesScreen from './components/DataSources.jsx'
 
 export default function App() {
   const [activeScreen, setActiveScreen] = useState('yard')
@@ -71,6 +72,7 @@ export default function App() {
           {activeScreen === 'plan-exec' && <PlanVsExecution />}
           {activeScreen === 'mfa' && <MFAScreen />}
           {activeScreen === 'nl-query' && <NLQueryScreen />}
+          {activeScreen === 'connections' && <DataSourcesScreen />}
         </div>
 
         {/* Right-side navigation */}
