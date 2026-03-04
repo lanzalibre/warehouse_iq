@@ -15,6 +15,8 @@ export default function App() {
   const [persona, setPersona] = useState(null)
   const [activeScreen, setActiveScreen] = useState('yard')
   const [simulationTemplateId, setSimulationTemplateId] = useState(null)
+  const [laborInitialTab, setLaborInitialTab] = useState(null)
+  const [laborReturnScreen, setLaborReturnScreen] = useState(null)
 
   // Yard sub-state
   const [yardView, setYardView] = useState('selection')
@@ -52,6 +54,13 @@ export default function App() {
   }
 
   function handleNavigate(screen, opts) {
+    if (screen === 'labor' && opts?.tab) {
+      setLaborInitialTab(opts.tab)
+      setLaborReturnScreen(activeScreen)
+    } else if (screen !== 'labor') {
+      setLaborInitialTab(null)
+      setLaborReturnScreen(null)
+    }
     setActiveScreen(screen)
     if (screen === 'simulation' && opts?.templateId) {
       setSimulationTemplateId(opts.templateId)
@@ -95,7 +104,12 @@ export default function App() {
               onSwitchContainer={handleSwitchContainer}
             />
           )}
-          {activeScreen === 'labor' && <LaborManagement />}
+          {activeScreen === 'labor' && (
+            <LaborManagement
+              initialTab={laborInitialTab}
+              onBack={laborReturnScreen ? () => handleNavigate(laborReturnScreen) : null}
+            />
+          )}
           {activeScreen === 'plan-exec' && (
             <PlanVsExecution
               persona={persona?.id}

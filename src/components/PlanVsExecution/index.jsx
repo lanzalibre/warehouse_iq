@@ -124,7 +124,10 @@ export default function PlanVsExecution({ persona, onNavigate }) {
 
           {/* DC Manager tabs */}
           {activeTab === 'dc-overview' && (
-            <DCOverview onNavigateToSimulation={() => onNavigate?.('simulation')} />
+            <DCOverview
+              onNavigateToSimulation={() => onNavigate?.('simulation')}
+              onNavigateToLabor={(tab) => onNavigate?.('labor', { tab })}
+            />
           )}
           {activeTab === 'dc-summary' && <DCDaySummary />}
         </div>

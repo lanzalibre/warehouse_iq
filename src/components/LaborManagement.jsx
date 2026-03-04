@@ -2,12 +2,17 @@ import { useState } from 'react'
 import {
   Users, Clock, AlertTriangle,
   ArrowRight, UserCheck, TrendingUp, Scale,
-  Star, Info, Zap, BarChart3, X,
+  Star, Info, Zap, BarChart3, X, ArrowLeft, Activity,
 } from 'lucide-react'
 import {
   WORKERS, ZONE_CONFIG, LABOR_PERIOD_DATA, REBALANCING_RECS,
-  getExperienceLevel,
+  getExperienceLevel, DC_MANAGER_DATA,
 } from '../mockData.js'
+
+const inboundData = DC_MANAGER_DATA.contributorDetail.inboundVariability
+const maxLaborHours = Math.max(
+  ...inboundData.chartData.map(r => Math.max(r.laborHours.planned, r.laborHours.actual ?? 0))
+)
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 const ZONES_ORDER = ['Zone A', 'Zone B', 'Zone C', 'Zone D', 'Crossdock']
@@ -397,8 +402,162 @@ function RecommendationCard({ rec }) {
   )
 }
 
+// ─── Inbound Variability Tab ────────────────────────────────────────────────────
+function InboundVariabilityTab() {
+  return (
+    <div className="flex-1 overflow-y-auto p-5 space-y-6">
+      {/* KPI row */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Today's Variance</div>
+          <div className="text-2xl font-bold text-red-600">{inboundData.todayVariance}%</div>
+        </div>
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">3-Day Avg Variance</div>
+          <div className="text-2xl font-bold text-slate-800">{inboundData.avgVariance}%</div>
+        </div>
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Trend</div>
+          <div className="flex items-center gap-1.5 text-2xl font-bold text-amber-600">
+            <TrendingUp size={20} /> Rising
+          </div>
+        </div>
+      </div>
+
+      {/* Workload mix */}
+      <div className="bg-white rounded-xl border border-slate-200 p-5">
+        <div className="text-sm font-bold text-slate-800 mb-1">Inbound Workload Mix (%)</div>
+        <p className="text-xs text-slate-400 mb-4">Volume composition by handling type across the 5-day window</p>
+        <div className="space-y-3">
+          {inboundData.chartData.map(row => {
+            const total = row.conveyor + row.pallet + row.flat
+            const conveyorPct = Math.round((row.conveyor / total) * 100)
+            const palletPct = Math.round((row.pallet / total) * 100)
+            const flatPct = 100 - conveyorPct - palletPct
+            const isToday = row.label === 'Today'
+            const isFuture = row.label === 'Tomorrow'
+            return (
+              <div key={row.label}>
+                <div className="flex items-center justify-between text-xs text-slate-500 mb-1">
+                  <div className="flex items-center gap-2">
+                    <span className={isToday ? 'font-bold text-slate-800' : isFuture ? 'text-violet-600 font-semibold' : ''}>
+                      {row.label}
+                    </span>
+                    <span className="text-slate-300">{row.dayLabel}</span>
+                    {isFuture && <span className="text-[10px] bg-violet-100 text-violet-600 px-1.5 py-0.5 rounded font-semibold">Forecast</span>}
+                  </div>
+                  <span className="text-slate-400">{total} units</span>
+                </div>
+                <div className={`h-5 rounded-full overflow-hidden flex ${isFuture ? 'opacity-60' : ''}`}>
+                  <div className="bg-blue-500 h-full" style={{ width: `${conveyorPct}%` }} title={`Conveyor ${conveyorPct}%`} />
+                  <div className="bg-violet-400 h-full" style={{ width: `${palletPct}%` }} title={`Pallet ${palletPct}%`} />
+                  <div className="bg-slate-300 h-full" style={{ width: `${flatPct}%` }} title={`Flat ${flatPct}%`} />
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <div className="mt-3 flex items-center gap-4 text-xs text-slate-500">
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block" />Conveyor</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-violet-400 inline-block" />Pallet</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-slate-300 inline-block" />Flat</span>
+        </div>
+      </div>
+
+      {/* Labor hours */}
+      <div className="bg-white rounded-xl border border-slate-200 p-5">
+        <div className="text-sm font-bold text-slate-800 mb-1">Labor Hours — Planned vs Actual</div>
+        <p className="text-xs text-slate-400 mb-4">Red bars indicate hours exceeded plan — a direct driver of OTIF risk</p>
+        <div className="space-y-5">
+          {inboundData.chartData.map(row => {
+            const isToday = row.label === 'Today'
+            const isFuture = row.label === 'Tomorrow'
+            const plannedW = Math.round((row.laborHours.planned / maxLaborHours) * 100)
+            const actualW = row.laborHours.actual != null
+              ? Math.round((row.laborHours.actual / maxLaborHours) * 100)
+              : null
+            const isOver = row.laborHours.actual != null && row.laborHours.actual > row.laborHours.planned
+
+            return (
+              <div key={row.label}>
+                <div className="flex items-center justify-between text-xs mb-1.5">
+                  <div className="flex items-center gap-2 text-slate-500">
+                    <span className={isToday ? 'font-bold text-slate-800' : isFuture ? 'text-violet-600 font-semibold' : ''}>
+                      {row.label}
+                    </span>
+                    <span className="text-slate-300">{row.dayLabel}</span>
+                    {isFuture && <span className="text-[10px] bg-violet-100 text-violet-600 px-1.5 py-0.5 rounded font-semibold">Forecast</span>}
+                  </div>
+                  <div className="flex items-center gap-3 text-xs">
+                    <span className="text-slate-500">Plan: <span className="font-semibold text-slate-700">{row.laborHours.planned}h</span></span>
+                    {actualW != null && (
+                      <span className={isOver ? 'text-red-600 font-semibold' : 'text-emerald-600 font-semibold'}>
+                        Actual: {row.laborHours.actual}h
+                        {isOver && <span className="ml-1 text-red-400">+{row.laborHours.actual - row.laborHours.planned}h</span>}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] text-slate-400 w-12 text-right flex-shrink-0">Plan</span>
+                    <div className="flex-1 h-4 bg-slate-100 rounded-md overflow-hidden">
+                      <div className="h-full bg-blue-300 rounded-md" style={{ width: `${plannedW}%` }} />
+                    </div>
+                    <span className="text-[10px] text-slate-400 w-8">{row.laborHours.planned}h</span>
+                  </div>
+                  {actualW != null && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-slate-400 w-12 text-right flex-shrink-0">Actual</span>
+                      <div className="flex-1 h-4 bg-slate-100 rounded-md overflow-hidden">
+                        <div className={`h-full rounded-md ${isOver ? 'bg-red-400' : 'bg-emerald-400'}`} style={{ width: `${actualW}%` }} />
+                      </div>
+                      <span className={`text-[10px] w-8 font-semibold ${isOver ? 'text-red-500' : 'text-emerald-600'}`}>{row.laborHours.actual}h</span>
+                    </div>
+                  )}
+                  {isFuture && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] text-violet-400 w-12 text-right flex-shrink-0">Fcst.</span>
+                      <div className="flex-1 h-4 bg-slate-100 rounded-md overflow-hidden">
+                        <div className="h-full bg-violet-300 rounded-md opacity-60" style={{ width: `${plannedW}%` }} />
+                      </div>
+                      <span className="text-[10px] text-violet-400 w-8">{row.laborHours.planned}h</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+        <div className="mt-4 flex items-center gap-4 text-xs text-slate-500">
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-blue-300 inline-block" />Planned</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-emerald-400 inline-block" />Actual (on plan)</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-red-400 inline-block" />Actual (over plan)</span>
+          <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded bg-violet-300 inline-block" />Forecast</span>
+        </div>
+      </div>
+
+      {/* Impact card */}
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
+        <div className="text-sm font-semibold text-amber-800 mb-2">OTIF Risk Contribution</div>
+        <div className="flex items-center gap-6">
+          <div>
+            <div className="text-3xl font-bold text-amber-700">{inboundData.impactPct}%</div>
+            <div className="text-xs text-amber-600">of total OTIF risk</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-red-700">–${(inboundData.impactDollars / 1000).toFixed(0)}K</div>
+            <div className="text-xs text-red-600">estimated exposure</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── Main View ─────────────────────────────────────────────────────────────────
-export default function LaborManagement() {
+export default function LaborManagement({ initialTab, onBack }) {
+  const [activeTab, setActiveTab] = useState(initialTab || 'workload')
   const [period, setPeriod] = useState('shift')
   const [expandedZone, setExpandedZone] = useState(null)
   const periodData = LABOR_PERIOD_DATA[period]
@@ -426,8 +585,53 @@ export default function LaborManagement() {
 
   const deficitZones = ZONES_ORDER.filter(z => calcSurplus(periodData.zones[z]) < 0)
 
+  const TABS = [
+    { id: 'workload', label: 'Workload & Capacity', icon: BarChart3 },
+    { id: 'inbound-variability', label: 'Inbound Variability', icon: Activity },
+  ]
+
   return (
     <div className="flex flex-col flex-1 overflow-hidden">
+      {/* Back banner (when navigated from another screen) */}
+      {onBack && (
+        <div className="bg-blue-50 border-b border-blue-200 px-6 py-2 flex items-center gap-2 flex-shrink-0">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-1.5 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
+          >
+            <ArrowLeft size={14} />
+            Back to Plan Overview
+          </button>
+        </div>
+      )}
+
+      {/* Tab navigation */}
+      <div className="bg-white border-b border-slate-200 px-6 pt-3 pb-0 flex items-end gap-1 flex-shrink-0">
+        {TABS.map(tab => {
+          const Icon = tab.icon
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-t-lg border-b-2 transition-all ${
+                activeTab === tab.id
+                  ? 'border-blue-500 text-blue-600 bg-blue-50'
+                  : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
+              }`}
+            >
+              <Icon size={14} />
+              {tab.label}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Inbound Variability tab */}
+      {activeTab === 'inbound-variability' && <InboundVariabilityTab />}
+
+      {/* Workload tab content */}
+      {activeTab === 'workload' && <>
+
       {/* Top stats bar */}
       <div className="bg-white border-b border-slate-200 px-6 py-3 flex items-center gap-8 flex-shrink-0 text-sm">
         <div className="flex items-center gap-2 text-slate-600">
@@ -572,6 +776,8 @@ export default function LaborManagement() {
 
         </div>
       </div>
+
+      </>}
     </div>
   )
 }

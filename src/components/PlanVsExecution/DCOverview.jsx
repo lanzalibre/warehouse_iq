@@ -52,7 +52,15 @@ function RiskBadge({ level }) {
 }
 
 // ─── Contributor card ─────────────────────────────────────────────────────────
-function ContributorCard({ contributor, onDrillDown }) {
+function ContributorCard({ contributor, onDrillDown, onNavigateToLabor }) {
+  function handleViewAnalysis() {
+    if (contributor.id === 'inboundVariability' && onNavigateToLabor) {
+      onNavigateToLabor('inbound-variability')
+    } else {
+      onDrillDown({ type: 'contributor', id: contributor.id })
+    }
+  }
+
   return (
     <div className="bg-white rounded-xl border border-slate-200 p-4">
       <div className="flex items-start justify-between mb-3">
@@ -78,7 +86,7 @@ function ContributorCard({ contributor, onDrillDown }) {
       </div>
 
       <button
-        onClick={() => onDrillDown({ type: 'contributor', id: contributor.id })}
+        onClick={handleViewAnalysis}
         className="text-xs text-blue-600 hover:text-blue-700 font-medium underline underline-offset-2"
       >
         View Analysis →
@@ -125,7 +133,7 @@ function MitigatorCard({ mitigator, onDrillDown }) {
 }
 
 // ─── Main DCOverview ──────────────────────────────────────────────────────────
-export default function DCOverview({ onNavigateToSimulation }) {
+export default function DCOverview({ onNavigateToSimulation, onNavigateToLabor }) {
   const [drillDown, setDrillDown] = useState(null) // { type: 'contributor'|'mitigator', id }
 
   function renderDrillDown() {
@@ -186,7 +194,7 @@ export default function DCOverview({ onNavigateToSimulation }) {
         <h3 className="text-sm font-bold text-slate-700 mb-3">Risk Contributors</h3>
         <div className="grid grid-cols-3 gap-4">
           {riskSignal.contributors.map(c => (
-            <ContributorCard key={c.id} contributor={c} onDrillDown={setDrillDown} />
+            <ContributorCard key={c.id} contributor={c} onDrillDown={setDrillDown} onNavigateToLabor={onNavigateToLabor} />
           ))}
         </div>
       </div>
