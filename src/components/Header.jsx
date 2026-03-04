@@ -72,7 +72,7 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
             <img
               src={spinnakerLogo}
               alt="Spinnaker SCA"
-              className="h-10 w-auto flex-shrink-0"
+              className="h-10 w-auto flex-shrink-0 brightness-0 invert"
             />
             <div>
               <span className="font-bold text-lg tracking-tight">SpinnakerSCA</span>
