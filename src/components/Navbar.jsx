@@ -1,13 +1,13 @@
 import { Boxes, Users2, GitCompare, MessageSquare, LayoutGrid, Cable, FlaskConical } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { id: 'yard',          icon: Boxes,          shortLabel: 'Yard',    fullLabel: 'Yard Management'           },
-  { id: 'labor',         icon: Users2,         shortLabel: 'Labor',   fullLabel: 'Labor Management'          },
-  { id: 'plan-exec',     icon: GitCompare,     shortLabel: 'Plan',    fullLabel: 'Plan vs Execution'         },
-  { id: 'mfa',           icon: LayoutGrid,     shortLabel: 'MFA',     fullLabel: 'Multi-Faceted Analytics'   },
-  { id: 'simulation',    icon: FlaskConical,   shortLabel: 'Sim',     fullLabel: 'Simulation'                },
-  { id: 'nl-query',      icon: MessageSquare,  shortLabel: 'Query',   fullLabel: 'Natural Language Queries'  },
-  { id: 'connections',   icon: Cable,          shortLabel: 'Data',    fullLabel: 'Data Connections'          },
+  { id: 'plan-exec',     icon: GitCompare,     shortLabel: 'Plan vs\nExec',      fullLabel: 'Plan vs Execution'         },
+  { id: 'yard',          icon: Boxes,          shortLabel: 'Yard',               fullLabel: 'Yard Management'           },
+  { id: 'labor',         icon: Users2,         shortLabel: 'Labor',              fullLabel: 'Labor Management'          },
+  { id: 'mfa',           icon: LayoutGrid,     shortLabel: 'MFA',                fullLabel: 'Multi-Faceted Analytics'   },
+  { id: 'simulation',    icon: FlaskConical,   shortLabel: 'Sim',                fullLabel: 'Simulation'                },
+  { id: 'nl-query',      icon: MessageSquare,  shortLabel: 'Query',              fullLabel: 'Natural Language Queries'  },
+  { id: 'connections',   icon: Cable,          shortLabel: 'Data',               fullLabel: 'Data Connections'          },
 ]
 
 export default function Navbar({ activeScreen, onNavigate }) {
@@ -27,7 +27,7 @@ export default function Navbar({ activeScreen, onNavigate }) {
             }`}
           >
             <Icon size={18} />
-            <span className="text-[9px] font-semibold leading-none tracking-wide">
+            <span className="text-[9px] font-semibold leading-[1.1] tracking-wide text-center px-0.5 whitespace-pre-line">
               {shortLabel}
             </span>
             {/* Active indicator bar on left edge */}
