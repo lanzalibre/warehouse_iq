@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { ArrowLeft, Clock, Building2 } from 'lucide-react'
 import spinnakerLogo from '/Spinnaker_SCA_Logo.png'
 
-export default function Header({ view, activeScreen, onBack, acceptedContainerId }) {
+export default function Header({ view, activeScreen, onBack, acceptedContainerId, persona, onSwitchUser }) {
   const [time, setTime] = useState(new Date())
 
   useEffect(() => {
@@ -18,6 +18,7 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
   })
 
   const showBack = activeScreen === 'yard' && view === 'unloading'
+  const isDCManager = persona?.id === 'dc-manager'
 
   function Breadcrumb() {
     if (activeScreen === 'labor') {
@@ -31,6 +32,9 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
     }
     if (activeScreen === 'mfa') {
       return <span className="text-slate-300">Multi-Faceted Analytics</span>
+    }
+    if (activeScreen === 'simulation') {
+      return <span className="text-slate-300">Simulation</span>
     }
     if (activeScreen === 'misplaced') {
       return <span className="text-slate-300">Misplaced / Not Found</span>
@@ -93,14 +97,22 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
             <span className="text-slate-500 ml-1">{dateStr}</span>
           </div>
           <div className="flex items-center gap-2 pl-5 border-l border-slate-700">
-            <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-xs font-bold">
-              JC
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${isDCManager ? 'bg-violet-600' : 'bg-blue-600'}`}>
+              {isDCManager ? 'JT' : 'JC'}
             </div>
             <div className="leading-tight">
-              <div className="text-white text-sm font-medium">Jordan Chen</div>
-              <div className="text-slate-500 text-xs">Inbound Manager</div>
+              <div className="text-white text-sm font-medium">{isDCManager ? 'Jamie Thompson' : 'Jordan Chen'}</div>
+              <div className="text-slate-500 text-xs">{isDCManager ? 'General Manager' : 'Inbound Manager'}</div>
             </div>
           </div>
+          {onSwitchUser && (
+            <button
+              onClick={onSwitchUser}
+              className="text-xs text-slate-400 hover:text-slate-200 transition-colors border border-slate-700 rounded px-2 py-1"
+            >
+              Switch User
+            </button>
+          )}
         </div>
       </div>
     </header>

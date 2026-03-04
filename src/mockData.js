@@ -4805,3 +4805,183 @@ export const PRODUCT_PAIRS_TRIP_DATA = {
     ]
   }
 }
+
+// ─── DC Manager Data ────────────────────────────────────────────────────────
+export const DC_MANAGER_DATA = {
+  kpis: [
+    { id: 'otif', label: 'OTIF', value: '98.1%', delta: '+0.3%', color: 'emerald', icon: 'target' },
+    { id: 'costPerUnit', label: 'Cost per Unit', value: '$2.47', delta: '↑ +$0.08', color: 'amber', icon: 'dollar' },
+    { id: 'safetyIndex', label: 'Safety Index', value: '94 / 100', subtext: 'Tight margin', color: 'emerald', icon: 'shield' },
+    { id: 'volumeForecast', label: 'Volume Forecast', value: '±18%', subtext: 'Volatility ahead', color: 'amber', icon: 'trending' },
+  ],
+  riskSignal: {
+    headline: 'OTIF Risk Rising in 36 Hours',
+    confidence: 87,
+    financialImpact: -34000,
+    contributors: [
+      { id: 'inboundVariability', label: 'Inbound Variability', level: 'high', confidence: 91, impact: -18000 },
+      { id: 'laborFatigue', label: 'Labor Fatigue Trend', level: 'medium', confidence: 78, impact: -9000 },
+      { id: 'automation', label: 'Automation Utilization', level: 'threshold', confidence: 83, impact: -7000 },
+    ],
+  },
+  mitigators: [
+    {
+      id: 'overtime',
+      title: 'Add Overtime',
+      serviceImpact: 'Protect OTIF',
+      costDelta: '+$12K',
+      laborHours: 24,
+      opRisk: 'Low',
+      detail: '24 additional labor hours across Zones A & C',
+      hasSimulation: true,
+    },
+    {
+      id: 'reroute',
+      title: 'Reroute Volume',
+      serviceImpact: 'Minor SLA risk +0.3%',
+      costDelta: 'Neutral',
+      containersRerouted: 18,
+      opRisk: 'Medium',
+      detail: '18 containers rerouted from Lane 4 → Lane 7',
+      hasSimulation: false,
+    },
+    {
+      id: 'pullForward',
+      title: 'Pull Inventory Forward',
+      serviceImpact: 'Short-term lift',
+      costDelta: '+$5K',
+      unitsPulled: 3200,
+      laborHoursEst: 8,
+      opRisk: 'Downstream',
+      detail: '3,200 units pulled; ~8 est. labor hours required',
+      hasSimulation: true,
+    },
+  ],
+  actionHistory: [
+    { action: 'Overtime approved Zones A & C', acceptedAt: '14:32', systems: ['WMS', 'LMS'] },
+    { action: 'Lane 4 → Lane 7 reroute', acceptedAt: '15:01', systems: ['WES'] },
+  ],
+  contributorDetail: {
+    inboundVariability: {
+      todayVariance: 14.2,
+      avgVariance: 8.7,
+      trend: 'up',
+      chartData: [
+        { label: 'Mon', conveyor: 42, pallet: 35, flat: 23 },
+        { label: 'Tue', conveyor: 38, pallet: 40, flat: 22 },
+        { label: 'Wed', conveyor: 51, pallet: 28, flat: 21 },
+        { label: 'Thu', conveyor: 44, pallet: 33, flat: 23 },
+        { label: 'Fri', conveyor: 60, pallet: 22, flat: 18 },
+        { label: 'Sat', conveyor: 35, pallet: 45, flat: 20 },
+        { label: 'Today', conveyor: 68, pallet: 18, flat: 14 },
+      ],
+      impactPct: 53,
+      impactDollars: 18000,
+    },
+    laborFatigue: {
+      avgConsecutiveHours: 6.8,
+      zonesAffected: 3,
+      errorRateTrend: 'up',
+      zoneData: [
+        { zone: 'Zone A', fatigueIndex: 72, workers: 8, avgHours: 7.2 },
+        { zone: 'Zone C', fatigueIndex: 81, workers: 6, avgHours: 7.8 },
+        { zone: 'Zone D', fatigueIndex: 68, workers: 5, avgHours: 6.5 },
+      ],
+      impactPct: 26,
+      impactDollars: 9000,
+    },
+    automationUtilization: {
+      current: 89,
+      threshold: 90,
+      daysAbove85: 4,
+      impactPct: 21,
+      impactDollars: 7000,
+    },
+  },
+  mitigatorSimResults: {
+    overtime: {
+      service: '+0.8% OTIF recovery → protected',
+      cost: '+$12K labor cost',
+      risk: 'Low',
+      recommendation: 'recommended',
+    },
+    pullForward: {
+      service: 'Short-term lift today',
+      cost: '+$5K handling',
+      risk: 'Downstream supply chain impact in 48–72h',
+      recommendation: 'caution',
+    },
+  },
+  daySummary: {
+    statusCards: [
+      { label: 'OTIF Risk', value: 'Stabilized', color: 'emerald' },
+      { label: 'Cost Trajectory', value: '+$12K overtime', color: 'amber' },
+      { label: "Tomorrow's Outlook", value: '96.4% OTIF confidence', color: 'emerald' },
+    ],
+    mitigated: [
+      'OTIF exposure reduced from –$34K to –$6K via overtime',
+      'Labor fatigue: 3 zone rebalances executed',
+    ],
+    decisions: [
+      'Overtime Zones A & C (+$12K)',
+      'Lane 4 → Lane 7 reroute',
+    ],
+    outlook: [
+      'Volume ±12% (improving)',
+      'OTIF confidence 96.4%',
+      'Watch: Automation utilization at 89%',
+    ],
+  },
+}
+
+// ─── Simulation Templates ────────────────────────────────────────────────────
+export const SIMULATION_TEMPLATES = [
+  {
+    id: 'labor-shortage',
+    name: 'Labor Shortage',
+    description: 'Model the impact of reduced labor availability on throughput and OTIF.',
+    params: { laborReduction: '20%', zones: ['Zone A', 'Zone C'] },
+  },
+  {
+    id: 'automation-failure',
+    name: 'Automation Failure',
+    description: 'Simulate a conveyor or sorter failure in a specific zone.',
+    params: { zone: 'Zone B', failureRate: '100%' },
+  },
+  {
+    id: 'high-volume',
+    name: 'High Volume Surge',
+    description: 'Model a sudden inbound volume spike and its downstream effects.',
+    params: { volumeIncrease: '30%', workloadMix: { conveyor: 60, pallet: 25, flat: 15 } },
+  },
+  {
+    id: 'forklift-down',
+    name: 'Forklift Down',
+    description: 'Simulate equipment failure reducing material handling capacity.',
+    params: { count: 2 },
+  },
+  {
+    id: 'add-overtime',
+    name: 'Add Overtime',
+    description: 'Simulate the effect of adding overtime labor until SLA breaks fall below threshold.',
+    params: { laborHours: 24, zones: ['Zone A', 'Zone C'], slaTarget: 2 },
+    preloadedResult: {
+      service: '+0.8% OTIF recovery → protected',
+      cost: '+$12K labor cost',
+      risk: 'Low',
+      recommendation: 'recommended',
+    },
+  },
+  {
+    id: 'pull-inventory-forward',
+    name: 'Pull Inventory Forward',
+    description: 'Move 30h of workload for next 24h to staging area.',
+    params: { unitsPulled: 3200, laborHoursEst: 8, stagingWindow: '24h' },
+    preloadedResult: {
+      service: 'Short-term lift today',
+      cost: '+$5K handling',
+      risk: 'Downstream supply chain impact in 48–72h',
+      recommendation: 'caution',
+    },
+  },
+]

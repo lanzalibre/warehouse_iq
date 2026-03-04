@@ -1,9 +1,11 @@
 import { useState } from 'react'
-import { BarChart3, AlertTriangle, Clock, Bell, X, Eye, EyeOff } from 'lucide-react'
+import { BarChart3, AlertTriangle, Clock, Bell, LayoutDashboard, CalendarCheck } from 'lucide-react'
 import OverviewDashboard from './OverviewDashboard.jsx'
 import ExceptionPatterns from './ExceptionPatterns.jsx'
 import HistoricalTrace from './HistoricalTrace.jsx'
 import AlertSubscriptions from './AlertSubscriptions.jsx'
+import DCOverview from './DCOverview.jsx'
+import DCDaySummary from './DCDaySummary.jsx'
 import { ALERT_SUBSCRIPTIONS } from '../../mockData.js'
 
 // ─── Tab Button ─────────────────────────────────────────────────────────────
@@ -24,24 +26,30 @@ function TabButton({ activeTab, setActiveTab, id, label, icon: Icon }) {
 }
 
 // ─── Unified Plan vs Execution Component ───────────────────────────────────────
-export default function PlanVsExecution() {
-  const [activeTab, setActiveTab] = useState('overview')
+export default function PlanVsExecution({ persona, onNavigate }) {
+  const isDCManager = persona === 'dc-manager'
+
+  const [activeTab, setActiveTab] = useState(isDCManager ? 'dc-overview' : 'overview')
   const [showAlertPanel, setShowAlertPanel] = useState(false)
   const [subscriptions, setSubscriptions] = useState(ALERT_SUBSCRIPTIONS)
 
-  const tabs = [
+  const opsTabs = [
     { id: 'overview', label: 'Overview', icon: BarChart3 },
     { id: 'exceptions', label: 'Exception Patterns', icon: AlertTriangle },
     { id: 'trace', label: 'Historical Trace', icon: Clock },
   ]
 
+  const dcTabs = [
+    { id: 'dc-overview', label: 'Overview', icon: LayoutDashboard },
+    { id: 'dc-summary', label: 'Day Summary', icon: CalendarCheck },
+  ]
+
+  const tabs = isDCManager ? dcTabs : opsTabs
+
   const handleToggleSubscription = (id) => {
-    setSubscriptions(prev => prev.map(sub => {
-      if (sub.id === id) {
-        return { ...sub, enabled: !sub.enabled }
-      }
-      return sub
-    }))
+    setSubscriptions(prev => prev.map(sub =>
+      sub.id === id ? { ...sub, enabled: !sub.enabled } : sub
+    ))
   }
 
   const handleAddSubscription = (subscription) => {
@@ -49,12 +57,9 @@ export default function PlanVsExecution() {
   }
 
   const handleEditSubscription = (subscription) => {
-    setSubscriptions(prev => prev.map(sub => {
-      if (sub.id === subscription.id) {
-        return subscription
-      }
-      return sub
-    }))
+    setSubscriptions(prev => prev.map(sub =>
+      sub.id === subscription.id ? subscription : sub
+    ))
   }
 
   const handleDeleteSubscription = (id) => {
@@ -69,25 +74,29 @@ export default function PlanVsExecution() {
           <div>
             <h1 className="text-lg font-bold text-slate-800">Plan vs Execution</h1>
             <p className="text-xs text-slate-500 mt-0.5">
-              Compare planned operations with actual execution
+              {isDCManager
+                ? 'Executive view — OTIF risk, cost signals, and mitigations'
+                : 'Compare planned operations with actual execution'}
             </p>
           </div>
-          <button
-            onClick={() => setShowAlertPanel(!showAlertPanel)}
-            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-              showAlertPanel
-                ? 'bg-blue-500 text-white'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-            }`}
-          >
-            <Bell size={16} />
-            Alerts
-            {subscriptions.filter(s => s.enabled).length > 0 && (
-              <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
-                {subscriptions.filter(s => s.enabled).length}
-              </span>
-            )}
-          </button>
+          {!isDCManager && (
+            <button
+              onClick={() => setShowAlertPanel(!showAlertPanel)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                showAlertPanel
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              }`}
+            >
+              <Bell size={16} />
+              Alerts
+              {subscriptions.filter(s => s.enabled).length > 0 && (
+                <span className="bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                  {subscriptions.filter(s => s.enabled).length}
+                </span>
+              )}
+            </button>
+          )}
         </div>
 
         {/* Tab navigation */}
@@ -105,17 +114,23 @@ export default function PlanVsExecution() {
         </div>
       </div>
 
-      {/* Main content with alert panel */}
+      {/* Main content */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Tab content */}
         <div className="flex-1 overflow-hidden">
+          {/* Ops tabs */}
           {activeTab === 'overview' && <OverviewDashboard />}
           {activeTab === 'exceptions' && <ExceptionPatterns />}
           {activeTab === 'trace' && <HistoricalTrace />}
+
+          {/* DC Manager tabs */}
+          {activeTab === 'dc-overview' && (
+            <DCOverview onNavigateToSimulation={() => onNavigate?.('simulation')} />
+          )}
+          {activeTab === 'dc-summary' && <DCDaySummary />}
         </div>
 
-        {/* Alert Panel (slide-in) */}
-        {showAlertPanel && (
+        {/* Alert Panel (ops only) */}
+        {showAlertPanel && !isDCManager && (
           <div className="w-96 border-l border-slate-200 bg-slate-50 overflow-y-auto">
             <AlertSubscriptions
               subscriptions={subscriptions}

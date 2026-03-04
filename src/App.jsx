@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Header from './components/Header.jsx'
 import Navbar from './components/Navbar.jsx'
+import Login from './components/Login.jsx'
 import ContainerSelection from './components/ContainerSelection.jsx'
 import UnloadingBay from './components/UnloadingBay.jsx'
 import LaborManagement from './components/LaborManagement.jsx'
@@ -8,14 +9,30 @@ import PlanVsExecution from './components/PlanVsExecution/index.jsx'
 import NLQueryScreen from './components/NLQuery.jsx'
 import MFAScreen from './components/MFA.jsx'
 import DataSourcesScreen from './components/DataSources.jsx'
+import SimulationScreen from './components/Simulation.jsx'
 
 export default function App() {
+  const [persona, setPersona] = useState(null)
   const [activeScreen, setActiveScreen] = useState('yard')
+  const [simulationTemplateId, setSimulationTemplateId] = useState(null)
 
   // Yard sub-state
   const [yardView, setYardView] = useState('selection')
   const [acceptedContainerId, setAcceptedContainerId] = useState(null)
   const [switchToContainerId, setSwitchToContainerId] = useState(null)
+
+  function handlePersonaSelect(selectedPersona) {
+    setPersona(selectedPersona)
+    setActiveScreen(selectedPersona.defaultScreen)
+  }
+
+  function handleSwitchUser() {
+    setPersona(null)
+    setActiveScreen('yard')
+    setYardView('selection')
+    setAcceptedContainerId(null)
+    setSwitchToContainerId(null)
+  }
 
   function handleAccept(containerId) {
     setAcceptedContainerId(containerId)
@@ -34,14 +51,22 @@ export default function App() {
     setYardView('selection')
   }
 
-  function handleNavigate(screen) {
+  function handleNavigate(screen, opts) {
     setActiveScreen(screen)
-    // Reset yard to selection when leaving and returning
+    if (screen === 'simulation' && opts?.templateId) {
+      setSimulationTemplateId(opts.templateId)
+    } else if (screen !== 'simulation') {
+      setSimulationTemplateId(null)
+    }
     if (screen !== 'yard') {
       setYardView('selection')
       setAcceptedContainerId(null)
       setSwitchToContainerId(null)
     }
+  }
+
+  if (!persona) {
+    return <Login onSelect={handlePersonaSelect} />
   }
 
   return (
@@ -51,6 +76,8 @@ export default function App() {
         activeScreen={activeScreen}
         onBack={handleBackToSelection}
         acceptedContainerId={acceptedContainerId}
+        persona={persona}
+        onSwitchUser={handleSwitchUser}
       />
       <div className="flex flex-1 overflow-hidden">
         {/* Main content */}
@@ -69,8 +96,19 @@ export default function App() {
             />
           )}
           {activeScreen === 'labor' && <LaborManagement />}
-          {activeScreen === 'plan-exec' && <PlanVsExecution />}
+          {activeScreen === 'plan-exec' && (
+            <PlanVsExecution
+              persona={persona?.id}
+              onNavigate={handleNavigate}
+            />
+          )}
           {activeScreen === 'mfa' && <MFAScreen />}
+          {activeScreen === 'simulation' && (
+            <SimulationScreen
+              key={simulationTemplateId}
+              preloadedTemplateId={simulationTemplateId}
+            />
+          )}
           {activeScreen === 'nl-query' && <NLQueryScreen />}
           {activeScreen === 'connections' && <DataSourcesScreen />}
         </div>
