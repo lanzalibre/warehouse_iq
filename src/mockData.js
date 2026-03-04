@@ -4834,6 +4834,8 @@ export const DC_MANAGER_DATA = {
       opRisk: 'Low',
       detail: '24 additional labor hours across Zones A & C',
       hasSimulation: true,
+      actionLabel: 'Overtime approved — Zones A & C (+24h)',
+      systems: ['WMS', 'LMS'],
     },
     {
       id: 'reroute',
@@ -4844,6 +4846,8 @@ export const DC_MANAGER_DATA = {
       opRisk: 'Medium',
       detail: '18 containers rerouted from Lane 4 → Lane 7',
       hasSimulation: false,
+      actionLabel: 'Lane 4 → Lane 7 reroute applied (18 containers)',
+      systems: ['WES'],
     },
     {
       id: 'pullForward',
@@ -4855,6 +4859,8 @@ export const DC_MANAGER_DATA = {
       opRisk: 'Downstream',
       detail: '3,200 units pulled; ~8 est. labor hours required',
       hasSimulation: true,
+      actionLabel: 'Inventory pull-forward approved — 3,200 units',
+      systems: ['WMS', 'WES', 'LMS'],
     },
   ],
   actionHistory: [
