@@ -571,6 +571,93 @@ This document details all user interactions and flows that each screen should en
 
 ---
 
+---
+
+## 7. DC General Manager Flow (Jamie Thompson)
+
+### 7.1 Login as DC Manager
+1. App starts at Login screen
+2. Click "Jamie Thompson — General Manager" card
+3. System sets persona to `dc-manager` and navigates to `plan-exec`
+4. Header shows "JT / Jamie Thompson / General Manager" + Switch User button
+
+### 7.2 DC Overview Tab — Main View
+1. Default view on Plan vs Execution for DC Manager
+2. Four exec KPI cards (OTIF, Cost per Unit, Safety Index, Volume Forecast)
+3. Hero risk signal card with OTIF Risk headline, confidence badge, financial exposure
+4. Three contributor cards (Inbound Variability, Labor Fatigue, Automation Utilization)
+5. Three mitigator cards (Add Overtime, Reroute Volume, Pull Inventory Forward)
+6. Action History strip showing accepted mitigations
+
+### 7.3 Contributor Drill-Down
+1. Click "View Analysis →" on any contributor card
+2. Full-page drill-down replaces the overview content
+3. Shows contributor-specific KPIs, chart/bars, and OTIF impact card
+4. Click "← Back to Overview" to return
+
+### 7.4 Mitigator Drill-Down
+1. Click "View Simulation →" on Overtime or Pull Forward card
+2. Shows pre-run simulation results (service, cost, risk, recommendation badge)
+3. Click "Open full simulation →" to navigate to the Simulation screen
+4. Reroute Volume has no link (no simulation available)
+
+### 7.5 DC Day Summary Tab
+1. Click "Day Summary" tab
+2. Three status cards: OTIF Risk, Cost Trajectory, Tomorrow's Outlook
+3. Executive summary card with three sections: Risks Mitigated, Decisions Taken, Tomorrow's Outlook
+
+### 7.6 Switch Back to Login
+1. Click "Switch User" button in header
+2. Returns to Login persona selector
+3. All state is reset
+
+---
+
+## 8. Simulation Screen
+
+### 8.1 Open from Navbar
+1. Click "Sim" in right Navbar
+2. Simulation screen opens with empty state
+3. Left panel: chat input with example prompts
+4. Right panel: Scenario Name input, Load Template button, Run Simulation (disabled)
+
+### 8.2 Load a Template
+1. Click "Load Template" button in right panel
+2. Dropdown shows 6 templates (Labor Shortage, Automation Failure, High Volume, Forklift Down, Add Overtime, Pull Inventory Forward)
+3. Click a template to load it
+4. Conversation starts with user message + system confirmation
+5. Scenario Name auto-fills with template name
+6. Right panel shows scenario description and parameters
+7. Run Simulation button becomes enabled
+
+### 8.3 Converse to Refine Scenario
+1. Type in the chat input or click an example prompt
+2. System responds confirming parameter updates
+3. Iterative refinement before running
+
+### 8.4 Run Simulation
+1. Click "Run Simulation" button
+2. System message confirms run completion
+3. Right panel transitions to Results view:
+   - OTIF Delta, Cost Delta, SLA Breaks, Labor Utilization KPI cards
+   - "View Detailed Outputs →" link
+4. Edit button (X) resets to config view
+
+### 8.5 View Simulation Detail
+1. Click "View Detailed Outputs →"
+2. Full-page SimulationDetail renders:
+   - Full KPI breakdown table (baseline vs simulated vs delta)
+   - Per-zone impact table (OTIF delta, labor util, SLA breaks, status)
+   - Hourly load timeline bar chart
+3. Click "← Back to Simulation" to return
+
+### 8.6 Open from DC Manager Mitigator Screen
+1. From DCMitigatorOvertime or DCMitigatorPullForward, click "Open full simulation →"
+2. Navigates to Simulation screen (navigates via `onNavigate('simulation')` from App)
+3. Simulation screen opens without a pre-loaded template in this flow
+
+---
+
 ## Cross-Screen Flows
 
 ### Navigate Between Screens
@@ -582,8 +669,9 @@ This document details all user interactions and flows that each screen should en
 ### Global Header Interactions
 1. View current time (updates every second)
 2. View current date
-3. View user info (name, role)
+3. View user info — persona-aware (Jordan Chen / Jamie Thompson)
 4. View breadcrumb showing current location
+5. Click "Switch User" to return to Login (all personas)
 
 ### Return to Yard Management
 1. Click "Yard" in Navbar

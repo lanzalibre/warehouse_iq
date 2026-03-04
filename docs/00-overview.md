@@ -48,34 +48,51 @@ npm run preview
 ### Core Concept
 The application is a single-page application (SPA) with client-side routing managed through React state. There is no backend - all data is served from mock data files.
 
+### Persona System
+
+The app starts with a **Login / Persona Selector** screen. Two personas are available:
+
+| Persona | Name | Default Screen | Description |
+|---------|------|---------------|-------------|
+| `inbound-manager` | Jordan Chen | Yard Management | Ops view — containers, labor, exception analysis |
+| `dc-manager` | Jamie Thompson | Plan vs Execution | Executive view — OTIF risk, cost KPIs, simulation |
+
+Selecting a persona sets app state and routes to the default screen. **Switch User** resets to Login.
+
 ### Main Screens
 1. **Yard Management** - Container selection and unloading operations
 2. **Labor Management** - Worker allocation and zone management
-3. **Plan vs Execution** - WES/WMS comparison and exception analysis
+3. **Plan vs Execution** - Persona-aware: ops tabs for Jordan; DC Manager tabs (Overview, Day Summary) for Jamie
 4. **Multi-Faceted Analytics (MFA)** - Reslotting opportunities and optimization
-5. **Natural Language Queries** - Query interface for warehouse data
+5. **Simulation** - Two-panel scenario modeler with chat input and results
+6. **Natural Language Queries** - Query interface for warehouse data
+7. **Data Connections** - MCP data source configuration
 
 ### Component Hierarchy
 
 ```
 App
-├── Header (global header with navigation breadcrumb)
+├── Login (persona selector — shown when persona is null)
+├── Header (global header, persona-aware avatar/name/role, Switch User)
 ├── Main Content Area (switches based on activeScreen)
 │   ├── ContainerSelection (yard - selection view)
 │   ├── UnloadingBay (yard - unloading view)
 │   ├── LaborManagement
-│   ├── PlanVsExecution
-│   │   ├── OverviewDashboard
-│   │   ├── ExceptionPatterns
-│   │   │   ├── SlottingTab
-│   │   │   ├── LocationsTab
-│   │   │   ├── OrderTypesTab
-│   │   │   └── EquipmentTab
-│   │   ├── AlertSubscriptions
-│   │   ├── HistoricalTrace
-│   │   └── ProjectionPanel
+│   ├── PlanVsExecution (persona prop)
+│   │   ├── [inbound-manager] OverviewDashboard, ExceptionPatterns, HistoricalTrace
+│   │   └── [dc-manager] DCOverview, DCDaySummary
+│   │       ├── DCOverview (KPIs, risk signal, contributors, mitigators, action history)
+│   │       │   ├── DCContributorInboundVariability (drill-down)
+│   │       │   ├── DCContributorLaborFatigue (drill-down)
+│   │       │   ├── DCContributorAutomation (drill-down)
+│   │       │   ├── DCMitigatorOvertime (drill-down → Simulation)
+│   │       │   └── DCMitigatorPullForward (drill-down → Simulation)
+│   │       └── DCDaySummary (status cards + executive summary)
+│   ├── Simulation (two-panel: chat left, config/results right)
+│   │   └── SimulationDetail (full KPI table, per-zone, hourly timeline)
 │   ├── MFAScreen
-│   └── NLQueryScreen
+│   ├── NLQueryScreen
+│   └── DataSourcesScreen
 └── Navbar (right-side vertical navigation)
 ```
 

@@ -14,20 +14,29 @@ burl_demo/
 │   │   ├── ContainerSelection.jsx # Container list and selection
 │   │   ├── UnloadingBay.jsx       # Unloading operations view
 │   │   ├── LaborManagement.jsx    # Worker allocation dashboard
-│   │   ├── PlanVsExecution.jsx    # WES/WMS comparison (legacy)
-│   │   ├── PlanVsExecution/       # Plan vs Execution module
-│   │   │   ├── index.jsx          # Main component with tab navigation
+│   │   ├── Login.jsx              # Persona selector (Jordan Chen / Jamie Thompson)
+│   │   ├── PlanVsExecution/       # Plan vs Execution module (persona-aware)
+│   │   │   ├── index.jsx          # Main component — ops tabs or DC Manager tabs
 │   │   │   ├── OverviewDashboard.jsx
 │   │   │   ├── ExceptionPatterns.jsx
 │   │   │   ├── AlertSubscriptions.jsx
 │   │   │   ├── HistoricalTrace.jsx
 │   │   │   ├── HorizontalBarChart.jsx
 │   │   │   ├── ProjectionPanel.jsx
+│   │   │   ├── DCOverview.jsx     # DC Manager Overview (KPIs, risk, contributors, mitigators)
+│   │   │   ├── DCDaySummary.jsx   # DC Manager Day Summary
+│   │   │   ├── DCContributorInboundVariability.jsx
+│   │   │   ├── DCContributorLaborFatigue.jsx
+│   │   │   ├── DCContributorAutomation.jsx
+│   │   │   ├── DCMitigatorOvertime.jsx
+│   │   │   ├── DCMitigatorPullForward.jsx
 │   │   │   └── ExceptionPatterns/ # Exception pattern tabs
 │   │   │       ├── SlottingTab.jsx
 │   │   │       ├── LocationsTab.jsx
 │   │   │       ├── OrderTypesTab.jsx
 │   │   │       └── EquipmentTab.jsx
+│   │   ├── Simulation.jsx         # Scenario modeler (two-panel chat + config)
+│   │   ├── SimulationDetail.jsx   # Full simulation output (KPI table, zone impact, timeline)
 │   │   ├── MFA.jsx                # Multi-Faceted Analytics (Overview, Reslotting, Simulation tabs)
 │   │   ├── WarehouseProcessMap.jsx # Interactive React Flow process diagram (used in MFA Overview)
 │   │   ├── NLQuery.jsx            # Natural Language Queries
@@ -76,22 +85,25 @@ burl_demo/
 
 | Component | Description |
 |-----------|-------------|
-| `Header.jsx` | Top header bar with logo, breadcrumb, clock, user info |
-| `Navbar.jsx` | Right-side vertical navigation with screen buttons |
+| `Login.jsx` | Persona selector screen shown at app start |
+| `Header.jsx` | Top header bar — persona-aware avatar, Switch User button |
+| `Navbar.jsx` | Right-side vertical navigation (7 screens including Simulation) |
 | `ContainerSelection.jsx` | Yard view for selecting containers to unload |
 | `UnloadingBay.jsx` | Active unloading operations with SKU scanning |
 | `LaborManagement.jsx` | Worker allocation, zone management, rebalancing |
-| `PlanVsExecution/index.jsx` | Main Plan vs Execution with sub-tabs |
+| `PlanVsExecution/index.jsx` | Main Plan vs Execution — ops tabs or DC Manager tabs based on persona |
+| `Simulation.jsx` | Two-panel scenario modeler: chat thread + scenario config/results |
+| `SimulationDetail.jsx` | Full simulation output: KPI table, per-zone impact, hourly load timeline |
 | `MFA.jsx` | Multi-Faceted Analytics — Overview, Reslotting, and Simulation tabs |
-| `WarehouseProcessMap.jsx` | Interactive React Flow diagram of warehouse operations; used in MFA Overview |
+| `WarehouseProcessMap.jsx` | Interactive React Flow diagram of warehouse operations |
 | `NLQuery.jsx` | Natural language query interface |
 
 ### Plan vs Execution Sub-components
 
 | Component | Description |
 |-----------|-------------|
-| `OverviewDashboard.jsx` | High-level KPIs and exception summary |
-| `ExceptionPatterns.jsx` | Exception pattern analysis with sub-tabs |
+| `OverviewDashboard.jsx` | High-level KPIs and exception summary (inbound-manager) |
+| `ExceptionPatterns.jsx` | Exception pattern analysis with sub-tabs (inbound-manager) |
 | `SlottingTab.jsx` | Slotting-related exceptions |
 | `LocationsTab.jsx` | Location-based exceptions |
 | `OrderTypesTab.jsx` | Order type exceptions |
@@ -100,6 +112,13 @@ burl_demo/
 | `HistoricalTrace.jsx` | Historical data trace viewer |
 | `ProjectionPanel.jsx` | Future projections based on data |
 | `HorizontalBarChart.jsx` | Reusable horizontal bar chart component |
+| `DCOverview.jsx` | DC Manager Overview: exec KPIs, OTIF risk signal, contributors, mitigators, action history |
+| `DCDaySummary.jsx` | DC Manager Day Summary: status cards + executive summary sections |
+| `DCContributorInboundVariability.jsx` | Drill-down: inbound variance analysis + OTIF impact |
+| `DCContributorLaborFatigue.jsx` | Drill-down: zone fatigue index + OTIF impact |
+| `DCContributorAutomation.jsx` | Drill-down: automation utilization bar + OTIF impact |
+| `DCMitigatorOvertime.jsx` | Drill-down: pre-run simulation for Add Overtime scenario |
+| `DCMitigatorPullForward.jsx` | Drill-down: pre-run simulation for Pull Inventory Forward scenario |
 
 ## Import Patterns
 
