@@ -158,6 +158,8 @@ This document details all user interactions and flows that each screen should en
 
 ## 3. Labor Management
 
+Labor Management has three tabs: **Workload & Capacity** (default), **Inbound Variability**, and **Labor Fatigue**. When navigated from Plan vs Execution, a "← Back to Plan Overview" banner appears at the top.
+
 ### User Flows
 
 #### 3.1 View Shift Roster
@@ -234,6 +236,32 @@ This document details all user interactions and flows that each screen should en
 2. Main panel shows all workers
 3. Sorted by zone, then by name
 4. Filterable by check-in status
+
+#### 3.6 View Inbound Variability Tab
+**Goal**: Analyse inbound workload mix and labor hour variance over a 5-day window
+
+**Steps**:
+1. Click the **Inbound Variability** tab (or arrive here from DC Overview)
+2. KPI row shows: Today's Variance %, 3-Day Avg %, Trend
+3. Stacked bar chart shows workload mix by handling type (Conveyor / Pallet / Flat) for 3 days ago, 2 days ago, yesterday, today, tomorrow (forecast row faded)
+4. Labor Hours chart shows planned vs actual bars per day (red when over plan; forecast bar for tomorrow)
+5. OTIF Risk Contribution card shows % of risk and dollar exposure
+
+#### 3.7 View Labor Fatigue Tab
+**Goal**: See fatigue index per zone and its contribution to OTIF risk
+
+**Steps**:
+1. Click the **Labor Fatigue** tab (or arrive here from DC Overview)
+2. KPI row shows: Avg Consecutive Hours, Zones Affected, Error Rate Trend
+3. Grid of per-zone fatigue cards — red ≥80, amber ≥70, emerald <70 — each showing worker count and avg hours
+4. OTIF Risk Contribution card shows % of risk and dollar exposure
+
+#### 3.8 Return to Plan vs Execution
+**Goal**: Navigate back after being sent from DC Overview
+
+**Steps**:
+1. When present, click **"← Back to Plan Overview"** banner at the top
+2. Returns to Plan vs Execution (DC Overview tab)
 
 ---
 
@@ -586,27 +614,47 @@ This document details all user interactions and flows that each screen should en
 2. Four exec KPI cards (OTIF, Cost per Unit, Safety Index, Volume Forecast)
 3. Hero risk signal card with OTIF Risk headline, confidence badge, financial exposure
 4. Three contributor cards (Inbound Variability, Labor Fatigue, Automation Utilization)
-5. Three mitigator cards (Add Overtime, Reroute Volume, Pull Inventory Forward)
-6. Action History strip showing accepted mitigations
+5. Three mitigator cards (Add Overtime, Reroute Volume, Pull Inventory Forward), each with an **Accept** button
+6. Action History strip showing confirmed mitigations with timestamps and system badges
 
-### 7.3 Contributor Drill-Down
-1. Click "View Analysis →" on any contributor card
-2. Full-page drill-down replaces the overview content
-3. Shows contributor-specific KPIs, chart/bars, and OTIF impact card
-4. Click "← Back to Overview" to return
+### 7.3 Contributor Analysis
+| Contributor | Destination |
+|---|---|
+| Inbound Variability | LaborManagement — Inbound Variability tab |
+| Labor Fatigue Trend | LaborManagement — Labor Fatigue tab |
+| Automation Utilization | Inline drill-down (DCContributorAutomation) |
 
-### 7.4 Mitigator Drill-Down
+For the first two, clicking "View Analysis →":
+1. Navigates to Labor Management screen with the relevant tab pre-selected
+2. "← Back to Plan Overview" banner appears at top
+3. Clicking it returns to DC Overview
+
+For Automation, clicking "View Analysis →":
+1. Inline drill-down replaces overview content
+2. "← Back to Overview" returns to main
+
+### 7.4 Mitigator Confirmation Flow
+1. Click **Accept** on any mitigator card
+2. Confirmation modal appears showing: title, detail, impact summary (service/cost/risk), and target systems
+3. Click **Confirm & Apply**
+4. Card transitions to "Applied / Confirmed" state (Accept button removed, green "Applied" badge shown)
+5. New entry appended to Action History with current `HH:MM` timestamp and system badges:
+   - Add Overtime → WMS, LMS
+   - Reroute Volume → TMS
+   - Pull Inventory Forward → WMS, WES, LMS
+
+### 7.5 Mitigator Simulation Drill-Down
 1. Click "View Simulation →" on Overtime or Pull Forward card
 2. Shows pre-run simulation results (service, cost, risk, recommendation badge)
 3. Click "Open full simulation →" to navigate to the Simulation screen
-4. Reroute Volume has no link (no simulation available)
+4. Reroute Volume has no simulation link
 
-### 7.5 DC Day Summary Tab
+### 7.6 DC Day Summary Tab
 1. Click "Day Summary" tab
 2. Three status cards: OTIF Risk, Cost Trajectory, Tomorrow's Outlook
 3. Executive summary card with three sections: Risks Mitigated, Decisions Taken, Tomorrow's Outlook
 
-### 7.6 Switch Back to Login
+### 7.7 Switch Back to Login
 1. Click "Switch User" button in header
 2. Returns to Login persona selector
 3. All state is reset

@@ -471,3 +471,100 @@ Returns experience level details.
 getExperienceLevel(18)
 // Returns { dots: 4, label: 'Experienced', color: 'text-emerald-500' }
 ```
+
+---
+
+## DC Manager Data
+
+### DC_MANAGER_DATA
+All data for the DC General Manager (Jamie Thompson) persona.
+
+```javascript
+export const DC_MANAGER_DATA = {
+  kpis: [
+    { id, label, value, delta, color, icon }  // 4 exec KPI cards
+  ],
+  riskSignal: {
+    headline: 'OTIF Risk Rising in 36 Hours',
+    confidence: 87,                           // %
+    financialImpact: -34000,                  // dollars
+    contributors: [
+      { id, label, level, confidence, impact } // level: 'high'|'medium'|'threshold'
+    ],
+  },
+  mitigators: [
+    {
+      id,             // 'overtime' | 'reroute' | 'pullForward'
+      title,          // Display title
+      serviceImpact,  // e.g. 'Protect OTIF'
+      costDelta,      // e.g. '+$12K'
+      opRisk,         // e.g. 'Low'
+      detail,         // Short description string
+      hasSimulation,  // bool — shows "View Simulation →" link
+      actionLabel,    // String added to Action History on confirm
+      systems,        // Array of system IDs dispatched on confirm
+                      // overtime: ['WMS','LMS'], reroute: ['TMS'], pullForward: ['WMS','WES','LMS']
+    }
+  ],
+  actionHistory: [
+    { action, acceptedAt, systems }  // Seeded history entries
+  ],
+  contributorDetail: {
+    inboundVariability: {
+      todayVariance,    // % (number)
+      avgVariance,      // 3-day avg %
+      trend,            // 'up'
+      chartData: [      // 5-period window: 3 days ago → tomorrow
+        { label, dayLabel, conveyor, pallet, flat,
+          laborHours: { planned, actual } }  // actual: null for tomorrow
+      ],
+      impactPct,        // % of total OTIF risk
+      impactDollars,    // dollar exposure
+    },
+    laborFatigue: {
+      avgConsecutiveHours,
+      zonesAffected,
+      errorRateTrend,   // 'up'
+      zoneData: [
+        { zone, fatigueIndex, workers, avgHours }
+      ],
+      impactPct,
+      impactDollars,
+    },
+    automationUtilization: {
+      current,          // % (number)
+      threshold,        // % (number)
+      daysAbove85,      // days
+      impactPct,
+      impactDollars,
+    },
+  },
+  mitigatorSimResults: {
+    overtime:     { service, cost, risk, recommendation },
+    pullForward:  { service, cost, risk, recommendation },
+  },
+  daySummary: {
+    statusCards: [{ id, label, value, detail, color }],
+    mitigated: [],    // string[]
+    decisions: [],    // string[]
+    outlook: [],      // string[]
+  },
+}
+```
+
+### SIMULATION_TEMPLATES
+Pre-built scenario templates for the Simulation screen.
+
+```javascript
+export const SIMULATION_TEMPLATES = [
+  {
+    id,           // e.g. 'labor-shortage'
+    name,         // Display name
+    description,  // One-sentence summary
+    params: {     // Template-specific parameter keys
+      laborReduction, zones, volumeIncrease, ...
+    },
+  }
+]
+```
+Templates available: `labor-shortage`, `automation-failure`, `high-volume`, `forklift-down`, `add-overtime`, `pull-forward`.

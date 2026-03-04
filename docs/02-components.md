@@ -2,11 +2,15 @@
 
 ## App.jsx (Root Component)
 
-The root component manages screen navigation and yard view state.
+The root component manages screen navigation, yard view state, and persona.
 
 ### State Management
 ```jsx
+const [persona, setPersona] = useState(null)               // null → Login screen shown
 const [activeScreen, setActiveScreen] = useState('yard')
+const [simulationTemplateId, setSimulationTemplateId] = useState(null)
+const [laborInitialTab, setLaborInitialTab] = useState(null)
+const [laborReturnScreen, setLaborReturnScreen] = useState(null)
 const [yardView, setYardView] = useState('selection')
 const [acceptedContainerId, setAcceptedContainerId] = useState(null)
 const [switchToContainerId, setSwitchToContainerId] = useState(null)
@@ -20,13 +24,17 @@ const [switchToContainerId, setSwitchToContainerId] = useState(null)
 | `'labor'` | LaborManagement |
 | `'plan-exec'` | PlanVsExecution |
 | `'mfa'` | MFAScreen |
+| `'simulation'` | SimulationScreen |
 | `'nl-query'` | NLQueryScreen |
+| `'connections'` | DataSourcesScreen |
 
 ### Key Functions
-- `handleAccept(containerId)` - Accept container, switch to unloading view
-- `handleBackToSelection()` - Return to container selection
-- `handleSwitchContainer(newContainerId)` - Switch to different container
-- `handleNavigate(screen)` - Navigate to different screen
+- `handlePersonaSelect(persona)` — set persona, navigate to defaultScreen
+- `handleSwitchUser()` — reset persona to null (returns to Login)
+- `handleAccept(containerId)` — accept container, switch to unloading view
+- `handleBackToSelection()` — return to container selection
+- `handleSwitchContainer(newContainerId)` — switch to different container
+- `handleNavigate(screen, opts)` — navigate to screen; `opts.tab` sets `laborInitialTab`, `opts.templateId` sets `simulationTemplateId`
 
 ---
 
@@ -41,12 +49,15 @@ Global header component with logo, breadcrumb navigation, clock, and user info.
 | `activeScreen` | string | Current active screen ID |
 | `onBack` | function | Callback for back button |
 | `acceptedContainerId` | string | ID of accepted container |
+| `persona` | object | Current persona (null before login) |
+| `onSwitchUser` | function | Resets persona to null |
 
 ### Features
 - Real-time clock updating every second
 - Dynamic breadcrumb based on active screen
 - Back button shown only in unloading view
-- User avatar with name and role
+- Persona-aware avatar: JC/Jordan Chen/Inbound Manager or JT/Jamie Thompson/General Manager
+- "Switch User" button visible when `onSwitchUser` is provided
 
 ---
 
@@ -60,14 +71,16 @@ Vertical navigation bar on the right side of the screen.
 | `activeScreen` | string | Current active screen ID |
 | `onNavigate` | function | Callback when nav item clicked |
 
-### Navigation Items
+### Navigation Items (in order)
 ```jsx
 const NAV_ITEMS = [
-  { id: 'yard',      icon: Boxes,     shortLabel: 'Yard',  fullLabel: 'Yard Management' },
-  { id: 'labor',     icon: Users2,    shortLabel: 'Labor', fullLabel: 'Labor Management' },
-  { id: 'plan-exec', icon: GitCompare, shortLabel: 'Plan', fullLabel: 'Plan vs Execution' },
-  { id: 'mfa',       icon: LayoutGrid, shortLabel: 'MFA',  fullLabel: 'Multi-Faceted Analytics' },
-  { id: 'nl-query',  icon: MessageSquare, shortLabel: 'Query', fullLabel: 'Natural Language Queries' },
+  { id: 'plan-exec',   icon: GitCompare,     shortLabel: 'Plan vs\nExec', fullLabel: 'Plan vs Execution' },
+  { id: 'yard',        icon: Boxes,          shortLabel: 'Yard',          fullLabel: 'Yard Management' },
+  { id: 'labor',       icon: Users2,         shortLabel: 'Labor',         fullLabel: 'Labor Management' },
+  { id: 'mfa',         icon: LayoutGrid,     shortLabel: 'MFA',           fullLabel: 'Multi-Faceted Analytics' },
+  { id: 'simulation',  icon: FlaskConical,   shortLabel: 'Sim',           fullLabel: 'Simulation' },
+  { id: 'nl-query',    icon: MessageSquare,  shortLabel: 'Query',         fullLabel: 'Natural Language Queries' },
+  { id: 'connections', icon: Database,       shortLabel: 'Data',          fullLabel: 'Data Connections' },
 ]
 ```
 
@@ -75,6 +88,7 @@ const NAV_ITEMS = [
 - Active state highlighting with blue background
 - Left indicator bar for active item
 - Hover tooltips showing full label
+- Two-line labels supported via `whitespace-pre-line` (e.g. "Plan vs\nExec")
 
 ---
 
@@ -130,17 +144,37 @@ Active unloading operations view with SKU scanning interface.
 
 Worker allocation and zone management dashboard.
 
-### Main Sections
-1. **ZoneSummaryPanel** (left) - Workers by zone with check-in status
-2. **MainPanel** (center) - Selected zone details or all workers
-3. **DetailPanel** (right) - Worker details and rebalancing
+### Props
+| Prop | Type | Description |
+|------|------|-------------|
+| `initialTab` | string | Tab to open on mount (`'workload'`, `'inbound-variability'`, `'labor-fatigue'`) |
+| `onBack` | function | If provided, shows a "← Back to Plan Overview" banner at the top |
 
-### Worker Card Display
-- Worker name and ID
-- Zone assignment
-- Experience level (dots 1-5)
-- Check-in status
-- Performance metrics
+### Tabs
+| Tab ID | Label | Source Data |
+|--------|-------|-------------|
+| `workload` | Workload & Capacity | WORKERS, LABOR_PERIOD_DATA, REBALANCING_RECS |
+| `inbound-variability` | Inbound Variability | DC_MANAGER_DATA.contributorDetail.inboundVariability |
+| `labor-fatigue` | Labor Fatigue | DC_MANAGER_DATA.contributorDetail.laborFatigue |
+
+### Tab: Workload & Capacity (default)
+1. **ZoneSummaryPanel** (left) — Workers by zone with check-in status
+2. **MainPanel** (center) — Selected zone details or all workers
+3. **DetailPanel** (right) — Worker details and rebalancing
+
+### Tab: Inbound Variability
+- KPI row: Today's variance %, 3-day avg variance %, Trend
+- Stacked bar workload mix chart (5-period window: 3 days ago → tomorrow; Conveyor/Pallet/Flat)
+- Labor hours planned vs actual bars (red when over plan, forecast bar for tomorrow)
+- OTIF Risk Contribution impact card
+
+### Tab: Labor Fatigue
+- KPI row: Avg consecutive hours, Zones affected, Error rate trend
+- Per-zone fatigue index cards (color-coded red ≥80 / amber ≥70 / emerald <70)
+- OTIF Risk Contribution impact card
+
+### Back Navigation
+When `onBack` is provided (navigated from Plan vs Execution), a blue banner appears at the top with "← Back to Plan Overview".
 
 ### Experience Levels
 | Months | Dots | Label | Color |
@@ -155,20 +189,73 @@ Worker allocation and zone management dashboard.
 
 ## PlanVsExecution/index.jsx
 
-Main Plan vs Execution component with sub-tab navigation.
+Persona-aware Plan vs Execution component. Tab set varies by persona.
 
-### Sub-Tabs
+### Props
+| Prop | Type | Description |
+|------|------|-------------|
+| `persona` | string | `'dc-manager'` or other (ops persona) |
+| `onNavigate` | function | App-level navigation callback |
+
+### Tabs — Ops persona (Jordan Chen)
 | Tab ID | Label | Component |
 |--------|-------|-----------|
 | `overview` | Overview | OverviewDashboard |
 | `exceptions` | Exception Patterns | ExceptionPatterns |
-| `alerts` | Alert Subscriptions | AlertSubscriptions |
 | `trace` | Historical Trace | HistoricalTrace |
 
-### Features
-- Tab-based navigation
-- KPI cards at top
-- Scrollable content area
+### Tabs — DC Manager persona (Jamie Thompson)
+| Tab ID | Label | Component |
+|--------|-------|-----------|
+| `dc-overview` | Overview | DCOverview |
+| `dc-summary` | Day Summary | DCDaySummary |
+
+### DC Overview Props Passed
+```jsx
+<DCOverview
+  onNavigateToSimulation={() => onNavigate?.('simulation')}
+  onNavigateToLabor={(tab) => onNavigate?.('labor', { tab })}
+/>
+```
+
+## PlanVsExecution/DCOverview.jsx
+
+Executive overview for the DC Manager persona.
+
+### State
+```jsx
+const [drillDown, setDrillDown] = useState(null)       // { type, id } or null
+const [confirmTarget, setConfirmTarget] = useState(null) // mitigator being confirmed
+const [acceptedIds, setAcceptedIds] = useState(new Set())
+const [history, setHistory] = useState(DC_MANAGER_DATA.actionHistory)
+```
+
+### Sections
+1. **Executive KPIs** — 4 cards (OTIF, Cost per Unit, Safety Index, Volume Forecast)
+2. **Risk Signal** — hero amber card with headline, confidence, financial exposure
+3. **Risk Contributors** — 3 cards with confidence bar + "View Analysis →" link
+4. **Available Mitigations** — 3 cards with Accept button + optional "View Simulation →"
+5. **Action History** — list of confirmed actions with timestamp and system badges
+
+### Contributor Navigation
+- Inbound Variability → `onNavigateToLabor('inbound-variability')` → LaborManagement tab
+- Labor Fatigue Trend → `onNavigateToLabor('labor-fatigue')` → LaborManagement tab
+- Automation Utilization → inline drill-down (DCContributorAutomation)
+
+### Mitigation Confirmation Flow
+1. User clicks **Accept** on a mitigator card
+2. `ConfirmModal` opens (backdrop + modal with detail, impact summary, target systems)
+3. User clicks **Confirm & Apply**
+4. Card shows "Applied" badge + "Confirmed" text (Accept button removed)
+5. Entry appended to Action History with `HH:MM` timestamp and system badges
+6. Systems per mitigator: overtime → WMS+LMS, reroute → TMS, pullForward → WMS+WES+LMS
+
+### Drill-Down Views
+| ID | Component |
+|----|-----------|
+| contributor: `automation` | DCContributorAutomation |
+| mitigator: `overtime` | DCMitigatorOvertime |
+| mitigator: `pullForward` | DCMitigatorPullForward |
 
 ---
 
