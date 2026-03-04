@@ -4847,7 +4847,7 @@ export const DC_MANAGER_DATA = {
       detail: '18 containers rerouted from Lane 4 → Lane 7',
       hasSimulation: false,
       actionLabel: 'Lane 4 → Lane 7 reroute applied (18 containers)',
-      systems: ['WES'],
+      systems: ['TMS'],
     },
     {
       id: 'pullForward',
@@ -4865,7 +4865,7 @@ export const DC_MANAGER_DATA = {
   ],
   actionHistory: [
     { action: 'Overtime approved Zones A & C', acceptedAt: '14:32', systems: ['WMS', 'LMS'] },
-    { action: 'Lane 4 → Lane 7 reroute', acceptedAt: '15:01', systems: ['WES'] },
+    { action: 'Lane 4 → Lane 7 reroute', acceptedAt: '15:01', systems: ['TMS'] },
   ],
   contributorDetail: {
     inboundVariability: {
