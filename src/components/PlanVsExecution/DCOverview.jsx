@@ -56,6 +56,8 @@ function ContributorCard({ contributor, onDrillDown, onNavigateToLabor }) {
   function handleViewAnalysis() {
     if (contributor.id === 'inboundVariability' && onNavigateToLabor) {
       onNavigateToLabor('inbound-variability')
+    } else if (contributor.id === 'laborFatigue' && onNavigateToLabor) {
+      onNavigateToLabor('labor-fatigue')
     } else {
       onDrillDown({ type: 'contributor', id: contributor.id })
     }

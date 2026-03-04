@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {
   Users, Clock, AlertTriangle,
   ArrowRight, UserCheck, TrendingUp, Scale,
-  Star, Info, Zap, BarChart3, X, ArrowLeft, Activity,
+  Star, Info, Zap, BarChart3, X, ArrowLeft, Activity, Brain,
 } from 'lucide-react'
 import {
   WORKERS, ZONE_CONFIG, LABOR_PERIOD_DATA, REBALANCING_RECS,
@@ -10,6 +10,7 @@ import {
 } from '../mockData.js'
 
 const inboundData = DC_MANAGER_DATA.contributorDetail.inboundVariability
+const fatigueData = DC_MANAGER_DATA.contributorDetail.laborFatigue
 const maxLaborHours = Math.max(
   ...inboundData.chartData.map(r => Math.max(r.laborHours.planned, r.laborHours.actual ?? 0))
 )
@@ -555,6 +556,74 @@ function InboundVariabilityTab() {
   )
 }
 
+// ─── Labor Fatigue Tab ──────────────────────────────────────────────────────────
+function LaborFatigueTab() {
+  return (
+    <div className="flex-1 overflow-y-auto p-5 space-y-6">
+      {/* KPI row */}
+      <div className="grid grid-cols-3 gap-4">
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Avg Consecutive Hours</div>
+          <div className="text-2xl font-bold text-amber-600">{fatigueData.avgConsecutiveHours}h</div>
+        </div>
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Zones Affected</div>
+          <div className="text-2xl font-bold text-slate-800">{fatigueData.zonesAffected}</div>
+        </div>
+        <div className="bg-white rounded-xl border border-slate-200 p-4">
+          <div className="text-xs text-slate-500 uppercase tracking-wide mb-1">Error Rate Trend</div>
+          <div className="flex items-center gap-1.5 text-2xl font-bold text-red-600">
+            <TrendingUp size={20} /> Rising
+          </div>
+        </div>
+      </div>
+
+      {/* Zone fatigue cards */}
+      <div>
+        <div className="text-sm font-semibold text-slate-700 mb-3">Fatigue Index by Zone (0–100)</div>
+        <div className="grid grid-cols-3 gap-4">
+          {fatigueData.zoneData.map(z => {
+            const color = z.fatigueIndex >= 80 ? 'red' : z.fatigueIndex >= 70 ? 'amber' : 'emerald'
+            const barColors = { red: 'bg-red-500', amber: 'bg-amber-500', emerald: 'bg-emerald-500' }
+            const textColors = { red: 'text-red-700', amber: 'text-amber-700', emerald: 'text-emerald-700' }
+            const bgColors = { red: 'bg-red-50 border-red-200', amber: 'bg-amber-50 border-amber-200', emerald: 'bg-emerald-50 border-emerald-200' }
+            return (
+              <div key={z.zone} className={`rounded-xl border p-4 ${bgColors[color]}`}>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-semibold text-slate-800">{z.zone}</span>
+                  <span className={`text-lg font-bold ${textColors[color]}`}>{z.fatigueIndex}</span>
+                </div>
+                <div className="h-2 bg-slate-200 rounded-full overflow-hidden mb-2">
+                  <div className={`h-full ${barColors[color]} rounded-full`} style={{ width: `${z.fatigueIndex}%` }} />
+                </div>
+                <div className="flex justify-between text-xs text-slate-500">
+                  <span>{z.workers} workers</span>
+                  <span>Avg {z.avgHours}h consecutive</span>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Impact card */}
+      <div className="bg-amber-50 border border-amber-200 rounded-xl p-5">
+        <div className="text-sm font-semibold text-amber-800 mb-2">OTIF Risk Contribution</div>
+        <div className="flex items-center gap-6">
+          <div>
+            <div className="text-3xl font-bold text-amber-700">{fatigueData.impactPct}%</div>
+            <div className="text-xs text-amber-600">of total OTIF risk</div>
+          </div>
+          <div>
+            <div className="text-3xl font-bold text-red-700">–${(fatigueData.impactDollars / 1000).toFixed(0)}K</div>
+            <div className="text-xs text-red-600">estimated exposure</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── Main View ─────────────────────────────────────────────────────────────────
 export default function LaborManagement({ initialTab, onBack }) {
   const [activeTab, setActiveTab] = useState(initialTab || 'workload')
@@ -588,6 +657,7 @@ export default function LaborManagement({ initialTab, onBack }) {
   const TABS = [
     { id: 'workload', label: 'Workload & Capacity', icon: BarChart3 },
     { id: 'inbound-variability', label: 'Inbound Variability', icon: Activity },
+    { id: 'labor-fatigue', label: 'Labor Fatigue', icon: Brain },
   ]
 
   return (
@@ -628,6 +698,9 @@ export default function LaborManagement({ initialTab, onBack }) {
 
       {/* Inbound Variability tab */}
       {activeTab === 'inbound-variability' && <InboundVariabilityTab />}
+
+      {/* Labor Fatigue tab */}
+      {activeTab === 'labor-fatigue' && <LaborFatigueTab />}
 
       {/* Workload tab content */}
       {activeTab === 'workload' && <>
