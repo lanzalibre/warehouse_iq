@@ -69,15 +69,10 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
             </button>
           )}
           <div className="flex items-center gap-3">
-            <img
-              src={spinnakerLogo}
-              alt="Spinnaker SCA"
-              className="h-10 w-auto flex-shrink-0 brightness-0 invert"
-            />
-            <div>
-              <span className="font-bold text-lg tracking-tight">SpinnakerSCA</span>
-              <span className="text-slate-400 text-xs ml-2 font-normal">Warehouse IQ</span>
+            <div className="bg-white rounded-lg px-8 py-2 flex-shrink-0">
+              <img src={spinnakerLogo} alt="Spinnaker SCA" className="h-14 w-auto" />
             </div>
+            <span className="text-slate-400 text-lg font-normal">Warehouse IQ</span>
           </div>
 
           {/* Breadcrumb */}

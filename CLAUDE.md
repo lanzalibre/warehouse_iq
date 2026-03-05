@@ -58,7 +58,8 @@ Use conventional commits format:
 
 ## Documentation
 - update content in docs folder when a branch is merged or before context is compacted
-- content in the docs folder should be enough to build this project from scratch via claude code 
+- content in the docs folder should be enough to build this project from scratch via claude code or for claude code to build context before extending the functionality
+- whenever a new feature is requested, read the documentation about the corresponding screen from the documentation first
 
 ## Questions
 
