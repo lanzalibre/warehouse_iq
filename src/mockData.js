@@ -889,8 +889,8 @@ const _W = [
   ['W067','Atlas Edwards',     'Zone C','Pick & Pack',         0,  null,   0,0,  6,0, 0],
   ['W068','Zephyr Collins',    'Zone C','Pick & Pack',         0,  null,   0,0,  4,0, 0],
   ['W069','Lyric Morris',      'Zone C','Pick & Pack',         0,  null,   0,0,  3,0, 0],
-  // ── Zone D (22 workers, 0 checked in – AM shift absent) ────────────────────
-  ['W010','Tom Fischer',       'Zone D','Cold Storage Lead',   0,  null,   0,0,  0,32,0],
+  // ── Zone D (22 workers, 1 checked in – Tom Fischer; zone still critically understaffed) ────────────────────
+  ['W010','Tom Fischer',       'Zone D','Cold Storage Lead',   1,  '06:03', 0,0,  0,32,0],
   ['W070','Ingrid Kolb',       'Zone D','Cold Storage Op.',    0,  null,   0,0,  0,24,0],
   ['W071','Sven Nielsen',      'Zone D','Cold Storage Op.',    0,  null,   0,0,  0,18,0],
   ['W072','Anya Sokolova',     'Zone D','Cold Storage Op.',    0,  null,   0,0,  0,20,0],
@@ -958,8 +958,8 @@ export const LABOR_PERIOD_DATA = {
     zones: {
       'Zone A':    { estimated: 18,  done: 3,  capacity: 23.4 },
       'Zone B':    { estimated: 28,  done: 6,  capacity: 23.4 },
-      'Zone C':    { estimated: 12,  done: 2,  capacity: 7.8  },
-      'Zone D':    { estimated: 14,  done: 0,  capacity: 0    },
+      'Zone C':    { estimated: 12,  done: 2,  capacity: 12   },
+      'Zone D':    { estimated: 14,  done: 0,  capacity: 7.8  },
       'Crossdock': { estimated: 20,  done: 4,  capacity: 12 },
     },
   },
@@ -1012,8 +1012,8 @@ export const REBALANCING_RECS = [
     experienceMonths: 8,
     surplusPeriodKey: 'Zone A',
     deficitPeriodKey: 'Zone D',
-    reasoning: "Shuttle/XDK has zero available capacity (Tom Fischer absent) against 14 h of workload. Priya Nair has the highest Shuttle/XDK experience (8 mo.) among PTL Order Picking workers, and PTL Order Picking currently has an 8.4 h labor surplus.",
-    impact: 'Resolves ~7.8 h of Shuttle/XDK deficit for current shift',
+    reasoning: "Shuttle/XDK is critically understaffed — only Tom Fischer has checked in (1 of 22 workers), leaving a −6.2 h shift deficit. Priya Nair has the highest Shuttle/XDK experience (8 mo.) among PTL Order Picking workers, and PTL Order Picking currently has an 8.4 h labor surplus.",
+    impact: 'Closes most of the Shuttle/XDK deficit for current shift',
   },
   {
     id: 'REC-002',
