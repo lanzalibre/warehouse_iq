@@ -48,6 +48,13 @@ Before submitting a PR:
 4. Verify responsive design
 5. Test navigation flows
 
+## Playwright Snapshots
+
+- Save all playwright snapshots to `.claude-snapshots/` (a temporary folder)
+- This folder is in `.gitignore` and is not tracked in version control
+- After every merge into main, delete the `.claude-snapshots/` folder to keep the repo clean
+- Snapshots are for temporary testing/debugging during development only
+
 ## Commit Messages
 
 Use conventional commits format:
