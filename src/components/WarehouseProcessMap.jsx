@@ -353,8 +353,8 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
         })}
       </div>
 
-      {/* Inbound Variability contributor for Vendor Containers node */}
-      {node.id === 'vendor_containers' && (() => {
+      {/* Inbound Variability contributor for Receiving / Unloading node */}
+      {node.id === 'receiving' && (() => {
         const ivData = DC_MANAGER_DATA.contributorDetail.inboundVariability
         return (
           <div style={{ paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
