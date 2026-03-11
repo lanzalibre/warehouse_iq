@@ -401,6 +401,51 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
           </div>
         )
       })()}
+
+      {/* Automation Utilization contributor for Unit Sorter node */}
+      {node.id === 'pick_and_load' && (() => {
+        const auData = DC_MANAGER_DATA.contributorDetail.automationUtilization
+        const pct = auData.current
+        const threshold = auData.threshold
+        return (
+          <div style={{ paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>Automation Utilization Analysis</span>
+              <span style={{ padding: '2px 6px', borderRadius: 9999, background: '#fff7ed', color: '#c2410c', fontSize: 10, fontWeight: 600 }}>Nearing Threshold</span>
+            </div>
+
+            {/* Utilization Progress Bar */}
+            <div style={{ background: 'white', borderRadius: 8, border: '1px solid #e2e8f0', padding: 12 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <div style={{ fontSize: 11, fontWeight: 600, color: '#475569' }}>Current Utilization vs. Threshold</div>
+                <div style={{ fontSize: 11, fontWeight: 600, color: '#b45309' }}>{pct}% / {threshold}%</div>
+              </div>
+
+              {/* Progress bar with threshold marker */}
+              <div style={{ position: 'relative', height: 20, background: '#fef3c7', borderRadius: 4, overflow: 'hidden', marginBottom: 8 }}>
+                {/* Fill bar (amber) */}
+                <div style={{ height: '100%', width: `${pct}%`, background: '#f59e0b' }} />
+
+                {/* Threshold marker (red line) */}
+                <div style={{ position: 'absolute', top: 0, left: `${threshold}%`, height: '100%', width: 2, background: '#ef4444', transform: 'translateX(-1px)' }} />
+              </div>
+
+              {/* Labels below bar */}
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 9, color: '#64748b', marginBottom: 8 }}>
+                <span>0%</span>
+                <span style={{ color: '#ef4444', fontWeight: 600 }}>{threshold}% threshold</span>
+                <span>100%</span>
+              </div>
+
+              {/* Note text */}
+              <div style={{ fontSize: 10, color: '#64748b', lineHeight: 1.4 }}>
+                Only 1% headroom remains. Any additional load may push automation past safe operating limits.
+              </div>
+            </div>
+          </div>
+        )
+      })()}
     </div>
   )
 }

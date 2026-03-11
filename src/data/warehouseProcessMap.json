@@ -385,7 +385,7 @@
     },
     {
       "id": "pick_and_load",
-      "label": "Pick & Load",
+      "label": "Unit Sorter",
       "swimlane": "warehouse",
       "nodeType": "process",
       "x": 550,
@@ -397,7 +397,7 @@
         "estimatedHours": 1.2
       },
       "throughput": {
-        "current": 22,
+        "current": 18,
         "target": 21,
         "unit": "pallets/h"
       },
