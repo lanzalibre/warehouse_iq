@@ -40,7 +40,7 @@
         "estimatedHours": 1.8
       },
       "throughput": {
-        "current": 48,
+        "current": 35,
         "target": 45,
         "unit": "units/h"
       },

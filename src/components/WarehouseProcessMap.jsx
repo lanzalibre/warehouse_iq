@@ -10,6 +10,7 @@ import {
 import '@xyflow/react/dist/style.css'
 import { X } from 'lucide-react'
 import mapData from '../data/warehouseProcessMap.json'
+import DCContributorInboundVariability from './PlanVsExecution/DCContributorInboundVariability'
 
 // ─── Status helpers ────────────────────────────────────────────────────────────
 function getStatus(current, target) {
@@ -335,7 +336,7 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
       )}
 
       {/* All metrics */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px 16px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px 16px', marginBottom: 12 }}>
         {Object.entries(node.data.metrics || {}).map(([key, value]) => {
           const benchmarkVal = node.data.nodeInfo?.metricBenchmarks?.[benchmarkPeriod]?.[key]
           return (
@@ -351,6 +352,18 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
           )
         })}
       </div>
+
+      {/* Inbound Variability contributor for Vendor Containers node */}
+      {node.id === 'vendor_containers' && (
+        <div style={{ paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+            Risk Contributor
+          </div>
+          <div style={{ maxHeight: 300, overflowY: 'auto' }}>
+            <DCContributorInboundVariability />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
