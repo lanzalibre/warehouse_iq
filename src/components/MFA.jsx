@@ -4,7 +4,7 @@ import {
   LayoutGrid, TrendingUp, ArrowRight, Check, X,
   Package, Clock, BarChart3, DollarSign, ArrowUp,
   ArrowDown, Move, Eye, EyeOff, Calendar,
-  ChevronDown, MapPin, Timer, TrendingDown,
+  ChevronDown, MapPin, Timer, TrendingDown, Target, Shield,
 } from 'lucide-react'
 
 import {
@@ -16,6 +16,7 @@ import {
   ALTERNATIVE_LOCATION_DATA,
   ZONE_DISTANCE_FROM_STAGING,
   PRODUCT_PAIRS_TRIP_DATA,
+  DC_MANAGER_DATA,
 } from '../mockData.js'
 
 // ─── Helper Functions ─────────────────────────────────────────────────────
@@ -1613,35 +1614,33 @@ export default function MFAScreen() {
 
             <div className="grid grid-cols-4 gap-4 mb-6">
               <KPICard
-                icon={TrendingUp}
-                label="Total Opportunities"
-                value={currentKPIs.totalOpportunities}
-                subtext="Across all analysis types"
-                delta={calcDelta(currentKPIs.totalOpportunities, benchmark.totalOpportunities)}
-                benchmarkLabel={benchmarkLabel}
-              />
-              <KPICard
-                icon={Move}
-                label="Pending Actions"
-                value={currentKPIs.pendingActions}
-                subtext="Awaiting review"
-                delta={calcDelta(currentKPIs.pendingActions, benchmark.pendingActions)}
-                benchmarkLabel={benchmarkLabel}
-              />
-              <KPICard
-                icon={Check}
-                label="Accepted This Month"
-                value={currentKPIs.acceptedThisMonth}
-                subtext={`${((currentKPIs.acceptedThisMonth / currentKPIs.totalOpportunities) * 100).toFixed(0)}% of total`}
-                delta={calcDelta(currentKPIs.acceptedThisMonth, benchmark.acceptedThisMonth)}
+                icon={Target}
+                label="OTIF"
+                value="98.1%"
+                delta={0.3}
                 benchmarkLabel={benchmarkLabel}
               />
               <KPICard
                 icon={DollarSign}
-                label="Est. Time Savings"
-                value={`${currentKPIs.timeSavingsHours}h`}
-                subtext="Hours per month (30d basis)"
-                delta={calcDelta(currentKPIs.timeSavingsHours, benchmark.timeSavingsHours)}
+                label="Cost per Unit"
+                value="$2.47"
+                delta={0.08}
+                benchmarkLabel={benchmarkLabel}
+              />
+              <KPICard
+                icon={Shield}
+                label="Safety Index"
+                value="94 / 100"
+                subtext="Tight margin"
+                delta={null}
+                benchmarkLabel={benchmarkLabel}
+              />
+              <KPICard
+                icon={TrendingUp}
+                label="Volume Forecast"
+                value="±18%"
+                subtext="Volatility ahead"
+                delta={null}
                 benchmarkLabel={benchmarkLabel}
               />
             </div>
