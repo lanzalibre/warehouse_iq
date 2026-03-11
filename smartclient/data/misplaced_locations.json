@@ -1,0 +1,1526 @@
+[
+  {
+    "id": "LOC-MP-0012",
+    "location": "Zone B-Aisle 01-Shelf C1",
+    "sku": "SKU-10012",
+    "description": "Reebok Training - Red",
+    "zone": "Zone B",
+    "bypassCount": 2,
+    "volume7Days": 389,
+    "denialReasons": [
+      "pick denial"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W084",
+        "time": "09:49:15",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W078",
+        "time": "09:42:41",
+        "reason": "pick denial"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 2,
+        "minutesLost": 6
+      },
+      "day": {
+        "bypasses": 5,
+        "minutesLost": 17
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0079",
+    "location": "Crossdock-Aisle 07-Shelf C2",
+    "sku": "SKU-10079",
+    "description": "Adidas Running - Grey",
+    "zone": "Crossdock",
+    "bypassCount": 4,
+    "volume7Days": 379,
+    "denialReasons": [
+      "empty location"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W064",
+        "time": "06:41:19",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W033",
+        "time": "03:46:22",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W040",
+        "time": "03:22:54",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W013",
+        "time": "07:43:14",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 4,
+        "minutesLost": 12
+      },
+      "day": {
+        "bypasses": 11,
+        "minutesLost": 34
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0093",
+    "location": "Zone B-Aisle 03-Shelf A2",
+    "sku": "SKU-10093",
+    "description": "New Balance Performance - Grey",
+    "zone": "Zone B",
+    "bypassCount": 10,
+    "volume7Days": 363,
+    "denialReasons": [
+      "empty location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W098",
+        "time": "03:05:46",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W102",
+        "time": "00:32:02",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W041",
+        "time": "08:13:31",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W025",
+        "time": "08:57:56",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W068",
+        "time": "06:44:23",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W065",
+        "time": "11:15:46",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W071",
+        "time": "09:40:57",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W015",
+        "time": "05:56:30",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W073",
+        "time": "10:53:23",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W084",
+        "time": "00:37:09",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 10,
+        "minutesLost": 30
+      },
+      "day": {
+        "bypasses": 29,
+        "minutesLost": 87
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0067",
+    "location": "Crossdock-Aisle 04-Shelf C2",
+    "sku": "SKU-10067",
+    "description": "Puma Running - Grey",
+    "zone": "Crossdock",
+    "bypassCount": 8,
+    "volume7Days": 350,
+    "denialReasons": [
+      "empty location",
+      "pick denial"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W107",
+        "time": "00:14:42",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W017",
+        "time": "04:25:02",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W087",
+        "time": "03:17:16",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W057",
+        "time": "03:59:41",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W065",
+        "time": "03:21:43",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W036",
+        "time": "07:20:46",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W036",
+        "time": "06:35:08",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W058",
+        "time": "02:02:30",
+        "reason": "pick denial"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 8,
+        "minutesLost": 24
+      },
+      "day": {
+        "bypasses": 23,
+        "minutesLost": 69
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0083",
+    "location": "Zone D-Aisle 03-Shelf A1",
+    "sku": "SKU-10083",
+    "description": "Reebok Training - Grey",
+    "zone": "Zone D",
+    "bypassCount": 8,
+    "volume7Days": 350,
+    "denialReasons": [
+      "pick denial"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W096",
+        "time": "06:46:28",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W077",
+        "time": "11:19:48",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W030",
+        "time": "02:52:41",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W001",
+        "time": "00:34:18",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W020",
+        "time": "00:15:52",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W004",
+        "time": "11:43:30",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W086",
+        "time": "00:21:15",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W035",
+        "time": "06:12:34",
+        "reason": "pick denial"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 8,
+        "minutesLost": 24
+      },
+      "day": {
+        "bypasses": 23,
+        "minutesLost": 69
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0042",
+    "location": "Zone B-Aisle 03-Shelf C1",
+    "sku": "SKU-10042",
+    "description": "Adidas Basketball - Red",
+    "zone": "Zone B",
+    "bypassCount": 10,
+    "volume7Days": 341,
+    "denialReasons": [
+      "pick denial"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W092",
+        "time": "07:50:51",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W039",
+        "time": "08:06:47",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W070",
+        "time": "06:08:58",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W105",
+        "time": "06:57:14",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W026",
+        "time": "08:08:58",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W016",
+        "time": "10:25:19",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W074",
+        "time": "07:14:55",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W068",
+        "time": "09:20:55",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W066",
+        "time": "01:59:51",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W010",
+        "time": "07:09:23",
+        "reason": "pick denial"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 10,
+        "minutesLost": 30
+      },
+      "day": {
+        "bypasses": 29,
+        "minutesLost": 87
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0065",
+    "location": "Zone A-Aisle 02-Shelf D1",
+    "sku": "SKU-10065",
+    "description": "Nike Basketball - White",
+    "zone": "Zone A",
+    "bypassCount": 6,
+    "volume7Days": 340,
+    "denialReasons": [
+      "empty location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W024",
+        "time": "02:09:18",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W057",
+        "time": "02:05:55",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W094",
+        "time": "04:43:00",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W099",
+        "time": "04:53:37",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W027",
+        "time": "05:36:12",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W084",
+        "time": "05:42:28",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 6,
+        "minutesLost": 18
+      },
+      "day": {
+        "bypasses": 17,
+        "minutesLost": 52
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0019",
+    "location": "Zone B-Aisle 10-Shelf B1",
+    "sku": "SKU-10019",
+    "description": "Nike Running - Blue",
+    "zone": "Zone B",
+    "bypassCount": 12,
+    "volume7Days": 339,
+    "denialReasons": [
+      "pick denial"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W058",
+        "time": "08:13:57",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W010",
+        "time": "09:01:51",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W066",
+        "time": "08:16:44",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W011",
+        "time": "09:39:37",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W105",
+        "time": "10:52:45",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W073",
+        "time": "08:56:51",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W053",
+        "time": "04:22:13",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W055",
+        "time": "10:22:44",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W095",
+        "time": "00:41:56",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W070",
+        "time": "01:11:24",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W086",
+        "time": "06:20:50",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W042",
+        "time": "08:04:49",
+        "reason": "pick denial"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 12,
+        "minutesLost": 36
+      },
+      "day": {
+        "bypasses": 34,
+        "minutesLost": 104
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0125",
+    "location": "Crossdock-Aisle 06-Shelf C2",
+    "sku": "SKU-10125",
+    "description": "Adidas Training - White",
+    "zone": "Crossdock",
+    "bypassCount": 2,
+    "volume7Days": 332,
+    "denialReasons": [
+      "wrong location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W104",
+        "time": "01:14:48",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W066",
+        "time": "06:06:27",
+        "reason": "wrong location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 2,
+        "minutesLost": 6
+      },
+      "day": {
+        "bypasses": 5,
+        "minutesLost": 17
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0029",
+    "location": "Zone C-Aisle 02-Shelf C2",
+    "sku": "SKU-10029",
+    "description": "Adidas Lifestyle - Red",
+    "zone": "Zone C",
+    "bypassCount": 10,
+    "volume7Days": 328,
+    "denialReasons": [
+      "wrong location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W004",
+        "time": "04:22:36",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W007",
+        "time": "04:30:05",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W106",
+        "time": "10:25:45",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W063",
+        "time": "07:36:38",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W016",
+        "time": "10:39:43",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W102",
+        "time": "09:21:53",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W056",
+        "time": "04:20:04",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W055",
+        "time": "03:42:49",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W003",
+        "time": "03:06:26",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W056",
+        "time": "09:48:24",
+        "reason": "wrong location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 10,
+        "minutesLost": 30
+      },
+      "day": {
+        "bypasses": 29,
+        "minutesLost": 87
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0057",
+    "location": "Zone A-Aisle 07-Shelf C1",
+    "sku": "SKU-10057",
+    "description": "Adidas Training - Black",
+    "zone": "Zone A",
+    "bypassCount": 8,
+    "volume7Days": 328,
+    "denialReasons": [
+      "pick denial",
+      "empty location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W082",
+        "time": "02:35:09",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W019",
+        "time": "07:14:53",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W085",
+        "time": "11:22:25",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W047",
+        "time": "09:24:55",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W048",
+        "time": "05:22:58",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W047",
+        "time": "10:02:24",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W037",
+        "time": "00:46:00",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W095",
+        "time": "07:32:07",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 8,
+        "minutesLost": 24
+      },
+      "day": {
+        "bypasses": 23,
+        "minutesLost": 69
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0038",
+    "location": "Zone B-Aisle 03-Shelf C2",
+    "sku": "SKU-10038",
+    "description": "Puma Basketball - White",
+    "zone": "Zone B",
+    "bypassCount": 10,
+    "volume7Days": 325,
+    "denialReasons": [
+      "pick denial",
+      "pick denial"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W034",
+        "time": "09:36:48",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W083",
+        "time": "05:06:32",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W051",
+        "time": "08:13:24",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W023",
+        "time": "04:21:08",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W075",
+        "time": "08:10:43",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W107",
+        "time": "09:36:03",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W001",
+        "time": "06:05:48",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W104",
+        "time": "00:55:52",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W085",
+        "time": "07:47:18",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W069",
+        "time": "09:23:56",
+        "reason": "pick denial"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 10,
+        "minutesLost": 30
+      },
+      "day": {
+        "bypasses": 29,
+        "minutesLost": 87
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0113",
+    "location": "Zone A-Aisle 09-Shelf A2",
+    "sku": "SKU-10113",
+    "description": "Under Armour Running - Grey",
+    "zone": "Zone A",
+    "bypassCount": 3,
+    "volume7Days": 322,
+    "denialReasons": [
+      "empty location"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W006",
+        "time": "03:28:38",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W047",
+        "time": "11:49:51",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W033",
+        "time": "06:23:18",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 3,
+        "minutesLost": 9
+      },
+      "day": {
+        "bypasses": 8,
+        "minutesLost": 26
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0116",
+    "location": "Crossdock-Aisle 09-Shelf C1",
+    "sku": "SKU-10116",
+    "description": "New Balance Running - Black",
+    "zone": "Crossdock",
+    "bypassCount": 9,
+    "volume7Days": 321,
+    "denialReasons": [
+      "wrong location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W061",
+        "time": "08:46:32",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W058",
+        "time": "02:29:23",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W013",
+        "time": "05:39:35",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W021",
+        "time": "00:00:03",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W002",
+        "time": "04:19:55",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W099",
+        "time": "01:23:16",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W026",
+        "time": "09:40:36",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W041",
+        "time": "05:52:36",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W065",
+        "time": "09:30:36",
+        "reason": "wrong location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 9,
+        "minutesLost": 27
+      },
+      "day": {
+        "bypasses": 26,
+        "minutesLost": 78
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0050",
+    "location": "Crossdock-Aisle 01-Shelf B1",
+    "sku": "SKU-10050",
+    "description": "Nike Running - Blue",
+    "zone": "Crossdock",
+    "bypassCount": 9,
+    "volume7Days": 318,
+    "denialReasons": [
+      "wrong location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W060",
+        "time": "00:33:40",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W096",
+        "time": "10:04:43",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W007",
+        "time": "07:17:28",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W076",
+        "time": "06:34:50",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W104",
+        "time": "02:48:56",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W079",
+        "time": "11:32:55",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W100",
+        "time": "04:50:15",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W021",
+        "time": "06:58:50",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W089",
+        "time": "01:37:21",
+        "reason": "wrong location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 9,
+        "minutesLost": 27
+      },
+      "day": {
+        "bypasses": 26,
+        "minutesLost": 78
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0062",
+    "location": "Crossdock-Aisle 05-Shelf A2",
+    "sku": "SKU-10062",
+    "description": "Puma Performance - Grey",
+    "zone": "Crossdock",
+    "bypassCount": 8,
+    "volume7Days": 318,
+    "denialReasons": [
+      "pick denial",
+      "empty location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W053",
+        "time": "01:16:51",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W009",
+        "time": "04:51:32",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W029",
+        "time": "07:14:15",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W010",
+        "time": "07:49:17",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W069",
+        "time": "08:40:09",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W058",
+        "time": "10:57:29",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W028",
+        "time": "03:43:28",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W037",
+        "time": "07:50:57",
+        "reason": "pick denial"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 8,
+        "minutesLost": 24
+      },
+      "day": {
+        "bypasses": 23,
+        "minutesLost": 69
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0107",
+    "location": "Zone D-Aisle 06-Shelf A1",
+    "sku": "SKU-10107",
+    "description": "Under Armour Running - Black",
+    "zone": "Zone D",
+    "bypassCount": 9,
+    "volume7Days": 313,
+    "denialReasons": [
+      "empty location",
+      "empty location"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W025",
+        "time": "02:14:54",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W015",
+        "time": "06:24:22",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W014",
+        "time": "00:16:46",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W090",
+        "time": "11:28:05",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W073",
+        "time": "02:25:22",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W079",
+        "time": "00:01:50",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W007",
+        "time": "01:15:36",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W007",
+        "time": "10:13:21",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W079",
+        "time": "09:51:55",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 9,
+        "minutesLost": 27
+      },
+      "day": {
+        "bypasses": 26,
+        "minutesLost": 78
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-004",
+    "location": "Zone A-Aisle 04-Shelf B1",
+    "sku": "NIKE-DUNK-43",
+    "description": "Nike Dunk Low - Size 43 - Panda",
+    "zone": "Zone A",
+    "bypassCount": 4,
+    "volume7Days": 312,
+    "denialReasons": [
+      "pick denial",
+      "empty location"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": true,
+    "pickerBypasses": [
+      {
+        "pickerId": "W001",
+        "time": "08:08:45",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W002",
+        "time": "08:45:22",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W013",
+        "time": "09:22:18",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W014",
+        "time": "09:55:33",
+        "reason": "empty location"
+      }
+    ]
+  },
+  {
+    "id": "LOC-MP-0009",
+    "location": "Zone D-Aisle 09-Shelf B1",
+    "sku": "SKU-10009",
+    "description": "Puma Training - Red",
+    "zone": "Zone D",
+    "bypassCount": 11,
+    "volume7Days": 305,
+    "denialReasons": [
+      "empty location"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W050",
+        "time": "10:52:15",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W063",
+        "time": "11:56:11",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W074",
+        "time": "09:45:08",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W070",
+        "time": "05:27:55",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W040",
+        "time": "06:35:32",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W074",
+        "time": "03:21:12",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W067",
+        "time": "06:06:03",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W058",
+        "time": "10:57:12",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W089",
+        "time": "03:12:56",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W069",
+        "time": "02:11:08",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W008",
+        "time": "06:11:46",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 11,
+        "minutesLost": 33
+      },
+      "day": {
+        "bypasses": 31,
+        "minutesLost": 95
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0053",
+    "location": "Zone A-Aisle 01-Shelf D1",
+    "sku": "SKU-10053",
+    "description": "Puma Basketball - White",
+    "zone": "Zone A",
+    "bypassCount": 8,
+    "volume7Days": 305,
+    "denialReasons": [
+      "wrong location",
+      "wrong location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W067",
+        "time": "02:03:47",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W062",
+        "time": "08:28:40",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W104",
+        "time": "03:09:58",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W100",
+        "time": "01:30:20",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W099",
+        "time": "09:05:13",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W071",
+        "time": "03:21:06",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W011",
+        "time": "05:44:58",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W039",
+        "time": "00:58:33",
+        "reason": "wrong location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 8,
+        "minutesLost": 24
+      },
+      "day": {
+        "bypasses": 23,
+        "minutesLost": 69
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0118",
+    "location": "Zone A-Aisle 07-Shelf E2",
+    "sku": "SKU-10118",
+    "description": "Puma Running - White",
+    "zone": "Zone A",
+    "bypassCount": 1,
+    "volume7Days": 305,
+    "denialReasons": [
+      "wrong location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W083",
+        "time": "00:25:55",
+        "reason": "wrong location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 1,
+        "minutesLost": 3
+      },
+      "day": {
+        "bypasses": 2,
+        "minutesLost": 8
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0120",
+    "location": "Zone B-Aisle 09-Shelf A2",
+    "sku": "SKU-10120",
+    "description": "Adidas Lifestyle - Blue",
+    "zone": "Zone B",
+    "bypassCount": 1,
+    "volume7Days": 305,
+    "denialReasons": [
+      "pick denial"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W069",
+        "time": "02:13:02",
+        "reason": "pick denial"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 1,
+        "minutesLost": 3
+      },
+      "day": {
+        "bypasses": 2,
+        "minutesLost": 8
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0108",
+    "location": "Crossdock-Aisle 03-Shelf A2",
+    "sku": "SKU-10108",
+    "description": "Nike Running - White",
+    "zone": "Crossdock",
+    "bypassCount": 2,
+    "volume7Days": 301,
+    "denialReasons": [
+      "pick denial",
+      "empty location"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W106",
+        "time": "11:10:53",
+        "reason": "pick denial"
+      },
+      {
+        "pickerId": "W026",
+        "time": "02:00:10",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 2,
+        "minutesLost": 6
+      },
+      "day": {
+        "bypasses": 5,
+        "minutesLost": 17
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0072",
+    "location": "Zone C-Aisle 08-Shelf D1",
+    "sku": "SKU-10072",
+    "description": "Reebok Training - White",
+    "zone": "Zone C",
+    "bypassCount": 8,
+    "volume7Days": 290,
+    "denialReasons": [
+      "empty location",
+      "empty location"
+    ],
+    "suggestedAction": "trigger-cycle-count",
+    "issueType": "inventory-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W081",
+        "time": "11:01:38",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W028",
+        "time": "08:07:47",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W099",
+        "time": "05:20:55",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W017",
+        "time": "01:45:37",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W089",
+        "time": "01:25:29",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W003",
+        "time": "00:25:12",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W054",
+        "time": "01:08:34",
+        "reason": "empty location"
+      },
+      {
+        "pickerId": "W081",
+        "time": "08:52:25",
+        "reason": "empty location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 8,
+        "minutesLost": 24
+      },
+      "day": {
+        "bypasses": 23,
+        "minutesLost": 69
+      }
+    }
+  },
+  {
+    "id": "LOC-MP-0017",
+    "location": "Crossdock-Aisle 08-Shelf B2",
+    "sku": "SKU-10017",
+    "description": "Under Armour Training - Blue",
+    "zone": "Crossdock",
+    "bypassCount": 7,
+    "volume7Days": 287,
+    "denialReasons": [
+      "wrong location"
+    ],
+    "suggestedAction": "audit-location",
+    "issueType": "slotting-issue",
+    "ignored": false,
+    "pickerBypasses": [
+      {
+        "pickerId": "W108",
+        "time": "00:41:54",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W072",
+        "time": "01:10:44",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W014",
+        "time": "06:39:05",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W023",
+        "time": "03:15:53",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W080",
+        "time": "09:50:06",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W104",
+        "time": "09:07:36",
+        "reason": "wrong location"
+      },
+      {
+        "pickerId": "W056",
+        "time": "11:03:37",
+        "reason": "wrong location"
+      }
+    ],
+    "accumulated": {
+      "shift": {
+        "bypasses": 7,
+        "minutesLost": 21
+      },
+      "day": {
+        "bypasses": 20,
+        "minutesLost": 60
+      }
+    }
+  }
+]

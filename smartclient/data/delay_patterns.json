@@ -1,0 +1,325 @@
+{
+  "period": "Current Shift (06:00-14:00)",
+  "totalDelayedTasks": 47,
+  "thresholdPercent": 30,
+  "zones": [
+    {
+      "id": "ZONE-MZ2",
+      "name": "Mezzanine 2",
+      "type": "zone",
+      "delayPercent": 42,
+      "avgDelaySeconds": 385,
+      "taskCount": 18,
+      "accumulated": {
+        "shift": {
+          "delayedSeconds": 6930,
+          "tasksAffected": 18
+        },
+        "day": {
+          "delayedSeconds": 11550,
+          "tasksAffected": 30
+        },
+        "projectedEndOfShift": {
+          "delayedSeconds": 9240,
+          "tasksAffected": 24
+        },
+        "projectedEndOfDay": {
+          "delayedSeconds": 13860,
+          "tasksAffected": 36
+        }
+      },
+      "wesContext": {
+        "issue": "Elevator bottleneck",
+        "description": "Elevator 2A experiencing frequent delays due to maintenance",
+        "impact": "Increased travel times for all zone access"
+      },
+      "wmsContext": {
+        "skusAffected": 24,
+        "fastMovingOrders": 15,
+        "serviceRisk": "high",
+        "description": "Multiple fast-moving SKUs stored in this zone - SLA at risk"
+      },
+      "affectedPickerRoutes": [
+        {
+          "picker": "W008 - Kevin Liu",
+          "routeId": "RT-0412",
+          "plannedStopTime": "09:12:00",
+          "actualArrival": "09:19:42",
+          "delaySeconds": 462
+        },
+        {
+          "picker": "W050 - Taylor Knight",
+          "routeId": "RT-0418",
+          "plannedStopTime": "09:45:00",
+          "actualArrival": "09:52:18",
+          "delaySeconds": 438
+        },
+        {
+          "picker": "W051 - Lennon Warren",
+          "routeId": "RT-0421",
+          "plannedStopTime": "10:05:00",
+          "actualArrival": "10:11:55",
+          "delaySeconds": 415
+        },
+        {
+          "picker": "W052 - Finley Wood",
+          "routeId": "RT-0427",
+          "plannedStopTime": "10:30:00",
+          "actualArrival": "10:37:22",
+          "delaySeconds": 442
+        }
+      ]
+    },
+    {
+      "id": "ZONE-MZ1",
+      "name": "Mezzanine 1",
+      "type": "zone",
+      "delayPercent": 35,
+      "avgDelaySeconds": 298,
+      "taskCount": 12,
+      "accumulated": {
+        "shift": {
+          "delayedSeconds": 3576,
+          "tasksAffected": 12
+        },
+        "day": {
+          "delayedSeconds": 5960,
+          "tasksAffected": 20
+        },
+        "projectedEndOfShift": {
+          "delayedSeconds": 4770,
+          "tasksAffected": 16
+        },
+        "projectedEndOfDay": {
+          "delayedSeconds": 7155,
+          "tasksAffected": 24
+        }
+      },
+      "wesContext": {
+        "issue": "Conveyor slowdown",
+        "description": "Conveyor belt C-3 running at 60% capacity due to sensor issue",
+        "impact": "Reduced throughput for zone outputs"
+      },
+      "wmsContext": {
+        "skusAffected": 18,
+        "fastMovingOrders": 8,
+        "serviceRisk": "medium",
+        "description": "Moderate impact on order fulfillment SLAs"
+      },
+      "affectedPickerRoutes": [
+        {
+          "picker": "W053 - Remy Spencer",
+          "routeId": "RT-0508",
+          "plannedStopTime": "10:15:00",
+          "actualArrival": "10:20:14",
+          "delaySeconds": 314
+        },
+        {
+          "picker": "W054 - Bellamy Kim",
+          "routeId": "RT-0515",
+          "plannedStopTime": "10:40:00",
+          "actualArrival": "10:45:02",
+          "delaySeconds": 302
+        },
+        {
+          "picker": "W055 - Shiloh Park",
+          "routeId": "RT-0519",
+          "plannedStopTime": "11:00:00",
+          "actualArrival": "11:04:58",
+          "delaySeconds": 298
+        }
+      ]
+    }
+  ],
+  "equipment": [
+    {
+      "id": "EQ-PW-04",
+      "name": "Put-Wall 4",
+      "type": "equipment",
+      "delayPercent": 48,
+      "avgDelaySeconds": 452,
+      "taskCount": 9,
+      "accumulated": {
+        "shift": {
+          "delayedSeconds": 4068,
+          "tasksAffected": 9
+        },
+        "day": {
+          "delayedSeconds": 6780,
+          "tasksAffected": 15
+        },
+        "projectedEndOfShift": {
+          "delayedSeconds": 5424,
+          "tasksAffected": 12
+        },
+        "projectedEndOfDay": {
+          "delayedSeconds": 8136,
+          "tasksAffected": 18
+        }
+      },
+      "wesContext": {
+        "issue": "Frequent micro-stoppages",
+        "description": "Put-wall sensors misreading carton barcodes - requires manual override",
+        "impact": "20% of tasks need human intervention"
+      },
+      "wmsContext": {
+        "skusAffected": 12,
+        "fastMovingOrders": 7,
+        "serviceRisk": "critical",
+        "description": "Fast-moving order types routed here - urgent SLA risk"
+      },
+      "affectedPickerRoutes": [
+        {
+          "picker": "W008 - Kevin Liu",
+          "routeId": "RT-0412",
+          "plannedStopTime": "09:18:00",
+          "actualArrival": "09:26:32",
+          "delaySeconds": 512
+        },
+        {
+          "picker": "W051 - Lennon Warren",
+          "routeId": "RT-0421",
+          "plannedStopTime": "09:52:00",
+          "actualArrival": "10:00:10",
+          "delaySeconds": 490
+        },
+        {
+          "picker": "W055 - Shiloh Park",
+          "routeId": "RT-0522",
+          "plannedStopTime": "10:22:00",
+          "actualArrival": "10:29:44",
+          "delaySeconds": 464
+        }
+      ]
+    },
+    {
+      "id": "EQ-CV-07",
+      "name": "Conveyor Line 7",
+      "type": "equipment",
+      "delayPercent": 38,
+      "avgDelaySeconds": 312,
+      "taskCount": 8,
+      "accumulated": {
+        "shift": {
+          "delayedSeconds": 2496,
+          "tasksAffected": 8
+        },
+        "day": {
+          "delayedSeconds": 4160,
+          "tasksAffected": 13
+        },
+        "projectedEndOfShift": {
+          "delayedSeconds": 3120,
+          "tasksAffected": 10
+        },
+        "projectedEndOfDay": {
+          "delayedSeconds": 4992,
+          "tasksAffected": 16
+        }
+      },
+      "wesContext": {
+        "issue": "Reduced conveyor speed",
+        "description": "Speed reduced to 0.8 m/s (normal: 1.5 m/s) pending maintenance",
+        "impact": "Throughput reduced by 47%"
+      },
+      "wmsContext": {
+        "skusAffected": 9,
+        "fastMovingOrders": 4,
+        "serviceRisk": "medium",
+        "description": "Primarily bulk orders - manageable SLA impact"
+      },
+      "affectedPickerRoutes": [
+        {
+          "picker": "W052 - Finley Wood",
+          "routeId": "RT-0601",
+          "plannedStopTime": "09:30:00",
+          "actualArrival": "09:35:18",
+          "delaySeconds": 318
+        },
+        {
+          "picker": "W053 - Remy Spencer",
+          "routeId": "RT-0607",
+          "plannedStopTime": "10:00:00",
+          "actualArrival": "10:05:10",
+          "delaySeconds": 310
+        }
+      ]
+    }
+  ],
+  "orderTypes": [
+    {
+      "id": "OT-SAMEDAY",
+      "name": "Same-Day Delivery",
+      "type": "order-type",
+      "delayPercent": 33,
+      "avgDelaySeconds": 267,
+      "taskCount": 22,
+      "accumulated": {
+        "shift": {
+          "delayedSeconds": 5874,
+          "tasksAffected": 22
+        },
+        "day": {
+          "delayedSeconds": 9690,
+          "tasksAffected": 37
+        },
+        "projectedEndOfShift": {
+          "delayedSeconds": 7842,
+          "tasksAffected": 30
+        },
+        "projectedEndOfDay": {
+          "delayedSeconds": 11763,
+          "tasksAffected": 45
+        }
+      },
+      "wesContext": {
+        "issue": "High picker congestion",
+        "description": "Multiple pickers competing for same zone access during peak hours",
+        "impact": "Increased dwell times for all same-day orders"
+      },
+      "wmsContext": {
+        "skusAffected": 35,
+        "fastMovingOrders": 22,
+        "serviceRisk": "critical",
+        "description": "Same-day SLA requires <4hr fulfillment - current delays causing breaches"
+      }
+    },
+    {
+      "id": "OT-B2B",
+      "name": "B2B Bulk Orders",
+      "type": "order-type",
+      "delayPercent": 31,
+      "avgDelaySeconds": 245,
+      "taskCount": 15,
+      "accumulated": {
+        "shift": {
+          "delayedSeconds": 3675,
+          "tasksAffected": 15
+        },
+        "day": {
+          "delayedSeconds": 6125,
+          "tasksAffected": 25
+        },
+        "projectedEndOfShift": {
+          "delayedSeconds": 4900,
+          "tasksAffected": 20
+        },
+        "projectedEndOfDay": {
+          "delayedSeconds": 7350,
+          "tasksAffected": 30
+        }
+      },
+      "wesContext": {
+        "issue": "Loading dock coordination",
+        "description": "Bulk orders waiting for trailer availability",
+        "impact": "Extended dwell times at packing stations"
+      },
+      "wmsContext": {
+        "skusAffected": 28,
+        "fastMovingOrders": 6,
+        "serviceRisk": "low",
+        "description": "B2B SLAs more flexible - minimal service risk"
+      }
+    }
+  ]
+}

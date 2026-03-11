@@ -1,0 +1,1730 @@
+[
+  {
+    "id": "W001",
+    "name": "Priya Nair",
+    "initials": "PN",
+    "role": "Lead Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "05:45",
+    "experience": {
+      "Zone A": 36,
+      "Zone B": 4,
+      "Zone C": 2,
+      "Zone D": 8,
+      "Crossdock": 6
+    }
+  },
+  {
+    "id": "W002",
+    "name": "Maria Santos",
+    "initials": "MS",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "05:52",
+    "experience": {
+      "Zone A": 18,
+      "Zone B": 2,
+      "Zone C": 0,
+      "Zone D": 3,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W003",
+    "name": "Diego Reyes",
+    "initials": "DR",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:08",
+    "experience": {
+      "Zone A": 12,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 2
+    }
+  },
+  {
+    "id": "W013",
+    "name": "Elena Petrov",
+    "initials": "EP",
+    "role": "Senior Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:01",
+    "experience": {
+      "Zone A": 24,
+      "Zone B": 3,
+      "Zone C": 0,
+      "Zone D": 5,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W014",
+    "name": "Marcus Williams",
+    "initials": "MW",
+    "role": "Senior Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "05:58",
+    "experience": {
+      "Zone A": 30,
+      "Zone B": 6,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W015",
+    "name": "Yuki Tanaka",
+    "initials": "YT",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:12",
+    "experience": {
+      "Zone A": 16,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W016",
+    "name": "Andre Silva",
+    "initials": "AS",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:04",
+    "experience": {
+      "Zone A": 20,
+      "Zone B": 4,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W017",
+    "name": "Ling Wang",
+    "initials": "LW",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:09",
+    "experience": {
+      "Zone A": 14,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W018",
+    "name": "Omar Hassan",
+    "initials": "OH",
+    "role": "Junior Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:18",
+    "experience": {
+      "Zone A": 8,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W019",
+    "name": "Sophia Rossi",
+    "initials": "SR",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:03",
+    "experience": {
+      "Zone A": 18,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W020",
+    "name": "Luis Garcia",
+    "initials": "LG",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:07",
+    "experience": {
+      "Zone A": 22,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W021",
+    "name": "Keiko Sato",
+    "initials": "KS",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:14",
+    "experience": {
+      "Zone A": 15,
+      "Zone B": 2,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W022",
+    "name": "David Johnson",
+    "initials": "DJ",
+    "role": "Senior Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:06",
+    "experience": {
+      "Zone A": 28,
+      "Zone B": 4,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W023",
+    "name": "Amira Khalil",
+    "initials": "AK",
+    "role": "Junior Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:22",
+    "experience": {
+      "Zone A": 6,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W024",
+    "name": "Jordan Brooks",
+    "initials": "JB",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:11",
+    "experience": {
+      "Zone A": 12,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 3
+    }
+  },
+  {
+    "id": "W025",
+    "name": "Tasha Patel",
+    "initials": "TP",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:16",
+    "experience": {
+      "Zone A": 10,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W026",
+    "name": "Roberto Kim",
+    "initials": "RK",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": true,
+    "checkInTime": "06:19",
+    "experience": {
+      "Zone A": 8,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W027",
+    "name": "Mei Osei",
+    "initials": "MO",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 14,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W028",
+    "name": "Jamal Andersen",
+    "initials": "JA",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 10,
+      "Zone B": 3,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W029",
+    "name": "Ingrid Yamamoto",
+    "initials": "IY",
+    "role": "Senior Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 32,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W030",
+    "name": "Kwame Ferreira",
+    "initials": "KF",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 9,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W031",
+    "name": "Nadia Novak",
+    "initials": "NN",
+    "role": "Receiver",
+    "assignedZone": "Zone A",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 7,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W004",
+    "name": "James Park",
+    "initials": "JP",
+    "role": "Lead Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:02",
+    "experience": {
+      "Zone A": 6,
+      "Zone B": 28,
+      "Zone C": 8,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W005",
+    "name": "Aisha Thompson",
+    "initials": "AT",
+    "role": "Senior Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:15",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 18,
+      "Zone C": 4,
+      "Zone D": 0,
+      "Crossdock": 3
+    }
+  },
+  {
+    "id": "W006",
+    "name": "Fatima Al-Hassan",
+    "initials": "FA",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:20",
+    "experience": {
+      "Zone A": 2,
+      "Zone B": 14,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W007",
+    "name": "Carlos Mendoza",
+    "initials": "CM",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 8,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W032",
+    "name": "Leila Vasquez",
+    "initials": "LV",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:05",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 22,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W033",
+    "name": "Antoine Dubois",
+    "initials": "AD",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:11",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 16,
+      "Zone C": 3,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W034",
+    "name": "Zara Bergmann",
+    "initials": "ZB",
+    "role": "Senior Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:08",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 26,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W035",
+    "name": "Finn Murphy",
+    "initials": "FM",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:03",
+    "experience": {
+      "Zone A": 3,
+      "Zone B": 14,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W036",
+    "name": "Hana Nakamura",
+    "initials": "HN",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:17",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 18,
+      "Zone C": 2,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W037",
+    "name": "Marco Adeyemi",
+    "initials": "MA",
+    "role": "Junior Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:14",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 6,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W038",
+    "name": "Yara Johnson",
+    "initials": "YJ",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:21",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 20,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W039",
+    "name": "Dion Mitchell",
+    "initials": "DM",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:09",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 15,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 2
+    }
+  },
+  {
+    "id": "W040",
+    "name": "Alex Turner",
+    "initials": "AT",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:13",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 10,
+      "Zone C": 4,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W041",
+    "name": "Robin Casey",
+    "initials": "RC",
+    "role": "Senior Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:07",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 24,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W042",
+    "name": "Dana Fuller",
+    "initials": "DF",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:00",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 14,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W043",
+    "name": "Tyler Stone",
+    "initials": "TS",
+    "role": "Junior Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:18",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 7,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W044",
+    "name": "Casey Reed",
+    "initials": "CR",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:22",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 18,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W045",
+    "name": "Morgan Lane",
+    "initials": "ML",
+    "role": "Junior Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": true,
+    "checkInTime": "06:25",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 5,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W046",
+    "name": "Sam Cruz",
+    "initials": "SC",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 12,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W047",
+    "name": "Jamie Ross",
+    "initials": "JR",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 9,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W048",
+    "name": "Avery Flynn",
+    "initials": "AF",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 11,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W049",
+    "name": "Blake Hart",
+    "initials": "BH",
+    "role": "Stower",
+    "assignedZone": "Zone B",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 8,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W008",
+    "name": "Kevin Liu",
+    "initials": "KL",
+    "role": "P&P Specialist",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:10",
+    "experience": {
+      "Zone A": 4,
+      "Zone B": 6,
+      "Zone C": 20,
+      "Zone D": 0,
+      "Crossdock": 8
+    }
+  },
+  {
+    "id": "W009",
+    "name": "Sara O'Brien",
+    "initials": "SO",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 10,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W050",
+    "name": "Taylor Knight",
+    "initials": "TK",
+    "role": "P&P Specialist",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:05",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 18,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W051",
+    "name": "Lennon Warren",
+    "initials": "LW",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:12",
+    "experience": {
+      "Zone A": 2,
+      "Zone B": 0,
+      "Zone C": 14,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W052",
+    "name": "Finley Wood",
+    "initials": "FW",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:08",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 12,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W053",
+    "name": "Remy Spencer",
+    "initials": "RS",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:15",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 16,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W054",
+    "name": "Bellamy Kim",
+    "initials": "BK",
+    "role": "P&P Specialist",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:03",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 22,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W055",
+    "name": "Shiloh Lewis",
+    "initials": "SL",
+    "role": "Junior P&P",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:19",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 8,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W056",
+    "name": "Luca Carter",
+    "initials": "LC",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:07",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 3,
+      "Zone C": 14,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W057",
+    "name": "Nico Bailey",
+    "initials": "NB",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:11",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 10,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W058",
+    "name": "Sasha Cooper",
+    "initials": "SC",
+    "role": "Junior P&P",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:22",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 6,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W059",
+    "name": "Kit Turner",
+    "initials": "KT",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:06",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 12,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W060",
+    "name": "Micah Wright",
+    "initials": "MW",
+    "role": "P&P Specialist",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:01",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 24,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W061",
+    "name": "Raven Scott",
+    "initials": "RS",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": true,
+    "checkInTime": "06:16",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 9,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W062",
+    "name": "Phoenix Green",
+    "initials": "PG",
+    "role": "Junior P&P",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 5,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W063",
+    "name": "Storm Adams",
+    "initials": "SA",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 7,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W064",
+    "name": "August Mitchell",
+    "initials": "AM",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 11,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W065",
+    "name": "Cleo Davis",
+    "initials": "CD",
+    "role": "P&P Specialist",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 16,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W066",
+    "name": "Orion Rivera",
+    "initials": "OR",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 8,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W067",
+    "name": "Atlas Edwards",
+    "initials": "AE",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 6,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W068",
+    "name": "Zephyr Collins",
+    "initials": "ZC",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 4,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W069",
+    "name": "Lyric Morris",
+    "initials": "LM",
+    "role": "Pick & Pack",
+    "assignedZone": "Zone C",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 3,
+      "Zone D": 0,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W010",
+    "name": "Tom Fischer",
+    "initials": "TF",
+    "role": "Cold Storage Lead",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 32,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W070",
+    "name": "Ingrid Kolb",
+    "initials": "IK",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 24,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W071",
+    "name": "Sven Nielsen",
+    "initials": "SN",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 18,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W072",
+    "name": "Anya Sokolova",
+    "initials": "AS",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 20,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W073",
+    "name": "Bjorn Larsen",
+    "initials": "BL",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 16,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W074",
+    "name": "Natasha Morozova",
+    "initials": "NM",
+    "role": "Cold Storage Tech",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 14,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W075",
+    "name": "Henrik Gustafsson",
+    "initials": "HG",
+    "role": "Cold Storage Tech",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 22,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W076",
+    "name": "Olga Petrenko",
+    "initials": "OP",
+    "role": "Cold Storage Tech",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 12,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W077",
+    "name": "Erik Eriksson",
+    "initials": "EE",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 28,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W078",
+    "name": "Astrid Berg",
+    "initials": "AB",
+    "role": "Cold Storage Tech",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 10,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W079",
+    "name": "Lars Hansen",
+    "initials": "LH",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 18,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W080",
+    "name": "Freya Lindqvist",
+    "initials": "FL",
+    "role": "Cold Storage Lead",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 26,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W081",
+    "name": "Harald Strand",
+    "initials": "HS",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 15,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W082",
+    "name": "Sigrid Olsen",
+    "initials": "SO",
+    "role": "Cold Storage Tech",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 11,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W083",
+    "name": "Morten Dahl",
+    "initials": "MD",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 20,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W084",
+    "name": "Bente Christensen",
+    "initials": "BC",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 8,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W085",
+    "name": "Gunnar Pedersen",
+    "initials": "GP",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 16,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W086",
+    "name": "Ragnhild Andersen",
+    "initials": "RA",
+    "role": "Cold Storage Tech",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 13,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W087",
+    "name": "Leif Eriksen",
+    "initials": "LE",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 9,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W088",
+    "name": "Kari Haugen",
+    "initials": "KH",
+    "role": "Cold Storage Tech",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 7,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W089",
+    "name": "Tor Johansen",
+    "initials": "TJ",
+    "role": "Cold Storage Op.",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 11,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W090",
+    "name": "Marta Gustavsson",
+    "initials": "MG",
+    "role": "Cold Storage Tech",
+    "assignedZone": "Zone D",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 6,
+      "Crossdock": 0
+    }
+  },
+  {
+    "id": "W011",
+    "name": "Nina Vasquez",
+    "initials": "NV",
+    "role": "Crossdock Lead",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:00",
+    "experience": {
+      "Zone A": 3,
+      "Zone B": 2,
+      "Zone C": 3,
+      "Zone D": 0,
+      "Crossdock": 22
+    }
+  },
+  {
+    "id": "W012",
+    "name": "Ben Okafor",
+    "initials": "BO",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:05",
+    "experience": {
+      "Zone A": 2,
+      "Zone B": 4,
+      "Zone C": 6,
+      "Zone D": 0,
+      "Crossdock": 16
+    }
+  },
+  {
+    "id": "W091",
+    "name": "Parker Webb",
+    "initials": "PW",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:08",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 2,
+      "Zone C": 1,
+      "Zone D": 0,
+      "Crossdock": 10
+    }
+  },
+  {
+    "id": "W092",
+    "name": "Cameron Grant",
+    "initials": "CG",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:11",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 8
+    }
+  },
+  {
+    "id": "W093",
+    "name": "Reese Burns",
+    "initials": "RB",
+    "role": "Senior Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:03",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 2,
+      "Zone D": 0,
+      "Crossdock": 14
+    }
+  },
+  {
+    "id": "W094",
+    "name": "Spencer Fox",
+    "initials": "SF",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:15",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 3,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 12
+    }
+  },
+  {
+    "id": "W095",
+    "name": "Emerson Cole",
+    "initials": "EC",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:07",
+    "experience": {
+      "Zone A": 2,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 9
+    }
+  },
+  {
+    "id": "W096",
+    "name": "Rowan Shaw",
+    "initials": "RS",
+    "role": "Junior Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:19",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 6
+    }
+  },
+  {
+    "id": "W097",
+    "name": "Sage Barker",
+    "initials": "SB",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:04",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 11
+    }
+  },
+  {
+    "id": "W098",
+    "name": "Skyler Pierce",
+    "initials": "SP",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:12",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 8
+    }
+  },
+  {
+    "id": "W099",
+    "name": "River Hayes",
+    "initials": "RH",
+    "role": "Crossdock Lead",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:02",
+    "experience": {
+      "Zone A": 3,
+      "Zone B": 2,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 20
+    }
+  },
+  {
+    "id": "W100",
+    "name": "Blake Ford",
+    "initials": "BF",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:09",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 7
+    }
+  },
+  {
+    "id": "W101",
+    "name": "Quinn James",
+    "initials": "QJ",
+    "role": "Junior Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": true,
+    "checkInTime": "06:22",
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 5
+    }
+  },
+  {
+    "id": "W102",
+    "name": "Drew Summers",
+    "initials": "DS",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 9
+    }
+  },
+  {
+    "id": "W103",
+    "name": "Alex Park",
+    "initials": "AP",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 7
+    }
+  },
+  {
+    "id": "W104",
+    "name": "Jordan West",
+    "initials": "JW",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 6
+    }
+  },
+  {
+    "id": "W105",
+    "name": "Sam Rivera",
+    "initials": "SR",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 4,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 8
+    }
+  },
+  {
+    "id": "W106",
+    "name": "Casey Morgan",
+    "initials": "CM",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 5
+    }
+  },
+  {
+    "id": "W107",
+    "name": "Taylor Reed",
+    "initials": "TR",
+    "role": "Crossdock Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 1,
+      "Zone D": 0,
+      "Crossdock": 7
+    }
+  },
+  {
+    "id": "W108",
+    "name": "Morgan Cruz",
+    "initials": "MC",
+    "role": "Junior Operator",
+    "assignedZone": "Crossdock",
+    "checkedIn": false,
+    "checkInTime": null,
+    "experience": {
+      "Zone A": 0,
+      "Zone B": 0,
+      "Zone C": 0,
+      "Zone D": 0,
+      "Crossdock": 4
+    }
+  }
+]

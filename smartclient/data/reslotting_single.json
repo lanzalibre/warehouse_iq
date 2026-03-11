@@ -1,0 +1,692 @@
+[
+  {
+    "id": "SPO-007",
+    "locationId": "B-16-03",
+    "currentSku": "SAUCONY-JAZZ-40",
+    "demandLevel": "high",
+    "tripFrequency": {
+      "days7": 42,
+      "days30": 178,
+      "days90": 534
+    },
+    "currentLocation": {
+      "zone": "B",
+      "rack": 16,
+      "level": 3
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 8,
+      "level": 10
+    },
+    "timeSavingsMinutes": 4.5,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 8,
+        "level": 10,
+        "timeSavingsMinutes": 4.5
+      },
+      {
+        "id": "alt-2",
+        "zone": "A",
+        "rack": 5,
+        "level": 8,
+        "timeSavingsMinutes": 4.2
+      },
+      {
+        "id": "alt-3",
+        "zone": "A",
+        "rack": 3,
+        "level": 6,
+        "timeSavingsMinutes": 3.8
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-003",
+    "locationId": "B-11-01",
+    "currentSku": "ASICS-GEL-43",
+    "demandLevel": "high",
+    "tripFrequency": {
+      "days7": 35,
+      "days30": 142,
+      "days90": 426
+    },
+    "currentLocation": {
+      "zone": "B",
+      "rack": 11,
+      "level": 1
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 3,
+      "level": 10
+    },
+    "timeSavingsMinutes": 4.3,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 3,
+        "level": 10,
+        "timeSavingsMinutes": 4.3
+      },
+      {
+        "id": "alt-2",
+        "zone": "A",
+        "rack": 2,
+        "level": 8,
+        "timeSavingsMinutes": 4
+      },
+      {
+        "id": "alt-3",
+        "zone": "A",
+        "rack": 1,
+        "level": 5,
+        "timeSavingsMinutes": 3.5
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-008",
+    "locationId": "B-19-02",
+    "currentSku": "CONVERSE-ALLSTAR-41",
+    "demandLevel": "high",
+    "tripFrequency": {
+      "days7": 45,
+      "days30": 189,
+      "days90": 567
+    },
+    "currentLocation": {
+      "zone": "B",
+      "rack": 19,
+      "level": 2
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 8,
+      "level": 4
+    },
+    "timeSavingsMinutes": 4.3,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 8,
+        "level": 4,
+        "timeSavingsMinutes": 4.3
+      },
+      {
+        "id": "alt-2",
+        "zone": "A",
+        "rack": 6,
+        "level": 3,
+        "timeSavingsMinutes": 4
+      },
+      {
+        "id": "alt-3",
+        "zone": "A",
+        "rack": 4,
+        "level": 2,
+        "timeSavingsMinutes": 3.6
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-010",
+    "locationId": "D-09-05",
+    "currentSku": "SAUCONY-JAZZ-41",
+    "demandLevel": "high",
+    "tripFrequency": {
+      "days7": 38,
+      "days30": 156,
+      "days90": 468
+    },
+    "currentLocation": {
+      "zone": "D",
+      "rack": 9,
+      "level": 5
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 3,
+      "level": 1
+    },
+    "timeSavingsMinutes": 4.3,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 3,
+        "level": 1,
+        "timeSavingsMinutes": 4.3
+      },
+      {
+        "id": "alt-2",
+        "zone": "A",
+        "rack": 5,
+        "level": 3,
+        "timeSavingsMinutes": 4
+      },
+      {
+        "id": "alt-3",
+        "zone": "B",
+        "rack": 2,
+        "level": 1,
+        "timeSavingsMinutes": 2.5
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-006",
+    "locationId": "C-21-03",
+    "currentSku": "NB-530-42",
+    "demandLevel": "high",
+    "tripFrequency": {
+      "days7": 28,
+      "days30": 112,
+      "days90": 336
+    },
+    "currentLocation": {
+      "zone": "C",
+      "rack": 21,
+      "level": 3
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 8,
+      "level": 8
+    },
+    "timeSavingsMinutes": 3.7,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 8,
+        "level": 8,
+        "timeSavingsMinutes": 3.7
+      },
+      {
+        "id": "alt-2",
+        "zone": "A",
+        "rack": 6,
+        "level": 5,
+        "timeSavingsMinutes": 3.4
+      },
+      {
+        "id": "alt-3",
+        "zone": "B",
+        "rack": 3,
+        "level": 2,
+        "timeSavingsMinutes": 2
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-013",
+    "locationId": "D-10-02",
+    "currentSku": "NB-996-43",
+    "demandLevel": "high",
+    "tripFrequency": {
+      "days7": 24,
+      "days30": 96,
+      "days90": 288
+    },
+    "currentLocation": {
+      "zone": "D",
+      "rack": 10,
+      "level": 2
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 2,
+      "level": 4
+    },
+    "timeSavingsMinutes": 3.6,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 2,
+        "level": 4,
+        "timeSavingsMinutes": 3.6
+      },
+      {
+        "id": "alt-2",
+        "zone": "A",
+        "rack": 4,
+        "level": 6,
+        "timeSavingsMinutes": 3.3
+      },
+      {
+        "id": "alt-3",
+        "zone": "B",
+        "rack": 1,
+        "level": 3,
+        "timeSavingsMinutes": 2
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-004",
+    "locationId": "C-08-02",
+    "currentSku": "CONVERSE-ALLSTAR-41",
+    "demandLevel": "high",
+    "tripFrequency": {
+      "days7": 45,
+      "days30": 189,
+      "days90": 567
+    },
+    "currentLocation": {
+      "zone": "C",
+      "rack": 8,
+      "level": 2
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 3,
+      "level": 9
+    },
+    "timeSavingsMinutes": 3.1,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 3,
+        "level": 9,
+        "timeSavingsMinutes": 3.1
+      },
+      {
+        "id": "alt-2",
+        "zone": "A",
+        "rack": 5,
+        "level": 7,
+        "timeSavingsMinutes": 2.8
+      },
+      {
+        "id": "alt-3",
+        "zone": "B",
+        "rack": 2,
+        "level": 4,
+        "timeSavingsMinutes": 1.5
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-012",
+    "locationId": "B-11-06",
+    "currentSku": "PUMA-SNEAKER-41",
+    "demandLevel": "low",
+    "tripFrequency": {
+      "days7": 7,
+      "days30": 28,
+      "days90": 84
+    },
+    "currentLocation": {
+      "zone": "B",
+      "rack": 11,
+      "level": 6
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 3,
+      "level": 1
+    },
+    "timeSavingsMinutes": 2.9,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "C",
+        "rack": 5,
+        "level": 3,
+        "timeSavingsMinutes": -1.5
+      },
+      {
+        "id": "alt-2",
+        "zone": "C",
+        "rack": 8,
+        "level": 5,
+        "timeSavingsMinutes": -1.8
+      },
+      {
+        "id": "alt-3",
+        "zone": "D",
+        "rack": 3,
+        "level": 2,
+        "timeSavingsMinutes": -2.5
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-011",
+    "locationId": "D-20-01",
+    "currentSku": "NEW-BALANCE-44",
+    "demandLevel": "medium",
+    "tripFrequency": {
+      "days7": 18,
+      "days30": 72,
+      "days90": 216
+    },
+    "currentLocation": {
+      "zone": "D",
+      "rack": 20,
+      "level": 1
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 4,
+      "level": 6
+    },
+    "timeSavingsMinutes": 2.7,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 4,
+        "level": 6,
+        "timeSavingsMinutes": 2.7
+      },
+      {
+        "id": "alt-2",
+        "zone": "B",
+        "rack": 3,
+        "level": 4,
+        "timeSavingsMinutes": 1.5
+      },
+      {
+        "id": "alt-3",
+        "zone": "C",
+        "rack": 2,
+        "level": 3,
+        "timeSavingsMinutes": 0.8
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-001",
+    "locationId": "A-22-04",
+    "currentSku": "REEBOK-CROSS-38",
+    "demandLevel": "low",
+    "tripFrequency": {
+      "days7": 8,
+      "days30": 32,
+      "days90": 96
+    },
+    "currentLocation": {
+      "zone": "A",
+      "rack": 22,
+      "level": 4
+    },
+    "suggestedLocation": {
+      "zone": "C",
+      "rack": 10,
+      "level": 3
+    },
+    "timeSavingsMinutes": -2.6,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "C",
+        "rack": 10,
+        "level": 3,
+        "timeSavingsMinutes": -2.6
+      },
+      {
+        "id": "alt-2",
+        "zone": "C",
+        "rack": 15,
+        "level": 5,
+        "timeSavingsMinutes": -2.8
+      },
+      {
+        "id": "alt-3",
+        "zone": "D",
+        "rack": 8,
+        "level": 2,
+        "timeSavingsMinutes": -3.5
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-005",
+    "locationId": "A-11-05",
+    "currentSku": "HM-TSHIRT-XL",
+    "demandLevel": "low",
+    "tripFrequency": {
+      "days7": 6,
+      "days30": 24,
+      "days90": 72
+    },
+    "currentLocation": {
+      "zone": "A",
+      "rack": 11,
+      "level": 5
+    },
+    "suggestedLocation": {
+      "zone": "C",
+      "rack": 12,
+      "level": 4
+    },
+    "timeSavingsMinutes": -2.6,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "C",
+        "rack": 12,
+        "level": 4,
+        "timeSavingsMinutes": -2.6
+      },
+      {
+        "id": "alt-2",
+        "zone": "C",
+        "rack": 18,
+        "level": 6,
+        "timeSavingsMinutes": -3
+      },
+      {
+        "id": "alt-3",
+        "zone": "D",
+        "rack": 5,
+        "level": 3,
+        "timeSavingsMinutes": -3.8
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-015",
+    "locationId": "D-25-02",
+    "currentSku": "PUMA-SNEAKER-40",
+    "demandLevel": "low",
+    "tripFrequency": {
+      "days7": 4,
+      "days30": 16,
+      "days90": 48
+    },
+    "currentLocation": {
+      "zone": "D",
+      "rack": 25,
+      "level": 2
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 1,
+      "level": 6
+    },
+    "timeSavingsMinutes": 2.2,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 1,
+        "level": 6,
+        "timeSavingsMinutes": 2.2
+      },
+      {
+        "id": "alt-2",
+        "zone": "B",
+        "rack": 3,
+        "level": 4,
+        "timeSavingsMinutes": 1.2
+      },
+      {
+        "id": "alt-3",
+        "zone": "C",
+        "rack": 5,
+        "level": 2,
+        "timeSavingsMinutes": 0.5
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-009",
+    "locationId": "B-11-06",
+    "currentSku": "CONVERSE-ALLSTAR-42",
+    "demandLevel": "high",
+    "tripFrequency": {
+      "days7": 32,
+      "days30": 128,
+      "days90": 384
+    },
+    "currentLocation": {
+      "zone": "B",
+      "rack": 11,
+      "level": 6
+    },
+    "suggestedLocation": {
+      "zone": "A",
+      "rack": 8,
+      "level": 1
+    },
+    "timeSavingsMinutes": 1.9,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "A",
+        "rack": 8,
+        "level": 1,
+        "timeSavingsMinutes": 1.9
+      },
+      {
+        "id": "alt-2",
+        "zone": "A",
+        "rack": 6,
+        "level": 3,
+        "timeSavingsMinutes": 1.6
+      },
+      {
+        "id": "alt-3",
+        "zone": "A",
+        "rack": 4,
+        "level": 5,
+        "timeSavingsMinutes": 1.3
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-014",
+    "locationId": "A-23-03",
+    "currentSku": "HM-TSHIRT-XL",
+    "demandLevel": "low",
+    "tripFrequency": {
+      "days7": 6,
+      "days30": 24,
+      "days90": 72
+    },
+    "currentLocation": {
+      "zone": "A",
+      "rack": 23,
+      "level": 3
+    },
+    "suggestedLocation": {
+      "zone": "C",
+      "rack": 15,
+      "level": 4
+    },
+    "timeSavingsMinutes": -1.9,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "C",
+        "rack": 15,
+        "level": 4,
+        "timeSavingsMinutes": -1.9
+      },
+      {
+        "id": "alt-2",
+        "zone": "C",
+        "rack": 20,
+        "level": 6,
+        "timeSavingsMinutes": -2.3
+      },
+      {
+        "id": "alt-3",
+        "zone": "D",
+        "rack": 10,
+        "level": 3,
+        "timeSavingsMinutes": -3
+      }
+    ],
+    "status": "pending"
+  },
+  {
+    "id": "SPO-002",
+    "locationId": "A-11-01",
+    "currentSku": "PUMA-SNEAKER-39",
+    "demandLevel": "low",
+    "tripFrequency": {
+      "days7": 5,
+      "days30": 20,
+      "days90": 60
+    },
+    "currentLocation": {
+      "zone": "A",
+      "rack": 11,
+      "level": 1
+    },
+    "suggestedLocation": {
+      "zone": "C",
+      "rack": 8,
+      "level": 2
+    },
+    "timeSavingsMinutes": -1.2,
+    "alternativeLocations": [
+      {
+        "id": "alt-1",
+        "zone": "C",
+        "rack": 8,
+        "level": 2,
+        "timeSavingsMinutes": -1.2
+      },
+      {
+        "id": "alt-2",
+        "zone": "C",
+        "rack": 12,
+        "level": 4,
+        "timeSavingsMinutes": -1.6
+      },
+      {
+        "id": "alt-3",
+        "zone": "D",
+        "rack": 6,
+        "level": 3,
+        "timeSavingsMinutes": -2.2
+      }
+    ],
+    "status": "pending"
+  }
+]

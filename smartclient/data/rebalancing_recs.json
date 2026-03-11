@@ -1,0 +1,26 @@
+[
+  {
+    "id": "REC-001",
+    "priority": "critical",
+    "workerId": "W001",
+    "fromZone": "Zone A",
+    "toZone": "Zone D",
+    "experienceMonths": 8,
+    "surplusPeriodKey": "Zone A",
+    "deficitPeriodKey": "Zone D",
+    "reasoning": "Zone D has zero available capacity (Tom Fischer absent) against 14 h of workload. Priya Nair has the highest Zone D experience (8 mo.) among Zone A workers, and Zone A currently has an 8.4 h labor surplus.",
+    "impact": "Resolves ~7.8 h of Zone D deficit for current shift"
+  },
+  {
+    "id": "REC-002",
+    "priority": "high",
+    "workerId": "W012",
+    "fromZone": "Crossdock",
+    "toZone": "Zone C",
+    "experienceMonths": 4,
+    "surplusPeriodKey": "Crossdock",
+    "deficitPeriodKey": "Zone C",
+    "reasoning": "Zone C is 2.2 h short with Sara O'Brien absent. Ben Okafor has 4 months Zone C experience and Crossdock has a 9.6 h surplus that can absorb the reallocation.",
+    "impact": "Closes the Zone C 2.2 h gap for current shift"
+  }
+]

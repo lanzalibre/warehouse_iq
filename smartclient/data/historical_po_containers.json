@@ -1,0 +1,156 @@
+[
+  {
+    "poNumber": "PO-6124",
+    "pastContainers": [
+      {
+        "containerId": "CONT-4098",
+        "processedDate": "2026-02-18",
+        "skus": [
+          {
+            "sku": "NIKE-AIRMAX-42",
+            "description": "Nike Air Max 270 - Size 42 - White/Black",
+            "quantity": 18,
+            "division": "Athletic Footwear",
+            "actualMethod": "CR",
+            "actualTimeHours": 1.4,
+            "labels": [
+              "Fragile"
+            ]
+          },
+          {
+            "sku": "NIKE-AIRFORCE-43",
+            "description": "Nike Air Force 1 - Size 43 - White",
+            "quantity": 24,
+            "division": "Athletic Footwear",
+            "actualMethod": "CR",
+            "actualTimeHours": 1.9
+          },
+          {
+            "sku": "NIKE-DUNK-39",
+            "description": "Nike Dunk Low - Size 39 - Panda",
+            "quantity": 15,
+            "division": "Athletic Footwear",
+            "actualMethod": "XDK",
+            "actualTimeHours": 0.8
+          }
+        ]
+      },
+      {
+        "containerId": "CONT-3871",
+        "processedDate": "2026-02-20",
+        "skus": [
+          {
+            "sku": "NIKE-METCON-40",
+            "description": "Nike Metcon Training Shoes - Size 40 - Core Black",
+            "quantity": 12,
+            "division": "Athletic Footwear",
+            "actualMethod": "FBD",
+            "actualTimeHours": 1.8,
+            "labels": [
+              "Hazard"
+            ]
+          },
+          {
+            "sku": "NIKE-LEBRON-44",
+            "description": "Nike LeBron Basketball - Size 44 - Red/Black",
+            "quantity": 8,
+            "division": "Athletic Footwear",
+            "actualMethod": "PR",
+            "actualTimeHours": 2.2
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "poNumber": "PO-4821",
+    "pastContainers": [
+      {
+        "containerId": "CONT-2701",
+        "processedDate": "2026-02-21",
+        "skus": [
+          {
+            "sku": "UA-PROJECT-40",
+            "description": "Under Armour Project Rock - Size 40 - Black",
+            "quantity": 16,
+            "division": "Performance Apparel",
+            "actualMethod": "FBD",
+            "actualTimeHours": 1.6
+          },
+          {
+            "sku": "UA-HOVR-42",
+            "description": "Under Armour HOVR Phantom - Size 42 - Navy",
+            "quantity": 20,
+            "division": "Athletic Footwear",
+            "actualMethod": "CR",
+            "actualTimeHours": 1.8
+          },
+          {
+            "sku": "UA-CURRY-39",
+            "description": "Under Armour Curry Flow - Size 39 - Yellow",
+            "quantity": 12,
+            "division": "Athletic Footwear",
+            "actualMethod": "PTL",
+            "actualTimeHours": 2.1,
+            "labels": [
+              "Fragile"
+            ]
+          }
+        ]
+      },
+      {
+        "containerId": "CONT-3544",
+        "processedDate": "2026-02-22",
+        "skus": [
+          {
+            "sku": "NB-574-41",
+            "description": "New Balance 574 Classic - Size 41 - Grey",
+            "quantity": 25,
+            "division": "Athletic Footwear",
+            "actualMethod": "PR",
+            "actualTimeHours": 2.3
+          },
+          {
+            "sku": "NB-990-43",
+            "description": "New Balance 990 - Size 43 - Silver",
+            "quantity": 10,
+            "division": "Athletic Footwear",
+            "actualMethod": "CR",
+            "actualTimeHours": 1.4,
+            "labels": [
+              "Fragile",
+              "Hazard"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "poNumber": "PO-3876",
+    "pastContainers": [
+      {
+        "containerId": "CONT-2991",
+        "processedDate": "2026-02-23",
+        "skus": [
+          {
+            "sku": "HM-TSHIRT-L",
+            "description": "H&M Cotton T-Shirt - Size L - White",
+            "quantity": 50,
+            "division": "Casual Wear",
+            "actualMethod": "FBD",
+            "actualTimeHours": 2
+          },
+          {
+            "sku": "HM-JEANS-32",
+            "description": "H&M Slim Jeans - Size 32 - Blue",
+            "quantity": 40,
+            "division": "Casual Wear",
+            "actualMethod": "PTL",
+            "actualTimeHours": 2.7
+          }
+        ]
+      }
+    ]
+  }
+]

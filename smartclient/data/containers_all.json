@@ -1,0 +1,920 @@
+[
+  {
+    "id": "CONT-4201",
+    "poNumber": "PO-6124",
+    "category": "Sports & Outdoor",
+    "subcategory": "Athletic Footwear",
+    "supplier": "Nike",
+    "ageInYard": 7,
+    "palletCount": 6,
+    "estimatedUnits": 840,
+    "truckId": "TRK-887",
+    "dockAssigned": "Dock 3",
+    "priority": "urgent",
+    "initialEstimate": {
+      "certainty": 62,
+      "totalHours": 18.5,
+      "breakdown": {
+        "unloading": 3.2,
+        "binning": 11.8,
+        "crossdocking": 3.5
+      },
+      "processingMethods": {
+        "CR": 2.1,
+        "PR": 3.4,
+        "FBD": 4.2,
+        "PTL": 3.8,
+        "XDK": 3.5,
+        "NonCon": 0.8
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 4.5,
+          "units": 210
+        },
+        "Zone B": {
+          "hours": 6.3,
+          "units": 400
+        },
+        "Zone C": {
+          "hours": 1.9,
+          "units": 120
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 5.8,
+          "units": 110
+        }
+      }
+    },
+    "updatedEstimate": {
+      "certainty": 91,
+      "totalHours": 31.2,
+      "breakdown": {
+        "unloading": 4.8,
+        "binning": 19.4,
+        "crossdocking": 7
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 4.5,
+          "units": 210
+        },
+        "Zone B": {
+          "hours": 5.1,
+          "units": 290
+        },
+        "Zone C": {
+          "hours": 1.9,
+          "units": 120
+        },
+        "Zone D": {
+          "hours": 14.3,
+          "units": 310
+        },
+        "Crossdock": {
+          "hours": 5.4,
+          "units": 110
+        }
+      }
+    },
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.65,
+        "label": "Moderate"
+      },
+      "ageScore": {
+        "score": 0.95,
+        "label": "Critical"
+      },
+      "processingEfficiency": {
+        "score": 0.88,
+        "label": "High"
+      },
+      "overall": 0.82
+    },
+    "updatedCriteria": {
+      "workloadBalance": {
+        "score": 0.31,
+        "label": "Poor"
+      },
+      "ageScore": {
+        "score": 0.95,
+        "label": "Critical"
+      },
+      "processingEfficiency": {
+        "score": 0.44,
+        "label": "Low"
+      },
+      "overall": 0.57
+    },
+    "isRecommended": true,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": [
+      "Oldest container at 7 days — approaching SLA breach threshold",
+      "Standard footwear processing is highly efficient at this site",
+      "Current dock window availability aligns with 18.5 h estimated workload"
+    ]
+  },
+  {
+    "id": "CONT-2847",
+    "poNumber": "PO-4821",
+    "category": "Sports & Outdoor",
+    "subcategory": "Performance Apparel",
+    "supplier": "Under Armour",
+    "ageInYard": 5,
+    "palletCount": 10,
+    "estimatedUnits": 1240,
+    "truckId": "TRK-902",
+    "dockAssigned": "Dock 7",
+    "priority": "high",
+    "initialEstimate": {
+      "certainty": 58,
+      "totalHours": 42,
+      "breakdown": {
+        "unloading": 6.5,
+        "binning": 28.5,
+        "crossdocking": 7
+      },
+      "processingMethods": {
+        "CR": 8.5,
+        "PR": 5.2,
+        "FBD": 10.8,
+        "PTL": 9.5,
+        "XDK": 5,
+        "NonCon": 2.2
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 8.2,
+          "units": 380
+        },
+        "Zone B": {
+          "hours": 14.6,
+          "units": 520
+        },
+        "Zone C": {
+          "hours": 12.2,
+          "units": 240
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 7,
+          "units": 100
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.72,
+        "label": "Good"
+      },
+      "ageScore": {
+        "score": 0.78,
+        "label": "High"
+      },
+      "processingEfficiency": {
+        "score": 0.68,
+        "label": "Moderate"
+      },
+      "overall": 0.73
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-1943",
+    "poNumber": "PO-3876",
+    "category": "General Clothing",
+    "subcategory": "Casual Wear",
+    "supplier": "H&M",
+    "ageInYard": 3,
+    "palletCount": 15,
+    "estimatedUnits": 2100,
+    "truckId": "TRK-761",
+    "dockAssigned": "Dock 2",
+    "priority": "normal",
+    "initialEstimate": {
+      "certainty": 71,
+      "totalHours": 35,
+      "breakdown": {
+        "unloading": 5,
+        "binning": 24,
+        "crossdocking": 6
+      },
+      "processingMethods": {
+        "CR": 2.5,
+        "PR": 1.5,
+        "FBD": 12.5,
+        "PTL": 11,
+        "XDK": 5.5,
+        "NonCon": 1.5
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 6.8,
+          "units": 480
+        },
+        "Zone B": {
+          "hours": 16.2,
+          "units": 920
+        },
+        "Zone C": {
+          "hours": 6,
+          "units": 520
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 6,
+          "units": 180
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.91,
+        "label": "Excellent"
+      },
+      "ageScore": {
+        "score": 0.55,
+        "label": "Moderate"
+      },
+      "processingEfficiency": {
+        "score": 0.85,
+        "label": "High"
+      },
+      "overall": 0.77
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": true,
+    "recommendationReasons": [],
+    "updatedRecommendationReasons": [
+      "Best workload balance score (91%) — distributes evenly across all available zones",
+      "Zero special handling requirements — avoids overloading Zone D (currently 89% capacity)",
+      "High processing efficiency for General Clothing category",
+      "Estimated 35 h fits current team capacity without overtime risk"
+    ]
+  },
+  {
+    "id": "CONT-2599",
+    "poNumber": "PO-6124",
+    "category": "Shoes",
+    "subcategory": "Running Shoes",
+    "supplier": "Adidas",
+    "ageInYard": 2,
+    "palletCount": 10,
+    "estimatedUnits": 1580,
+    "truckId": "TRK-443",
+    "dockAssigned": "Dock 5",
+    "priority": "normal",
+    "initialEstimate": {
+      "certainty": 65,
+      "totalHours": 32,
+      "breakdown": {
+        "unloading": 4.8,
+        "binning": 21.2,
+        "crossdocking": 6
+      },
+      "processingMethods": {
+        "CR": 8.5,
+        "PR": 9.5,
+        "FBD": 4,
+        "PTL": 3.5,
+        "XDK": 4.5,
+        "NonCon": 1.5
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 5.5,
+          "units": 350
+        },
+        "Zone B": {
+          "hours": 14.5,
+          "units": 720
+        },
+        "Zone C": {
+          "hours": 8,
+          "units": 380
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 4,
+          "units": 130
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.78,
+        "label": "Good"
+      },
+      "ageScore": {
+        "score": 0.35,
+        "label": "Low"
+      },
+      "processingEfficiency": {
+        "score": 0.71,
+        "label": "Good"
+      },
+      "overall": 0.61
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-3156",
+    "poNumber": "PO-5033",
+    "category": "Sports & Outdoor",
+    "subcategory": "Team Sports Equipment",
+    "supplier": "Puma",
+    "ageInYard": 1,
+    "palletCount": 8,
+    "estimatedUnits": 3200,
+    "truckId": "TRK-519",
+    "dockAssigned": "Dock 1",
+    "priority": "low",
+    "initialEstimate": {
+      "certainty": 75,
+      "totalHours": 28,
+      "breakdown": {
+        "unloading": 3.5,
+        "binning": 22,
+        "crossdocking": 2.5
+      },
+      "processingMethods": {
+        "CR": 5,
+        "PR": 4.5,
+        "FBD": 7,
+        "PTL": 6.5,
+        "XDK": 3.5,
+        "NonCon": 1
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 5,
+          "units": 640
+        },
+        "Zone B": {
+          "hours": 12,
+          "units": 1200
+        },
+        "Zone C": {
+          "hours": 8.5,
+          "units": 1160
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 2.5,
+          "units": 200
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.88,
+        "label": "Excellent"
+      },
+      "ageScore": {
+        "score": 0.15,
+        "label": "Low"
+      },
+      "processingEfficiency": {
+        "score": 0.65,
+        "label": "Moderate"
+      },
+      "overall": 0.56
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-5102",
+    "poNumber": "PO-4821",
+    "category": "Shoes",
+    "subcategory": "Sneakers & Casual Shoes",
+    "supplier": "New Balance",
+    "ageInYard": 4,
+    "palletCount": 8,
+    "estimatedUnits": 2800,
+    "truckId": "TRK-621",
+    "dockAssigned": "Dock 8",
+    "priority": "high",
+    "initialEstimate": {
+      "certainty": 69,
+      "totalHours": 24,
+      "breakdown": {
+        "unloading": 3.2,
+        "binning": 18,
+        "crossdocking": 2.8
+      },
+      "processingMethods": {
+        "CR": 7,
+        "PR": 5.5,
+        "FBD": 4.5,
+        "PTL": 3.5,
+        "XDK": 2.5,
+        "NonCon": 0.8
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 4.2,
+          "units": 560
+        },
+        "Zone B": {
+          "hours": 10.5,
+          "units": 1100
+        },
+        "Zone C": {
+          "hours": 7,
+          "units": 960
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 2.3,
+          "units": 180
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.74,
+        "label": "Good"
+      },
+      "ageScore": {
+        "score": 0.65,
+        "label": "Moderate"
+      },
+      "processingEfficiency": {
+        "score": 0.58,
+        "label": "Moderate"
+      },
+      "overall": 0.54
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-6344",
+    "poNumber": "PO-8192",
+    "category": "General Clothing",
+    "subcategory": "Formal Wear",
+    "supplier": "Mango",
+    "ageInYard": 6,
+    "palletCount": 18,
+    "estimatedUnits": 1640,
+    "truckId": "TRK-774",
+    "dockAssigned": "Dock 4",
+    "priority": "urgent",
+    "initialEstimate": {
+      "certainty": 55,
+      "totalHours": 48,
+      "breakdown": {
+        "unloading": 7.5,
+        "binning": 32.5,
+        "crossdocking": 8
+      },
+      "processingMethods": {
+        "CR": 5,
+        "PR": 3.5,
+        "FBD": 15,
+        "PTL": 14,
+        "XDK": 8,
+        "NonCon": 2
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 9.2,
+          "units": 320
+        },
+        "Zone B": {
+          "hours": 22,
+          "units": 880
+        },
+        "Zone C": {
+          "hours": 8.8,
+          "units": 340
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 8,
+          "units": 100
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.6,
+        "label": "Moderate"
+      },
+      "ageScore": {
+        "score": 0.88,
+        "label": "High"
+      },
+      "processingEfficiency": {
+        "score": 0.42,
+        "label": "Moderate"
+      },
+      "overall": 0.51
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-7891",
+    "poNumber": "PO-9021",
+    "category": "Shoes",
+    "subcategory": "Boots & Outdoor Footwear",
+    "supplier": "Timberland",
+    "ageInYard": 2,
+    "palletCount": 7,
+    "estimatedUnits": 3100,
+    "truckId": "TRK-308",
+    "dockAssigned": "Dock 9",
+    "priority": "normal",
+    "initialEstimate": {
+      "certainty": 61,
+      "totalHours": 30,
+      "breakdown": {
+        "unloading": 4.5,
+        "binning": 20.5,
+        "crossdocking": 5
+      },
+      "processingMethods": {
+        "CR": 7.5,
+        "PR": 6.5,
+        "FBD": 6,
+        "PTL": 5,
+        "XDK": 3.5,
+        "NonCon": 1
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 5.8,
+          "units": 620
+        },
+        "Zone B": {
+          "hours": 10.2,
+          "units": 1100
+        },
+        "Zone C": {
+          "hours": 9,
+          "units": 1100
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 5,
+          "units": 280
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.68,
+        "label": "Good"
+      },
+      "ageScore": {
+        "score": 0.35,
+        "label": "Low"
+      },
+      "processingEfficiency": {
+        "score": 0.55,
+        "label": "Moderate"
+      },
+      "overall": 0.48
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-4501",
+    "poNumber": "PO-3344",
+    "category": "Sports & Outdoor",
+    "subcategory": "Training & Fitness Gear",
+    "supplier": "Reebok",
+    "ageInYard": 3,
+    "palletCount": 9,
+    "estimatedUnits": 4200,
+    "truckId": "TRK-091",
+    "dockAssigned": "Dock 11",
+    "priority": "normal",
+    "initialEstimate": {
+      "certainty": 72,
+      "totalHours": 36,
+      "breakdown": {
+        "unloading": 5,
+        "binning": 26,
+        "crossdocking": 5
+      },
+      "processingMethods": {
+        "CR": 8,
+        "PR": 5.5,
+        "FBD": 9,
+        "PTL": 8,
+        "XDK": 4,
+        "NonCon": 1
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 6.5,
+          "units": 840
+        },
+        "Zone B": {
+          "hours": 16,
+          "units": 1900
+        },
+        "Zone C": {
+          "hours": 9.5,
+          "units": 1200
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 4,
+          "units": 260
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.55,
+        "label": "Moderate"
+      },
+      "ageScore": {
+        "score": 0.55,
+        "label": "Moderate"
+      },
+      "processingEfficiency": {
+        "score": 0.62,
+        "label": "Moderate"
+      },
+      "overall": 0.45
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-8823",
+    "poNumber": "PO-2211",
+    "category": "General Clothing",
+    "subcategory": "Kids Clothing",
+    "supplier": "Gap",
+    "ageInYard": 1,
+    "palletCount": 5,
+    "estimatedUnits": 720,
+    "truckId": "TRK-445",
+    "dockAssigned": "Dock 2",
+    "priority": "low",
+    "initialEstimate": {
+      "certainty": 78,
+      "totalHours": 14,
+      "breakdown": {
+        "unloading": 2.5,
+        "binning": 9,
+        "crossdocking": 2.5
+      },
+      "processingMethods": {
+        "CR": 1.5,
+        "PR": 1,
+        "FBD": 4.5,
+        "PTL": 4,
+        "XDK": 2,
+        "NonCon": 0.8
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 3,
+          "units": 160
+        },
+        "Zone B": {
+          "hours": 6.5,
+          "units": 380
+        },
+        "Zone C": {
+          "hours": 2,
+          "units": 120
+        },
+        "Zone D": {
+          "hours": 0,
+          "units": 0
+        },
+        "Crossdock": {
+          "hours": 2.5,
+          "units": 60
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.62,
+        "label": "Moderate"
+      },
+      "ageScore": {
+        "score": 0.15,
+        "label": "Low"
+      },
+      "processingEfficiency": {
+        "score": 0.82,
+        "label": "High"
+      },
+      "overall": 0.41
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-9000",
+    "poNumber": null,
+    "category": "Shoes",
+    "subcategory": "Athletic Footwear",
+    "supplier": "Adidas",
+    "ageInYard": 13,
+    "palletCount": 15,
+    "estimatedUnits": 1965,
+    "truckId": "TRK-199",
+    "dockAssigned": "Dock 2",
+    "priority": "normal",
+    "initialEstimate": {
+      "certainty": 75,
+      "totalHours": 20.9,
+      "breakdown": {
+        "unloading": 3.1,
+        "binning": 14.7,
+        "crossdocking": 3.1
+      },
+      "processingMethods": {
+        "CR": 7,
+        "PR": 4,
+        "FBD": 6,
+        "PTL": 1.5,
+        "XDK": 2,
+        "NonCon": 0.4
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 4.4,
+          "units": 355
+        },
+        "Zone B": {
+          "hours": 10.1,
+          "units": 805
+        },
+        "Zone C": {
+          "hours": 3.3,
+          "units": 263
+        },
+        "Zone D": {
+          "hours": 1.1,
+          "units": 88
+        },
+        "Crossdock": {
+          "hours": 2,
+          "units": 161
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.42,
+        "label": "Moderate"
+      },
+      "ageScore": {
+        "score": 0.93,
+        "label": "Critical"
+      },
+      "processingEfficiency": {
+        "score": 0.58,
+        "label": "Low"
+      },
+      "overall": 0.65
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  },
+  {
+    "id": "CONT-9001",
+    "poNumber": "PO-4821",
+    "category": "General Clothing",
+    "subcategory": "Running Shoes",
+    "supplier": "New Balance",
+    "ageInYard": 12,
+    "palletCount": 9,
+    "estimatedUnits": 1530,
+    "truckId": "TRK-443",
+    "dockAssigned": "Dock 1",
+    "priority": "normal",
+    "initialEstimate": {
+      "certainty": 69,
+      "totalHours": 24.7,
+      "breakdown": {
+        "unloading": 3.7,
+        "binning": 17.3,
+        "crossdocking": 3.7
+      },
+      "processingMethods": {
+        "CR": 3.1,
+        "PR": 3.8,
+        "FBD": 10.4,
+        "PTL": 2.9,
+        "XDK": 4,
+        "NonCon": 0.4
+      },
+      "byZone": {
+        "Zone A": {
+          "hours": 5.6,
+          "units": 444
+        },
+        "Zone B": {
+          "hours": 10.4,
+          "units": 832
+        },
+        "Zone C": {
+          "hours": 3.7,
+          "units": 293
+        },
+        "Zone D": {
+          "hours": 1.1,
+          "units": 84
+        },
+        "Crossdock": {
+          "hours": 4,
+          "units": 317
+        }
+      }
+    },
+    "updatedEstimate": null,
+    "criteria": {
+      "workloadBalance": {
+        "score": 0.47,
+        "label": "Moderate"
+      },
+      "ageScore": {
+        "score": 0.86,
+        "label": "Critical"
+      },
+      "processingEfficiency": {
+        "score": 0.67,
+        "label": "Moderate"
+      },
+      "overall": 0.67
+    },
+    "updatedCriteria": null,
+    "isRecommended": false,
+    "isUpdatedRecommended": false,
+    "recommendationReasons": []
+  }
+]

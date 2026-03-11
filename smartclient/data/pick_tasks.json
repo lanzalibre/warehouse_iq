@@ -1,0 +1,790 @@
+[
+  {
+    "id": "PICK-0237",
+    "orderId": "ORD-4237",
+    "sku": "SKU-10237",
+    "waveId": "WAVE-002",
+    "description": "Nike Lifestyle - White",
+    "wms": {
+      "location": "Zone C-Aisle 01-Shelf B1",
+      "plannedQty": 2,
+      "plannedWindow": "13:55-20:10",
+      "plannedDurationSeconds": 226,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W040 - Lennon",
+      "station": "Pick Station C-1",
+      "actualQty": 2,
+      "scanTime": "09:58:47",
+      "completeTime": "09:04:08",
+      "travelTime": 256,
+      "dwellTime": 137
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 386
+  },
+  {
+    "id": "PICK-0330",
+    "orderId": "ORD-4330",
+    "sku": "SKU-10330",
+    "waveId": "WAVE-003",
+    "description": "New Balance Lifestyle - Grey",
+    "wms": {
+      "location": "Zone D-Aisle 02-Shelf E2",
+      "plannedQty": 5,
+      "plannedWindow": "20:05-03:10",
+      "plannedDurationSeconds": 183,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W093 - Lennon",
+      "station": "Pick Station D-1",
+      "actualQty": null,
+      "scanTime": null,
+      "completeTime": null,
+      "travelTime": 353,
+      "dwellTime": 0
+    },
+    "status": "exception",
+    "exceptions": [
+      "no-scan"
+    ],
+    "volume7Days": 385
+  },
+  {
+    "id": "PICK-0095",
+    "orderId": "ORD-4095",
+    "sku": "SKU-10095",
+    "waveId": "WAVE-001",
+    "description": "Adidas Running - White",
+    "wms": {
+      "location": "Zone C-Aisle 03-Shelf B2",
+      "plannedQty": 2,
+      "plannedWindow": "08:35-22:50",
+      "plannedDurationSeconds": 236,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W066 - Taylor",
+      "station": "Pick Station C-6",
+      "actualQty": 2,
+      "scanTime": "09:58:35",
+      "completeTime": "09:04:34",
+      "travelTime": 111,
+      "dwellTime": 248
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 383
+  },
+  {
+    "id": "PICK-0100",
+    "orderId": "ORD-4100",
+    "sku": "SKU-10100",
+    "waveId": "WAVE-003",
+    "description": "Adidas Basketball - Red",
+    "wms": {
+      "location": "Zone C-Aisle 03-Shelf D2",
+      "plannedQty": 2,
+      "plannedWindow": "06:05-13:05",
+      "plannedDurationSeconds": 227,
+      "priority": "high"
+    },
+    "wes": {
+      "picker": "W008 - Lennon",
+      "station": "Pick Station C-4",
+      "actualQty": 2,
+      "scanTime": "09:25:45",
+      "completeTime": "09:24:04",
+      "travelTime": 190,
+      "dwellTime": 216
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 378
+  },
+  {
+    "id": "PICK-0300",
+    "orderId": "ORD-4300",
+    "sku": "SKU-10300",
+    "waveId": "WAVE-003",
+    "description": "Under Armour Performance - Blue",
+    "wms": {
+      "location": "Zone C-Aisle 01-Shelf A2",
+      "plannedQty": 1,
+      "plannedWindow": "17:05-06:55",
+      "plannedDurationSeconds": 203,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W054 - Nico",
+      "station": "Pick Station C-6",
+      "actualQty": 3,
+      "scanTime": "09:22:44",
+      "completeTime": "09:31:04",
+      "travelTime": 356,
+      "dwellTime": 111
+    },
+    "status": "exception",
+    "exceptions": [
+      "over-pick"
+    ],
+    "volume7Days": 372
+  },
+  {
+    "id": "PICK-0076",
+    "orderId": "ORD-4076",
+    "sku": "SKU-10076",
+    "waveId": "WAVE-002",
+    "description": "Nike Basketball - Blue",
+    "wms": {
+      "location": "Zone B-Aisle 08-Shelf E1",
+      "plannedQty": 3,
+      "plannedWindow": "05:20-16:35",
+      "plannedDurationSeconds": 207,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W063 - Sasha",
+      "station": "Pick Station B-4",
+      "actualQty": 3,
+      "scanTime": "09:22:02",
+      "completeTime": "09:33:48",
+      "travelTime": 246,
+      "dwellTime": 176
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 368
+  },
+  {
+    "id": "PICK-0081",
+    "orderId": "ORD-4081",
+    "sku": "SKU-10081",
+    "waveId": "WAVE-002",
+    "description": "Under Armour Basketball - Blue",
+    "wms": {
+      "location": "Zone C-Aisle 01-Shelf C1",
+      "plannedQty": 1,
+      "plannedWindow": "03:20-19:30",
+      "plannedDurationSeconds": 222,
+      "priority": "low"
+    },
+    "wes": {
+      "picker": "W051 - Bellamy",
+      "station": "Pick Station C-3",
+      "actualQty": 1,
+      "scanTime": "09:11:33",
+      "completeTime": "09:35:41",
+      "travelTime": 273,
+      "dwellTime": 133
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 368
+  },
+  {
+    "id": "PICK-0198",
+    "orderId": "ORD-4198",
+    "sku": "SKU-10198",
+    "waveId": "WAVE-003",
+    "description": "Under Armour Training - Grey",
+    "wms": {
+      "location": "Zone D-Aisle 04-Shelf D2",
+      "plannedQty": 5,
+      "plannedWindow": "10:15-00:55",
+      "plannedDurationSeconds": 196,
+      "priority": "high"
+    },
+    "wes": {
+      "picker": "W106 - Remy",
+      "station": "Pick Station D-1",
+      "actualQty": 5,
+      "scanTime": "09:32:54",
+      "completeTime": "09:28:18",
+      "travelTime": 248,
+      "dwellTime": 278
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 368
+  },
+  {
+    "id": "PICK-0168",
+    "orderId": "ORD-4168",
+    "sku": "SKU-10168",
+    "waveId": "WAVE-003",
+    "description": "Nike Lifestyle - Red",
+    "wms": {
+      "location": "Zone A-Aisle 06-Shelf E1",
+      "plannedQty": 1,
+      "plannedWindow": "00:55-21:30",
+      "plannedDurationSeconds": 181,
+      "priority": "low"
+    },
+    "wes": {
+      "picker": "W033 - Nico",
+      "station": "Pick Station A-5",
+      "actualQty": 1,
+      "scanTime": "09:11:59",
+      "completeTime": "09:28:46",
+      "travelTime": 301,
+      "dwellTime": 294
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 367
+  },
+  {
+    "id": "PICK-0441",
+    "orderId": "ORD-4441",
+    "sku": "SKU-10441",
+    "waveId": "WAVE-003",
+    "description": "Puma Performance - White",
+    "wms": {
+      "location": "Zone B-Aisle 08-Shelf C1",
+      "plannedQty": 3,
+      "plannedWindow": "23:25-14:30",
+      "plannedDurationSeconds": 228,
+      "priority": "low"
+    },
+    "wes": {
+      "picker": "W039 - Bellamy",
+      "station": "Pick Station B-1",
+      "actualQty": 3,
+      "scanTime": "09:24:00",
+      "completeTime": "09:45:42",
+      "travelTime": 267,
+      "dwellTime": 278
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 367
+  },
+  {
+    "id": "PICK-0169",
+    "orderId": "ORD-4169",
+    "sku": "SKU-10169",
+    "waveId": "WAVE-001",
+    "description": "New Balance Lifestyle - Blue",
+    "wms": {
+      "location": "Zone C-Aisle 05-Shelf E2",
+      "plannedQty": 2,
+      "plannedWindow": "16:40-10:55",
+      "plannedDurationSeconds": 223,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W094 - Lennon",
+      "station": "Pick Station C-3",
+      "actualQty": 2,
+      "scanTime": "09:57:12",
+      "completeTime": "09:36:53",
+      "travelTime": 258,
+      "dwellTime": 145
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 364
+  },
+  {
+    "id": "PICK-0086",
+    "orderId": "ORD-4086",
+    "sku": "SKU-10086",
+    "waveId": "WAVE-003",
+    "description": "Under Armour Lifestyle - White",
+    "wms": {
+      "location": "Zone C-Aisle 05-Shelf B2",
+      "plannedQty": 1,
+      "plannedWindow": "05:35-10:35",
+      "plannedDurationSeconds": 183,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W072 - Sasha",
+      "station": "Pick Station C-4",
+      "actualQty": 1,
+      "scanTime": "09:51:55",
+      "completeTime": "09:01:58",
+      "travelTime": 365,
+      "dwellTime": 307
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 363
+  },
+  {
+    "id": "PICK-0271",
+    "orderId": "ORD-4271",
+    "sku": "SKU-10271",
+    "waveId": "WAVE-003",
+    "description": "New Balance Training - Blue",
+    "wms": {
+      "location": "Zone C-Aisle 04-Shelf C1",
+      "plannedQty": 1,
+      "plannedWindow": "23:55-11:15",
+      "plannedDurationSeconds": 212,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W088 - Remy",
+      "station": "Pick Station C-1",
+      "actualQty": 1,
+      "scanTime": "09:52:54",
+      "completeTime": "09:17:01",
+      "travelTime": 170,
+      "dwellTime": 233
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 362
+  },
+  {
+    "id": "PICK-0206",
+    "orderId": "ORD-4206",
+    "sku": "SKU-10206",
+    "waveId": "WAVE-002",
+    "description": "Reebok Running - Black",
+    "wms": {
+      "location": "Zone D-Aisle 08-Shelf E2",
+      "plannedQty": 4,
+      "plannedWindow": "16:35-15:55",
+      "plannedDurationSeconds": 220,
+      "priority": "high"
+    },
+    "wes": {
+      "picker": "W085 - Sasha",
+      "station": "Pick Station D-1",
+      "actualQty": 4,
+      "scanTime": "09:07:04",
+      "completeTime": "09:22:52",
+      "travelTime": 107,
+      "dwellTime": 319
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 361
+  },
+  {
+    "id": "PICK-0136",
+    "orderId": "ORD-4136",
+    "sku": "SKU-10136",
+    "waveId": "WAVE-001",
+    "description": "Under Armour Basketball - Blue",
+    "wms": {
+      "location": "Zone B-Aisle 07-Shelf A2",
+      "plannedQty": 1,
+      "plannedWindow": "01:30-20:05",
+      "plannedDurationSeconds": 225,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W029 - Lennon",
+      "station": "Pick Station B-5",
+      "actualQty": 1,
+      "scanTime": "09:06:41",
+      "completeTime": "09:06:52",
+      "travelTime": 388,
+      "dwellTime": 82
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 360
+  },
+  {
+    "id": "PICK-0216",
+    "orderId": "ORD-4216",
+    "sku": "SKU-10216",
+    "waveId": "WAVE-002",
+    "description": "Under Armour Training - White",
+    "wms": {
+      "location": "Crossdock-Aisle 09-Shelf A2",
+      "plannedQty": 2,
+      "plannedWindow": "12:55-14:00",
+      "plannedDurationSeconds": 223,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W039 - Sasha",
+      "station": "Pick Station k-4",
+      "actualQty": 2,
+      "scanTime": "09:59:40",
+      "completeTime": "09:10:56",
+      "travelTime": 364,
+      "dwellTime": 245
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 360
+  },
+  {
+    "id": "PICK-0393",
+    "orderId": "ORD-4393",
+    "sku": "SKU-10393",
+    "waveId": "WAVE-003",
+    "description": "Reebok Running - Black",
+    "wms": {
+      "location": "Zone A-Aisle 08-Shelf E2",
+      "plannedQty": 1,
+      "plannedWindow": "09:40-00:00",
+      "plannedDurationSeconds": 209,
+      "priority": "high"
+    },
+    "wes": {
+      "picker": "W073 - Sasha",
+      "station": "Pick Station A-2",
+      "actualQty": 1,
+      "scanTime": "09:14:20",
+      "completeTime": "09:47:27",
+      "travelTime": 100,
+      "dwellTime": 73
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 357
+  },
+  {
+    "id": "PICK-0270",
+    "orderId": "ORD-4270",
+    "sku": "SKU-10270",
+    "waveId": "WAVE-003",
+    "description": "Nike Training - Red",
+    "wms": {
+      "location": "Zone A-Aisle 06-Shelf A1",
+      "plannedQty": 1,
+      "plannedWindow": "18:55-07:10",
+      "plannedDurationSeconds": 206,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W042 - Kevin",
+      "station": "Pick Station A-1",
+      "actualQty": null,
+      "scanTime": null,
+      "completeTime": null,
+      "travelTime": 387,
+      "dwellTime": 0
+    },
+    "status": "exception",
+    "exceptions": [
+      "no-scan"
+    ],
+    "volume7Days": 354
+  },
+  {
+    "id": "PICK-0312",
+    "orderId": "ORD-4312",
+    "sku": "SKU-10312",
+    "waveId": "WAVE-002",
+    "description": "Under Armour Running - Grey",
+    "wms": {
+      "location": "Zone B-Aisle 02-Shelf C2",
+      "plannedQty": 3,
+      "plannedWindow": "05:00-22:40",
+      "plannedDurationSeconds": 208,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W106 - Shiloh",
+      "station": "Pick Station B-6",
+      "actualQty": 3,
+      "scanTime": "09:18:42",
+      "completeTime": "09:51:50",
+      "travelTime": 241,
+      "dwellTime": 298
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 354
+  },
+  {
+    "id": "PICK-0290",
+    "orderId": "ORD-4290",
+    "sku": "SKU-10290",
+    "waveId": "WAVE-001",
+    "description": "Puma Lifestyle - Black",
+    "wms": {
+      "location": "Crossdock-Aisle 09-Shelf A2",
+      "plannedQty": 4,
+      "plannedWindow": "02:35-12:55",
+      "plannedDurationSeconds": 214,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W050 - Taylor",
+      "station": "Pick Station k-5",
+      "actualQty": 4,
+      "scanTime": "09:49:41",
+      "completeTime": "09:39:54",
+      "travelTime": 360,
+      "dwellTime": 300
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 352
+  },
+  {
+    "id": "PICK-0266",
+    "orderId": "ORD-4266",
+    "sku": "SKU-10266",
+    "waveId": "WAVE-003",
+    "description": "New Balance Running - Red",
+    "wms": {
+      "location": "Zone B-Aisle 05-Shelf B1",
+      "plannedQty": 4,
+      "plannedWindow": "06:55-06:35",
+      "plannedDurationSeconds": 202,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W023 - Sasha",
+      "station": "Pick Station B-4",
+      "actualQty": null,
+      "scanTime": null,
+      "completeTime": null,
+      "travelTime": 316,
+      "dwellTime": 0
+    },
+    "status": "exception",
+    "exceptions": [
+      "no-scan"
+    ],
+    "volume7Days": 351
+  },
+  {
+    "id": "PICK-0308",
+    "orderId": "ORD-4308",
+    "sku": "SKU-10308",
+    "waveId": "WAVE-003",
+    "description": "Adidas Running - Red",
+    "wms": {
+      "location": "Crossdock-Aisle 07-Shelf A1",
+      "plannedQty": 1,
+      "plannedWindow": "22:35-17:30",
+      "plannedDurationSeconds": 220,
+      "priority": "high"
+    },
+    "wes": {
+      "picker": "W036 - Bellamy",
+      "station": "Pick Station k-3",
+      "actualQty": 1,
+      "scanTime": "09:08:49",
+      "completeTime": "09:39:04",
+      "travelTime": 259,
+      "dwellTime": 79
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 351
+  },
+  {
+    "id": "PICK-0075",
+    "orderId": "ORD-4075",
+    "sku": "SKU-10075",
+    "waveId": "WAVE-002",
+    "description": "Puma Basketball - Red",
+    "wms": {
+      "location": "Zone C-Aisle 07-Shelf C2",
+      "plannedQty": 3,
+      "plannedWindow": "19:20-20:55",
+      "plannedDurationSeconds": 187,
+      "priority": "high"
+    },
+    "wes": {
+      "picker": "W052 - Remy",
+      "station": "Pick Station C-1",
+      "actualQty": 3,
+      "scanTime": "09:11:15",
+      "completeTime": "09:33:10",
+      "travelTime": 173,
+      "dwellTime": 256
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 350
+  },
+  {
+    "id": "PICK-0191",
+    "orderId": "ORD-4191",
+    "sku": "SKU-10191",
+    "waveId": "WAVE-002",
+    "description": "New Balance Running - Grey",
+    "wms": {
+      "location": "Zone C-Aisle 09-Shelf B2",
+      "plannedQty": 2,
+      "plannedWindow": "23:55-02:45",
+      "plannedDurationSeconds": 218,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W001 - Shiloh",
+      "station": "Pick Station C-3",
+      "actualQty": 2,
+      "scanTime": "09:41:42",
+      "completeTime": "09:40:51",
+      "travelTime": 190,
+      "dwellTime": 150
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 347
+  },
+  {
+    "id": "PICK-0161",
+    "orderId": "ORD-4161",
+    "sku": "SKU-10161",
+    "waveId": "WAVE-001",
+    "description": "Nike Running - White",
+    "wms": {
+      "location": "Zone A-Aisle 04-Shelf E1",
+      "plannedQty": 3,
+      "plannedWindow": "06:15-08:20",
+      "plannedDurationSeconds": 185,
+      "priority": "normal"
+    },
+    "wes": {
+      "picker": "W064 - Finley",
+      "station": "Pick Station A-6",
+      "actualQty": 3,
+      "scanTime": "09:00:00",
+      "completeTime": "09:10:11",
+      "travelTime": 373,
+      "dwellTime": 236
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 346
+  },
+  {
+    "id": "PICK-0306",
+    "orderId": "ORD-4306",
+    "sku": "SKU-10306",
+    "waveId": "WAVE-002",
+    "description": "Under Armour Running - White",
+    "wms": {
+      "location": "Zone D-Aisle 03-Shelf A2",
+      "plannedQty": 2,
+      "plannedWindow": "03:55-20:10",
+      "plannedDurationSeconds": 228,
+      "priority": "high"
+    },
+    "wes": {
+      "picker": "W010 - Finley",
+      "station": "Pick Station D-1",
+      "actualQty": 2,
+      "scanTime": "09:29:06",
+      "completeTime": "09:36:20",
+      "travelTime": 371,
+      "dwellTime": 328
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 344
+  },
+  {
+    "id": "PICK-0433",
+    "orderId": "ORD-4433",
+    "sku": "SKU-10433",
+    "waveId": "WAVE-001",
+    "description": "New Balance Lifestyle - Black",
+    "wms": {
+      "location": "Zone C-Aisle 05-Shelf B2",
+      "plannedQty": 2,
+      "plannedWindow": "14:00-15:00",
+      "plannedDurationSeconds": 197,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W074 - Bellamy",
+      "station": "Pick Station C-6",
+      "actualQty": 2,
+      "scanTime": "09:10:44",
+      "completeTime": "09:01:29",
+      "travelTime": 252,
+      "dwellTime": 329
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 342
+  },
+  {
+    "id": "PICK-0490",
+    "orderId": "ORD-4490",
+    "sku": "SKU-10490",
+    "waveId": "WAVE-001",
+    "description": "Puma Performance - Black",
+    "wms": {
+      "location": "Zone D-Aisle 01-Shelf A1",
+      "plannedQty": 2,
+      "plannedWindow": "16:00-12:20",
+      "plannedDurationSeconds": 218,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W064 - Taylor",
+      "station": "Pick Station D-4",
+      "actualQty": 2,
+      "scanTime": "09:56:25",
+      "completeTime": "09:00:45",
+      "travelTime": 291,
+      "dwellTime": 140
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 342
+  },
+  {
+    "id": "PICK-0137",
+    "orderId": "ORD-4137",
+    "sku": "SKU-10137",
+    "waveId": "WAVE-003",
+    "description": "Under Armour Performance - Grey",
+    "wms": {
+      "location": "Zone A-Aisle 03-Shelf E1",
+      "plannedQty": 4,
+      "plannedWindow": "02:45-11:15",
+      "plannedDurationSeconds": 181,
+      "priority": "low"
+    },
+    "wes": {
+      "picker": "W052 - Finley",
+      "station": "Pick Station A-2",
+      "actualQty": 4,
+      "scanTime": "09:01:27",
+      "completeTime": "09:35:06",
+      "travelTime": 291,
+      "dwellTime": 207
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 341
+  },
+  {
+    "id": "PICK-0336",
+    "orderId": "ORD-4336",
+    "sku": "SKU-10336",
+    "waveId": "WAVE-001",
+    "description": "Nike Running - White",
+    "wms": {
+      "location": "Zone D-Aisle 06-Shelf E1",
+      "plannedQty": 4,
+      "plannedWindow": "12:50-15:40",
+      "plannedDurationSeconds": 204,
+      "priority": "urgent"
+    },
+    "wes": {
+      "picker": "W030 - Sasha",
+      "station": "Pick Station D-3",
+      "actualQty": 4,
+      "scanTime": "09:24:23",
+      "completeTime": "09:48:54",
+      "travelTime": 157,
+      "dwellTime": 167
+    },
+    "status": "normal",
+    "exceptions": [],
+    "volume7Days": 341
+  }
+]

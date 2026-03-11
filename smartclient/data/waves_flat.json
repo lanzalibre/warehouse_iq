@@ -1,0 +1,44 @@
+[
+  {
+    "id": "WAVE-001",
+    "name": "ADIDAS0012 08:00 - Same-Day",
+    "plannedHours": 42.5,
+    "actualHours": 38.2,
+    "delayHours": -4.3,
+    "delayType": "ahead",
+    "delayBreakdown": {
+      "delayMinutes": 0,
+      "denialMinutes": 0
+    },
+    "tasksCompleted": 245,
+    "totalTasks": 267
+  },
+  {
+    "id": "WAVE-002",
+    "name": "NIKE0034 09:00 - Standard",
+    "plannedHours": 35.8,
+    "actualHours": 42.1,
+    "delayHours": 6.3,
+    "delayType": "delayed",
+    "delayBreakdown": {
+      "delayMinutes": 278,
+      "denialMinutes": 100
+    },
+    "tasksCompleted": 198,
+    "totalTasks": 212
+  },
+  {
+    "id": "WAVE-003",
+    "name": "B2BBULK47 10:00 - B2B Bulk",
+    "plannedHours": 28.5,
+    "actualHours": 31.2,
+    "delayHours": 2.7,
+    "delayType": "delayed",
+    "delayBreakdown": {
+      "delayMinutes": 112,
+      "denialMinutes": 50
+    },
+    "tasksCompleted": 156,
+    "totalTasks": 168
+  }
+]
