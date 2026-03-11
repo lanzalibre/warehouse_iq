@@ -954,13 +954,13 @@ export const LABOR_PERIOD_DATA = {
     label: 'Current Shift',
     sublabel: '06:00 – 14:00',
     hoursLabel: 'hours',
-    // Zone D capacity = 0 because Tom Fischer has not checked in
+    // Zone D capacity = 0 — all Zone D workers absent from AM shift
     zones: {
       'Zone A':    { estimated: 18,  done: 3,  capacity: 23.4 },
       'Zone B':    { estimated: 28,  done: 6,  capacity: 23.4 },
       'Zone C':    { estimated: 12,  done: 2,  capacity: 7.8  },
       'Zone D':    { estimated: 14,  done: 0,  capacity: 0    },
-      'Crossdock': { estimated: 10,  done: 4,  capacity: 15.6 },
+      'Crossdock': { estimated: 20,  done: 4,  capacity: 12 },
     },
   },
   today: {
@@ -972,7 +972,7 @@ export const LABOR_PERIOD_DATA = {
       'Zone B':    { estimated: 78,  done: 14, capacity: 62   },
       'Zone C':    { estimated: 34,  done: 5,  capacity: 32   },
       'Zone D':    { estimated: 40,  done: 0,  capacity: 22   },
-      'Crossdock': { estimated: 28,  done: 9,  capacity: 45   },
+      'Crossdock': { estimated: 50,  done: 9,  capacity: 38   },
     },
   },
   twodays: {
@@ -984,7 +984,7 @@ export const LABOR_PERIOD_DATA = {
       'Zone B':    { estimated: 160, done: 14, capacity: 125  },
       'Zone C':    { estimated: 72,  done: 5,  capacity: 65   },
       'Zone D':    { estimated: 85,  done: 0,  capacity: 44   },
-      'Crossdock': { estimated: 60,  done: 9,  capacity: 90   },
+      'Crossdock': { estimated: 100, done: 9,  capacity: 82   },
     },
   },
   week: {
@@ -996,7 +996,7 @@ export const LABOR_PERIOD_DATA = {
       'Zone B':    { estimated: 540, done: 14, capacity: 440  },
       'Zone C':    { estimated: 240, done: 5,  capacity: 230  },
       'Zone D':    { estimated: 290, done: 0,  capacity: 155  },
-      'Crossdock': { estimated: 210, done: 9,  capacity: 315  },
+      'Crossdock': { estimated: 320, done: 9,  capacity: 290  },
     },
   },
 }
@@ -1018,14 +1018,14 @@ export const REBALANCING_RECS = [
   {
     id: 'REC-002',
     priority: 'high',
-    workerId: 'W012',   // Ben Okafor
-    fromZone: 'Crossdock',
-    toZone: 'Zone C',
-    experienceMonths: 4,
-    surplusPeriodKey: 'Crossdock',
-    deficitPeriodKey: 'Zone C',
-    reasoning: "Zone C is 2.2 h short with Sara O'Brien absent. Ben Okafor has 4 months Zone C experience and Crossdock has a 9.6 h surplus that can absorb the reallocation.",
-    impact: 'Closes the Zone C 2.2 h gap for current shift',
+    workerId: 'W024',   // Jordan Brooks
+    fromZone: 'Zone A',
+    toZone: 'Crossdock',
+    experienceMonths: 3,
+    surplusPeriodKey: 'Zone A',
+    deficitPeriodKey: 'Crossdock',
+    reasoning: "Unit Sorter is running a labor deficit against rising automation load. Jordan Brooks has 3 months Unit Sorter experience among Zone A workers, and PTL Order Picking carries an 8.4 h labor surplus that can absorb the reallocation.",
+    impact: 'Closes ~4 h of Unit Sorter deficit for current shift',
   },
 ]
 
