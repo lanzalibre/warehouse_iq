@@ -226,7 +226,7 @@ function DeltaBadge({ current, benchmarkVal }) {
 }
 
 // ─── Tooltip Component ────────────────────────────────────────────────────────
-function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
+function NodeTooltip({ node, position, onClose, benchmarkPeriod, onSuggestionClick }) {
   const tooltipRef = useRef(null)
   const [adjustedPosition, setAdjustedPosition] = useState(position)
 
@@ -446,6 +446,77 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
           </div>
         )
       })()}
+
+      {/* Shuttle/XDK Labor Staffing Analysis block */}
+      {node.id === 'shuttle_xdk' && (() => {
+        const d = DC_MANAGER_DATA.contributorDetail.shuttleXDKLabor
+        const staffingPct = Math.round((d.checkedIn / d.totalAssigned) * 100)
+        const deficit = d.shiftCapacity - d.shiftEstimated  // -6.2
+        const capacityPct = Math.round((d.shiftCapacity / d.shiftEstimated) * 100) // 56%
+        const donePct = Math.round((d.shiftDone / d.shiftEstimated) * 100)         // 0%
+        const suggestionText = `Reassign ${d.rec001Worker} from ${d.surplusZone} to Shuttle/XDK and monitor throughput and backlog for the next 1h`
+        return (
+          <div style={{ paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>Labor Staffing Analysis</span>
+              <span style={{ padding: '2px 6px', borderRadius: 9999, background: '#fee2e2', color: '#991b1b', fontSize: 10, fontWeight: 600 }}>Critical</span>
+            </div>
+
+            <div style={{ background: 'white', borderRadius: 8, border: '1px solid #e2e8f0', padding: 12 }}>
+              {/* Staffing bar */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 6 }}>
+                <span>Staffing</span>
+                <span style={{ color: '#991b1b' }}>{d.checkedIn} / {d.totalAssigned} workers · {staffingPct}%</span>
+              </div>
+              <div style={{ height: 12, background: '#fde8d8', borderRadius: 4, marginBottom: 12, overflow: 'hidden' }}>
+                <div style={{ height: '100%', width: `${staffingPct}%`, background: '#f97316' }} />
+              </div>
+
+              {/* Workload vs Capacity bars */}
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 8 }}>Workload vs. Capacity — Current Shift</div>
+
+              {/* Workload row */}
+              <div style={{ marginBottom: 6 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#64748b', marginBottom: 3 }}>
+                  <span>Workload</span>
+                  <span>{d.shiftDone} h done / {d.shiftEstimated} h est.</span>
+                </div>
+                <div style={{ height: 10, background: '#f1f5f9', borderRadius: 4, overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${donePct}%`, background: '#3b82f6' }} />
+                </div>
+              </div>
+
+              {/* Capacity row */}
+              <div style={{ marginBottom: 10 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 10, color: '#64748b', marginBottom: 3 }}>
+                  <span>Capacity</span>
+                  <span style={{ color: '#ef4444', fontWeight: 600 }}>{d.shiftCapacity} h available · {deficit.toFixed(1)} h deficit</span>
+                </div>
+                <div style={{ position: 'relative', height: 10, background: '#fee2e2', borderRadius: 4, overflow: 'hidden' }}>
+                  <div style={{ height: '100%', width: `${capacityPct}%`, background: '#ef4444' }} />
+                  {/* Full workload marker at 100% */}
+                  <div style={{ position: 'absolute', top: 0, left: '100%', height: '100%', width: 2, background: '#7f1d1d', transform: 'translateX(-1px)' }} />
+                </div>
+              </div>
+
+              {/* Suggestion button */}
+              <button
+                onClick={() => onSuggestionClick?.(suggestionText)}
+                style={{
+                  width: '100%', textAlign: 'left', padding: '8px 10px',
+                  background: '#fffbeb', border: '1px solid #fcd34d', borderRadius: 6,
+                  fontSize: 10, color: '#92400e', cursor: 'pointer', lineHeight: 1.4,
+                  display: 'flex', alignItems: 'flex-start', gap: 6,
+                }}
+              >
+                <span style={{ fontSize: 12, marginTop: -1 }}>💡</span>
+                <span>REC-001: Reassign <strong>{d.rec001Worker}</strong> ({d.rec001ExperienceMonths} mo. exp.) from {d.surplusZone} (+{d.surplusHours} h surplus) → Shuttle/XDK. Click to send to LMS.</span>
+              </button>
+            </div>
+          </div>
+        )
+      })()}
     </div>
   )
 }
@@ -454,7 +525,10 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
 export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
+  const [pendingAction, setPendingAction] = useState('')
+  const [confirmMode, setConfirmMode] = useState(false)
   const containerRef = useRef(null)
+  const lmsInputRef = useRef(null)
 
   const rfNodes = useMemo(() => {
     const swimlaneNodes = mapData.swimlanes.map(s => ({
@@ -565,7 +639,95 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
             position={tooltipPosition}
             onClose={handleCloseTooltip}
             benchmarkPeriod={benchmarkPeriod}
+            onSuggestionClick={(text) => {
+              setPendingAction(text)
+              setConfirmMode(false)
+              setTimeout(() => lmsInputRef.current?.focus(), 50)
+            }}
           />
+        </div>
+      )}
+
+      {/* LMS Action Dialog */}
+      {pendingAction && (
+        <div style={{
+          borderRadius: 8, border: '1px solid #e2e8f0', background: 'white', padding: 12,
+        }}>
+          {!confirmMode ? (
+            <>
+              {/* Edit mode */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#1e293b' }}>📋 Send Action to LMS</span>
+                <span style={{ fontSize: 10, color: '#64748b' }}>Review and edit before submitting</span>
+              </div>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
+                <textarea
+                  ref={lmsInputRef}
+                  value={pendingAction}
+                  onChange={e => setPendingAction(e.target.value)}
+                  rows={2}
+                  style={{
+                    flex: 1, resize: 'none', background: '#f8fafc', border: '1px solid #cbd5e1',
+                    borderRadius: 8, padding: '8px 12px', fontSize: 13, color: '#1e293b',
+                    outline: 'none', fontFamily: 'inherit', lineHeight: 1.5,
+                  }}
+                />
+                <button
+                  onClick={() => setConfirmMode(true)}
+                  disabled={!pendingAction.trim()}
+                  style={{
+                    padding: '8px 14px', borderRadius: 8, background: '#2563eb', color: 'white',
+                    border: 'none', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  Send to LMS →
+                </button>
+                <button
+                  onClick={() => { setPendingAction(''); setConfirmMode(false) }}
+                  style={{
+                    padding: '8px 10px', borderRadius: 8, background: '#f1f5f9', color: '#475569',
+                    border: '1px solid #e2e8f0', fontSize: 12, cursor: 'pointer',
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Confirmation mode */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#1e293b' }}>⚠️ Confirm submission to LMS</span>
+              </div>
+              <div style={{
+                background: '#fffbeb', border: '1px solid #fcd34d', borderRadius: 6,
+                padding: '8px 12px', fontSize: 13, color: '#1e293b', marginBottom: 10, lineHeight: 1.5,
+              }}>
+                {pendingAction}
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button
+                  onClick={() => { setPendingAction(''); setConfirmMode(false) }}
+                  style={{
+                    flex: 1, padding: '8px', borderRadius: 8, background: '#2563eb', color: 'white',
+                    border: 'none', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                  }}
+                >
+                  ✓ Confirm & Submit to LMS
+                </button>
+                <button
+                  onClick={() => setConfirmMode(false)}
+                  style={{
+                    padding: '8px 14px', borderRadius: 8, background: '#f1f5f9', color: '#475569',
+                    border: '1px solid #e2e8f0', fontSize: 12, cursor: 'pointer',
+                  }}
+                >
+                  ← Edit
+                </button>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

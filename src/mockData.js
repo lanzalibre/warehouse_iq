@@ -4902,6 +4902,18 @@ export const DC_MANAGER_DATA = {
       impactPct: 21,
       impactDollars: 7000,
     },
+    shuttleXDKLabor: {
+      checkedIn: 1,
+      totalAssigned: 22,
+      shiftEstimated: 14,
+      shiftDone: 0,
+      shiftCapacity: 7.8,
+      // deficit = 7.8 − 14 = −6.2 h
+      rec001Worker: 'Priya Nair',
+      rec001ExperienceMonths: 8,
+      surplusZone: 'PTL Order Picking',
+      surplusHours: 8.4,
+    },
   },
   mitigatorSimResults: {
     overtime: {
