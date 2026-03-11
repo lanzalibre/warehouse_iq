@@ -124,15 +124,15 @@
       "height": 200,
       "backlog": {
         "units": 520,
-        "estimatedHours": 2.5
+        "estimatedHours": 3.2
       },
       "throughput": {
-        "current": 210,
+        "current": 165,
         "target": 200,
         "unit": "pallets/hr"
       },
       "metrics": {
-        "Throughput": "210 pallets/hr",
+        "Throughput": "165 pallets/hr",
         "Dock doors": "12",
         "Efficiency": "91%",
         "Avg unload time": "28 min"

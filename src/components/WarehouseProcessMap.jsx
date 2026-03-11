@@ -10,6 +10,7 @@ import {
 import '@xyflow/react/dist/style.css'
 import { X } from 'lucide-react'
 import mapData from '../data/warehouseProcessMap.json'
+import { DC_MANAGER_DATA } from '../mockData.js'
 
 // ─── Status helpers ────────────────────────────────────────────────────────────
 function getStatus(current, target) {
@@ -335,7 +336,7 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
       )}
 
       {/* All metrics */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px 16px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '6px 16px', marginBottom: 12 }}>
         {Object.entries(node.data.metrics || {}).map(([key, value]) => {
           const benchmarkVal = node.data.nodeInfo?.metricBenchmarks?.[benchmarkPeriod]?.[key]
           return (
@@ -351,6 +352,55 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod }) {
           )
         })}
       </div>
+
+      {/* Inbound Variability contributor for Receiving / Unloading node */}
+      {node.id === 'receiving' && (() => {
+        const ivData = DC_MANAGER_DATA.contributorDetail.inboundVariability
+        return (
+          <div style={{ paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>Inbound Variability Analysis</span>
+              <span style={{ padding: '2px 6px', borderRadius: 9999, background: '#fee2e2', color: '#991b1b', fontSize: 10, fontWeight: 600 }}>High Risk</span>
+            </div>
+
+            {/* Workload Mix Chart */}
+            <div style={{ background: 'white', borderRadius: 8, border: '1px solid #e2e8f0', padding: 12 }}>
+              <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 8 }}>Inbound Workload Mix (%)</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                {ivData.chartData.map(row => {
+                  const total = row.conveyor + row.pallet + row.flat
+                  const conveyorPct = Math.round((row.conveyor / total) * 100)
+                  const palletPct = Math.round((row.pallet / total) * 100)
+                  const flatPct = 100 - conveyorPct - palletPct
+                  const isToday = row.label === 'Today'
+                  const isFuture = row.label === 'Tomorrow'
+                  return (
+                    <div key={row.label}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 10, color: '#64748b', marginBottom: 3 }}>
+                        <span style={{ fontWeight: isToday ? 600 : isFuture ? 600 : 400, color: isToday ? '#1e293b' : isFuture ? '#7c3aed' : '#64748b' }}>
+                          {row.label}
+                        </span>
+                        <span style={{ color: '#94a3b8' }}>{total} u</span>
+                      </div>
+                      <div style={{ height: 12, borderRadius: 9999, overflow: 'hidden', display: 'flex', opacity: isFuture ? 0.6 : 1 }}>
+                        <div style={{ background: '#3b82f6', height: '100%', width: `${conveyorPct}%` }} title={`Conveyor ${conveyorPct}%`} />
+                        <div style={{ background: '#a78bfa', height: '100%', width: `${palletPct}%` }} title={`Pallet ${palletPct}%`} />
+                        <div style={{ background: '#cbd5e1', height: '100%', width: `${flatPct}%` }} title={`Flat ${flatPct}%`} />
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+              <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 12, fontSize: 10, color: '#64748b' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3b82f6', display: 'inline-block' }} />Conveyor</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#a78bfa', display: 'inline-block' }} />Pallet</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 3 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#cbd5e1', display: 'inline-block' }} />Flat</span>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
     </div>
   )
 }
