@@ -13,7 +13,7 @@ import SimulationScreen from './components/Simulation.jsx'
 
 export default function App() {
   const [persona, setPersona] = useState(null)
-  const [activeScreen, setActiveScreen] = useState('yard')
+  const [activeScreen, setActiveScreen] = useState('mfa')
   const [simulationTemplateId, setSimulationTemplateId] = useState(null)
   const [laborInitialTab, setLaborInitialTab] = useState(null)
   const [laborReturnScreen, setLaborReturnScreen] = useState(null)
@@ -30,7 +30,7 @@ export default function App() {
 
   function handleSwitchUser() {
     setPersona(null)
-    setActiveScreen('yard')
+    setActiveScreen('mfa')
     setYardView('selection')
     setAcceptedContainerId(null)
     setSwitchToContainerId(null)
