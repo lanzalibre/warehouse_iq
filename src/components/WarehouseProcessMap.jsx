@@ -8,7 +8,7 @@ import {
   useReactFlow,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { X } from 'lucide-react'
+import { X, Send } from 'lucide-react'
 import mapData from '../data/warehouseProcessMap.json'
 import { DC_MANAGER_DATA } from '../mockData.js'
 
@@ -521,12 +521,36 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod, onSuggestionCli
   )
 }
 
+// ─── Helper: LMS Action Standardizer ──────────────────────────────────────────
+function buildStandardizedAction(rawText) {
+  const workerMatch = rawText.match(/Reassign\s+([\w\s]+?)\s+from/i)
+  const fromMatch = rawText.match(/from\s+(.+?)\s+to\s+/i)
+  const toMatch = rawText.match(/to\s+([\w/\s]+?)\s+and/i)
+  const durationMatch = rawText.match(/next\s+(\w+)/i)
+  return {
+    tool: 'lms_reassign_worker',
+    parameters: {
+      worker_name: workerMatch?.[1]?.trim() ?? 'Unknown',
+      source_zone: fromMatch?.[1]?.trim() ?? 'Unknown',
+      target_zone: toMatch?.[1]?.trim() ?? 'Unknown',
+      effective_time: 'immediate',
+      monitoring: {
+        duration: durationMatch?.[1] ?? '1h',
+        metrics: ['throughput_per_hour', 'backlog_units'],
+      },
+      priority: 'critical',
+    },
+  }
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
   const [pendingAction, setPendingAction] = useState('')
   const [confirmMode, setConfirmMode] = useState(false)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const [standardizedAction, setStandardizedAction] = useState(null)
   const containerRef = useRef(null)
   const lmsInputRef = useRef(null)
 
@@ -586,6 +610,15 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
     setSelectedNode(null)
   }, [])
 
+  const handleLMSSend = useCallback(() => {
+    setIsProcessing(true)
+    setTimeout(() => {
+      setStandardizedAction(buildStandardizedAction(pendingAction))
+      setIsProcessing(false)
+      setConfirmMode(true)
+    }, 1000)
+  }, [pendingAction])
+
   // Close tooltip when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -642,73 +675,107 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
             onSuggestionClick={(text) => {
               setPendingAction(text)
               setConfirmMode(false)
+              setIsProcessing(false)
+              setStandardizedAction(null)
               setTimeout(() => lmsInputRef.current?.focus(), 50)
             }}
           />
         </div>
       )}
 
+      {/* CSS for spinner animation */}
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+
       {/* LMS Action Dialog */}
       {pendingAction && (
-        <div style={{
-          borderRadius: 8, border: '1px solid #e2e8f0', background: 'white', padding: 12,
-        }}>
-          {!confirmMode ? (
-            <>
-              {/* Edit mode */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#1e293b' }}>📋 Send Action to LMS</span>
-                <span style={{ fontSize: 10, color: '#64748b' }}>Review and edit before submitting</span>
-              </div>
-              <div style={{ display: 'flex', gap: 8, alignItems: 'flex-end' }}>
-                <textarea
-                  ref={lmsInputRef}
-                  value={pendingAction}
-                  onChange={e => setPendingAction(e.target.value)}
-                  rows={2}
-                  style={{
-                    flex: 1, resize: 'none', background: '#f8fafc', border: '1px solid #cbd5e1',
-                    borderRadius: 8, padding: '8px 12px', fontSize: 13, color: '#1e293b',
-                    outline: 'none', fontFamily: 'inherit', lineHeight: 1.5,
-                  }}
-                />
-                <button
-                  onClick={() => setConfirmMode(true)}
-                  disabled={!pendingAction.trim()}
-                  style={{
-                    padding: '8px 14px', borderRadius: 8, background: '#2563eb', color: 'white',
-                    border: 'none', fontSize: 12, fontWeight: 600, cursor: 'pointer',
-                    whiteSpace: 'nowrap',
-                  }}
-                >
-                  Send to LMS →
-                </button>
-                <button
-                  onClick={() => { setPendingAction(''); setConfirmMode(false) }}
-                  style={{
-                    padding: '8px 10px', borderRadius: 8, background: '#f1f5f9', color: '#475569',
-                    border: '1px solid #e2e8f0', fontSize: 12, cursor: 'pointer',
-                  }}
-                >
-                  ✕
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              {/* Confirmation mode */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: '#1e293b' }}>⚠️ Confirm submission to LMS</span>
-              </div>
+        <div style={{ borderTop: '1px solid #e2e8f0', background: 'white', padding: '12px 16px', borderRadius: 8, border: '1px solid #e2e8f0' }}>
+          {/* header row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#1e293b' }}>📋 Send Action to LMS</span>
+            <span style={{ fontSize: 10, color: '#64748b' }}>Review and edit before submitting</span>
+            <button
+              onClick={() => { setPendingAction(''); setConfirmMode(false); setIsProcessing(false); setStandardizedAction(null) }}
+              style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }}
+            >
+              <X size={14} />
+            </button>
+          </div>
+
+          {/* === STATE A: Edit input === */}
+          {!isProcessing && !confirmMode && (
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
+              <textarea
+                ref={lmsInputRef}
+                value={pendingAction}
+                onChange={e => setPendingAction(e.target.value)}
+                rows={1}
+                placeholder="Describe the action to send to LMS…"
+                style={{
+                  flex: 1, resize: 'none', background: '#f8fafc',
+                  border: '1px solid #e2e8f0', borderRadius: 12,
+                  padding: '8px 12px', fontSize: 14, color: '#1e293b',
+                  outline: 'none', fontFamily: 'inherit', lineHeight: 1.5,
+                  maxHeight: 96,
+                }}
+              />
+              <button
+                onClick={handleLMSSend}
+                disabled={!pendingAction.trim()}
+                style={{
+                  width: 36, height: 36, borderRadius: 12, background: '#2563eb', color: 'white',
+                  border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  flexShrink: 0, cursor: pendingAction.trim() ? 'pointer' : 'not-allowed',
+                  opacity: pendingAction.trim() ? 1 : 0.4,
+                }}
+              >
+                <Send size={15} />
+              </button>
+            </div>
+          )}
+
+          {/* === STATE B: Processing (1s spinner) === */}
+          {isProcessing && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px', color: '#64748b', fontSize: 13 }}>
               <div style={{
-                background: '#fffbeb', border: '1px solid #fcd34d', borderRadius: 6,
-                padding: '8px 12px', fontSize: 13, color: '#1e293b', marginBottom: 10, lineHeight: 1.5,
+                width: 16, height: 16, borderRadius: '50%',
+                border: '2px solid #e2e8f0', borderTopColor: '#2563eb',
+                animation: 'spin 0.7s linear infinite', flexShrink: 0,
+              }} />
+              <span>Analyzing request and generating LMS action…</span>
+            </div>
+          )}
+
+          {/* === STATE C: Confirm — Annotated sentence with pill badges === */}
+          {!isProcessing && confirmMode && standardizedAction && (
+            <>
+              <div style={{ marginBottom: 8 }}>
+                <span style={{ fontSize: 11, color: '#64748b' }}>⚠️ The following action will be submitted to the <strong>LMS</strong>:</span>
+              </div>
+              {/* Annotated sentence: each extracted value shown as a pill badge */}
+              <div style={{
+                background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8,
+                padding: '10px 12px', fontSize: 13, color: '#334155', lineHeight: 2,
+                marginBottom: 10,
               }}>
-                {pendingAction}
+                Reassign{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.worker_name}</span>
+                {' '}from{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.source_zone}</span>
+                {' '}to{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.target_zone}</span>
+                , effective immediately. Monitor{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[0]}</span>
+                {' '}and{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[1]}</span>
+                {' '}for{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.duration}</span>
+                . Priority:{' '}
+                <span style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 700, fontSize: 12 }}>{standardizedAction.parameters.priority.toUpperCase()}</span>
+                .
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button
-                  onClick={() => { setPendingAction(''); setConfirmMode(false) }}
+                  onClick={() => { setPendingAction(''); setConfirmMode(false); setStandardizedAction(null) }}
                   style={{
                     flex: 1, padding: '8px', borderRadius: 8, background: '#2563eb', color: 'white',
                     border: 'none', fontSize: 12, fontWeight: 600, cursor: 'pointer',
@@ -717,7 +784,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
                   ✓ Confirm & Submit to LMS
                 </button>
                 <button
-                  onClick={() => setConfirmMode(false)}
+                  onClick={() => { setConfirmMode(false); setStandardizedAction(null) }}
                   style={{
                     padding: '8px 14px', borderRadius: 8, background: '#f1f5f9', color: '#475569',
                     border: '1px solid #e2e8f0', fontSize: 12, cursor: 'pointer',
