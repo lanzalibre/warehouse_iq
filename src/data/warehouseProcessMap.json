@@ -247,12 +247,12 @@
         "estimatedHours": 1.5
       },
       "throughput": {
-        "current": 18,
+        "current": 12,
         "target": 16,
         "unit": "trips/h"
       },
       "metrics": {
-        "Trips / day": "18",
+        "Trips / day": "12",
         "Avg load": "24 pallets",
         "Transit time": "2.1 hr",
         "On-time rate": "97%"
@@ -307,7 +307,7 @@
         "estimatedHours": 3.2
       },
       "throughput": {
-        "current": 180,
+        "current": 185,
         "target": 175,
         "unit": "picks/h"
       },
@@ -337,12 +337,12 @@
         "estimatedHours": 2.5
       },
       "throughput": {
-        "current": 95,
+        "current": 98,
         "target": 92,
         "unit": "picks/h"
       },
       "metrics": {
-        "Picks / hr": "95",
+        "Picks / hr": "98",
         "Carts / shift": "48",
         "Avg units / cart": "62",
         "Accuracy": "98.7%"
@@ -367,12 +367,12 @@
         "estimatedHours": 1.8
       },
       "throughput": {
-        "current": 28,
+        "current": 24,
         "target": 26,
         "unit": "pallets/h"
       },
       "metrics": {
-        "Pallets / hr": "28",
+        "Pallets / hr": "24",
         "Orders / day": "210",
         "Accuracy": "99.7%",
         "Avg weight": "1.1 t"
