@@ -35,6 +35,15 @@
       "y": 80,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 320,
+        "estimatedHours": 1.8
+      },
+      "throughput": {
+        "current": 48,
+        "target": 45,
+        "unit": "units/h"
+      },
       "metrics": {
         "Containers / day": "48",
         "Avg lead time": "2.3 days",
@@ -55,6 +64,15 @@
       "y": 250,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 180,
+        "estimatedHours": 2.2
+      },
+      "throughput": {
+        "current": 22,
+        "target": 20,
+        "unit": "units/h"
+      },
       "metrics": {
         "Transfers / day": "22",
         "Origin DCs": "4",
@@ -75,6 +93,15 @@
       "y": 420,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 95,
+        "estimatedHours": 3.5
+      },
+      "throughput": {
+        "current": 8,
+        "target": 10,
+        "unit": "units/h"
+      },
       "metrics": {
         "Returns / day": "8",
         "3PL carriers": "3",
@@ -95,6 +122,15 @@
       "y": 175,
       "width": 50,
       "height": 200,
+      "backlog": {
+        "units": 520,
+        "estimatedHours": 2.5
+      },
+      "throughput": {
+        "current": 210,
+        "target": 200,
+        "unit": "pallets/hr"
+      },
       "metrics": {
         "Throughput": "210 pallets/hr",
         "Dock doors": "12",
@@ -116,6 +152,15 @@
       "y": 100,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 85,
+        "estimatedHours": 1.2
+      },
+      "throughput": {
+        "current": 34,
+        "target": 30,
+        "unit": "orders/h"
+      },
       "metrics": {
         "Orders / day": "34",
         "Avg pick volume": "48 units",
@@ -137,6 +182,15 @@
       "y": 250,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 1200,
+        "estimatedHours": 4.0
+      },
+      "throughput": {
+        "current": 320,
+        "target": 300,
+        "unit": "pallets/h"
+      },
       "metrics": {
         "Capacity": "4,200 pallets",
         "Utilization": "76%",
@@ -158,6 +212,15 @@
       "y": 400,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 2800,
+        "estimatedHours": 8.5
+      },
+      "throughput": {
+        "current": 380,
+        "target": 400,
+        "unit": "pallets/h"
+      },
       "metrics": {
         "Capacity": "8,800 pallets",
         "Utilization": "83%",
@@ -179,6 +242,15 @@
       "y": 40,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 42,
+        "estimatedHours": 1.5
+      },
+      "throughput": {
+        "current": 18,
+        "target": 16,
+        "unit": "trips/h"
+      },
       "metrics": {
         "Trips / day": "18",
         "Avg load": "24 pallets",
@@ -200,6 +272,15 @@
       "y": 120,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 156,
+        "estimatedHours": 2.0
+      },
+      "throughput": {
+        "current": 312,
+        "target": 290,
+        "unit": "picks/h"
+      },
       "metrics": {
         "Picks / day": "312",
         "Accuracy": "99.1%",
@@ -221,6 +302,15 @@
       "y": 200,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 890,
+        "estimatedHours": 3.2
+      },
+      "throughput": {
+        "current": 180,
+        "target": 175,
+        "unit": "picks/h"
+      },
       "metrics": {
         "Picks / hr": "180",
         "Orders / day": "620",
@@ -242,6 +332,15 @@
       "y": 300,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 450,
+        "estimatedHours": 2.5
+      },
+      "throughput": {
+        "current": 95,
+        "target": 92,
+        "unit": "picks/h"
+      },
       "metrics": {
         "Picks / hr": "95",
         "Carts / shift": "48",
@@ -263,6 +362,15 @@
       "y": 400,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 72,
+        "estimatedHours": 1.8
+      },
+      "throughput": {
+        "current": 28,
+        "target": 26,
+        "unit": "pallets/h"
+      },
       "metrics": {
         "Pallets / hr": "28",
         "Orders / day": "210",
@@ -284,6 +392,15 @@
       "y": 500,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 38,
+        "estimatedHours": 1.2
+      },
+      "throughput": {
+        "current": 22,
+        "target": 21,
+        "unit": "pallets/h"
+      },
       "metrics": {
         "Pallets / hr": "22",
         "Loads / day": "14",
@@ -305,6 +422,15 @@
       "y": 180,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 28,
+        "estimatedHours": 1.0
+      },
+      "throughput": {
+        "current": 18,
+        "target": 20,
+        "unit": "holds/h"
+      },
       "metrics": {
         "Staging positions": "24",
         "Avg dwell time": "1.8 hr",
@@ -326,6 +452,15 @@
       "y": 350,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 45,
+        "estimatedHours": 1.5
+      },
+      "throughput": {
+        "current": 32,
+        "target": 35,
+        "unit": "trailers/h"
+      },
       "metrics": {
         "Staging positions": "120",
         "Avg dwell time": "0.9 hr",
@@ -347,6 +482,15 @@
       "y": 175,
       "width": 50,
       "height": 200,
+      "backlog": {
+        "units": 12,
+        "estimatedHours": 0.5
+      },
+      "throughput": {
+        "current": 48,
+        "target": 45,
+        "unit": "trailers/h"
+      },
       "metrics": {
         "Trailers / day": "48",
         "Avg load time": "38 min",
@@ -368,6 +512,15 @@
       "y": 80,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 48000,
+        "estimatedHours": 2.0
+      },
+      "throughput": {
+        "current": 48000,
+        "target": 45000,
+        "unit": "units/day"
+      },
       "metrics": {
         "Units / day": "48,000",
         "Destination DCs": "6",
@@ -389,6 +542,15 @@
       "y": 250,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 31000,
+        "estimatedHours": 3.5
+      },
+      "throughput": {
+        "current": 31000,
+        "target": 30000,
+        "unit": "units/day"
+      },
       "metrics": {
         "Units / day": "31,000",
         "Store accounts": "180",
@@ -410,6 +572,15 @@
       "y": 420,
       "width": 130,
       "height": 55,
+      "backlog": {
+        "units": 12000,
+        "estimatedHours": 2.8
+      },
+      "throughput": {
+        "current": 12000,
+        "target": 11000,
+        "unit": "units/day"
+      },
       "metrics": {
         "Units / day": "12,000",
         "Accounts": "94",
