@@ -1,0 +1,218 @@
+[
+  {
+    "id": "PPO-002",
+    "skuA": "VANS-OLD-SKOOL-44",
+    "skuB": "CONVERSE-ALLSTAR-41",
+    "locationA": {
+      "zone": "D",
+      "rack": 9,
+      "level": 3
+    },
+    "locationB": {
+      "zone": "D",
+      "rack": 5,
+      "level": 6
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 2,
+      "level": 1
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 3,
+      "level": 9
+    },
+    "timeSavingsMinutes": 4.6,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-006",
+    "skuA": "NEW-BALANCE-43",
+    "skuB": "NIKE-AIRMAX-43",
+    "locationA": {
+      "zone": "D",
+      "rack": 18,
+      "level": 6
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 6,
+      "level": 4
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 5,
+      "level": 7
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 6,
+      "level": 5
+    },
+    "timeSavingsMinutes": 4.6,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-007",
+    "skuA": "VANS-OLD-SKOOL-45",
+    "skuB": "NIKE-AIRMAX-44",
+    "locationA": {
+      "zone": "B",
+      "rack": 13,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 9,
+      "level": 4
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 6,
+      "level": 2
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 7,
+      "level": 8
+    },
+    "timeSavingsMinutes": 4.5,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-001",
+    "skuA": "NEW-BALANCE-44",
+    "skuB": "NIKE-AIRMAX-43",
+    "locationA": {
+      "zone": "D",
+      "rack": 20,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 14,
+      "level": 2
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 3,
+      "level": 5
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 4,
+      "level": 1
+    },
+    "timeSavingsMinutes": 4.3,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-003",
+    "skuA": "NEW-BALANCE-43",
+    "skuB": "CONVERSE-ALLSTAR-43",
+    "locationA": {
+      "zone": "D",
+      "rack": 7,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 6,
+      "level": 5
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 1,
+      "level": 10
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 2,
+      "level": 4
+    },
+    "timeSavingsMinutes": 4.2,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-008",
+    "skuA": "SAUCONY-JAZZ-40",
+    "skuB": "HM-TSHIRT-M",
+    "locationA": {
+      "zone": "B",
+      "rack": 7,
+      "level": 4
+    },
+    "locationB": {
+      "zone": "B",
+      "rack": 6,
+      "level": 4
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 2,
+      "level": 6
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 3,
+      "level": 8
+    },
+    "timeSavingsMinutes": 4.1,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-005",
+    "skuA": "VANS-OLD-SKOOL-45",
+    "skuB": "NEW-BALANCE-44",
+    "locationA": {
+      "zone": "B",
+      "rack": 5,
+      "level": 4
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 19,
+      "level": 3
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 5,
+      "level": 6
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 6,
+      "level": 5
+    },
+    "timeSavingsMinutes": 2.3,
+    "status": "pending"
+  },
+  {
+    "id": "PPO-004",
+    "skuA": "NIKE-AIRMAX-44",
+    "skuB": "SAUCONY-JAZZ-40",
+    "locationA": {
+      "zone": "B",
+      "rack": 8,
+      "level": 1
+    },
+    "locationB": {
+      "zone": "C",
+      "rack": 12,
+      "level": 5
+    },
+    "suggestedLocationA": {
+      "zone": "A",
+      "rack": 2,
+      "level": 3
+    },
+    "suggestedLocationB": {
+      "zone": "A",
+      "rack": 3,
+      "level": 3
+    },
+    "timeSavingsMinutes": 1.6,
+    "status": "pending"
+  }
+]

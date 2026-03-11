@@ -10,6 +10,12 @@ const NAV_ITEMS = [
   { id: 'connections',   icon: Cable,          shortLabel: 'Data',               fullLabel: 'Data Connections'          },
 ]
 
+const EXTERNAL_SYSTEMS = [
+  { id: 'ext-sap',      imgSrc: '/sap_logo.jpeg',    shortLabel: 'SAP',  fullLabel: 'SAP ERP'                    },
+  { id: 'ext-mht',      imgSrc: '/mht_logo.png',     shortLabel: 'MHT',  fullLabel: 'Manhattan Associates WMS'   },
+  { id: 'ext-momentum', imgSrc: '/momentum_logo.png', shortLabel: 'WES', fullLabel: 'Momentum WES'               },
+]
+
 export default function Navbar({ activeScreen, onNavigate }) {
   return (
     <nav className="w-[56px] bg-slate-900 border-l border-slate-700 flex flex-col items-center pt-4 pb-4 gap-1 flex-shrink-0">
@@ -41,6 +47,30 @@ export default function Navbar({ activeScreen, onNavigate }) {
           </button>
         )
       })}
+
+      {/* Divider */}
+      <div className="border-t border-slate-700 w-8 my-1" />
+
+      {/* External systems with logos */}
+      {EXTERNAL_SYSTEMS.map(({ id, imgSrc, shortLabel, fullLabel }) => (
+        <button
+          key={id}
+          onClick={() => {}}
+          title={fullLabel}
+          className="group relative w-10 h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 transition-all text-slate-500 hover:bg-slate-800 hover:text-slate-200"
+        >
+          <div className="w-[22px] h-[22px] rounded overflow-hidden flex items-center justify-center bg-white">
+            <img src={imgSrc} alt={shortLabel} className="w-full h-full object-contain" />
+          </div>
+          <span className="text-[9px] font-semibold leading-[1.1] tracking-wide text-center px-0.5 whitespace-pre-line">
+            {shortLabel}
+          </span>
+          {/* Tooltip */}
+          <span className="pointer-events-none absolute right-full mr-2 top-1/2 -translate-y-1/2 whitespace-nowrap bg-slate-800 text-white text-xs font-medium px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity border border-slate-700">
+            {fullLabel}
+          </span>
+        </button>
+      ))}
     </nav>
   )
 }

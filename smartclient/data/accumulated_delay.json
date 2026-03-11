@@ -1,0 +1,28 @@
+{
+  "totalDelaySeconds": 5845,
+  "totalDelayMinutes": 97,
+  "totalDelayedTasks": 47,
+  "avgDelayPerTask": 124,
+  "delayByZone": [
+    {
+      "zone": "Mezzanine 2",
+      "delaySeconds": 2345,
+      "taskCount": 18
+    },
+    {
+      "zone": "Mezzanine 1",
+      "delaySeconds": 1256,
+      "taskCount": 12
+    },
+    {
+      "zone": "Put-Wall 4",
+      "delaySeconds": 1250,
+      "taskCount": 9
+    },
+    {
+      "zone": "Conveyor Line 7",
+      "delaySeconds": 994,
+      "taskCount": 8
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Value Stream Map Interactivo</title>
+    <!-- CSS de JointJS v4 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net" />
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #f0f2f5; }
+        #canvas-container { padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        #paper { background: white; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        
+        /* Modal personalizado */
+        #info-box {
+            display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: white; padding: 25px; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            z-index: 1000; width: 320px; text-align: center; border-top: 6px solid #FFB74D;
+        }
+        #overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 999;
+        }
+        .close-btn { margin-top: 15px; padding: 10px 25px; cursor: pointer; border: none; background: #2196F3; color: white; border-radius: 6px; font-weight: bold; }
+        h2 { color: #333; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div id="canvas-container">
+    <h2>Schreiber Foods Supply Chain (WDC)</h2>
+    <div id="paper"></div>
+</div>
+
+<!-- Modal -->
+<div id="overlay" onclick="closeBox()"></div>
+<div id="info-box">
+    <h3 id="info-title">Detalles del Proceso</h3>
+    <p id="info-content"></p>
+    <button class="close-btn" onclick="closeBox()">Cerrar</button>
+</div>
+
+<!-- JS de JointJS v4 -->
+<script src="https://cdn.jsdelivr.net/npm/@joint/core@4.0.1/dist/joint.js"></script>
+
+<script>
+    const namespace = joint.shapes;
+    const graph = new joint.dia.Graph({}, { cellNamespace: namespace });
+    const paper = new joint.dia.Paper({
+        el: document.getElementById('paper'),
+        model: graph, 
+        width: 1150, 
+        height: 600, 
+        gridSize: 10,
+        cellViewNamespace: namespace, 
+        interactive: false
+    });
+
+    // --- FUNCIÓN PARA ZONAS PUNTEADAS (Swimlanes) ---
+    function createArea(x, y, w, h, labelText) {
+        const area = new joint.shapes.standard.Rectangle();
+        area.position(x, y).resize(w, h);
+        area.attr({
+            body: {
+                fill: 'rgba(240, 240, 240, 0.2)', // Fondo casi transparente
+                stroke: '#D32F2F', 
+                strokeWidth: 2, 
+                strokeDasharray: '8,4',
+                pointerEvents: 'none' // Importante: permite clics en elementos hijos
+            },
+            label: {
+                text: labelText,
+                refY: -25,
+                verticalAnchor: 'top',
+                fill: '#D32F2F',
+                fontSize: 14,
+                fontWeight: 'bold'
+            }
+        });
+        area.addTo(graph);
+        area.set('z', -1); // Envía al fondo
+        return area;
+    }
+
+    // --- FUNCIÓN PARA CAJAS DE PROCESO ---
+    function createStep(x, y, text, color = '#FFFDE7') {
+        const rect = new joint.shapes.standard.Rectangle();
+        rect.position(x, y).resize(130, 55);
+        rect.attr({
+            body: { fill: color, stroke: '#FFB74D', strokeWidth: 2, rx: 5, ry: 5, cursor: 'pointer' },
+            label: { text: text, fontSize: 11, fontWeight: 'bold' }
+        });
+        return rect.addTo(graph);
+    }
+
+    function connect(s, t) {
+        const link = new joint.shapes.standard.Link();
+        link.source(s).target(t).router('manhattan');
+        link.attr({ line: { stroke: '#2196F3', strokeWidth: 2, targetMarker: { type: 'path', d: 'M 10 -5 0 0 10 5 Z' }}});
+        return link.addTo(graph);
+    }
+
+    // --- 1. DIBUJAR ZONAS ---
+    createArea(15, 40, 160, 540, 'SUPPLIERS');
+    createArea(190, 40, 770, 540, 'WDC');
+    createArea(975, 40, 160, 540, 'SF CUSTOMERS');
+
+    // --- 2. DIBUJAR PROCESOS ---
+    const mgb_in = createStep(30, 80, 'MGB');
+    const sf_fac = createStep(30, 250, 'SF Facilities');
+    const vendors = createStep(30, 420, 'Outside Vendors');
+
+    const receiving = createStep(210, 175, 'Receiving').resize(50, 200);
+    const homeOffice = createStep(340, 100, 'Home Office/\nCheese Orders');
+    const rackRes = createStep(340, 250, 'Rack Reserve');
+    const deepRes = createStep(340, 400, 'Deep Reserve');
+    
+    const shuttle = createStep(550, 40, 'Shuttle');
+    const mirrorPick = createStep(550, 120, 'Mirror/\nSample Picking');
+    const itpPick = createStep(550, 200, 'ITP Order\nPicking');
+    const cartPick = createStep(550, 300, 'Cart Pick');
+    const palletPick = createStep(550, 400, 'Pallet Pick');
+    const pickLoad = createStep(550, 500, 'Pick and Load');
+
+    const mirrorStag = createStep(740, 180, 'Mirror Staging');
+    const staging = createStep(740, 350, 'Staging');
+    const loading = createStep(890, 175, 'Loading').resize(50, 200);
+
+    const mgb_out = createStep(990, 80, 'MGB');
+    const sfdc = createStep(990, 250, 'SF DC\'s');
+    const customers = createStep(990, 420, 'SF Customers');
+
+    // --- 3. CONEXIONES ---
+    connect(mgb_in, receiving); connect(sf_fac, receiving); connect(vendors, receiving);
+    connect(receiving, homeOffice); connect(receiving, rackRes); connect(receiving, deepRes);
+    connect(homeOffice, shuttle); connect(homeOffice, mirrorPick);
+    connect(rackRes, itpPick); connect(rackRes, cartPick); connect(rackRes, palletPick);
+    connect(deepRes, pickLoad);
+    connect(mirrorPick, mirrorStag); connect(itpPick, staging); connect(cartPick, staging); connect(palletPick, staging);
+    connect(mirrorStag, loading); connect(staging, loading); connect(shuttle, loading); connect(pickLoad, loading);
+    connect(loading, mgb_out); connect(loading, sfdc); connect(loading, customers);
+
+    // --- LÓGICA DE INTERACCIÓN ---
+    paper.on('element:pointerclick', function(elementView) {
+        const model = elementView.model;
+        // Solo mostrar modal si no es una de las áreas punteadas
+        if(model.get('z') === -1) return;
+
+        const text = model.attr('label/text');
+        document.getElementById('info-title').innerText = text.replace('\n', ' ');
+        document.getElementById('info-content').innerHTML = `Detalles del proceso <b>${text}</b>.<br><br>Tiempo de ciclo: 15 min<br>Eficiencia: 92%`;
+        
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('info-box').style.display = 'block';
+    });
+
+    function closeBox() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('info-box').style.display = 'none';
+    }
+</script>
+</body>
+</html>

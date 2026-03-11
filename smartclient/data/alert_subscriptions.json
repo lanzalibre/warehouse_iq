@@ -1,0 +1,89 @@
+[
+  {
+    "id": "ALERT-SUB-001",
+    "type": "misplacement",
+    "enabled": true,
+    "filters": {
+      "zones": [
+        "Zone A",
+        "Zone B"
+      ],
+      "shifts": [
+        "AM",
+        "PM"
+      ],
+      "severityThreshold": "high"
+    },
+    "notificationMethods": [
+      "email",
+      "sms"
+    ],
+    "lastTriggered": "2026-02-22 14:32:15"
+  },
+  {
+    "id": "ALERT-SUB-002",
+    "type": "sustained-delay",
+    "enabled": true,
+    "filters": {
+      "zones": [
+        "Zone C",
+        "Zone D"
+      ],
+      "shifts": [
+        "AM"
+      ],
+      "severityThreshold": "critical",
+      "sustainedMinutes": 30
+    },
+    "notificationMethods": [
+      "email"
+    ],
+    "lastTriggered": "2026-02-22 12:15:00"
+  },
+  {
+    "id": "ALERT-SUB-003",
+    "type": "trend",
+    "enabled": false,
+    "filters": {
+      "zones": [
+        "All"
+      ],
+      "shifts": [
+        "AM",
+        "PM",
+        "Night"
+      ],
+      "severityThreshold": "medium",
+      "trendType": "worsening",
+      "thresholdPercent": 10
+    },
+    "notificationMethods": [
+      "email",
+      "sms",
+      "slack"
+    ],
+    "lastTriggered": null
+  },
+  {
+    "id": "ALERT-SUB-004",
+    "type": "sla-risk",
+    "enabled": true,
+    "filters": {
+      "zones": [
+        "Zone D"
+      ],
+      "shifts": [
+        "All"
+      ],
+      "severityThreshold": "high",
+      "orderTypes": [
+        "Same-Day Delivery"
+      ]
+    },
+    "notificationMethods": [
+      "email",
+      "slack"
+    ],
+    "lastTriggered": "2026-02-22 10:45:30"
+  }
+]

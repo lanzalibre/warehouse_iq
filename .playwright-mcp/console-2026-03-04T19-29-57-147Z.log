@@ -1,0 +1,2 @@
+[ 2210716ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:5178/src/components/LaborManagement.jsx?t=1772654807842:0
+[ 2210717ms] [ERROR] [hmr] Failed to reload /src/components/LaborManagement.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5178/@vite/client:175

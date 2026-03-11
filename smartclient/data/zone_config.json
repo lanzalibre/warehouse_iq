@@ -1,0 +1,52 @@
+{
+  "Zone A": {
+    "color": "#3b82f6",
+    "barClass": "bg-blue-500",
+    "textClass": "text-blue-700",
+    "lightClass": "bg-blue-50 border-blue-200",
+    "dotClass": "bg-blue-500",
+    "label": "Receiving & Prep",
+    "currentLoadPct": 72,
+    "maxDailyHours": 18
+  },
+  "Zone B": {
+    "color": "#10b981",
+    "barClass": "bg-emerald-500",
+    "textClass": "text-emerald-700",
+    "lightClass": "bg-emerald-50 border-emerald-200",
+    "dotClass": "bg-emerald-500",
+    "label": "General Storage",
+    "currentLoadPct": 58,
+    "maxDailyHours": 24
+  },
+  "Zone C": {
+    "color": "#8b5cf6",
+    "barClass": "bg-violet-500",
+    "textClass": "text-violet-700",
+    "lightClass": "bg-violet-50 border-violet-200",
+    "dotClass": "bg-violet-500",
+    "label": "Pick & Pack",
+    "currentLoadPct": 45,
+    "maxDailyHours": 20
+  },
+  "Zone D": {
+    "color": "#f97316",
+    "barClass": "bg-orange-500",
+    "textClass": "text-orange-700",
+    "lightClass": "bg-orange-50 border-orange-200",
+    "dotClass": "bg-orange-500",
+    "label": "Cold Storage",
+    "currentLoadPct": 89,
+    "maxDailyHours": 10
+  },
+  "Crossdock": {
+    "color": "#eab308",
+    "barClass": "bg-yellow-500",
+    "textClass": "text-yellow-700",
+    "lightClass": "bg-yellow-50 border-yellow-200",
+    "dotClass": "bg-yellow-500",
+    "label": "Crossdock Bay",
+    "currentLoadPct": 62,
+    "maxDailyHours": 12
+  }
+}

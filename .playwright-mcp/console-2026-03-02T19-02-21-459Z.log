@@ -1,0 +1,2 @@
+[  878024ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5177/src/components/WarehouseProcessMap.jsx?t=1772479019436:0
+[  878028ms] [ERROR] [hmr] Failed to reload /src/components/WarehouseProcessMap.jsx. This could be due to syntax errors or importing non-existent modules. (see errors above) @ http://localhost:5177/@vite/client:175

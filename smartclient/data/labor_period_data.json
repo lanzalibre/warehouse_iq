@@ -1,0 +1,130 @@
+{
+  "shift": {
+    "label": "Current Shift",
+    "sublabel": "06:00 – 14:00",
+    "hoursLabel": "hours",
+    "zones": {
+      "Zone A": {
+        "estimated": 18,
+        "done": 3,
+        "capacity": 23.4
+      },
+      "Zone B": {
+        "estimated": 28,
+        "done": 6,
+        "capacity": 23.4
+      },
+      "Zone C": {
+        "estimated": 12,
+        "done": 2,
+        "capacity": 7.8
+      },
+      "Zone D": {
+        "estimated": 14,
+        "done": 0,
+        "capacity": 0
+      },
+      "Crossdock": {
+        "estimated": 10,
+        "done": 4,
+        "capacity": 15.6
+      }
+    }
+  },
+  "today": {
+    "label": "Today",
+    "sublabel": "All 3 shifts",
+    "hoursLabel": "hours",
+    "zones": {
+      "Zone A": {
+        "estimated": 52,
+        "done": 8,
+        "capacity": 58
+      },
+      "Zone B": {
+        "estimated": 78,
+        "done": 14,
+        "capacity": 62
+      },
+      "Zone C": {
+        "estimated": 34,
+        "done": 5,
+        "capacity": 32
+      },
+      "Zone D": {
+        "estimated": 40,
+        "done": 0,
+        "capacity": 22
+      },
+      "Crossdock": {
+        "estimated": 28,
+        "done": 9,
+        "capacity": 45
+      }
+    }
+  },
+  "twodays": {
+    "label": "Next 2 Days",
+    "sublabel": "Incl. today",
+    "hoursLabel": "hours",
+    "zones": {
+      "Zone A": {
+        "estimated": 110,
+        "done": 8,
+        "capacity": 120
+      },
+      "Zone B": {
+        "estimated": 160,
+        "done": 14,
+        "capacity": 125
+      },
+      "Zone C": {
+        "estimated": 72,
+        "done": 5,
+        "capacity": 65
+      },
+      "Zone D": {
+        "estimated": 85,
+        "done": 0,
+        "capacity": 44
+      },
+      "Crossdock": {
+        "estimated": 60,
+        "done": 9,
+        "capacity": 90
+      }
+    }
+  },
+  "week": {
+    "label": "This Week",
+    "sublabel": "Mon – Fri",
+    "hoursLabel": "hours",
+    "zones": {
+      "Zone A": {
+        "estimated": 380,
+        "done": 8,
+        "capacity": 420
+      },
+      "Zone B": {
+        "estimated": 540,
+        "done": 14,
+        "capacity": 440
+      },
+      "Zone C": {
+        "estimated": 240,
+        "done": 5,
+        "capacity": 230
+      },
+      "Zone D": {
+        "estimated": 290,
+        "done": 0,
+        "capacity": 155
+      },
+      "Crossdock": {
+        "estimated": 210,
+        "done": 9,
+        "capacity": 315
+      }
+    }
+  }
+}

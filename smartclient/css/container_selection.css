@@ -1,0 +1,93 @@
+/* Container Selection - SmartClient Styles */
+
+/* Base styles */
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #f0f2f5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Priority colors */
+.priority-urgent { color: #dc2626 !important; font-weight: 600; }
+.priority-high { color: #f97316 !important; font-weight: 600; }
+.priority-normal { color: #8b5cf6 !important; font-weight: 600; }
+.priority-low { color: #16a34a !important; font-weight: 600; }
+
+/* Zone cards */
+.zone-card {
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 140px;
+}
+.zone-a { background: #dbeafe; border: 1px solid #3b82f6; }
+.zone-b { background: #d1fae5; border: 1px solid #10b981; }
+.zone-c { background: #ede9fe; border: 1px solid #8b5cf6; }
+.zone-d { background: #ffedd5; border: 1px solid #f97316; }
+.zone-crossdock { background: #fef9c3; border: 1px solid #eab308; }
+
+/* Score colors */
+.age-warning { color: #dc2626; font-weight: 600; }
+.score-excellent { color: #16a34a; }
+.score-good { color: #3b82f6; }
+.score-moderate { color: #f97316; }
+.score-poor { color: #dc2626; }
+
+/* Header bar */
+.header-bar {
+    background: #1e3a5f;
+    color: white;
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* SmartClient ListGrid selection styling */
+.listTableSelected,
+.listTableSelectedOver,
+.listTableSelectedDown,
+.listTableSelectedDisabled {
+    background-color: #3b82f6 !important;
+    color: white !important;
+}
+
+.listTableSelected .priority-urgent,
+.listTableSelected .priority-high,
+.listTableSelected .priority-normal,
+.listTableSelected .priority-low {
+    color: white !important;
+}
+
+/* Hover styling */
+.listTableOver {
+    background-color: #f0f9ff !important;
+}
+
+/* Section styles */
+.section-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    padding: 8px 12px;
+    background: #f3f4f6;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Card styles */
+.card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: #3b82f6;
+    color: white;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: 500;
+}
