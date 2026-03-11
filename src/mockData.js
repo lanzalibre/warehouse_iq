@@ -6,7 +6,7 @@ export const ZONE_CONFIG = {
     textClass: 'text-blue-700',
     lightClass: 'bg-blue-50 border-blue-200',
     dotClass: 'bg-blue-500',
-    label: 'Receiving & Prep',
+    label: 'PTL Order Picking',
     currentLoadPct: 72,
     maxDailyHours: 18,
   },
@@ -16,7 +16,7 @@ export const ZONE_CONFIG = {
     textClass: 'text-emerald-700',
     lightClass: 'bg-emerald-50 border-emerald-200',
     dotClass: 'bg-emerald-500',
-    label: 'General Storage',
+    label: 'Cart Pick',
     currentLoadPct: 58,
     maxDailyHours: 24,
   },
@@ -26,7 +26,7 @@ export const ZONE_CONFIG = {
     textClass: 'text-violet-700',
     lightClass: 'bg-violet-50 border-violet-200',
     dotClass: 'bg-violet-500',
-    label: 'Pick & Pack',
+    label: 'Pallet Pick',
     currentLoadPct: 45,
     maxDailyHours: 20,
   },
@@ -36,7 +36,7 @@ export const ZONE_CONFIG = {
     textClass: 'text-orange-700',
     lightClass: 'bg-orange-50 border-orange-200',
     dotClass: 'bg-orange-500',
-    label: 'Cold Storage',
+    label: 'Shuttle/XDK',
     currentLoadPct: 89,   // Already near capacity — key to the plot twist
     maxDailyHours: 10,
   },
@@ -46,7 +46,7 @@ export const ZONE_CONFIG = {
     textClass: 'text-yellow-700',
     lightClass: 'bg-yellow-50 border-yellow-200',
     dotClass: 'bg-yellow-500',
-    label: 'Crossdock Bay',
+    label: 'Unit Sorter',
     currentLoadPct: 62,
     maxDailyHours: 12,
   },
@@ -889,8 +889,8 @@ const _W = [
   ['W067','Atlas Edwards',     'Zone C','Pick & Pack',         0,  null,   0,0,  6,0, 0],
   ['W068','Zephyr Collins',    'Zone C','Pick & Pack',         0,  null,   0,0,  4,0, 0],
   ['W069','Lyric Morris',      'Zone C','Pick & Pack',         0,  null,   0,0,  3,0, 0],
-  // ── Zone D (22 workers, 0 checked in – AM shift absent) ────────────────────
-  ['W010','Tom Fischer',       'Zone D','Cold Storage Lead',   0,  null,   0,0,  0,32,0],
+  // ── Zone D (22 workers, 1 checked in – Tom Fischer; zone still critically understaffed) ────────────────────
+  ['W010','Tom Fischer',       'Zone D','Cold Storage Lead',   1,  '06:03', 0,0,  0,32,0],
   ['W070','Ingrid Kolb',       'Zone D','Cold Storage Op.',    0,  null,   0,0,  0,24,0],
   ['W071','Sven Nielsen',      'Zone D','Cold Storage Op.',    0,  null,   0,0,  0,18,0],
   ['W072','Anya Sokolova',     'Zone D','Cold Storage Op.',    0,  null,   0,0,  0,20,0],
@@ -954,13 +954,13 @@ export const LABOR_PERIOD_DATA = {
     label: 'Current Shift',
     sublabel: '06:00 – 14:00',
     hoursLabel: 'hours',
-    // Zone D capacity = 0 because Tom Fischer has not checked in
+    // Zone D capacity = 0 — all Zone D workers absent from AM shift
     zones: {
       'Zone A':    { estimated: 18,  done: 3,  capacity: 23.4 },
       'Zone B':    { estimated: 28,  done: 6,  capacity: 23.4 },
-      'Zone C':    { estimated: 12,  done: 2,  capacity: 7.8  },
-      'Zone D':    { estimated: 14,  done: 0,  capacity: 0    },
-      'Crossdock': { estimated: 10,  done: 4,  capacity: 15.6 },
+      'Zone C':    { estimated: 12,  done: 2,  capacity: 12   },
+      'Zone D':    { estimated: 14,  done: 0,  capacity: 7.8  },
+      'Crossdock': { estimated: 20,  done: 4,  capacity: 12 },
     },
   },
   today: {
@@ -972,7 +972,7 @@ export const LABOR_PERIOD_DATA = {
       'Zone B':    { estimated: 78,  done: 14, capacity: 62   },
       'Zone C':    { estimated: 34,  done: 5,  capacity: 32   },
       'Zone D':    { estimated: 40,  done: 0,  capacity: 22   },
-      'Crossdock': { estimated: 28,  done: 9,  capacity: 45   },
+      'Crossdock': { estimated: 50,  done: 9,  capacity: 38   },
     },
   },
   twodays: {
@@ -984,7 +984,7 @@ export const LABOR_PERIOD_DATA = {
       'Zone B':    { estimated: 160, done: 14, capacity: 125  },
       'Zone C':    { estimated: 72,  done: 5,  capacity: 65   },
       'Zone D':    { estimated: 85,  done: 0,  capacity: 44   },
-      'Crossdock': { estimated: 60,  done: 9,  capacity: 90   },
+      'Crossdock': { estimated: 100, done: 9,  capacity: 82   },
     },
   },
   week: {
@@ -996,7 +996,7 @@ export const LABOR_PERIOD_DATA = {
       'Zone B':    { estimated: 540, done: 14, capacity: 440  },
       'Zone C':    { estimated: 240, done: 5,  capacity: 230  },
       'Zone D':    { estimated: 290, done: 0,  capacity: 155  },
-      'Crossdock': { estimated: 210, done: 9,  capacity: 315  },
+      'Crossdock': { estimated: 320, done: 9,  capacity: 290  },
     },
   },
 }
@@ -1012,20 +1012,20 @@ export const REBALANCING_RECS = [
     experienceMonths: 8,
     surplusPeriodKey: 'Zone A',
     deficitPeriodKey: 'Zone D',
-    reasoning: "Zone D has zero available capacity (Tom Fischer absent) against 14 h of workload. Priya Nair has the highest Zone D experience (8 mo.) among Zone A workers, and Zone A currently has an 8.4 h labor surplus.",
-    impact: 'Resolves ~7.8 h of Zone D deficit for current shift',
+    reasoning: "Shuttle/XDK is critically understaffed — only Tom Fischer has checked in (1 of 22 workers), leaving a −6.2 h shift deficit. Priya Nair has the highest Shuttle/XDK experience (8 mo.) among PTL Order Picking workers, and PTL Order Picking currently has an 8.4 h labor surplus.",
+    impact: 'Closes most of the Shuttle/XDK deficit for current shift',
   },
   {
     id: 'REC-002',
     priority: 'high',
-    workerId: 'W012',   // Ben Okafor
-    fromZone: 'Crossdock',
-    toZone: 'Zone C',
-    experienceMonths: 4,
-    surplusPeriodKey: 'Crossdock',
-    deficitPeriodKey: 'Zone C',
-    reasoning: "Zone C is 2.2 h short with Sara O'Brien absent. Ben Okafor has 4 months Zone C experience and Crossdock has a 9.6 h surplus that can absorb the reallocation.",
-    impact: 'Closes the Zone C 2.2 h gap for current shift',
+    workerId: 'W024',   // Jordan Brooks
+    fromZone: 'Zone A',
+    toZone: 'Crossdock',
+    experienceMonths: 3,
+    surplusPeriodKey: 'Zone A',
+    deficitPeriodKey: 'Crossdock',
+    reasoning: "Unit Sorter is running a labor deficit against rising automation load. Jordan Brooks has 3 months Unit Sorter experience among Zone A workers, and PTL Order Picking carries an 8.4 h labor surplus that can absorb the reallocation.",
+    impact: 'Closes ~4 h of Unit Sorter deficit for current shift',
   },
 ]
 
