@@ -8,7 +8,7 @@ import {
   useReactFlow,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { X, Send } from 'lucide-react'
+import { X, Send, MessageSquare, CheckCircle } from 'lucide-react'
 import mapData from '../data/warehouseProcessMap.json'
 import { DC_MANAGER_DATA } from '../mockData.js'
 
@@ -551,6 +551,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
   const [confirmMode, setConfirmMode] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [standardizedAction, setStandardizedAction] = useState(null)
+  const [lmsResponse, setLmsResponse] = useState(null)
   const containerRef = useRef(null)
   const lmsInputRef = useRef(null)
 
@@ -677,6 +678,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
               setConfirmMode(false)
               setIsProcessing(false)
               setStandardizedAction(null)
+              setLmsResponse(null)
               setTimeout(() => lmsInputRef.current?.focus(), 50)
             }}
           />
@@ -684,17 +686,23 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
       )}
 
       {/* CSS for spinner animation */}
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      <style>{`
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-4px); }
+        }
+      `}</style>
 
       {/* LMS Action Dialog */}
-      {pendingAction && (
+      {(pendingAction || lmsResponse) && (
         <div style={{ borderTop: '1px solid #e2e8f0', background: 'white', padding: '12px 16px', borderRadius: 8, border: '1px solid #e2e8f0' }}>
           {/* header row */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
             <span style={{ fontSize: 11, fontWeight: 700, color: '#1e293b' }}>📋 Send Action to LMS</span>
             <span style={{ fontSize: 10, color: '#64748b' }}>Review and edit before submitting</span>
             <button
-              onClick={() => { setPendingAction(''); setConfirmMode(false); setIsProcessing(false); setStandardizedAction(null) }}
+              onClick={() => { setPendingAction(''); setConfirmMode(false); setIsProcessing(false); setStandardizedAction(null); setLmsResponse(null) }}
               style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }}
             >
               <X size={14} />
@@ -775,7 +783,14 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button
-                  onClick={() => { setPendingAction(''); setConfirmMode(false); setStandardizedAction(null) }}
+                  onClick={() => {
+                    const action = standardizedAction
+                    setPendingAction('')
+                    setConfirmMode(false)
+                    setStandardizedAction(null)
+                    setLmsResponse('thinking')
+                    setTimeout(() => setLmsResponse(action), 1000)
+                  }}
                   style={{
                     flex: 1, padding: '8px', borderRadius: 8, background: '#2563eb', color: 'white',
                     border: 'none', fontSize: 12, fontWeight: 600, cursor: 'pointer',
@@ -794,6 +809,74 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
                 </button>
               </div>
             </>
+          )}
+
+          {/* === STATE D: LMS submission thinking === */}
+          {lmsResponse === 'thinking' && (
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+              <div style={{
+                width: 26, height: 26, borderRadius: '50%', background: '#2563eb',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0, marginTop: 2,
+              }}>
+                <MessageSquare size={12} color="white" />
+              </div>
+              <div style={{
+                background: 'white', border: '1px solid #e2e8f0', borderRadius: 12,
+                padding: '10px 14px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+              }}>
+                <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                  {[0, 1, 2].map(i => (
+                    <div key={i} style={{
+                      width: 6, height: 6, background: '#cbd5e1', borderRadius: '50%',
+                      animation: `bounce 1s ease-in-out ${i * 0.15}s infinite`,
+                    }} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* === STATE E: LMS confirmation chatbot response === */}
+          {lmsResponse && lmsResponse !== 'thinking' && (
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+              <div style={{
+                width: 26, height: 26, borderRadius: '50%', background: '#2563eb',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0, marginTop: 2,
+              }}>
+                <MessageSquare size={12} color="white" />
+              </div>
+              <div style={{
+                flex: 1, background: 'white', borderRadius: 12,
+                border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+                overflow: 'hidden',
+              }}>
+                {/* Card header — green tint */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  padding: '10px 12px', background: '#f0fdf4', borderBottom: '1px solid #dcfce7',
+                }}>
+                  <div style={{
+                    width: 26, height: 26, borderRadius: 8, background: '#dcfce7',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                  }}>
+                    <CheckCircle size={14} color="#16a34a" />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#15803d' }}>Action submitted to LMS</div>
+                    <div style={{ fontSize: 11, color: '#16a34a' }}>Reassignment queued and monitoring started</div>
+                  </div>
+                </div>
+                {/* Card body */}
+                <div style={{ padding: '10px 12px', fontSize: 12, color: '#475569', display: 'flex', flexDirection: 'column', gap: 5 }}>
+                  <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Worker: </span>{lmsResponse.parameters.worker_name}</div>
+                  <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Reassigned: </span>{lmsResponse.parameters.source_zone} → {lmsResponse.parameters.target_zone}</div>
+                  <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{lmsResponse.parameters.monitoring.metrics.join(', ')} for {lmsResponse.parameters.monitoring.duration}</div>
+                  <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       )}
