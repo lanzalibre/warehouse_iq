@@ -113,7 +113,7 @@ function ZoneSummaryPanel({ expandedZone, onExpand }) {
                   <span className={`text-xs font-bold ${
                     isCritical ? 'text-red-700' : isExpanded ? 'text-blue-700' : 'text-slate-700'
                   }`}>
-                    {zone}
+                    {cfg.label}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
@@ -136,7 +136,6 @@ function ZoneSummaryPanel({ expandedZone, onExpand }) {
               </div>
 
               <div className="flex items-center justify-between">
-                <span className="text-[10px] text-slate-400">{cfg.label}</span>
                 {isCritical
                   ? <span className="text-[10px] font-bold text-red-600">0 h capacity</span>
                   : <span className="text-[10px] text-slate-400">{Math.round((inCount / workers.length) * 100)}%</span>
@@ -170,7 +169,7 @@ function ZoneDetailPanel({ zone, onClose }) {
         <div className="flex items-center justify-between mb-1">
           <div className="flex items-center gap-2">
             <div className={`w-2.5 h-2.5 rounded-full ${cfg.dotClass}`} />
-            <span className="text-sm font-bold text-slate-800">{zone}</span>
+            <span className="text-sm font-bold text-slate-800">{cfg.label}</span>
             {isCritical && <AlertTriangle size={12} className="text-red-500" />}
           </div>
           <button
@@ -183,7 +182,7 @@ function ZoneDetailPanel({ zone, onClose }) {
         <div className={`text-xs ${isCritical ? 'text-red-600 font-semibold' : 'text-slate-500'}`}>
           {isCritical
             ? `0 of ${workers.length} checked in — 0 h capacity`
-            : `${inCount} of ${workers.length} checked in · ${cfg.label}`
+            : `${inCount} of ${workers.length} checked in`
           }
         </div>
       </div>
@@ -240,9 +239,8 @@ function ZoneChartRow({ zone, data, globalMax, isTotal = false }) {
         <div className="flex items-center gap-2">
           {cfg && <div className={`w-2.5 h-2.5 rounded-full ${cfg.dotClass}`} />}
           <span className={`text-sm font-${isTotal ? 'bold' : 'semibold'} ${isTotal ? 'text-slate-900' : 'text-slate-700'}`}>
-            {isTotal ? 'All Zones — Total' : zone}
+            {isTotal ? 'All Zones — Total' : cfg.label}
           </span>
-          {cfg && <span className="text-xs text-slate-400">{cfg.label}</span>}
         </div>
         <div className="flex items-center gap-2">
           <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${surplusColor}`}>
@@ -338,16 +336,16 @@ function RecommendationCard({ rec }) {
             {priorityConfig.label}
           </span>
           <span className="text-sm font-bold text-slate-800">
-            Reassign from {rec.fromZone} to {rec.toZone}
+            Reassign from {fromCfg.label} to {toCfg.label}
           </span>
         </div>
         <div className="flex items-center gap-1.5 flex-shrink-0">
           <span className={`font-semibold px-2 py-0.5 rounded-md ${fromCfg.lightClass} ${fromCfg.textClass} border text-xs`}>
-            {rec.fromZone}
+            {fromCfg.label}
           </span>
           <ArrowRight size={14} className="text-slate-400" />
           <span className={`font-semibold px-2 py-0.5 rounded-md ${toCfg.lightClass} ${toCfg.textClass} border text-xs`}>
-            {rec.toZone}
+            {toCfg.label}
           </span>
         </div>
       </div>
@@ -364,7 +362,7 @@ function RecommendationCard({ rec }) {
         >
           {sortedCandidates.map(w => (
             <option key={w.id} value={w.id}>
-              {w.id === rec.workerId ? '★ ' : ''}{w.name} — {w.experience[rec.toZone] || 0} mo. {rec.toZone} exp.
+              {w.id === rec.workerId ? '★ ' : ''}{w.name} — {w.experience[rec.toZone] || 0} mo. {toCfg.label} exp.
             </option>
           ))}
         </select>
@@ -384,7 +382,7 @@ function RecommendationCard({ rec }) {
               <div className="text-xs text-slate-500">{selectedWorker.role}</div>
             </div>
             <div className="text-right flex-shrink-0">
-              <div className="text-[10px] text-slate-400 mb-0.5">Exp. in {rec.toZone}</div>
+              <div className="text-[10px] text-slate-400 mb-0.5">Exp. in {toCfg.label}</div>
               <ExperienceDots months={expMonths} showLabel />
             </div>
           </div>
