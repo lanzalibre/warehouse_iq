@@ -44,33 +44,77 @@ The Yard Management module handles container processing from arrival through unl
 ## 2. Labor Management
 
 ### Overview
-Worker allocation dashboard for managing warehouse staff across zones.
+Worker allocation dashboard for managing warehouse staff across zones with workload vs. capacity planning.
+
+### Main Features
+
+#### Workload & Capacity Tab
+**Purpose**: Monitor shift labor balance across all zones
+
+**Features**:
+- Shift roster summary (checked-in count / total)
+- Current shift time and remaining workload hours
+- Zone summary cards with worker check-in percentages
+- "Workload vs. Available Capacity" chart showing:
+  - Estimated hours (gray bar)
+  - Completed hours (blue fill)
+  - Available capacity (green for surplus, red for deficit)
+  - Vertical line marking workload threshold
+- Period selector: Current Shift, Today, Next 2 Days, This Week
+- Status bar highlighting zones with labor deficit
+- Balancing Opportunities section with ranked recommendations
+
+#### Inbound Variability Tab
+**Purpose**: Analyze workload variability patterns for improved forecasting
+
+#### Labor Fatigue Tab
+**Purpose**: Monitor worker fatigue levels and recommend rotations
 
 ### Zone Summary Panel (Left)
 **Features**:
-- Shift roster with check-in count
-- Workers grouped by zone
+- Shift roster with check-in count and percentage
+- Workers grouped by process zone
 - Double-click to expand zone details
-- Visual indicators for zone status (critical if no workers checked in)
+- Visual indicators for zone status:
+  - Green: Fully staffed
+  - Amber: Approaching critical
+  - Red: Understaffed/critical
 - Progress bar showing check-in percentage
 
-### Main Panel (Center)
-**Features**:
-- All workers view or single zone detail
-- Worker cards with:
-  - Name and ID
-  - Zone assignment
-  - Experience level (1-5 dots)
-  - Check-in status and time
-  - Performance metrics (productivity, accuracy)
-  - Today's picks count
+### Zone Names (Display vs. Internal)
+| Display Name | Internal Key | Description |
+|--------------|-------------|-------------|
+| PTL Order Picking | Zone A | Rack storage picking |
+| Cart Pick | Zone B | FBD cart picking |
+| Pallet Pick | Zone C | Pallet picking |
+| Shuttle/XDK | Zone D | Cross-dock and shuttle operations |
+| Unit Sorter | Crossdock | Automated sorting in crossdock |
 
-### Detail Panel (Right)
+### Workload & Capacity Calculation
+**Surplus Formula**: `capacity - (estimated - done)`
+
+**Status Indicators**:
+- Green: `surplus ≥ 0` (sufficient capacity)
+- Red: `surplus < 0` (deficit exists)
+- Chart bar turns red when deficit exists
+
+**Example (Pallet Pick)**:
+- Estimated: 12 h, Done: 2 h, Capacity: 12 h
+- Surplus: 12 - (12 - 2) = +2 h (green)
+
+**Example (Shuttle/XDK - Critical)**:
+- Estimated: 14 h, Done: 0 h, Capacity: 7.8 h
+- Surplus: 7.8 - (14 - 0) = -6.2 h (red DEFICIT)
+
+### Balancing Opportunities
+**Purpose**: Recommend worker reassignment based on experience and zone surplus/deficit
+
 **Features**:
-- Selected worker details
-- Performance charts
-- Rebalancing recommendations
-- Zone surplus/deficit indicators
+- Ranked by deficit severity and worker experience
+- Shows source zone (with surplus) and target zone (with deficit)
+- Associate selector showing top matches by experience
+- Impact statement showing hours affected
+- Experience badges (New, Learning, Competent, Experienced, Expert)
 
 ### Experience Level System
 | Months | Dots | Label | Color |
