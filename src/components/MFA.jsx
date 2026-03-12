@@ -1770,7 +1770,11 @@ export default function MFAScreen() {
               <p className="text-xs font-semibold text-slate-500 mb-3 tracking-wide uppercase">
                 Warehouse Process Flow — Site MID-05
               </p>
-              <WarehouseProcessMap benchmarkPeriod={benchmarkPeriod} onLMSConfirm={handleLMSConfirm} />
+              <WarehouseProcessMap
+                benchmarkPeriod={benchmarkPeriod}
+                onLMSConfirm={handleLMSConfirm}
+                onNavigateToActionHistory={() => setActiveTab('actionHistory')}
+              />
             </div>
           </div>
         )}
