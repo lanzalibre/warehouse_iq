@@ -4914,6 +4914,19 @@ export const DC_MANAGER_DATA = {
       surplusZone: 'PTL Order Picking',
       surplusHours: 8.4,
     },
+    sorterMaintenance: {
+      totalSorters: 10,
+      operational: 9,
+      inMaintenance: 1,
+      sorterToService: 3,
+      sorterHoursRun: 1200,
+      inspectionThreshold: 1000,
+      errorRate: 2.3,
+      errorRateTarget: 1.0,
+      rec002Label: 'Sorter 3',
+      rec002Issue: 'Belt inspection overdue (1200h / 1000h threshold)',
+      estimatedDowntime: '45 min',
+    },
   },
   mitigatorSimResults: {
     overtime: {

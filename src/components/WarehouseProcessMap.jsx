@@ -402,47 +402,79 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod, onSuggestionCli
         )
       })()}
 
-      {/* Automation Utilization contributor for Unit Sorter node */}
+      {/* Maintenance Status card for Unit Sorter node */}
       {node.id === 'pick_and_load' && (() => {
-        const auData = DC_MANAGER_DATA.contributorDetail.automationUtilization
-        const pct = auData.current
-        const threshold = auData.threshold
+        const d = DC_MANAGER_DATA.contributorDetail.sorterMaintenance
+        const suggestionText =
+          `Create maintenance ticket for Sorter ${d.sorterToService} and take offline for belt inspection, monitor error_rate and throughput for next 1h`
         return (
-          <div style={{ paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
-            {/* Header */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#1e293b' }}>Automation Utilization Analysis</span>
-              <span style={{ padding: '2px 6px', borderRadius: 9999, background: '#fff7ed', color: '#c2410c', fontSize: 10, fontWeight: 600 }}>Nearing Threshold</span>
+          <div style={{ marginTop: 10, borderTop: '1px solid #f1f5f9', paddingTop: 8 }}>
+            {/* Header row */}
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:6 }}>
+              <span style={{ fontSize:11, fontWeight:700, color:'#1e293b' }}>Maintenance Status</span>
+              <span style={{ fontSize:10, fontWeight:600, background:'#fee2e2', color:'#991b1b',
+                             padding:'1px 7px', borderRadius:9999 }}>Action Required</span>
             </div>
 
-            {/* Utilization Progress Bar */}
-            <div style={{ background: 'white', borderRadius: 8, border: '1px solid #e2e8f0', padding: 12 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-                <div style={{ fontSize: 11, fontWeight: 600, color: '#475569' }}>Current Utilization vs. Threshold</div>
-                <div style={{ fontSize: 11, fontWeight: 600, color: '#b45309' }}>{pct}% / {threshold}%</div>
+            {/* Equipment overview */}
+            <div style={{ fontSize:11, color:'#64748b', marginBottom:6 }}>
+              {d.operational} sorters operational · {d.inMaintenance} in maintenance
+            </div>
+
+            {/* Inner card: Sorter 3 — RED */}
+            <div style={{ background:'#fff', border:'1px solid #fee2e2', borderRadius:8, padding:'8px 10px', marginBottom:6 }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                <span style={{ fontSize:11, fontWeight:600, color:'#1e293b' }}>Sorter {d.sorterToService}</span>
+                <span style={{ fontSize:10, fontWeight:600, background:'#fee2e2', color:'#dc2626',
+                               padding:'1px 6px', borderRadius:9999 }}>🔴 Critical</span>
               </div>
-
-              {/* Progress bar with threshold marker */}
-              <div style={{ position: 'relative', height: 20, background: '#fef3c7', borderRadius: 4, overflow: 'hidden', marginBottom: 8 }}>
-                {/* Fill bar (amber) */}
-                <div style={{ height: '100%', width: `${pct}%`, background: '#f59e0b' }} />
-
-                {/* Threshold marker (red line) */}
-                <div style={{ position: 'absolute', top: 0, left: `${threshold}%`, height: '100%', width: 2, background: '#ef4444', transform: 'translateX(-1px)' }} />
+              <div style={{ fontSize:10, color:'#64748b', marginTop:4 }}>
+                Belt inspection: <strong>{d.sorterHoursRun}h</strong> run · threshold {d.inspectionThreshold}h
               </div>
-
-              {/* Labels below bar */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: 9, color: '#64748b', marginBottom: 8 }}>
-                <span>0%</span>
-                <span style={{ color: '#ef4444', fontWeight: 600 }}>{threshold}% threshold</span>
-                <span>100%</span>
+              {/* Hours bar */}
+              <div style={{ marginTop:5, height:6, background:'#fee2e2', borderRadius:3, position:'relative' }}>
+                <div style={{ height:'100%', borderRadius:3, background:'#ef4444',
+                              width:`${Math.min((d.sorterHoursRun / (d.inspectionThreshold * 1.5)) * 100, 100)}%` }} />
+                {/* Threshold marker */}
+                <div style={{ position:'absolute', top:0, bottom:0, width:2, background:'#7f1d1d',
+                              left:`${(d.inspectionThreshold / (d.inspectionThreshold * 1.5)) * 100}%` }} />
               </div>
-
-              {/* Note text */}
-              <div style={{ fontSize: 10, color: '#64748b', lineHeight: 1.4 }}>
-                Only 1% headroom remains. Any additional load may push automation past safe operating limits.
+              <div style={{ display:'flex', justifyContent:'space-between', fontSize:9, color:'#94a3b8', marginTop:2 }}>
+                <span>0h</span><span>threshold: {d.inspectionThreshold}h</span>
               </div>
             </div>
+
+            {/* Inner card: Sorters 1 & 2 — YELLOW */}
+            <div style={{ background:'#fff', border:'1px solid #fde68a', borderRadius:8, padding:'8px 10px', marginBottom:8 }}>
+              <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                <span style={{ fontSize:11, fontWeight:600, color:'#1e293b' }}>Sorters 1 & 2</span>
+                <span style={{ fontSize:10, fontWeight:600, background:'#fffbeb', color:'#92400e',
+                               padding:'1px 6px', borderRadius:9999 }}>🟡 Warning</span>
+              </div>
+              <div style={{ fontSize:10, color:'#64748b', marginTop:4 }}>
+                Error rate: <strong>{d.errorRate}%</strong> · target &lt;{d.errorRateTarget}%
+              </div>
+              {/* Error rate bar */}
+              <div style={{ marginTop:5, height:6, background:'#fef3c7', borderRadius:3, position:'relative' }}>
+                <div style={{ height:'100%', borderRadius:3, background:'#f59e0b',
+                              width:`${Math.min((d.errorRate / 5) * 100, 100)}%` }} />
+                <div style={{ position:'absolute', top:0, bottom:0, width:2, background:'#92400e',
+                              left:`${(d.errorRateTarget / 5) * 100}%` }} />
+              </div>
+              <div style={{ display:'flex', justifyContent:'space-between', fontSize:9, color:'#94a3b8', marginTop:2 }}>
+                <span>0%</span><span>target: {d.errorRateTarget}%</span>
+              </div>
+            </div>
+
+            {/* REC-002 button */}
+            <button onClick={() => onSuggestionClick?.(suggestionText)} style={{
+              width:'100%', textAlign:'left', padding:'7px 10px', borderRadius:8, cursor:'pointer',
+              background:'#fff7ed', border:'1px solid #fcd34d', color:'#92400e',
+              fontSize:10, lineHeight:1.4,
+            }}>
+              <span style={{ marginRight:4 }}>💡</span>
+              <strong>REC-002:</strong> Create maintenance ticket &amp; take Sorter {d.sorterToService} offline for belt inspection. Click to send to WES.
+            </button>
           </div>
         )
       })()}
@@ -543,6 +575,26 @@ function buildStandardizedAction(rawText) {
   }
 }
 
+// ─── Helper: WES Maintenance Action Standardizer ────────────────────────────
+function buildMaintenanceAction(rawText) {
+  const sorterMatch   = rawText.match(/Sorter\s+(\d+)/i)
+  const durationMatch = rawText.match(/next\s+(\w+)/i)
+  return {
+    tool: 'wes_maintenance_ticket',
+    parameters: {
+      sorter_id:      sorterMatch?.[1] ?? '3',
+      issue:          'Belt inspection overdue',
+      action:         'Take offline for belt inspection',
+      effective_time: 'immediate',
+      monitoring: {
+        duration: durationMatch?.[1] ?? '1h',
+        metrics:  ['error_rate', 'throughput_per_hour'],
+      },
+      priority: 'critical',
+    },
+  }
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfirm, onNavigateToActionHistory }) {
   const [selectedNode, setSelectedNode] = useState(null)
@@ -614,11 +666,14 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
   const handleLMSSend = useCallback(() => {
     setIsProcessing(true)
     setTimeout(() => {
-      setStandardizedAction(buildStandardizedAction(pendingAction))
+      const action = selectedNode?.id === 'pick_and_load'
+        ? buildMaintenanceAction(pendingAction)
+        : buildStandardizedAction(pendingAction)
+      setStandardizedAction(action)
       setIsProcessing(false)
       setConfirmMode(true)
     }, 1000)
-  }, [pendingAction])
+  }, [pendingAction, selectedNode])
 
   // Close tooltip when clicking outside
   useEffect(() => {
@@ -757,7 +812,9 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
           {!isProcessing && confirmMode && standardizedAction && (
             <>
               <div style={{ marginBottom: 8 }}>
-                <span style={{ fontSize: 11, color: '#64748b' }}>⚠️ The following action will be submitted to the <strong>LMS</strong>:</span>
+                <span style={{ fontSize: 11, color: '#64748b' }}>
+                  ⚠️ The following action will be submitted to the <strong>{standardizedAction.tool === 'wes_maintenance_ticket' ? 'WES' : 'LMS'}</strong>:
+                </span>
               </div>
               {/* Annotated sentence: each extracted value shown as a pill badge */}
               <div style={{
@@ -765,21 +822,39 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
                 padding: '10px 12px', fontSize: 13, color: '#334155', lineHeight: 2,
                 marginBottom: 10,
               }}>
-                Reassign{' '}
-                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.worker_name}</span>
-                {' '}from{' '}
-                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.source_zone}</span>
-                {' '}to{' '}
-                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.target_zone}</span>
-                , effective immediately. Monitor{' '}
-                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[0]}</span>
-                {' '}and{' '}
-                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[1]}</span>
-                {' '}for{' '}
-                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.duration}</span>
-                . Priority:{' '}
-                <span style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 700, fontSize: 12 }}>{standardizedAction.parameters.priority.toUpperCase()}</span>
-                .
+                {standardizedAction.tool === 'wes_maintenance_ticket' ? (
+                  <>
+                    Create maintenance ticket for{' '}
+                    <span style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>Sorter {standardizedAction.parameters.sorter_id}</span>
+                    {' '}—{' '}
+                    <span style={{ background: '#fffbeb', color: '#92400e', border: '1px solid #fde68a', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.issue}</span>
+                    . Monitor{' '}
+                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics.join(', ')}</span>
+                    {' '}for{' '}
+                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.duration}</span>
+                    . Priority:{' '}
+                    <span style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 700, fontSize: 12 }}>{standardizedAction.parameters.priority.toUpperCase()}</span>
+                    .
+                  </>
+                ) : (
+                  <>
+                    Reassign{' '}
+                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.worker_name}</span>
+                    {' '}from{' '}
+                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.source_zone}</span>
+                    {' '}to{' '}
+                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.target_zone}</span>
+                    , effective immediately. Monitor{' '}
+                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[0]}</span>
+                    {' '}and{' '}
+                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[1]}</span>
+                    {' '}for{' '}
+                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.duration}</span>
+                    . Priority:{' '}
+                    <span style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 700, fontSize: 12 }}>{standardizedAction.parameters.priority.toUpperCase()}</span>
+                    .
+                  </>
+                )}
               </div>
               <div style={{ display: 'flex', gap: 8 }}>
                 <button
@@ -797,7 +872,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
                     border: 'none', fontSize: 12, fontWeight: 600, cursor: 'pointer',
                   }}
                 >
-                  ✓ Confirm & Submit to LMS
+                  ✓ Confirm & Submit to {standardizedAction.tool === 'wes_maintenance_ticket' ? 'WES' : 'LMS'}
                 </button>
                 <button
                   onClick={() => { setConfirmMode(false); setStandardizedAction(null) }}
@@ -838,7 +913,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
             </div>
           )}
 
-          {/* === STATE E: LMS confirmation chatbot response === */}
+          {/* === STATE E: LMS/WES confirmation chatbot response === */}
           {lmsResponse && lmsResponse !== 'thinking' && (
             <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
               <div style={{
@@ -865,16 +940,32 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
                     <CheckCircle size={14} color="#16a34a" />
                   </div>
                   <div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#15803d' }}>Action submitted to LMS</div>
-                    <div style={{ fontSize: 11, color: '#16a34a' }}>Reassignment queued and monitoring started</div>
+                    <div style={{ fontSize: 13, fontWeight: 600, color: '#15803d' }}>
+                      {lmsResponse.tool === 'wes_maintenance_ticket' ? 'Maintenance ticket created' : 'Action submitted to LMS'}
+                    </div>
+                    <div style={{ fontSize: 11, color: '#16a34a' }}>
+                      {lmsResponse.tool === 'wes_maintenance_ticket' ? 'Monitoring started' : 'Reassignment queued and monitoring started'}
+                    </div>
                   </div>
                 </div>
                 {/* Card body */}
                 <div style={{ padding: '10px 12px', fontSize: 12, color: '#475569', display: 'flex', flexDirection: 'column', gap: 5 }}>
-                  <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Worker: </span>{lmsResponse.parameters.worker_name}</div>
-                  <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Reassigned: </span>{lmsResponse.parameters.source_zone} → {lmsResponse.parameters.target_zone}</div>
-                  <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{lmsResponse.parameters.monitoring.metrics.join(', ')} for {lmsResponse.parameters.monitoring.duration}</div>
-                  <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
+                  {lmsResponse.tool === 'wes_maintenance_ticket' ? (
+                    <>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Sorter: </span>{lmsResponse.parameters.sorter_id}</div>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Issue: </span>{lmsResponse.parameters.issue}</div>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Action: </span>{lmsResponse.parameters.action}</div>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{lmsResponse.parameters.monitoring.metrics.join(', ')} for {lmsResponse.parameters.monitoring.duration}</div>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
+                    </>
+                  ) : (
+                    <>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Worker: </span>{lmsResponse.parameters.worker_name}</div>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Reassigned: </span>{lmsResponse.parameters.source_zone} → {lmsResponse.parameters.target_zone}</div>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{lmsResponse.parameters.monitoring.metrics.join(', ')} for {lmsResponse.parameters.monitoring.duration}</div>
+                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
+                    </>
+                  )}
                   <div style={{ marginTop: 4, paddingTop: 8, borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#64748b' }}>
                     View KPI metrics in{' '}
                     <button
