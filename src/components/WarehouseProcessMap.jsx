@@ -544,7 +544,7 @@ function buildStandardizedAction(rawText) {
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
-export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
+export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfirm }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
   const [pendingAction, setPendingAction] = useState('')
@@ -785,6 +785,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30' }) {
                 <button
                   onClick={() => {
                     const action = standardizedAction
+                    onLMSConfirm?.(action)
                     setPendingAction('')
                     setConfirmMode(false)
                     setStandardizedAction(null)

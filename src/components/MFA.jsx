@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import WarehouseProcessMap from './WarehouseProcessMap'
+import DCDaySummary from './PlanVsExecution/DCDaySummary.jsx'
 import {
   LayoutGrid, TrendingUp, ArrowRight, Check, X,
   Package, Clock, BarChart3, DollarSign, ArrowUp,
   ArrowDown, Move, Eye, EyeOff, Calendar,
-  ChevronDown, MapPin, Timer, TrendingDown, Target, Shield,
+  ChevronDown, MapPin, Timer, TrendingDown, Target, Shield, CheckCircle,
 } from 'lucide-react'
+import { ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, ResponsiveContainer } from 'recharts'
 
 import {
   SINGLE_PRODUCT_OPPORTUNITIES,
@@ -1507,9 +1509,103 @@ function PairDetailPanel({ opportunity, timePeriod, onClose }) {
   )
 }
 
+// ─── Chart Data Generator ─────────────────────────────────────────────────────
+function generateMonitoringChartData(duration) {
+  const hours = parseInt(duration) || 1
+  const intervalMin = 5
+  const points = (hours * 60) / intervalMin
+  const now = new Date()
+
+  return Array.from({ length: points }, (_, i) => {
+    const t = new Date(now.getTime() + i * intervalMin * 60000)
+    const label = t.toTimeString().slice(0, 5)
+
+    // Throughput: starts at 14/h, ramps toward target (21/h) over duration
+    const progress = i / Math.max(points - 1, 1)
+    const throughput = Math.min(14 + progress * 8 + (Math.random() - 0.5) * 1.5, 22)
+
+    // Backlog: starts at ~6200, drops toward target (1500) over duration
+    const backlog = Math.max(6200 - progress * 4800 + (Math.random() - 0.5) * 200, 1200)
+
+    return {
+      label,
+      throughput: Math.round(throughput * 10) / 10,
+      backlog: Math.round(backlog),
+    }
+  })
+}
+
+// ─── KPI Monitoring Chart Component ───────────────────────────────────────────
+function KPIMonitoringChart({ chartData }) {
+  const throughputTarget = 21
+  const backlogTarget = 1500
+
+  return (
+    <div style={{ width: '100%', height: 200, marginTop: 12, paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
+      <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 8 }}>KPI Monitor — Reassignment Tracking</div>
+      <ResponsiveContainer width="100%" height="100%">
+        <ComposedChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+          <XAxis
+            dataKey="label"
+            tick={{ fontSize: 10, fill: '#64748b' }}
+            interval={Math.max(Math.floor(chartData.length / 6), 0)}
+          />
+          <YAxis
+            yAxisId="left"
+            tick={{ fontSize: 10, fill: '#64748b' }}
+            label={{ value: 'Throughput (units/h)', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: '#64748b' } }}
+          />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            tick={{ fontSize: 10, fill: '#64748b' }}
+            label={{ value: 'Backlog (units)', angle: 90, position: 'insideRight', style: { fontSize: 10, fill: '#64748b' } }}
+          />
+          <Tooltip
+            contentStyle={{
+              background: '#fff',
+              border: '1px solid #e2e8f0',
+              borderRadius: 6,
+              fontSize: 12,
+              padding: '8px 12px',
+            }}
+            formatter={(value) => {
+              if (typeof value === 'number') return value.toFixed(1)
+              return value
+            }}
+          />
+          <Legend wrapperStyle={{ fontSize: 11, paddingTop: 12 }} />
+          <ReferenceLine yAxisId="left" y={throughputTarget} stroke="#10b981" strokeDasharray="5 5" label={{ value: `Target: ${throughputTarget}/h`, position: 'right', fill: '#10b981', fontSize: 10 }} />
+          <ReferenceLine yAxisId="right" y={backlogTarget} stroke="#f59e0b" strokeDasharray="5 5" label={{ value: `Target: ${backlogTarget}u`, position: 'right', fill: '#f59e0b', fontSize: 10 }} />
+          <Line
+            yAxisId="left"
+            type="monotone"
+            dataKey="throughput"
+            stroke="#3b82f6"
+            dot={false}
+            strokeWidth={2}
+            name="Throughput (units/h)"
+          />
+          <Line
+            yAxisId="right"
+            type="monotone"
+            dataKey="backlog"
+            stroke="#f59e0b"
+            dot={false}
+            strokeWidth={2}
+            name="Backlog (units)"
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
+    </div>
+  )
+}
+
 // ─── MFA Screen Component ───────────────────────────────────────────────────────
 export default function MFAScreen() {
   const [activeTab, setActiveTab] = useState('overview')
+  const [actionHistory, setActionHistory] = useState(DC_MANAGER_DATA.actionHistory)
   const [activeSubTab, setActiveSubTab] = useState('single')
   const [selectedOpportunity, setSelectedOpportunity] = useState(null)
   const [selectedIds, setSelectedIds] = useState(new Set())
@@ -1535,6 +1631,23 @@ export default function MFAScreen() {
   }
   const benchmark = KPI_BENCHMARKS[benchmarkPeriod]
   const benchmarkLabel = `vs ${benchmarkPeriod}d avg`
+
+  // Handle LMS confirmation - add to action history
+  const handleLMSConfirm = useCallback((action) => {
+    const newEntry = {
+      id: Date.now(),
+      type: 'lms_reassign',
+      action: `Reassign ${action.parameters.worker_name} from ${action.parameters.source_zone} to ${action.parameters.target_zone}`,
+      acceptedAt: new Date().toTimeString().slice(0, 5),
+      systems: ['LMS'],
+      monitoring: {
+        duration: action.parameters.monitoring.duration,
+        metrics: action.parameters.monitoring.metrics,
+        chartData: generateMonitoringChartData(action.parameters.monitoring.duration),
+      },
+    }
+    setActionHistory(prev => [newEntry, ...prev])
+  }, [])
 
   // Handle bulk actions
   const handleToggleSelect = (id) => {
@@ -1594,9 +1707,16 @@ export default function MFAScreen() {
         <TabButton
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          id="simulation"
-          label="Simulation"
-          icon={LayoutGrid}
+          id="daySummary"
+          label="Day Summary"
+          icon={Calendar}
+        />
+        <TabButton
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          id="actionHistory"
+          label="Action History"
+          icon={Clock}
         />
       </div>
 
@@ -1650,7 +1770,7 @@ export default function MFAScreen() {
               <p className="text-xs font-semibold text-slate-500 mb-3 tracking-wide uppercase">
                 Warehouse Process Flow — Site MID-05
               </p>
-              <WarehouseProcessMap benchmarkPeriod={benchmarkPeriod} />
+              <WarehouseProcessMap benchmarkPeriod={benchmarkPeriod} onLMSConfirm={handleLMSConfirm} />
             </div>
           </div>
         )}
@@ -1789,13 +1909,58 @@ export default function MFAScreen() {
           </div>
         )}
 
-        {/* Simulation Tab */}
-        {activeTab === 'simulation' && (
+        {/* Day Summary Tab */}
+        {activeTab === 'daySummary' && <DCDaySummary />}
+
+        {/* Action History Tab */}
+        {activeTab === 'actionHistory' && (
           <div className="flex-1 overflow-y-auto p-6">
-            <div className="h-full bg-white rounded-xl border border-slate-200 flex items-center justify-center">
-              <div className="text-center text-slate-400">
-                <LayoutGrid size={48} className="mx-auto mb-3 text-slate-300" />
-                <p className="text-sm">Simulation features coming soon</p>
+            <div className="bg-white rounded-xl border border-slate-200">
+              {/* Header */}
+              <div className="px-6 py-4 border-b border-slate-200 flex items-center gap-2">
+                <Clock size={16} className="text-slate-500" />
+                <h3 className="text-sm font-bold text-slate-800">Action History</h3>
+              </div>
+
+              {/* History list */}
+              <div className="divide-y divide-slate-100">
+                {actionHistory.length === 0 ? (
+                  <div className="px-6 py-12 text-center text-slate-400">
+                    <Clock size={48} className="mx-auto mb-3 text-slate-300" />
+                    <p className="text-sm">No actions recorded yet</p>
+                  </div>
+                ) : (
+                  actionHistory.map(entry => (
+                    <div key={entry.id} className="px-6 py-4">
+                      <div className="flex items-start gap-3 mb-2">
+                        <CheckCircle size={16} className="text-emerald-500 flex-shrink-0 mt-0.5" />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm text-slate-700 font-medium break-words">{entry.action}</p>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs text-slate-400 flex-shrink-0 ml-2">
+                          <Clock size={11} />
+                          {entry.acceptedAt}
+                        </div>
+                      </div>
+
+                      {/* System badges */}
+                      <div className="flex gap-1 mb-3 ml-6">
+                        {entry.systems.map(sys => (
+                          <span key={sys} className="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-semibold rounded">
+                            {sys}
+                          </span>
+                        ))}
+                      </div>
+
+                      {/* KPI Chart for LMS entries */}
+                      {entry.monitoring && entry.monitoring.chartData && (
+                        <div className="ml-6 bg-slate-50 rounded-lg p-4">
+                          <KPIMonitoringChart chartData={entry.monitoring.chartData} />
+                        </div>
+                      )}
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>
