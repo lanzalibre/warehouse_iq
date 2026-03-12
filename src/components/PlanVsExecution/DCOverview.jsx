@@ -235,19 +235,12 @@ export default function DCOverview({ onNavigateToSimulation, onNavigateToLabor }
   const [drillDown, setDrillDown] = useState(null)
   const [confirmTarget, setConfirmTarget] = useState(null)
   const [acceptedIds, setAcceptedIds] = useState(new Set())
-  const [history, setHistory] = useState(DC_MANAGER_DATA.actionHistory)
 
   function handleAccept(mitigator) {
     setConfirmTarget(mitigator)
   }
 
   function handleConfirm() {
-    const now = new Date()
-    const time = now.toTimeString().slice(0, 5)
-    setHistory(prev => [
-      ...prev,
-      { action: confirmTarget.actionLabel, acceptedAt: time, systems: confirmTarget.systems },
-    ])
     setAcceptedIds(prev => new Set([...prev, confirmTarget.id]))
     setConfirmTarget(null)
   }
@@ -336,30 +329,6 @@ export default function DCOverview({ onNavigateToSimulation, onNavigateToLabor }
                 onDrillDown={setDrillDown}
                 onAccept={handleAccept}
               />
-            ))}
-          </div>
-        </div>
-
-        {/* Action History */}
-        <div>
-          <h3 className="text-sm font-bold text-slate-700 mb-3">Action History</h3>
-          <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
-            {history.map((item, i) => (
-              <div key={i} className="flex items-center gap-4 px-4 py-3">
-                <CheckCircle size={14} className="text-emerald-500 flex-shrink-0" />
-                <span className="text-sm text-slate-700 flex-1">{item.action}</span>
-                <div className="flex items-center gap-1.5 text-xs text-slate-400">
-                  <Clock size={11} />
-                  {item.acceptedAt}
-                </div>
-                <div className="flex gap-1">
-                  {item.systems.map(sys => (
-                    <span key={sys} className="px-1.5 py-0.5 bg-slate-100 text-slate-500 text-[10px] font-semibold rounded">
-                      {sys}
-                    </span>
-                  ))}
-                </div>
-              </div>
             ))}
           </div>
         </div>

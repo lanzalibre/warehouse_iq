@@ -1,11 +1,10 @@
 import { useState } from 'react'
-import { BarChart3, AlertTriangle, Clock, Bell, LayoutDashboard, CalendarCheck } from 'lucide-react'
+import { BarChart3, AlertTriangle, Clock, Bell, LayoutDashboard } from 'lucide-react'
 import OverviewDashboard from './OverviewDashboard.jsx'
 import ExceptionPatterns from './ExceptionPatterns.jsx'
 import HistoricalTrace from './HistoricalTrace.jsx'
 import AlertSubscriptions from './AlertSubscriptions.jsx'
 import DCOverview from './DCOverview.jsx'
-import DCDaySummary from './DCDaySummary.jsx'
 import { ALERT_SUBSCRIPTIONS } from '../../mockData.js'
 
 // ─── Tab Button ─────────────────────────────────────────────────────────────
@@ -41,7 +40,6 @@ export default function PlanVsExecution({ persona, onNavigate }) {
 
   const dcTabs = [
     { id: 'dc-overview', label: 'Overview', icon: LayoutDashboard },
-    { id: 'dc-summary', label: 'Day Summary', icon: CalendarCheck },
   ]
 
   const tabs = isDCManager ? dcTabs : opsTabs
@@ -129,7 +127,6 @@ export default function PlanVsExecution({ persona, onNavigate }) {
               onNavigateToLabor={(tab) => onNavigate?.('labor', { tab })}
             />
           )}
-          {activeTab === 'dc-summary' && <DCDaySummary />}
         </div>
 
         {/* Alert Panel (ops only) */}
