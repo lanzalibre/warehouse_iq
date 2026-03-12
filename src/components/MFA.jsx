@@ -1514,17 +1514,23 @@ function generateMonitoringChartData(duration) {
   const hours = parseInt(duration) || 1
   const intervalMin = 5
   const points = (hours * 60) / intervalMin
+  const filledPoints = Math.ceil(points / 3)  // only first 1/3 has data
   const now = new Date()
 
   return Array.from({ length: points }, (_, i) => {
     const t = new Date(now.getTime() + i * intervalMin * 60000)
     const label = t.toTimeString().slice(0, 5)
 
-    // Throughput: starts at 14/h, ramps toward target (21/h) over duration
-    const progress = i / Math.max(points - 1, 1)
+    // Only populate data for first 1/3 of time axis; rest are null (live monitoring effect)
+    if (i >= filledPoints) {
+      return { label, throughput: null, backlog: null }
+    }
+
+    // Throughput: starts at 14/h, ramps toward target (21/h) over filled duration
+    const progress = i / Math.max(filledPoints - 1, 1)
     const throughput = Math.min(14 + progress * 8 + (Math.random() - 0.5) * 1.5, 22)
 
-    // Backlog: starts at ~6200, drops toward target (1500) over duration
+    // Backlog: starts at ~6200, drops toward target (1500) over filled duration
     const backlog = Math.max(6200 - progress * 4800 + (Math.random() - 0.5) * 200, 1200)
 
     return {
@@ -1542,7 +1548,17 @@ function KPIMonitoringChart({ chartData }) {
 
   return (
     <div style={{ width: '100%', height: 200, marginTop: 12, paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
-      <div style={{ fontSize: 11, fontWeight: 600, color: '#475569', marginBottom: 8 }}>KPI Monitor — Reassignment Tracking</div>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+        <span style={{ fontSize: 11, fontWeight: 600, color: '#475569' }}>KPI Monitor — Reassignment Tracking</span>
+        <span style={{
+          display: 'flex', alignItems: 'center', gap: 4,
+          fontSize: 10, fontWeight: 600, color: '#16a34a',
+          padding: '1px 6px', background: '#dcfce7', borderRadius: 9999,
+        }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#16a34a', display: 'inline-block' }} />
+          Live
+        </span>
+      </div>
       <ResponsiveContainer width="100%" height="100%">
         <ComposedChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
