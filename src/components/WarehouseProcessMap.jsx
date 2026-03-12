@@ -544,7 +544,7 @@ function buildStandardizedAction(rawText) {
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
-export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfirm }) {
+export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfirm, onNavigateToActionHistory }) {
   const [selectedNode, setSelectedNode] = useState(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
   const [pendingAction, setPendingAction] = useState('')
@@ -875,6 +875,18 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
                   <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Reassigned: </span>{lmsResponse.parameters.source_zone} → {lmsResponse.parameters.target_zone}</div>
                   <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{lmsResponse.parameters.monitoring.metrics.join(', ')} for {lmsResponse.parameters.monitoring.duration}</div>
                   <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
+                  <div style={{ marginTop: 4, paddingTop: 8, borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#64748b' }}>
+                    View KPI metrics in{' '}
+                    <button
+                      onClick={() => onNavigateToActionHistory?.()}
+                      style={{
+                        background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer',
+                        textDecoration: 'underline', fontWeight: 600, fontSize: 11, padding: 0,
+                      }}
+                    >
+                      Action History
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
