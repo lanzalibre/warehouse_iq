@@ -1541,8 +1541,111 @@ function generateMonitoringChartData(duration) {
   })
 }
 
+// ─── Maintenance Chart Data Generator ──────────────────────────────────────────
+function generateMaintenanceChartData(duration) {
+  const hours = parseInt(duration) || 1
+  const intervalMin = 5
+  const points = (hours * 60) / intervalMin
+  const filledPoints = Math.ceil(points / 3)
+  const now = new Date()
+
+  return Array.from({ length: points }, (_, i) => {
+    const t = new Date(now.getTime() + i * intervalMin * 60000)
+    const label = t.toTimeString().slice(0, 5)
+    if (i >= filledPoints) return { label, errorRate: null, throughput: null }
+
+    const progress = i / Math.max(filledPoints - 1, 1)
+    // Error rate: starts at 2.3%, drops toward <1% as sorter 3 goes offline
+    const errorRate = Math.max(2.3 - progress * 1.5 + (Math.random() - 0.5) * 0.2, 0.8)
+    // Throughput: slight dip as sorter 3 goes offline, recovers as remaining 9 rebalance
+    const throughput = Math.max(18 - progress * 1.5 + (Math.random() - 0.5) * 1, 16.5)
+    return {
+      label,
+      errorRate: Math.round(errorRate * 100) / 100,
+      throughput: Math.round(throughput * 10) / 10,
+    }
+  })
+}
+
 // ─── KPI Monitoring Chart Component ───────────────────────────────────────────
-function KPIMonitoringChart({ chartData }) {
+function KPIMonitoringChart({ chartData, chartType = 'labor' }) {
+  if (chartType === 'maintenance') {
+    const errorRateTarget = 1.0
+    const throughputTarget = 21
+
+    return (
+      <div style={{ width: '100%', height: 200, marginTop: 12, paddingTop: 12, borderTop: '1px solid #f1f5f9' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
+          <span style={{ fontSize: 11, fontWeight: 600, color: '#475569' }}>KPI Monitor — Maintenance Tracking</span>
+          <span style={{
+            display: 'flex', alignItems: 'center', gap: 4,
+            fontSize: 10, fontWeight: 600, color: '#16a34a',
+            padding: '1px 6px', background: '#dcfce7', borderRadius: 9999,
+          }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#16a34a', display: 'inline-block' }} />
+            Live
+          </span>
+        </div>
+        <ResponsiveContainer width="100%" height="100%">
+          <ComposedChart data={chartData} margin={{ top: 5, right: 30, left: 0, bottom: 5 }}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+            <XAxis
+              dataKey="label"
+              tick={{ fontSize: 10, fill: '#64748b' }}
+              interval={Math.max(Math.floor(chartData.length / 6), 0)}
+            />
+            <YAxis
+              yAxisId="left"
+              tick={{ fontSize: 10, fill: '#64748b' }}
+              label={{ value: 'Error Rate (%)', angle: -90, position: 'insideLeft', style: { fontSize: 10, fill: '#64748b' } }}
+            />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              tick={{ fontSize: 10, fill: '#64748b' }}
+              label={{ value: 'Throughput (units/h)', angle: 90, position: 'insideRight', style: { fontSize: 10, fill: '#64748b' } }}
+            />
+            <Tooltip
+              contentStyle={{
+                background: '#fff',
+                border: '1px solid #e2e8f0',
+                borderRadius: 6,
+                fontSize: 12,
+                padding: '8px 12px',
+              }}
+              formatter={(value) => {
+                if (typeof value === 'number') return value.toFixed(1)
+                return value
+              }}
+            />
+            <Legend wrapperStyle={{ fontSize: 11, paddingTop: 12 }} />
+            <ReferenceLine yAxisId="left" y={errorRateTarget} stroke="#ef4444" strokeDasharray="5 5" label={{ value: `Target: <${errorRateTarget}%`, position: 'right', fill: '#ef4444', fontSize: 10 }} />
+            <ReferenceLine yAxisId="right" y={throughputTarget} stroke="#10b981" strokeDasharray="5 5" label={{ value: `Target: ${throughputTarget}/h`, position: 'right', fill: '#10b981', fontSize: 10 }} />
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="errorRate"
+              stroke="#ef4444"
+              dot={false}
+              strokeWidth={2}
+              name="Error Rate (%)"
+            />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="throughput"
+              stroke="#3b82f6"
+              dot={false}
+              strokeWidth={2}
+              name="Throughput (units/h)"
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+    )
+  }
+
+  // Default labor/reassignment chart
   const throughputTarget = 21
   const backlogTarget = 1500
 
@@ -1648,19 +1751,35 @@ export default function MFAScreen() {
   const benchmark = KPI_BENCHMARKS[benchmarkPeriod]
   const benchmarkLabel = `vs ${benchmarkPeriod}d avg`
 
-  // Handle LMS confirmation - add to action history
+  // Handle LMS/WES confirmation - add to action history
   const handleLMSConfirm = useCallback((action) => {
-    const newEntry = {
-      id: Date.now(),
-      type: 'lms_reassign',
-      action: `Reassign ${action.parameters.worker_name} from ${action.parameters.source_zone} to ${action.parameters.target_zone}`,
-      acceptedAt: new Date().toTimeString().slice(0, 5),
-      systems: ['LMS'],
-      monitoring: {
-        duration: action.parameters.monitoring.duration,
-        metrics: action.parameters.monitoring.metrics,
-        chartData: generateMonitoringChartData(action.parameters.monitoring.duration),
-      },
+    let newEntry
+    if (action.tool === 'wes_maintenance_ticket') {
+      newEntry = {
+        id: Date.now(),
+        type: 'wes_maintenance',
+        action: `Create maintenance ticket — Sorter ${action.parameters.sorter_id}: ${action.parameters.action}`,
+        acceptedAt: new Date().toTimeString().slice(0, 5),
+        systems: ['WES'],
+        monitoring: {
+          duration: action.parameters.monitoring.duration,
+          metrics: action.parameters.monitoring.metrics,
+          chartData: generateMaintenanceChartData(action.parameters.monitoring.duration),
+        },
+      }
+    } else {
+      newEntry = {
+        id: Date.now(),
+        type: 'lms_reassign',
+        action: `Reassign ${action.parameters.worker_name} from ${action.parameters.source_zone} to ${action.parameters.target_zone}`,
+        acceptedAt: new Date().toTimeString().slice(0, 5),
+        systems: ['LMS'],
+        monitoring: {
+          duration: action.parameters.monitoring.duration,
+          metrics: action.parameters.monitoring.metrics,
+          chartData: generateMonitoringChartData(action.parameters.monitoring.duration),
+        },
+      }
     }
     setActionHistory(prev => [newEntry, ...prev])
   }, [])
@@ -1972,10 +2091,13 @@ export default function MFAScreen() {
                         ))}
                       </div>
 
-                      {/* KPI Chart for LMS entries */}
+                      {/* KPI Chart for LMS/WES entries */}
                       {entry.monitoring && entry.monitoring.chartData && (
                         <div className="ml-6 bg-slate-50 rounded-lg p-4">
-                          <KPIMonitoringChart chartData={entry.monitoring.chartData} />
+                          <KPIMonitoringChart
+                            chartData={entry.monitoring.chartData}
+                            chartType={entry.type === 'wes_maintenance' ? 'maintenance' : 'labor'}
+                          />
                         </div>
                       )}
                     </div>
