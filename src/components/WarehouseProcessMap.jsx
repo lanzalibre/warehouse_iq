@@ -473,8 +473,23 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod, onSuggestionCli
               fontSize:10, lineHeight:1.4,
             }}>
               <span style={{ marginRight:4 }}>💡</span>
-              <strong>REC-002:</strong> Create maintenance ticket &amp; take Sorter {d.sorterToService} offline for belt inspection. Click to send to WES.
+              <strong>REC-002:</strong> Create maintenance ticket &amp; take Sorter {d.sorterToService} offline for belt inspection.
             </button>
+
+            {/* REC-003 button */}
+            {(() => {
+              const rec003SuggestionText = `Run diagnostic on Sorters 1 and 2 to investigate error rate spike, monitor error_rate and throughput for next 2h`
+              return (
+                <button onClick={() => onSuggestionClick?.(rec003SuggestionText)} style={{
+                  width:'100%', textAlign:'left', padding:'7px 10px', borderRadius:8, cursor:'pointer',
+                  background:'#fff7ed', border:'1px solid #fcd34d', color:'#92400e',
+                  fontSize:10, lineHeight:1.4, marginTop:6,
+                }}>
+                  <span style={{ marginRight:4 }}>💡</span>
+                  <strong>REC-003:</strong> Run diagnostic on Sorters 1 &amp; 2 to investigate error rate spike (2.3% → target &lt;{d.errorRateTarget}%).
+                </button>
+              )
+            })()}
           </div>
         )
       })()}
@@ -543,7 +558,7 @@ function NodeTooltip({ node, position, onClose, benchmarkPeriod, onSuggestionCli
                 }}
               >
                 <span style={{ fontSize: 12, marginTop: -1 }}>💡</span>
-                <span>REC-001: Reassign <strong>{d.rec001Worker}</strong> ({d.rec001ExperienceMonths} mo. exp.) from {d.surplusZone} (+{d.surplusHours} h surplus) → Shuttle/XDK. Click to send to LMS.</span>
+                <span>REC-001: Reassign <strong>{d.rec001Worker}</strong> ({d.rec001ExperienceMonths} mo. exp.) from {d.surplusZone} (+{d.surplusHours} h surplus) → Shuttle/XDK.</span>
               </button>
             </div>
           </div>
@@ -750,29 +765,26 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
       `}</style>
 
       {/* LMS Action Dialog */}
-      {(pendingAction || lmsResponse) && (
-        <div style={{ borderTop: '1px solid #e2e8f0', background: 'white', padding: '12px 16px', borderRadius: 8, border: '1px solid #e2e8f0' }}>
-          {/* header row */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-            <span style={{ fontSize: 11, fontWeight: 700, color: '#1e293b' }}>📋 Send Action to LMS</span>
-            <span style={{ fontSize: 10, color: '#64748b' }}>Review and edit before submitting</span>
-            <button
-              onClick={() => { setPendingAction(''); setConfirmMode(false); setIsProcessing(false); setStandardizedAction(null); setLmsResponse(null) }}
-              style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }}
-            >
-              <X size={14} />
-            </button>
-          </div>
+      <div style={{ borderTop: '1px solid #e2e8f0', background: 'white', padding: '12px 16px', borderRadius: 8, border: '1px solid #e2e8f0', position: 'relative' }}>
+        {/* X button — only visible when there's pending action or response */}
+        {(pendingAction || lmsResponse) && (
+          <button
+            onClick={() => { setPendingAction(''); setConfirmMode(false); setIsProcessing(false); setStandardizedAction(null); setLmsResponse(null) }}
+            style={{ position: 'absolute', top: 12, right: 16, background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }}
+          >
+            <X size={14} />
+          </button>
+        )}
 
-          {/* === STATE A: Edit input === */}
-          {!isProcessing && !confirmMode && (
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
+        {/* === STATE A: Edit input === */}
+        {!isProcessing && !confirmMode && (
+          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
               <textarea
                 ref={lmsInputRef}
                 value={pendingAction}
                 onChange={e => setPendingAction(e.target.value)}
                 rows={1}
-                placeholder="Describe the action to send to LMS…"
+                placeholder="Take action on WES, LMS, WMS, ERP..."
                 style={{
                   flex: 1, resize: 'none', background: '#f8fafc',
                   border: '1px solid #e2e8f0', borderRadius: 12,
@@ -796,9 +808,9 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
             </div>
           )}
 
-          {/* === STATE B: Processing (1s spinner) === */}
-          {isProcessing && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px', color: '#64748b', fontSize: 13 }}>
+        {/* === STATE B: Processing (1s spinner) === */}
+        {isProcessing && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px', color: '#64748b', fontSize: 13 }}>
               <div style={{
                 width: 16, height: 16, borderRadius: '50%',
                 border: '2px solid #e2e8f0', borderTopColor: '#2563eb',
@@ -808,9 +820,9 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
             </div>
           )}
 
-          {/* === STATE C: Confirm — Annotated sentence with pill badges === */}
-          {!isProcessing && confirmMode && standardizedAction && (
-            <>
+        {/* === STATE C: Confirm — Annotated sentence with pill badges === */}
+        {!isProcessing && confirmMode && standardizedAction && (
+          <>
               <div style={{ marginBottom: 8 }}>
                 <span style={{ fontSize: 11, color: '#64748b' }}>
                   ⚠️ The following action will be submitted to the <strong>{standardizedAction.tool === 'wes_maintenance_ticket' ? 'WES' : 'LMS'}</strong>:
@@ -887,9 +899,9 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
             </>
           )}
 
-          {/* === STATE D: LMS submission thinking === */}
-          {lmsResponse === 'thinking' && (
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+        {/* === STATE D: LMS submission thinking === */}
+        {lmsResponse === 'thinking' && (
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
               <div style={{
                 width: 26, height: 26, borderRadius: '50%', background: '#2563eb',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -913,9 +925,9 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
             </div>
           )}
 
-          {/* === STATE E: LMS/WES confirmation chatbot response === */}
-          {lmsResponse && lmsResponse !== 'thinking' && (
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+        {/* === STATE E: LMS/WES confirmation chatbot response === */}
+        {lmsResponse && lmsResponse !== 'thinking' && (
+          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
               <div style={{
                 width: 26, height: 26, borderRadius: '50%', background: '#2563eb',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -983,7 +995,6 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
             </div>
           )}
         </div>
-      )}
     </div>
   )
 }
