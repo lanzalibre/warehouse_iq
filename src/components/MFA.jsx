@@ -1,11 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
 import WarehouseProcessMap from './WarehouseProcessMap'
 import DCDaySummary from './PlanVsExecution/DCDaySummary.jsx'
+import HandoverReport from './HandoverReport.jsx'
 import {
   LayoutGrid, TrendingUp, ArrowRight, Check, X,
   Package, Clock, BarChart3, DollarSign, ArrowUp,
   ArrowDown, Move, Eye, EyeOff, Calendar,
-  ChevronDown, MapPin, Timer, TrendingDown, Target, Shield, CheckCircle,
+  ChevronDown, MapPin, Timer, TrendingDown, Target, Shield, CheckCircle, ClipboardList,
 } from 'lucide-react'
 import { ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, ResponsiveContainer } from 'recharts'
 
@@ -1853,6 +1854,13 @@ export default function MFAScreen() {
           label="Action History"
           icon={Clock}
         />
+        <TabButton
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          id="handover"
+          label="Shift Handover Reports"
+          icon={ClipboardList}
+        />
       </div>
 
       {/* Main Content */}
@@ -2105,6 +2113,13 @@ export default function MFAScreen() {
                 )}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Shift Handover Reports Tab */}
+        {activeTab === 'handover' && (
+          <div className="flex-1 overflow-hidden">
+            <HandoverReport />
           </div>
         )}
       </div>
