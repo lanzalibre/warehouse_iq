@@ -10,6 +10,7 @@ import NLQueryScreen from './components/NLQuery.jsx'
 import MFAScreen from './components/MFA.jsx'
 import DataSourcesScreen from './components/DataSources.jsx'
 import SimulationScreen from './components/Simulation.jsx'
+import HandoverReport from './components/HandoverReport.jsx'
 
 export default function App() {
   const [persona, setPersona] = useState(null)
@@ -125,6 +126,7 @@ export default function App() {
           )}
           {activeScreen === 'nl-query' && <NLQueryScreen />}
           {activeScreen === 'connections' && <DataSourcesScreen />}
+          {activeScreen === 'handover' && <HandoverReport />}
         </div>
 
         {/* Right-side navigation */}
