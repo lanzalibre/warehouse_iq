@@ -7,5 +7,6 @@
   },
   "modes": {
     "default_mode": "auto-accept"
-  }
+  },
+  "enabledMcpjsonServers": ["atlassian"]
 }
