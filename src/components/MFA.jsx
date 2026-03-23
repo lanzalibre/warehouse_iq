@@ -6,7 +6,7 @@ import {
   LayoutGrid, TrendingUp, ArrowRight, Check, X,
   Package, Clock, BarChart3, DollarSign, ArrowUp,
   ArrowDown, Move, Eye, EyeOff, Calendar,
-  ChevronDown, MapPin, Timer, TrendingDown, Target, Shield, CheckCircle, ClipboardList,
+  ChevronDown, MapPin, Timer, TrendingDown, Target, CheckCircle, ClipboardList, AlertTriangle,
 } from 'lucide-react'
 import { ComposedChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine, ResponsiveContainer } from 'recharts'
 
@@ -1875,7 +1875,7 @@ export default function MFAScreen() {
               <BenchmarkSelector benchmarkPeriod={benchmarkPeriod} setBenchmarkPeriod={setBenchmarkPeriod} />
             </div>
 
-            <div className="grid grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-3 gap-4 mb-6">
               <KPICard
                 icon={Target}
                 label="OTIF"
@@ -1891,14 +1891,6 @@ export default function MFAScreen() {
                 benchmarkLabel={benchmarkLabel}
               />
               <KPICard
-                icon={Shield}
-                label="Safety Index"
-                value="94 / 100"
-                subtext="Tight margin"
-                delta={null}
-                benchmarkLabel={benchmarkLabel}
-              />
-              <KPICard
                 icon={TrendingUp}
                 label="Volume Forecast"
                 value="±18%"
@@ -1906,6 +1898,24 @@ export default function MFAScreen() {
                 delta={null}
                 benchmarkLabel={benchmarkLabel}
               />
+            </div>
+
+            {/* Risk Signal */}
+            <div className="bg-amber-50 border-2 border-amber-300 rounded-xl p-5 my-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center gap-2">
+                  <AlertTriangle size={18} className="text-amber-600" />
+                  <h2 className="text-base font-bold text-amber-900">{DC_MANAGER_DATA.riskSignal.headline}</h2>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded-full bg-amber-200 text-amber-800 text-xs font-semibold">
+                    {DC_MANAGER_DATA.riskSignal.confidence}% confidence
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-xs font-semibold">
+                    –${Math.abs(DC_MANAGER_DATA.riskSignal.financialImpact / 1000).toFixed(0)}K estimated exposure
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Warehouse Process Map */}

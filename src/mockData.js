@@ -4811,7 +4811,6 @@ export const DC_MANAGER_DATA = {
   kpis: [
     { id: 'otif', label: 'OTIF', value: '98.1%', delta: '+0.3%', color: 'emerald', icon: 'target' },
     { id: 'costPerUnit', label: 'Cost per Unit', value: '$2.47', delta: '↑ +$0.08', color: 'amber', icon: 'dollar' },
-    { id: 'safetyIndex', label: 'Safety Index', value: '94 / 100', subtext: 'Tight margin', color: 'emerald', icon: 'shield' },
     { id: 'volumeForecast', label: 'Volume Forecast', value: '±18%', subtext: 'Volatility ahead', color: 'amber', icon: 'trending' },
   ],
   riskSignal: {
