@@ -23,3 +23,9 @@ build/
 # Testing
 .playwright-snapshots/
 .claude-snapshots/
+
+# Claude Code
+.claude/
+
+# Playwright MCP
+.playwright-mcp/
