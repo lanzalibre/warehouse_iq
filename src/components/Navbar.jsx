@@ -1,7 +1,7 @@
 import { Boxes, Users2, GitCompare, MessageSquare, LayoutGrid, Cable, FlaskConical } from 'lucide-react'
 
 const NAV_ITEMS = [
-  { id: 'mfa',           icon: LayoutGrid,     shortLabel: 'MFA',                fullLabel: 'Multi-Faceted Analytics'   },
+  { id: 'mfa',           icon: LayoutGrid,     shortLabel: 'MFA',                fullLabel: 'Material Flow Analysis'   },
   { id: 'plan-exec',     icon: GitCompare,     shortLabel: 'Plan vs\nExec',      fullLabel: 'Plan vs Execution'         },
   { id: 'yard',          icon: Boxes,          shortLabel: 'Yard',               fullLabel: 'Yard Management'           },
   { id: 'labor',         icon: Users2,         shortLabel: 'Labor',              fullLabel: 'Labor Management'          },

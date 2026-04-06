@@ -1909,16 +1909,16 @@ export default function MFAScreen() {
             </div>
 
             {/* Warehouse Process Map */}
-            <div className="bg-white rounded-xl border border-slate-200 p-4">
-              <p className="text-xs font-semibold text-slate-500 mb-3 tracking-wide uppercase">
-                Warehouse Process Flow — Site MID-05
-              </p>
-              <WarehouseProcessMap
-                benchmarkPeriod={benchmarkPeriod}
-                onLMSConfirm={handleLMSConfirm}
-                onNavigateToActionHistory={() => setActiveTab('actionHistory')}
-              />
-            </div>
+<div className="bg-slate-100 rounded-xl p-4 shadow-inner">
+  <p className="text-xs font-semibold text-slate-500 mb-3 tracking-wide uppercase">
+    Warehouse Process Flow — Site MID-05
+  </p>
+  <WarehouseProcessMap
+    benchmarkPeriod={benchmarkPeriod}
+    onLMSConfirm={handleLMSConfirm}
+    onNavigateToActionHistory={() => setActiveTab('actionHistory')}
+  />
+</div>
           </div>
         )}
 

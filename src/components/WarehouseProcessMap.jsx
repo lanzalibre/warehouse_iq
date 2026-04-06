@@ -69,9 +69,9 @@ function SwimlaneNode({ data, style }) {
       style={{
         width: style?.width ?? '100%',
         height: style?.height ?? '100%',
-        border: '2px dashed #D32F2F',
-        borderRadius: 4,
-        background: 'rgba(240,240,240,0.15)',
+        border: '1px solid #CBD5E1',
+        borderRadius: 6,
+        background: 'rgba(255,255,255,0.55)',
         position: 'relative',
         pointerEvents: 'none',
       }}
@@ -85,7 +85,7 @@ function SwimlaneNode({ data, style }) {
           textAlign: 'center',
           fontSize: 12,
           fontWeight: 'bold',
-          color: '#D32F2F',
+          color: '#6B7280',
           letterSpacing: '0.08em',
           whiteSpace: 'nowrap',
           pointerEvents: 'none',
@@ -621,6 +621,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
   const [lmsResponse, setLmsResponse] = useState(null)
   const containerRef = useRef(null)
   const lmsInputRef = useRef(null)
+  const rfInstance = useRef(null)
 
   const rfNodes = useMemo(() => {
     const swimlaneNodes = mapData.swimlanes.map(s => ({
@@ -706,6 +707,18 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
     return () => document.removeEventListener('click', handleClickOutside)
   }, [selectedNode])
 
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const ro = new ResizeObserver(() => {
+      if (rfInstance.current) {
+        rfInstance.current.fitView({ padding: 0.06 })
+      }
+    })
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       {/* Flow canvas */}
@@ -721,6 +734,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
           nodesConnectable={false}
           elementsSelectable={true}
           onNodeClick={handleNodeClick}
+          onInit={(instance) => { rfInstance.current = instance }}
           fitView
           fitViewOptions={{ padding: 0.06 }}
           minZoom={1}

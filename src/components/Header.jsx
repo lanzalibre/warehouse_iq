@@ -31,7 +31,7 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
       return <span className="text-slate-300">Natural Language Queries</span>
     }
     if (activeScreen === 'mfa') {
-      return <span className="text-slate-300">Multi-Faceted Analytics</span>
+      return <span className="text-slate-300">Material Flow Analysis</span>
     }
     if (activeScreen === 'simulation') {
       return <span className="text-slate-300">Simulation</span>
@@ -68,11 +68,8 @@ export default function Header({ view, activeScreen, onBack, acceptedContainerId
               <span>Back</span>
             </button>
           )}
-          <div className="flex items-center gap-3">
-            <div className="bg-white rounded-lg px-8 py-2 flex-shrink-0">
-              <img src={spinnakerLogo} alt="Spinnaker SCA" className="h-14 w-auto" />
-            </div>
-            <span className="text-slate-400 text-lg font-normal">Warehouse IQ</span>
+          <div style={{ backgroundColor: 'transparent', padding: 0, borderRadius: 0, boxShadow: 'none' }}>
+            <img src="/Spinnaker_SCA_Logo.png" alt="Spinnaker SCA" className="h-14 w-auto" />
           </div>
 
           {/* Breadcrumb */}
