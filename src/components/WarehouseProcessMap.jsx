@@ -7,13 +7,13 @@ import {
   MarkerType,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { X, Send, MessageSquare, CheckCircle, ChevronDown, PanelRight } from 'lucide-react'
+import { X, Send, MessageSquare, CheckCircle, ChevronDown, ChevronUp, PanelRight, ExternalLink, Minus } from 'lucide-react'
 import mapData from '../data/warehouseProcessMap.json'
 import { DC_MANAGER_DATA } from '../mockData.js'
 
 const DOCK_BTN = { background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }
 
-function DockControls({ position, onDockRight, onDockBottom }) {
+function DockControls({ position, onDockRight, onDockBottom, onMinimize }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
       {position === 'bottom' && (
@@ -26,6 +26,9 @@ function DockControls({ position, onDockRight, onDockBottom }) {
           <ChevronDown size={14} />
         </button>
       )}
+      <button onClick={onMinimize} title="Minimize" style={DOCK_BTN}>
+        <Minus size={14} />
+      </button>
     </div>
   )
 }
@@ -767,7 +770,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
     if (!el) return
     const ro = new ResizeObserver(() => {
       if (rfInstance.current) {
-        rfInstance.current.fitView({ padding: 0.06 })
+        rfInstance.current.fitView({ padding: 0.1 })
       }
     })
     ro.observe(el)
@@ -1032,7 +1035,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
   )
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', height: 632 }}>
+    <div style={{ display: 'flex', flexDirection: 'row', height: 760, position: 'relative' }}>
       {/* Left: canvas + tooltip + bottom dock */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
         {/* Flow canvas */}
@@ -1050,7 +1053,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
             onNodeClick={handleNodeClick}
             onInit={(instance) => { rfInstance.current = instance }}
             fitView
-            fitViewOptions={{ padding: 0.06 }}
+            fitViewOptions={{ padding: 0.1 }}
             minZoom={0.5}
             maxZoom={2}
             zoomOnScroll={false}
@@ -1077,6 +1080,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
                 setIsProcessing(false)
                 setStandardizedAction(null)
                 setLmsResponse(null)
+                if (dialogPosition === 'minimized') setDialogPosition('right')
                 setTimeout(() => lmsInputRef.current?.focus(), 50)
               }}
             />
@@ -1108,7 +1112,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
                     <X size={14} />
                   </button>
                 )}
-                <DockControls position="bottom" onDockRight={() => setDialogPosition('right')} onDockBottom={() => setDialogPosition('bottom')} />
+                <DockControls position="bottom" onDockRight={() => setDialogPosition('right')} onDockBottom={() => setDialogPosition('bottom')} onMinimize={() => setDialogPosition('minimized')} />
               </div>
             </div>
             {dialogResponses}
@@ -1140,7 +1144,7 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
                     <X size={14} />
                   </button>
                 )}
-                <DockControls position="right" onDockRight={() => setDialogPosition('right')} onDockBottom={() => setDialogPosition('bottom')} />
+                <DockControls position="right" onDockRight={() => setDialogPosition('right')} onDockBottom={() => setDialogPosition('bottom')} onMinimize={() => setDialogPosition('minimized')} />
               </div>
             </div>
             {/* Response area */}
@@ -1155,6 +1159,26 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
             )}
           </div>
         </>
+      )}
+
+      {/* Minimized floating button */}
+      {dialogPosition === 'minimized' && (
+        <div style={{ position: 'absolute', bottom: 12, right: 12, display: 'flex', gap: 6, zIndex: 30 }}>
+          <button
+            onClick={() => setDialogPosition('right')}
+            title="Open Actions panel"
+            style={{
+              width: 44, height: 44, borderRadius: '50%', background: '#2563eb', color: 'white',
+              border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', boxShadow: '0 2px 8px rgba(37,99,235,0.4)',
+              transition: 'background 0.15s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = '#1d4ed8' }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = '#2563eb' }}
+          >
+            <MessageSquare size={20} />
+          </button>
+        </div>
       )}
     </div>
   )
