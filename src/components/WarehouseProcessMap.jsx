@@ -5,12 +5,30 @@ import {
   Handle,
   Position,
   MarkerType,
-  useReactFlow,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
-import { X, Send, MessageSquare, CheckCircle } from 'lucide-react'
+import { X, Send, MessageSquare, CheckCircle, ChevronDown, PanelRight } from 'lucide-react'
 import mapData from '../data/warehouseProcessMap.json'
 import { DC_MANAGER_DATA } from '../mockData.js'
+
+const DOCK_BTN = { background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }
+
+function DockControls({ position, onDockRight, onDockBottom }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+      {position === 'bottom' && (
+        <button onClick={onDockRight} title="Dock to right" style={DOCK_BTN}>
+          <PanelRight size={14} />
+        </button>
+      )}
+      {position === 'right' && (
+        <button onClick={onDockBottom} title="Dock to bottom" style={DOCK_BTN}>
+          <ChevronDown size={14} />
+        </button>
+      )}
+    </div>
+  )
+}
 
 // ─── Status helpers ────────────────────────────────────────────────────────────
 function getStatus(current, target) {
@@ -615,13 +633,50 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
   const [selectedNode, setSelectedNode] = useState(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
   const [pendingAction, setPendingAction] = useState('')
+  const [submittedQuery, setSubmittedQuery] = useState('')
   const [confirmMode, setConfirmMode] = useState(false)
   const [isProcessing, setIsProcessing] = useState(false)
   const [standardizedAction, setStandardizedAction] = useState(null)
   const [lmsResponse, setLmsResponse] = useState(null)
+  const [dialogHistory, setDialogHistory] = useState([]) // { id, query, response }
   const containerRef = useRef(null)
   const lmsInputRef = useRef(null)
   const rfInstance = useRef(null)
+
+  const [dialogPosition, setDialogPosition] = useState('right')
+  const [dialogWidth, setDialogWidth] = useState(380)
+  const dragging = useRef(false)
+  const dragStartX = useRef(0)
+  const dragStartWidth = useRef(0)
+
+  const onResizeMouseDown = useCallback((e) => {
+    e.preventDefault()
+    dragging.current = true
+    dragStartX.current = e.clientX
+    dragStartWidth.current = dialogWidth
+    document.body.style.cursor = 'col-resize'
+    document.body.style.userSelect = 'none'
+  }, [dialogWidth])
+
+  useEffect(() => {
+    const onMouseMove = (e) => {
+      if (!dragging.current) return
+      const delta = dragStartX.current - e.clientX
+      setDialogWidth(Math.min(600, Math.max(280, dragStartWidth.current + delta)))
+    }
+    const onMouseUp = () => {
+      if (!dragging.current) return
+      dragging.current = false
+      document.body.style.cursor = ''
+      document.body.style.userSelect = ''
+    }
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
+    }
+  }, [])
 
   const rfNodes = useMemo(() => {
     const swimlaneNodes = mapData.swimlanes.map(s => ({
@@ -719,296 +774,388 @@ export default function WarehouseProcessMap({ benchmarkPeriod = '30', onLMSConfi
     return () => ro.disconnect()
   }, [])
 
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {/* Flow canvas */}
-      <div
-        ref={containerRef}
-        style={{ width: '100%', height: 620, borderRadius: 8, overflow: 'hidden', border: '1px solid #e2e8f0' }}
-      >
-        <ReactFlow
-          defaultNodes={rfNodes}
-          defaultEdges={rfEdges}
-          nodeTypes={nodeTypes}
-          nodesDraggable={false}
-          nodesConnectable={false}
-          elementsSelectable={true}
-          onNodeClick={handleNodeClick}
-          onInit={(instance) => { rfInstance.current = instance }}
-          fitView
-          fitViewOptions={{ padding: 0.06 }}
-          minZoom={1}
-          maxZoom={1}
-          zoomOnScroll={false}
-          zoomOnPinch={false}
-          zoomOnDoubleClick={false}
-          panOnDrag={false}
-          proOptions={{ hideAttribution: true }}
-        >
-          <Background color="#f0f2f5" gap={24} size={1} />
-        </ReactFlow>
-      </div>
+  // Auto-resize textarea when pendingAction changes
+  useEffect(() => {
+    const ta = lmsInputRef.current
+    if (ta) {
+      ta.style.height = 'auto'
+      ta.style.height = ta.scrollHeight + 'px'
+    }
+  }, [pendingAction])
 
-      {/* Tooltip */}
-      {selectedNode && (
-        <div data-tooltip>
-          <NodeTooltip
-            node={selectedNode}
-            position={tooltipPosition}
-            onClose={handleCloseTooltip}
-            benchmarkPeriod={benchmarkPeriod}
-            onSuggestionClick={(text) => {
-              setPendingAction(text)
-              setConfirmMode(false)
-              setIsProcessing(false)
-              setStandardizedAction(null)
-              setLmsResponse(null)
-              setTimeout(() => lmsInputRef.current?.focus(), 50)
-            }}
-          />
+  const dialogInput = (
+    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
+      <textarea
+        ref={lmsInputRef}
+        value={pendingAction}
+        onChange={e => setPendingAction(e.target.value)}
+        rows={1}
+        placeholder="Take action on WES, LMS, WMS, ERP..."
+        style={{
+          flex: '1 1 auto', resize: 'none', background: '#f8fafc',
+          border: '1px solid #e2e8f0', borderRadius: 12,
+          padding: '8px 12px', fontSize: 14, color: '#1e293b',
+          outline: 'none', fontFamily: 'inherit', lineHeight: 1.5,
+          overflow: 'hidden',
+        }}
+      />
+      <button
+        onClick={handleLMSSend}
+        disabled={!pendingAction.trim()}
+        style={{
+          width: 36, height: 36, borderRadius: 12, background: '#2563eb', color: 'white',
+          border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
+          flexShrink: 0, cursor: pendingAction.trim() ? 'pointer' : 'not-allowed',
+          opacity: pendingAction.trim() ? 1 : 0.4,
+        }}
+      >
+        <Send size={15} />
+      </button>
+    </div>
+  )
+
+  const clearDialog = () => { setPendingAction(''); setSubmittedQuery(''); setConfirmMode(false); setIsProcessing(false); setStandardizedAction(null); setLmsResponse(null); setDialogHistory([]) }
+
+  const renderResponseCard = (resp) => (
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+      <div style={{
+        width: 26, height: 26, borderRadius: '50%', background: '#2563eb',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        flexShrink: 0, marginTop: 2,
+      }}>
+        <MessageSquare size={12} color="white" />
+      </div>
+      <div style={{
+        flex: 1, background: 'white', borderRadius: 12,
+        border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          padding: '10px 12px', background: '#f0fdf4', borderBottom: '1px solid #dcfce7',
+        }}>
+          <div style={{
+            width: 26, height: 26, borderRadius: 8, background: '#dcfce7',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+          }}>
+            <CheckCircle size={14} color="#16a34a" />
+          </div>
+          <div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#15803d' }}>
+              {resp.tool === 'wes_maintenance_ticket' ? 'Maintenance ticket created' : 'Action submitted to LMS'}
+            </div>
+            <div style={{ fontSize: 11, color: '#16a34a' }}>
+              {resp.tool === 'wes_maintenance_ticket' ? 'Monitoring started' : 'Reassignment queued and monitoring started'}
+            </div>
+          </div>
+        </div>
+        <div style={{ padding: '10px 12px', fontSize: 12, color: '#475569', display: 'flex', flexDirection: 'column', gap: 5 }}>
+          {resp.tool === 'wes_maintenance_ticket' ? (
+            <>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Sorter: </span>{resp.parameters.sorter_id}</div>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Issue: </span>{resp.parameters.issue}</div>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Action: </span>{resp.parameters.action}</div>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{resp.parameters.monitoring.metrics.join(', ')} for {resp.parameters.monitoring.duration}</div>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
+            </>
+          ) : (
+            <>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Worker: </span>{resp.parameters.worker_name}</div>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Reassigned: </span>{resp.parameters.source_zone} → {resp.parameters.target_zone}</div>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{resp.parameters.monitoring.metrics.join(', ')} for {resp.parameters.monitoring.duration}</div>
+              <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
+            </>
+          )}
+          <div style={{ marginTop: 4, paddingTop: 8, borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#64748b' }}>
+            View KPI metrics in{' '}
+            <button
+              onClick={() => onNavigateToActionHistory?.()}
+              style={{
+                background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer',
+                textDecoration: 'underline', fontWeight: 600, fontSize: 11, padding: 0,
+              }}
+            >
+              Action History
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+  const renderUserBubble = (text) => (
+    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 4 }}>
+      <div style={{
+        background: '#2563eb', color: 'white', borderRadius: 12,
+        padding: '8px 12px', fontSize: 13, lineHeight: 1.5,
+        maxWidth: '85%',
+      }}>
+        {text}
+      </div>
+    </div>
+  )
+
+  const dialogResponses = (
+    <>
+      {/* Past conversations */}
+      {dialogHistory.map(entry => (
+        <div key={entry.id} style={{ marginBottom: 12 }}>
+          {renderUserBubble(entry.query)}
+          {renderResponseCard(entry.response)}
+        </div>
+      ))}
+
+      {/* Active conversation */}
+      {submittedQuery && (lmsResponse || isProcessing) && renderUserBubble(submittedQuery)}
+
+      {isProcessing && (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px', color: '#64748b', fontSize: 13 }}>
+          <div style={{
+            width: 16, height: 16, borderRadius: '50%',
+            border: '2px solid #e2e8f0', borderTopColor: '#2563eb',
+            animation: 'spin 0.7s linear infinite', flexShrink: 0,
+          }} />
+          <span>Analyzing request and generating LMS action…</span>
         </div>
       )}
 
-      {/* CSS for spinner animation */}
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes bounce {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-4px); }
-        }
-      `}</style>
+      {!isProcessing && confirmMode && standardizedAction && (
+        <>
+          <div style={{ marginBottom: 8 }}>
+            <span style={{ fontSize: 11, color: '#64748b' }}>
+              ⚠️ The following action will be submitted to the <strong>{standardizedAction.tool === 'wes_maintenance_ticket' ? 'WES' : 'LMS'}</strong>:
+            </span>
+          </div>
+          <div style={{
+            background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8,
+            padding: '10px 12px', fontSize: 13, color: '#334155', lineHeight: 2,
+            marginBottom: 10,
+          }}>
+            {standardizedAction.tool === 'wes_maintenance_ticket' ? (
+              <>
+                Create maintenance ticket for{' '}
+                <span style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>Sorter {standardizedAction.parameters.sorter_id}</span>
+                {' '}—{' '}
+                <span style={{ background: '#fffbeb', color: '#92400e', border: '1px solid #fde68a', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.issue}</span>
+                . Monitor{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics.join(', ')}</span>
+                {' '}for{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.duration}</span>
+                . Priority:{' '}
+                <span style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 700, fontSize: 12 }}>{standardizedAction.parameters.priority.toUpperCase()}</span>
+                .
+              </>
+            ) : (
+              <>
+                Reassign{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.worker_name}</span>
+                {' '}from{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.source_zone}</span>
+                {' '}to{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.target_zone}</span>
+                , effective immediately. Monitor{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[0]}</span>
+                {' '}and{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[1]}</span>
+                {' '}for{' '}
+                <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.duration}</span>
+                . Priority:{' '}
+                <span style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 700, fontSize: 12 }}>{standardizedAction.parameters.priority.toUpperCase()}</span>
+                .
+              </>
+            )}
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button
+              onClick={() => {
+                const action = standardizedAction
+                onLMSConfirm?.(action)
+                const query = pendingAction
+                setSubmittedQuery(query)
+                setPendingAction('')
+                setConfirmMode(false)
+                setStandardizedAction(null)
+                setLmsResponse('thinking')
+                setTimeout(() => {
+                  setDialogHistory(prev => [...prev, { id: Date.now(), query, response: action }])
+                  setLmsResponse(null)
+                  setSubmittedQuery('')
+                }, 1000)
+              }}
+              style={{
+                flex: 1, padding: '8px', borderRadius: 8, background: '#2563eb', color: 'white',
+                border: 'none', fontSize: 12, fontWeight: 600, cursor: 'pointer',
+              }}
+            >
+              ✓ Confirm & Submit to {standardizedAction.tool === 'wes_maintenance_ticket' ? 'WES' : 'LMS'}
+            </button>
+            <button
+              onClick={() => { setConfirmMode(false); setStandardizedAction(null) }}
+              style={{
+                padding: '8px 14px', borderRadius: 8, background: '#f1f5f9', color: '#475569',
+                border: '1px solid #e2e8f0', fontSize: 12, cursor: 'pointer',
+              }}
+            >
+              ← Edit
+            </button>
+          </div>
+        </>
+      )}
 
-      {/* LMS Action Dialog */}
-      <div style={{ borderTop: '1px solid #e2e8f0', background: 'white', padding: '12px 16px', borderRadius: 8, border: '1px solid #e2e8f0', position: 'relative' }}>
-        {/* X button — only visible when there's pending action or response */}
-        {(pendingAction || lmsResponse) && (
-          <button
-            onClick={() => { setPendingAction(''); setConfirmMode(false); setIsProcessing(false); setStandardizedAction(null); setLmsResponse(null) }}
-            style={{ position: 'absolute', top: 12, right: 16, background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }}
+      {lmsResponse === 'thinking' && (
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+          <div style={{
+            width: 26, height: 26, borderRadius: '50%', background: '#2563eb',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            flexShrink: 0, marginTop: 2,
+          }}>
+            <MessageSquare size={12} color="white" />
+          </div>
+          <div style={{
+            background: 'white', border: '1px solid #e2e8f0', borderRadius: 12,
+            padding: '10px 14px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
+          }}>
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+              {[0, 1, 2].map(i => (
+                <div key={i} style={{
+                  width: 6, height: 6, background: '#cbd5e1', borderRadius: '50%',
+                  animation: `bounce 1s ease-in-out ${i * 0.15}s infinite`,
+                }} />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {lmsResponse && lmsResponse !== 'thinking' && renderResponseCard(lmsResponse)}
+    </>
+  )
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'row', height: 632 }}>
+      {/* Left: canvas + tooltip + bottom dock */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
+        {/* Flow canvas */}
+        <div
+          ref={containerRef}
+          style={{ width: '100%', flex: 1, minHeight: 0, borderRadius: 8, overflow: 'hidden', border: '1px solid #e2e8f0' }}
+        >
+          <ReactFlow
+            defaultNodes={rfNodes}
+            defaultEdges={rfEdges}
+            nodeTypes={nodeTypes}
+            nodesDraggable={false}
+            nodesConnectable={false}
+            elementsSelectable={true}
+            onNodeClick={handleNodeClick}
+            onInit={(instance) => { rfInstance.current = instance }}
+            fitView
+            fitViewOptions={{ padding: 0.06 }}
+            minZoom={0.5}
+            maxZoom={2}
+            zoomOnScroll={false}
+            zoomOnPinch={false}
+            zoomOnDoubleClick={false}
+            panOnDrag={false}
+            proOptions={{ hideAttribution: true }}
           >
-            <X size={14} />
-          </button>
+            <Background color="#f0f2f5" gap={24} size={1} />
+          </ReactFlow>
+        </div>
+
+        {/* Tooltip */}
+        {selectedNode && (
+          <div data-tooltip>
+            <NodeTooltip
+              node={selectedNode}
+              position={tooltipPosition}
+              onClose={handleCloseTooltip}
+              benchmarkPeriod={benchmarkPeriod}
+              onSuggestionClick={(text) => {
+                setPendingAction(text)
+                setConfirmMode(false)
+                setIsProcessing(false)
+                setStandardizedAction(null)
+                setLmsResponse(null)
+                setTimeout(() => lmsInputRef.current?.focus(), 50)
+              }}
+            />
+          </div>
         )}
 
-        {/* === STATE A: Edit input === */}
-        {!isProcessing && !confirmMode && (
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 8 }}>
-              <textarea
-                ref={lmsInputRef}
-                value={pendingAction}
-                onChange={e => setPendingAction(e.target.value)}
-                rows={1}
-                placeholder="Take action on WES, LMS, WMS, ERP..."
-                style={{
-                  flex: 1, resize: 'none', background: '#f8fafc',
-                  border: '1px solid #e2e8f0', borderRadius: 12,
-                  padding: '8px 12px', fontSize: 14, color: '#1e293b',
-                  outline: 'none', fontFamily: 'inherit', lineHeight: 1.5,
-                  maxHeight: 96,
-                }}
-              />
-              <button
-                onClick={handleLMSSend}
-                disabled={!pendingAction.trim()}
-                style={{
-                  width: 36, height: 36, borderRadius: 12, background: '#2563eb', color: 'white',
-                  border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0, cursor: pendingAction.trim() ? 'pointer' : 'not-allowed',
-                  opacity: pendingAction.trim() ? 1 : 0.4,
-                }}
-              >
-                <Send size={15} />
-              </button>
-            </div>
-          )}
+        {/* CSS for spinner animation */}
+        <style>{`
+          @keyframes spin { to { transform: rotate(360deg); } }
+          @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+          }
+          .action-sidebar-scroll::-webkit-scrollbar { display: none; }
+        `}</style>
 
-        {/* === STATE B: Processing (1s spinner) === */}
-        {isProcessing && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '8px 4px', color: '#64748b', fontSize: 13 }}>
-              <div style={{
-                width: 16, height: 16, borderRadius: '50%',
-                border: '2px solid #e2e8f0', borderTopColor: '#2563eb',
-                animation: 'spin 0.7s linear infinite', flexShrink: 0,
-              }} />
-              <span>Analyzing request and generating LMS action…</span>
-            </div>
-          )}
-
-        {/* === STATE C: Confirm — Annotated sentence with pill badges === */}
-        {!isProcessing && confirmMode && standardizedAction && (
-          <>
-              <div style={{ marginBottom: 8 }}>
-                <span style={{ fontSize: 11, color: '#64748b' }}>
-                  ⚠️ The following action will be submitted to the <strong>{standardizedAction.tool === 'wes_maintenance_ticket' ? 'WES' : 'LMS'}</strong>:
-                </span>
-              </div>
-              {/* Annotated sentence: each extracted value shown as a pill badge */}
-              <div style={{
-                background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8,
-                padding: '10px 12px', fontSize: 13, color: '#334155', lineHeight: 2,
-                marginBottom: 10,
-              }}>
-                {standardizedAction.tool === 'wes_maintenance_ticket' ? (
-                  <>
-                    Create maintenance ticket for{' '}
-                    <span style={{ background: '#fee2e2', color: '#dc2626', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>Sorter {standardizedAction.parameters.sorter_id}</span>
-                    {' '}—{' '}
-                    <span style={{ background: '#fffbeb', color: '#92400e', border: '1px solid #fde68a', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.issue}</span>
-                    . Monitor{' '}
-                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics.join(', ')}</span>
-                    {' '}for{' '}
-                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.duration}</span>
-                    . Priority:{' '}
-                    <span style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 700, fontSize: 12 }}>{standardizedAction.parameters.priority.toUpperCase()}</span>
-                    .
-                  </>
-                ) : (
-                  <>
-                    Reassign{' '}
-                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.worker_name}</span>
-                    {' '}from{' '}
-                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.source_zone}</span>
-                    {' '}to{' '}
-                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.target_zone}</span>
-                    , effective immediately. Monitor{' '}
-                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[0]}</span>
-                    {' '}and{' '}
-                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.metrics[1]}</span>
-                    {' '}for{' '}
-                    <span style={{ background: '#f1f5f9', color: '#1e293b', border: '1px solid #e2e8f0', borderRadius: 9999, padding: '1px 7px', fontWeight: 600, fontSize: 12 }}>{standardizedAction.parameters.monitoring.duration}</span>
-                    . Priority:{' '}
-                    <span style={{ background: '#fee2e2', color: '#991b1b', border: '1px solid #fecaca', borderRadius: 9999, padding: '1px 7px', fontWeight: 700, fontSize: 12 }}>{standardizedAction.parameters.priority.toUpperCase()}</span>
-                    .
-                  </>
+        {/* Bottom-docked dialog */}
+        {dialogPosition === 'bottom' && (
+          <div style={{ borderTop: '1px solid #e2e8f0', background: 'white', padding: '12px 16px', borderRadius: 8, border: '1px solid #e2e8f0', position: 'relative', flexShrink: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+              <span style={{ fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                {(pendingAction || lmsResponse || submittedQuery || dialogHistory.length > 0) && (
+                  <button
+                    onClick={clearDialog}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }}
+                    title="Clear"
+                  >
+                    <X size={14} />
+                  </button>
                 )}
-              </div>
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button
-                  onClick={() => {
-                    const action = standardizedAction
-                    onLMSConfirm?.(action)
-                    setPendingAction('')
-                    setConfirmMode(false)
-                    setStandardizedAction(null)
-                    setLmsResponse('thinking')
-                    setTimeout(() => setLmsResponse(action), 1000)
-                  }}
-                  style={{
-                    flex: 1, padding: '8px', borderRadius: 8, background: '#2563eb', color: 'white',
-                    border: 'none', fontSize: 12, fontWeight: 600, cursor: 'pointer',
-                  }}
-                >
-                  ✓ Confirm & Submit to {standardizedAction.tool === 'wes_maintenance_ticket' ? 'WES' : 'LMS'}
-                </button>
-                <button
-                  onClick={() => { setConfirmMode(false); setStandardizedAction(null) }}
-                  style={{
-                    padding: '8px 14px', borderRadius: 8, background: '#f1f5f9', color: '#475569',
-                    border: '1px solid #e2e8f0', fontSize: 12, cursor: 'pointer',
-                  }}
-                >
-                  ← Edit
-                </button>
-              </div>
-            </>
-          )}
-
-        {/* === STATE D: LMS submission thinking === */}
-        {lmsResponse === 'thinking' && (
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-              <div style={{
-                width: 26, height: 26, borderRadius: '50%', background: '#2563eb',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0, marginTop: 2,
-              }}>
-                <MessageSquare size={12} color="white" />
-              </div>
-              <div style={{
-                background: 'white', border: '1px solid #e2e8f0', borderRadius: 12,
-                padding: '10px 14px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
-              }}>
-                <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                  {[0, 1, 2].map(i => (
-                    <div key={i} style={{
-                      width: 6, height: 6, background: '#cbd5e1', borderRadius: '50%',
-                      animation: `bounce 1s ease-in-out ${i * 0.15}s infinite`,
-                    }} />
-                  ))}
-                </div>
+                <DockControls position="bottom" onDockRight={() => setDialogPosition('right')} onDockBottom={() => setDialogPosition('bottom')} />
               </div>
             </div>
-          )}
+            {dialogResponses}
+            {!isProcessing && !confirmMode && dialogInput}
+          </div>
+        )}
+      </div>
 
-        {/* === STATE E: LMS/WES confirmation chatbot response === */}
-        {lmsResponse && lmsResponse !== 'thinking' && (
-          <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-              <div style={{
-                width: 26, height: 26, borderRadius: '50%', background: '#2563eb',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0, marginTop: 2,
-              }}>
-                <MessageSquare size={12} color="white" />
-              </div>
-              <div style={{
-                flex: 1, background: 'white', borderRadius: 12,
-                border: '1px solid #e2e8f0', boxShadow: '0 1px 4px rgba(0,0,0,0.06)',
-                overflow: 'hidden',
-              }}>
-                {/* Card header — green tint */}
-                <div style={{
-                  display: 'flex', alignItems: 'center', gap: 8,
-                  padding: '10px 12px', background: '#f0fdf4', borderBottom: '1px solid #dcfce7',
-                }}>
-                  <div style={{
-                    width: 26, height: 26, borderRadius: 8, background: '#dcfce7',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-                  }}>
-                    <CheckCircle size={14} color="#16a34a" />
-                  </div>
-                  <div>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#15803d' }}>
-                      {lmsResponse.tool === 'wes_maintenance_ticket' ? 'Maintenance ticket created' : 'Action submitted to LMS'}
-                    </div>
-                    <div style={{ fontSize: 11, color: '#16a34a' }}>
-                      {lmsResponse.tool === 'wes_maintenance_ticket' ? 'Monitoring started' : 'Reassignment queued and monitoring started'}
-                    </div>
-                  </div>
-                </div>
-                {/* Card body */}
-                <div style={{ padding: '10px 12px', fontSize: 12, color: '#475569', display: 'flex', flexDirection: 'column', gap: 5 }}>
-                  {lmsResponse.tool === 'wes_maintenance_ticket' ? (
-                    <>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Sorter: </span>{lmsResponse.parameters.sorter_id}</div>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Issue: </span>{lmsResponse.parameters.issue}</div>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Action: </span>{lmsResponse.parameters.action}</div>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{lmsResponse.parameters.monitoring.metrics.join(', ')} for {lmsResponse.parameters.monitoring.duration}</div>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
-                    </>
-                  ) : (
-                    <>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Worker: </span>{lmsResponse.parameters.worker_name}</div>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Reassigned: </span>{lmsResponse.parameters.source_zone} → {lmsResponse.parameters.target_zone}</div>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Monitoring: </span>{lmsResponse.parameters.monitoring.metrics.join(', ')} for {lmsResponse.parameters.monitoring.duration}</div>
-                      <div><span style={{ fontWeight: 600, color: '#1e293b' }}>Status: </span><span style={{ color: '#16a34a', fontWeight: 600 }}>✓ Confirmed</span></div>
-                    </>
-                  )}
-                  <div style={{ marginTop: 4, paddingTop: 8, borderTop: '1px solid #e2e8f0', fontSize: 11, color: '#64748b' }}>
-                    View KPI metrics in{' '}
-                    <button
-                      onClick={() => onNavigateToActionHistory?.()}
-                      style={{
-                        background: 'none', border: 'none', color: '#2563eb', cursor: 'pointer',
-                        textDecoration: 'underline', fontWeight: 600, fontSize: 11, padding: 0,
-                      }}
-                    >
-                      Action History
-                    </button>
-                  </div>
-                </div>
+      {/* Right sidebar */}
+      {dialogPosition === 'right' && (
+        <>
+          <div
+            onMouseDown={onResizeMouseDown}
+            style={{ width: 4, flexShrink: 0, cursor: 'col-resize', background: '#e5e7eb', transition: 'background 0.15s' }}
+            onMouseEnter={(e) => { e.target.style.background = '#60a5fa' }}
+            onMouseLeave={(e) => { e.target.style.background = '#e5e7eb' }}
+          />
+          <div style={{ width: dialogWidth, flexShrink: 0, display: 'flex', flexDirection: 'column', borderLeft: '1px solid #e2e8f0', background: 'white', borderRadius: '0 8px 8px 0' }}>
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 16px', background: '#f9fafb', borderBottom: '1px solid #f3f4f6', flexShrink: 0 }}>
+              <span style={{ fontSize: 11, fontWeight: 600, color: '#6b7280', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                {(pendingAction || lmsResponse || submittedQuery || dialogHistory.length > 0) && (
+                  <button
+                    onClick={clearDialog}
+                    style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', padding: 4, borderRadius: 4, display: 'flex' }}
+                    title="Clear"
+                  >
+                    <X size={14} />
+                  </button>
+                )}
+                <DockControls position="right" onDockRight={() => setDialogPosition('right')} onDockBottom={() => setDialogPosition('bottom')} />
               </div>
             </div>
-          )}
-        </div>
+            {/* Response area */}
+            <div className="action-sidebar-scroll" style={{ flex: 1, overflowY: 'auto', padding: '12px 16px', background: '#f9fafb', scrollbarWidth: 'none' }}>
+              {dialogResponses}
+            </div>
+            {/* Input pinned at bottom */}
+            {!isProcessing && !confirmMode && (
+              <div style={{ padding: '12px 16px', flexShrink: 0, flexGrow: 0, marginTop: 'auto', borderTop: '1px solid #f3f4f6', background: 'white' }}>
+                {dialogInput}
+              </div>
+            )}
+          </div>
+        </>
+      )}
     </div>
   )
 }
